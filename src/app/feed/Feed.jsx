@@ -11,11 +11,11 @@ class Feed extends React.Component {
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>3</div>
-                <div>3</div>
-                <div> 3333
+                <div style={{height:200}}>2</div>
+                <div style={{height:200}}>3</div>
+                <div style={{height:200}}>3</div>
+                <div style={{height:200}}>3</div>
+                <div style={{height:200}}> 3333
                     <br/>
                 </div>
             </div>

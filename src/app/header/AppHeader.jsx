@@ -1,8 +1,8 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Header from "lib/components/Header/Header.jsx";
-import HeaderLinks from "lib/components/Header/HeaderLinks.jsx";
+import Header from "app/header/Header.jsx";
+import HeaderLinks from "app/header/HeaderLinks.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
@@ -10,10 +10,6 @@ import GridItem from "lib/components/Grid/GridItem.jsx";
 import style from "app/header/style.jsx";
 
 class AppHeader extends React.Component {
-    componentDidMount() {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-    }
 
     render() {
         const {classes} = this.props;
@@ -25,13 +21,14 @@ class AppHeader extends React.Component {
                     fixed
                     color="transparent"
                     changeColorOnScroll={{
-                        height: 400,
-                        color: "info"
+                        height: 100,
+                        color: "rose"
                     }}
                 />
                 <Parallax
-                    image={require("app/main/temp/bg.jpg")}
-                    className={classes.parallax}
+                    image={require("app/header/hero_bg.jpg")}
+                    filter="rose"
+                    className={classes.headerImage}
                 >
                     <div className={classes.container}>
                         <GridContainer>
