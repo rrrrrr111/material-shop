@@ -8,10 +8,10 @@
 
 # production
 /build
+/.idea
 
 # misc
 .DS_Store
-.idea
 .env.local
 .env.development.local
 .env.test.local
