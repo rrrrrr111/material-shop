@@ -2,10 +2,11 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import MenuBar from "app/header/MenuBar.jsx";
-import MenuLinks from "app/header/MenuLinks.jsx";
+import MenuLinks from "app/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 
 import headerStyle from "app/header/headerStyle.jsx";
+import menuMap from "app/header/headerStyle.jsx";
 
 class Header extends React.Component {
 

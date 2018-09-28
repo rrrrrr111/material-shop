@@ -1,9 +1,9 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import style from "app/main/style.jsx";
+import mainLayoutStyle from "app/main/mainLayoutStyle.jsx";
 import AppFooter from "../footer/AppFooter";
-import AppHeader from "../header/Header";
+import Header from "../header/Header";
 import Feed from "../feed/Feed";
 
 class MainLayout extends React.Component {
@@ -13,10 +13,10 @@ class MainLayout extends React.Component {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes} = this.props; // eslint-disable-next-line
         return (
             <div>
-                <AppHeader/>
+                <Header/>
                 <Feed/>
                 <AppFooter/>
             </div>
@@ -24,4 +24,4 @@ class MainLayout extends React.Component {
     }
 }
 
-export default withStyles(style)(MainLayout);
+export default withStyles(mainLayoutStyle)(MainLayout);

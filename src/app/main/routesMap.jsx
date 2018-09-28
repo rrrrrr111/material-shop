@@ -1,7 +1,7 @@
 import MainLayout from "app/main/MainLayout.jsx";
 
-var indexRoutes = [
+var routesMap = [
     {path: "/", name: "MainLayout", component: MainLayout}
 ];
 
-export default indexRoutes;
+export default routesMap;

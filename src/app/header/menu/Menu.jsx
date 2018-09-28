@@ -8,9 +8,7 @@ import {Link} from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Apps from "@material-ui/icons/Apps";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import ViewDay from "@material-ui/icons/ViewDay";
 import Dns from "@material-ui/icons/Dns";
@@ -31,16 +29,17 @@ import AttachMoney from "@material-ui/icons/AttachMoney";
 import Store from "@material-ui/icons/Store";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PersonAdd from "@material-ui/icons/PersonAdd";
-import Layers from "@material-ui/icons/Layers";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import LineStyle from "@material-ui/icons/LineStyle";
 // core components
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import Button from "lib/components/CustomButtons/Button.jsx";
 
-import menuLinksStyle from "app/header/menuLinksStyle.jsx";
+import menuStyle from "app/header/menu/menuStyle.jsx";
+import menuMap from "./menuMap";
+import iconsMap from "../../common/iconsMap";
+import MenuItem from "./MenuItem";
 
-function MenuLinks({...props}) {
+function Menu({...props}) {
 
     // Мягкая прокрутка к якорю на странице
     const smoothScroll = (e, target) => {
@@ -89,27 +88,17 @@ function MenuLinks({...props}) {
                     noLiPadding
                     navDropdown
                     hoverColor={dropdownHoverColor}
-                    buttonText="Components"
+                    buttonText="Каталог"
                     buttonProps={{
                         className: classes.navLink,
                         color: "transparent"
                     }}
-                    buttonIcon={Apps}
-                    dropdownList={[
-                        <Link to="/" className={classes.dropdownLink}>
-                            <LineStyle className={classes.dropdownIcons}/> Presentation Page
-                        </Link>,
-                        <Link to="/components" className={classes.dropdownLink}>
-                            <Layers className={classes.dropdownIcons}/>All components
-                        </Link>,
-                        <a
-                            href="https://demos.creative-tim.com/material-kit-pro-react/#/documentation/tutorial"
-                            target="_blank"
-                            className={classes.dropdownLink}
-                        >
-                            <Icon className={classes.dropdownIcons}>content_paste</Icon>Documentation
-                        </a>
-                    ]}
+                    buttonIcon={iconsMap["Apps"]}
+                    dropdownList={
+                        menuMap.map(item =>
+                            <MenuItem itemInfo={item} iconComponent={iconsMap[item.iconComponent]}/>
+                        )
+                    }
                 />
             </ListItem>
             <ListItem className={classes.listItem}>
@@ -249,11 +238,11 @@ function MenuLinks({...props}) {
     );
 }
 
-MenuLinks.defaultProps = {
+Menu.defaultProps = {
     hoverColor: "primary"
 };
 
-MenuLinks.propTypes = {
+Menu.propTypes = {
     dropdownHoverColor: PropTypes.oneOf([
         "dark",
         "primary",
@@ -265,4 +254,4 @@ MenuLinks.propTypes = {
     ])
 };
 
-export default withStyles(menuLinksStyle)(MenuLinks);
+export default withStyles(menuStyle)(Menu);

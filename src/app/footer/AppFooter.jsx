@@ -26,8 +26,7 @@ class AppFooter extends React.Component {
                             <div className={classes.pullCenter}>
                                 <List className={classes.list}>
                                     <ListItem className={classes.inlineBlock}>
-                                        <a
-                                            href="https://www.creative-tim.com/"
+                                        <a href="https://www.creative-tim.com/"
                                             className={classes.block}
                                         >
                                             Creative Tim
