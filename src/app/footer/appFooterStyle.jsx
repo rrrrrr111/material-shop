@@ -7,11 +7,14 @@ import {
 } from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
-const style = {
+const appFooterStyle = {
     ...imagesStyles,
     container,
     title,
     description,
+    dividerBlock: {
+        height: 40
+    },
     section: {
         ...section,
         padding: "70px 0px"
@@ -177,4 +180,4 @@ const style = {
     }
 };
 
-export default style;
+export default appFooterStyle;

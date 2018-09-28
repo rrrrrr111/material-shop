@@ -3,7 +3,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import style from "app/main/style.jsx";
 import AppFooter from "../footer/AppFooter";
-import AppHeader from "../header/AppHeader";
+import AppHeader from "../header/Header";
 import Feed from "../feed/Feed";
 
 class MainLayout extends React.Component {

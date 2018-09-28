@@ -1,12 +1,12 @@
 // ##############################
-// // // HeaderLinks styles
+// // // MenuLinks styles
 // #############################
 
 import { mlAuto } from "lib/assets/jss/material-kit-pro-react.jsx";
 
 import tooltip from "lib/assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
 
-const headerLinksStyle = theme => ({
+const menuLinksStyle = theme => ({
   list: {
     [theme.breakpoints.up("md")]: {
       WebkitBoxAlign: "center",
@@ -209,4 +209,4 @@ const headerLinksStyle = theme => ({
   mlAuto
 });
 
-export default headerLinksStyle;
+export default menuLinksStyle;
