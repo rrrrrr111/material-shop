@@ -234,7 +234,7 @@ const mrAuto = {
 
 const btnLink = {
   backgroundColor: "transparent",
-  boxShdow: "none",
+  boxShadow: "none",
   marginTop: "5px",
   marginBottom: "5px"
 };

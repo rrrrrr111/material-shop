@@ -1,9 +1,13 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Footer from "lib/components/Footer/Footer.jsx";
-import Button from "lib/components/CustomButtons/Button.jsx";
+import VkIcon from "../common/icon/VkIcon";
+import FacebookIcon from "../common/icon/FacebookIcon";
+import InstagramIcon from "../common/icon/InstragramIcon";
+import MessengerIcon from "../common/icon/MessengerIcon";
+import GridItem from "../../lib/components/Grid/GridItem";
+import {Link} from "react-router-dom";
+import GridContainer from "../../lib/components/Grid/GridContainer";
 
 import appFooterStyle from "app/footer/appFooterStyle.jsx";
 
@@ -18,77 +22,60 @@ class AppFooter extends React.Component {
                     theme="dark"
                     content={
                         <div>
-                            <div className={classes.left}>
-                                <a href="/" className={classes.footerBrand}>
-                                    Material Kit PRO React
-                                </a>
-                            </div>
-                            <div className={classes.pullCenter}>
-                                <List className={classes.list}>
-                                    <ListItem className={classes.inlineBlock}>
-                                        <a href="https://www.creative-tim.com/"
-                                            className={classes.block}
-                                        >
-                                            Creative Tim
-                                        </a>
-                                    </ListItem>
-                                    <ListItem className={classes.inlineBlock}>
-                                        <a
-                                            href="https://www.creative-tim.com/presentation"
-                                            className={classes.block}
-                                        >
-                                            About us
-                                        </a>
-                                    </ListItem>
-                                    <ListItem className={classes.inlineBlock}>
-                                        <a
-                                            href="//blog.creative-tim.com/"
-                                            className={classes.block}
-                                        >
-                                            Blog
-                                        </a>
-                                    </ListItem>
-                                    <ListItem className={classes.inlineBlock}>
-                                        <a
-                                            href="https://www.creative-tim.com/license"
-                                            className={classes.block}
-                                        >
-                                            Licenses
-                                        </a>
-                                    </ListItem>
-                                </List>
-                            </div>
-                            <div className={classes.rightLinks}>
+                            <GridContainer className={classes.footerLinks}>
+                                <GridItem xs={12} sm={4} md={4}>
+                                </GridItem>
+                                <GridItem xs={6} sm={2} md={2}>
+                                    <h5>О компании</h5>
+                                    <p><Link to="/info/"> Миссия </Link></p>
+                                    <p><Link to="/info/"> История </Link></p>
+                                    <p><Link to="/info/"> Преимущества </Link></p>
+                                    <p><Link to="/info/"> Реквизиты </Link></p>
+                                    <p><Link to="/info/"> Контакты </Link></p>
+                                    <p><Link to="/info/"> Новости </Link></p>
+                                    <p><Link to="/info/"> Блог </Link></p>
+                                </GridItem>
+                                <GridItem xs={6} sm={2} md={2}>
+                                    <h5>Вопросы и ответы</h5>
+                                    <p><Link to="/info/"> Как сделать заказ </Link></p>
+                                    <p><Link to="/info/"> Как оплатить товар </Link></p>
+                                    <p><Link to="/info/"> Подарочные сертификаты </Link></p>
+                                    <p><Link to="/info/"> Условия доставки </Link></p>
+                                    <p><Link to="/info/"> Система бонусов </Link></p>
+                                    <p><Link to="/info/"> Возврат товара </Link></p>
+                                </GridItem>
+                                <GridItem xs={6} sm={2} md={2}>
+                                    <h5>Личный кабинет</h5>
+                                    <p>
+                                        <Link to="/info/"> Вход </Link>
+                                        \
+                                        <Link to="/info/"> Регистрация </Link>
+                                    </p>
+                                    <p><Link to="/info/"> Подписка на акции, скидки, распродажи и новости </Link></p>
+                                    <p><Link to="/info/"> Политика конфиденциальности </Link></p>
+                                    <p><Link to="/info/"> История заказов </Link></p>
+                                </GridItem>
+                                <GridItem xs={6} sm={2} md={2}>
+                                    <h5>Сервис</h5>
+                                    <p><Link to="/info/"> Напишите нам </Link></p>
+                                    <p><Link to="/info/"> Торговля оптом </Link></p>
+                                    <p><Link to="/info/"> Отзывы </Link></p>
+                                </GridItem>
+                            </GridContainer>
+
+                            <div className={classes.socialIcons}>
                                 <ul>
                                     <li>
-                                        <Button
-                                            href="https://twitter.com/CreativeTim"
-                                            color="twitter"
-                                            justIcon
-                                            simple
-                                        >
-                                            <i className="fab fa-twitter"/>
-                                        </Button>
+                                        <VkIcon className={classes.iconSocial}/>
                                     </li>
                                     <li>
-                                        <Button
-                                            href="https://dribbble.com/creativetim"
-                                            color="dribbble"
-                                            justIcon
-                                            simple
-                                        >
-                                            <i className="fab fa-dribbble"/>
-                                        </Button>
+                                        <FacebookIcon className={classes.iconSocial}/>
                                     </li>
                                     <li>
-                                        <Button
-                                            href="https://instagram.com/CreativeTimOfficial"
-                                            color="instagram"
-                                            justIcon
-                                            simple
-                                        >
-                                            <i className="fab fa-instagram"/>
-                                        </Button>
+                                        <InstagramIcon className={classes.iconSocial}/>
+                                    </li>
+                                    <li>
+                                        <MessengerIcon className={classes.iconSocial}/>
                                     </li>
                                 </ul>
                             </div>

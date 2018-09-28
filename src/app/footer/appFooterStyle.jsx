@@ -1,10 +1,4 @@
-import {
-    container,
-    title,
-    description,
-    section,
-    btnLink
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {btnLink, container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
 const appFooterStyle = {
@@ -88,7 +82,7 @@ const appFooterStyle = {
         display: "inline-block",
         float: "none"
     },
-    rightLinks: {
+    socialIcons: {
         float: "right!important",
         "& ul": {
             marginBottom: 0,
@@ -102,8 +96,19 @@ const appFooterStyle = {
             }
         },
         "& i": {
-            fontSize: "20px"
+            fontSize: "20px",
+            margin: "20px 10px 20px 10px"
         }
+    },
+    iconSocial: {
+        width: "25px",
+        height: "25px",
+        fontSize: "24px",
+        minWidth: "41px",
+        padding: 0,
+        overflow: "hidden",
+        position: "relative",
+        margin: "20px 5px"
     },
     linksVertical: {
         "& li": {
@@ -143,15 +148,6 @@ const appFooterStyle = {
             float: "none"
         }
     },
-    iconSocial: {
-        width: "41px",
-        height: "41px",
-        fontSize: "24px",
-        minWidth: "41px",
-        padding: 0,
-        overflow: "hidden",
-        position: "relative"
-    },
     copyRight: {
         padding: "15px 0px"
     },
@@ -160,24 +156,23 @@ const appFooterStyle = {
             display: "inline-block"
         }
     },
-    btnTwitter: {
-        ...btnLink,
-        color: "#55acee"
-    },
-    btnDribbble: {
-        ...btnLink,
-        color: "#ea4c89"
-    },
-    btnInstagram: {
-        ...btnLink,
-        color: "#125688"
-    },
     icon: {
         top: "3px",
         width: "18px",
         height: "18px",
         position: "relative"
-    }
+    },
+
+    footerLinks: {
+        textAlign: "left",
+        "& p": {
+            fontSize: "13px",
+            padding: "20px 5pc 0 5px",
+            lineHeight: "16px",
+            overflow: "hidden",
+        },
+
+    },
 };
 
 export default appFooterStyle;
