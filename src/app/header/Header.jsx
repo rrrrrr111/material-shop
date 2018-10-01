@@ -6,6 +6,7 @@ import Menu from "app/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 
 import headerStyle from "app/header/headerStyle.jsx";
+import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "../common/styles";
 
 class Header extends React.PureComponent {
 
@@ -15,17 +16,17 @@ class Header extends React.PureComponent {
             <div>
                 <MenuBar
                     brandName="LC Cosmetics"
-                    menuLinks={<Menu dropdownHoverColor="info"/>}
+                    menuLinks={<Menu dropdownHoverColor={dropdownHoverColor}/>}
                     fixed
-                    color="transparent"
+                    color={menuInitialColor}
                     changeColorOnScroll={{
                         height: 100,
-                        color: "rose"
+                        color: menuAfterScrollColor,
                     }}
                 />
                 <Parallax
                     image={require("app/header/hero_bg.jpg")}
-                    filter="rose"
+                    filter={headerParallaxFilterColor}
                     small
                     className={classes.headerImage}
                 >
