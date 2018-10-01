@@ -13,11 +13,13 @@ const ALL_COLORS = [PRIMARY_COLOR, INFO_COLOR, SUCCESS_COLOR, WARNING_COLOR, DAN
 const notificationColor = ROSE_COLOR;
 const notificationPlace = "bc";
 
-const headerParallaxFilterColor = ROSE_COLOR;
-
 const menuInitialColor = TRANSPARENT_COLOR;
 const menuAfterScrollColor = ROSE_COLOR;
 const dropdownHoverColor = menuAfterScrollColor;  // пункт меню при наведении
+const headerParallaxFilterColor = ROSE_COLOR;
+
+const popupHeaderColor = ROSE_COLOR;
+const buttonColor = ROSE_COLOR;
 
 
 export {
@@ -39,4 +41,7 @@ export {
     menuAfterScrollColor,
     dropdownHoverColor,
     headerParallaxFilterColor,
+
+    popupHeaderColor,
+    buttonColor,
 };

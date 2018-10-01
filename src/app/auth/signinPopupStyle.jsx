@@ -54,7 +54,11 @@ const signinPopupStyle = theme => ({
     socialLineButton: {
         "&, &:hover": {color: "#fff"},
         marginLeft: "5px",
-        marginRight: "5px"
+        marginRight: "5px",
+        "& svg": {
+            width: "25px",
+            height: "25px",
+        },
     },
     cardLoginHeader: {
         marginTop: "-40px",
@@ -63,8 +67,8 @@ const signinPopupStyle = theme => ({
         marginBottom: "15px"
     },
     cardLoginBody: {
-        paddingTop: "0",
-        paddingBottom: "0"
+        paddingTop: "17px",
+        paddingBottom: "17px"
     },
     justifyContentCenter: {
         WebkitBoxPack: "center !important",

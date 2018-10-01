@@ -10,13 +10,15 @@ import CardBody from "../../lib/components/Card/CardBody";
 import CustomInput from "../../lib/components/CustomInput/CustomInput";
 import Close from "@material-ui/icons/Close";
 import Mail from "@material-ui/icons/Mail";
-import Face from "@material-ui/icons/Face";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Icon from "@material-ui/core/Icon/Icon";
 import Slide from "@material-ui/core/Slide";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 
 import signinPopupStyle from "./signinPopupStyle";
+import {buttonColor, popupHeaderColor} from "../common/styles";
+import VkIcon from "../common/icon/VkIcon";
+import GooglePlusIcon from "../common/icon/GooglePlusIcon";
 
 
 function Transition(props) {
@@ -58,7 +60,7 @@ class SigninPopup extends React.PureComponent {
                 open={true}
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={(e) => this.handleClose(e)}
+                onClose={this.handleClose}
                 aria-labelledby="login-modal-slide-title"
                 aria-describedby="login-modal-slide-description">
                 <Card plain className={classes.modalLoginCard}>
@@ -69,43 +71,33 @@ class SigninPopup extends React.PureComponent {
                     >
                         <CardHeader
                             plain
-                            color="primary"
-                            className={`${classes.textCenter} ${
-                                classes.cardLoginHeader
-                                }`}
+                            color={popupHeaderColor}
+                            className={`${classes.textCenter} ${classes.cardLoginHeader}`}
                         >
                             <Button
                                 simple
                                 className={classes.modalCloseButton}
                                 key="close"
-                                aria-label="Close"
-                                onClick={(e) => this.handleClose(e)}
+                                round
+                                aria-label="Закрыть"
+                                onClick={this.handleClose}
                             >
                                 {" "}
                                 <Close className={classes.modalClose}/>
                             </Button>
-                            <h5 className={classes.cardTitleWhite}>Log in</h5>
+                            <h5 className={classes.cardTitleWhite}>LC Cosmetics</h5>
                             <div className={classes.socialLine}>
                                 <Button
                                     justIcon
                                     link
-                                    className={classes.socialLineButton}
-                                >
-                                    <i className="fab fa-facebook-square"/>
+                                    className={classes.socialLineButton}>
+                                    <VkIcon/>
                                 </Button>
                                 <Button
                                     justIcon
                                     link
-                                    className={classes.socialLineButton}
-                                >
-                                    <i className="fab fa-twitter"/>
-                                </Button>
-                                <Button
-                                    justIcon
-                                    link
-                                    className={classes.socialLineButton}
-                                >
-                                    <i className="fab fa-google-plus-g"/>
+                                    className={classes.socialLineButton}>
+                                    <GooglePlusIcon/>
                                 </Button>
                             </div>
                         </CardHeader>
@@ -115,28 +107,7 @@ class SigninPopup extends React.PureComponent {
                         className={classes.modalBody}
                     >
                         <form>
-                            <p
-                                className={`${classes.description} ${
-                                    classes.textCenter
-                                    }`}
-                            >
-                                Or Be Classical
-                            </p>
                             <CardBody className={classes.cardLoginBody}>
-                                <CustomInput
-                                    id="login-modal-first"
-                                    formControlProps={{
-                                        fullWidth: true
-                                    }}
-                                    inputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <Face className={classes.icon}/>
-                                            </InputAdornment>
-                                        ),
-                                        placeholder: "First Name..."
-                                    }}
-                                />
                                 <CustomInput
                                     id="login-modal-email"
                                     formControlProps={{
@@ -148,7 +119,7 @@ class SigninPopup extends React.PureComponent {
                                                 <Mail className={classes.icon}/>
                                             </InputAdornment>
                                         ),
-                                        placeholder: "Email..."
+                                        placeholder: "E-mail..."
                                     }}
                                 />
                                 <CustomInput
@@ -164,7 +135,7 @@ class SigninPopup extends React.PureComponent {
                                                 </Icon>
                                             </InputAdornment>
                                         ),
-                                        placeholder: "Password..."
+                                        placeholder: "Пароль..."
                                     }}
                                 />
                             </CardBody>
@@ -175,8 +146,9 @@ class SigninPopup extends React.PureComponent {
                             classes.justifyContentCenter
                             }`}
                     >
-                        <Button color="primary"
-                                onClick={(e) => this.handleSignin(e)}>
+                        <Button color={buttonColor}
+                                onClick={this.handleSignin}
+                        >
                             Войти
                         </Button>
                     </DialogActions>

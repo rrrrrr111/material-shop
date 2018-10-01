@@ -62,7 +62,7 @@ const modalStyle = theme => ({
     padding: "15px",
     textAlign: "right",
     paddingTop: "0",
-    margin: "0"
+    marginBottom: "17px",
   },
   modalFooterCenter: {
     marginLeft: "auto",
