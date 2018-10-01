@@ -18,7 +18,7 @@ import Button from "lib/components/CustomButtons/Button.jsx";
 
 import customDropdownStyle from "lib/assets/jss/material-kit-pro-react/components/customDropdownStyle.jsx";
 
-class CustomDropdown extends React.Component {
+class CustomDropdown extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

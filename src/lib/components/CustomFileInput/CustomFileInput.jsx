@@ -9,7 +9,7 @@ import Button from "lib/components/CustomButtons/Button.jsx";
 
 import styles from "lib/assets/jss/material-kit-pro-react/components/customFileInputStyle.jsx";
 
-class CustomFileInput extends React.Component {
+class CustomFileInput extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

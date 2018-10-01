@@ -9,7 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import parallaxStyle from "lib/assets/jss/material-kit-pro-react/components/parallaxStyle.jsx";
 
-class Parallax extends React.Component {
+class Parallax extends React.PureComponent {
   constructor(props) {
     super(props);
     let windowScrollTop;

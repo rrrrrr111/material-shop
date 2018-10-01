@@ -8,7 +8,7 @@ import Parallax from "lib/components/Parallax/Parallax.jsx";
 import headerStyle from "app/header/headerStyle.jsx";
 import menuMap from "app/header/headerStyle.jsx";
 
-class Header extends React.Component {
+class Header extends React.PureComponent {
 
     render() {
         const {classes} = this.props;

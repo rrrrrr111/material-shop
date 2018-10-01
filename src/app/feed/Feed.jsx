@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import style from "app/feed/style.jsx";
 
-class Feed extends React.Component {
+class Feed extends React.PureComponent {
 
     render() {
         const {classes} = this.props;

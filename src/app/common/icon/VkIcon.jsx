@@ -2,7 +2,7 @@ import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
-class VkIcon extends React.Component {
+class VkIcon extends React.PureComponent {
     render() {
         return (
             <SvgIcon {...this.props}>

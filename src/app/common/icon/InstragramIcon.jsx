@@ -2,7 +2,7 @@ import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
-class InstagramIcon extends React.Component {
+class InstagramIcon extends React.PureComponent {
     render() {
         return (
             <SvgIcon {...this.props}>

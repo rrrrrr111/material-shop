@@ -6,7 +6,7 @@ import AppFooter from "../footer/AppFooter";
 import Header from "../header/Header";
 import Feed from "../feed/Feed";
 
-class MainLayout extends React.Component {
+class MainLayout extends React.PureComponent {
     componentDidMount() {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;

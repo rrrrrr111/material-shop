@@ -18,7 +18,7 @@ import CloseIcon from "@material-ui/icons/Close";
 // core components
 import menuBarStyle from "app/header/menuBarStyle.jsx";
 
-class MenuBar extends React.Component {
+class MenuBar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

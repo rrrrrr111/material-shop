@@ -18,7 +18,7 @@ import CardBody from "lib/components/Card/CardBody.jsx";
 import CardHeader from "lib/components/Card/CardHeader.jsx";
 import customTabsStyle from "lib/assets/jss/material-kit-pro-react/components/customTabsStyle.jsx";
 
-class CustomTabs extends React.Component {
+class CustomTabs extends React.PureComponent {
   state = {
     value: 0
   };

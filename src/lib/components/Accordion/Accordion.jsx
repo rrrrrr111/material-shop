@@ -11,7 +11,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 
 import accordionStyle from "lib/assets/jss/material-kit-pro-react/components/accordionStyle.jsx";
 
-class Accordion extends React.Component {
+class Accordion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

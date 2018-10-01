@@ -12,7 +12,7 @@ import Close from "@material-ui/icons/Close";
 
 import snackbarContentStyle from "lib/assets/jss/material-kit-pro-react/components/snackbarContentStyle.jsx";
 
-class SnackbarContent extends React.Component {
+class SnackbarContent extends React.PureComponent {
   constructor(props) {
     super(props);
     this.closeAlert = this.closeAlert.bind(this);

@@ -11,7 +11,7 @@ import GridContainer from "../../lib/components/Grid/GridContainer";
 
 import appFooterStyle from "app/footer/appFooterStyle.jsx";
 
-class AppFooter extends React.Component {
+class AppFooter extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
@@ -23,9 +23,9 @@ class AppFooter extends React.Component {
                     content={
                         <div>
                             <GridContainer className={classes.footerLinks}>
-                                <GridItem xs={12} sm={4} md={4}>
+                                <GridItem xs={12} sm={12} md={4}>
                                 </GridItem>
-                                <GridItem xs={6} sm={2} md={2}>
+                                <GridItem xs={6} sm={3} md={2}>
                                     <h5>О компании</h5>
                                     <p><Link to="/info/"> Миссия </Link></p>
                                     <p><Link to="/info/"> История </Link></p>
@@ -35,7 +35,7 @@ class AppFooter extends React.Component {
                                     <p><Link to="/info/"> Новости </Link></p>
                                     <p><Link to="/info/"> Блог </Link></p>
                                 </GridItem>
-                                <GridItem xs={6} sm={2} md={2}>
+                                <GridItem xs={6} sm={3} md={2}>
                                     <h5>Вопросы и ответы</h5>
                                     <p><Link to="/info/"> Как сделать заказ </Link></p>
                                     <p><Link to="/info/"> Как оплатить товар </Link></p>
@@ -44,18 +44,19 @@ class AppFooter extends React.Component {
                                     <p><Link to="/info/"> Система бонусов </Link></p>
                                     <p><Link to="/info/"> Возврат товара </Link></p>
                                 </GridItem>
-                                <GridItem xs={6} sm={2} md={2}>
+                                <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
                                         <Link to="/info/"> Вход </Link>
                                         \
                                         <Link to="/info/"> Регистрация </Link>
                                     </p>
+                                    <p><Link to="/info/"> Смена пароля </Link></p>
                                     <p><Link to="/info/"> Подписка на акции, скидки, распродажи и новости </Link></p>
                                     <p><Link to="/info/"> Политика конфиденциальности </Link></p>
                                     <p><Link to="/info/"> История заказов </Link></p>
                                 </GridItem>
-                                <GridItem xs={6} sm={2} md={2}>
+                                <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
                                     <p><Link to="/info/"> Напишите нам </Link></p>
                                     <p><Link to="/info/"> Торговля оптом </Link></p>

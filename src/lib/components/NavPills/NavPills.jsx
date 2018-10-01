@@ -16,7 +16,7 @@ import GridItem from "lib/components/Grid/GridItem.jsx";
 
 import navPillsStyle from "lib/assets/jss/material-kit-pro-react/components/navPillsStyle.jsx";
 
-class NavPills extends React.Component {
+class NavPills extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

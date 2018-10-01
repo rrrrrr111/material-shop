@@ -2,7 +2,7 @@ import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
-class FacebookIcon extends React.Component {
+class FacebookIcon extends React.PureComponent {
     render() {
         return (
             <SvgIcon {...this.props}>

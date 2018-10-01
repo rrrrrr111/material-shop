@@ -9,7 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import menuStyle from "app/header/menu/menuStyle.jsx";
 
-class MenuItem extends React.Component {
+class MenuItem extends React.PureComponent {
     render() {
         const {itemInfo, classes} = this.props;
         return (

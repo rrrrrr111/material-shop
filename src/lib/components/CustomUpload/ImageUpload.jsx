@@ -8,7 +8,7 @@ import Button from "lib/components/CustomButtons/Button.jsx";
 import defaultImage from "assets/img/image_placeholder.jpg";
 import defaultAvatar from "assets/img/placeholder.jpg";
 
-class ImageUpload extends React.Component {
+class ImageUpload extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
