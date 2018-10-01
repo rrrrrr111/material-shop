@@ -3,255 +3,127 @@ import React from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // react components for routing our app without refresh
-import {Link} from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // @material-ui/icons
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import ViewDay from "@material-ui/icons/ViewDay";
-import Dns from "@material-ui/icons/Dns";
-import Build from "@material-ui/icons/Build";
-import ListIcon from "@material-ui/icons/List";
-import People from "@material-ui/icons/People";
-import Assignment from "@material-ui/icons/Assignment";
-import MonetizationOn from "@material-ui/icons/MonetizationOn";
-import Chat from "@material-ui/icons/Chat";
-import Call from "@material-ui/icons/Call";
-import ViewCarousel from "@material-ui/icons/ViewCarousel";
-import AccountBalance from "@material-ui/icons/AccountBalance";
-import ArtTrack from "@material-ui/icons/ArtTrack";
-import ViewQuilt from "@material-ui/icons/ViewQuilt";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Fingerprint from "@material-ui/icons/Fingerprint";
-import AttachMoney from "@material-ui/icons/AttachMoney";
-import Store from "@material-ui/icons/Store";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import PersonAdd from "@material-ui/icons/PersonAdd";
-import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 // core components
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import Button from "lib/components/CustomButtons/Button.jsx";
 
 import menuStyle from "app/header/menu/menuStyle.jsx";
-import menuMap from "./menuMap";
-import iconsMap from "../../common/iconsMap";
+import catalogMenuMap from "./catalogMenuMap";
+import userMenuMap from "./userMenuMap";
+import menuIconsMap from "./menuIconsMap";
 import MenuItem from "./MenuItem";
 
-function Menu({...props}) {
+import {Notifications} from "@material-ui/icons";
+import Snackbar from "../../common/notification/snackbar/Snackbar";
+import {notificationColor, notificationPlace} from "../../common/styles";
 
-    // Мягкая прокрутка к якорю на странице
-    const smoothScroll = (e, target) => {
-        if (window.location.pathname === "/sections") {
-            const isMobile = navigator.userAgent.match(
-                /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i
-            );
-            if (isMobile) {
-                // if we are on mobile device the scroll into view will be managed by the browser
-            } else {
-                e.preventDefault();
-                const targetScroll = document.getElementById(target);
-                scrollGo(document.documentElement, targetScroll.offsetTop, 1250);
-            }
-        }
-    };
-    const scrollGo = (element, to, duration) => {
-        let start = element.scrollTop,
-            change = to - start,
-            currentTime = 0,
-            increment = 20;
-
-        let animateScroll = function () {
-            currentTime += increment;
-            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
-            if (currentTime < duration) {
-                setTimeout(animateScroll, increment);
-            }
+class Menu extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showEmptyCartNotification: false,
         };
-        animateScroll();
-    };
-    const easeInOutQuad = (t, b, c, d) => {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    showNotification(place) {
+        var x = [];
+        x[place] = true;
+        this.setState(x);
+        this.alertTimeout = setTimeout(
+            function () {
+                x[place] = false;
+                this.setState(x);
+            }.bind(this),
+            3000
+        );
+    }
+
+    render = () => {
+        const {classes, dropdownHoverColor} = this.props;
+
+        return (
+            <List className={classes.list + " " + classes.mlAuto}>
+                <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                        noLiPadding
+                        navDropdown
+                        hoverColor={dropdownHoverColor}
+                        buttonText="Каталог"
+                        buttonProps={{
+                            className: classes.navLink,
+                            color: "transparent"
+                        }}
+                        buttonIcon={menuIconsMap["Apps"]}
+                        dropdownList={
+                            catalogMenuMap.map(item =>
+                                <MenuItem itemInfo={item} iconComponent={menuIconsMap[item.iconComponent]}/>
+                            )
+                        }
+                    />
+                </ListItem>
+                <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                        noLiPadding
+                        navDropdown
+                        hoverColor={dropdownHoverColor}
+                        buttonText=""
+                        buttonProps={{
+                            className: classes.navLink,
+                            color: "transparent"
+                        }}
+                        buttonIcon={menuIconsMap["AccountCircle"]}
+                        dropdownList={
+                            userMenuMap.map(item =>
+                                <MenuItem itemInfo={item} iconComponent={menuIconsMap[item.iconComponent]}/>
+                            )}
+                    />
+                </ListItem>
+                <ListItem className={classes.listItem}>
+                    <Button
+                        to="/user/cart"
+                        color="transparent"
+                        aria-label="Корзина"
+                        aria-haspopup="false"
+                        onClick={() => this.showNotification("showEmptyCartNotification")}
+                    >
+                        <ShoppingCart className={classes.icons}/>
+                        Корзина
+                    </Button>
+                    <Snackbar
+                        place={notificationPlace}
+                        color={notificationColor}
+                        icon={Notifications}
+                        message="Ваша корзина пуста"
+                        open={this.state.showEmptyCartNotification}
+                        closeNotification={() => this.setState({showEmptyCartNotification: false})}
+                        close
+                    />
+                </ListItem>
+            </List>
+        );
     };
 
-    var onClickSections = {};
+    defaultProps = {
+        hoverColor: "primary"
+    };
 
-    const {classes, dropdownHoverColor} = props;
-    return (
-        <List className={classes.list + " " + classes.mlAuto}>
-            <ListItem className={classes.listItem}>
-                <CustomDropdown
-                    noLiPadding
-                    navDropdown
-                    hoverColor={dropdownHoverColor}
-                    buttonText="Каталог"
-                    buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                    }}
-                    buttonIcon={iconsMap["Apps"]}
-                    dropdownList={
-                        menuMap.map(item =>
-                            <MenuItem itemInfo={item} iconComponent={iconsMap[item.iconComponent]}/>
-                        )
-                    }
-                />
-            </ListItem>
-            <ListItem className={classes.listItem}>
-                <CustomDropdown
-                    noLiPadding
-                    navDropdown
-                    hoverColor={dropdownHoverColor}
-                    buttonText="Sections"
-                    buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                    }}
-                    buttonIcon={ViewDay}
-                    dropdownList={[
-                        <Link
-                            to="/sections#headers"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "headers")}
-                        >
-                            <Dns className={classes.dropdownIcons}/> Headers
-                        </Link>,
-                        <Link
-                            to="/sections#features"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "features")}
-                        >
-                            <Build className={classes.dropdownIcons}/> Features
-                        </Link>,
-                        <Link
-                            to="/sections#blogs"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "blogs")}
-                        >
-                            <ListIcon className={classes.dropdownIcons}/> Blogs
-                        </Link>,
-                        <Link
-                            to="/sections#teams"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "teams")}
-                        >
-                            <People className={classes.dropdownIcons}/> Teams
-                        </Link>,
-                        <Link
-                            to="/sections#projects"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "projects")}
-                        >
-                            <Assignment className={classes.dropdownIcons}/> Projects
-                        </Link>,
-                        <Link
-                            to="/sections#pricing"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "pricing")}
-                        >
-                            <MonetizationOn className={classes.dropdownIcons}/> Pricing
-                        </Link>,
-                        <Link
-                            to="/sections#testimonials"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "testimonials")}
-                        >
-                            <Chat className={classes.dropdownIcons}/> Testimonials
-                        </Link>,
-                        <Link
-                            to="/sections#contacts"
-                            className={classes.dropdownLink}
-                            onClick={e => smoothScroll(e, "contacts")}
-                        >
-                            <Call className={classes.dropdownIcons}/> Contacts
-                        </Link>
-                    ]}
-                />
-            </ListItem>
-            <ListItem className={classes.listItem}>
-                <CustomDropdown
-                    noLiPadding
-                    navDropdown
-                    hoverColor={dropdownHoverColor}
-                    buttonText="Examples"
-                    buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                    }}
-                    buttonIcon={ViewCarousel}
-                    dropdownList={[
-                        <Link to="/about-us" className={classes.dropdownLink}>
-                            <AccountBalance className={classes.dropdownIcons}/> About Us
-                        </Link>,
-                        <Link to="/blog-post" className={classes.dropdownLink}>
-                            <ArtTrack className={classes.dropdownIcons}/> Blog Post
-                        </Link>,
-                        <Link to="/blog-posts" className={classes.dropdownLink}>
-                            <ViewQuilt className={classes.dropdownIcons}/> Blog Posts
-                        </Link>,
-                        <Link to="/contact-us" className={classes.dropdownLink}>
-                            <LocationOn className={classes.dropdownIcons}/> Contact Us
-                        </Link>,
-                        <Link to="/landing-page" className={classes.dropdownLink}>
-                            <ViewDay className={classes.dropdownIcons}/> Landing Page
-                        </Link>,
-                        <Link to="/login-page" className={classes.dropdownLink}>
-                            <Fingerprint className={classes.dropdownIcons}/> Login Page
-                        </Link>,
-                        <Link to="/pricing" className={classes.dropdownLink}>
-                            <AttachMoney className={classes.dropdownIcons}/> Pricing Page
-                        </Link>,
-                        <Link to="/shopping-cart-page" className={classes.dropdownLink}>
-                            <ShoppingBasket className={classes.dropdownIcons}/> Shopping Cart
-                        </Link>,
-                        <Link to="/ecommerce-page" className={classes.dropdownLink}>
-                            <Store className={classes.dropdownIcons}/> Ecommerce Page
-                        </Link>,
-                        <Link to="/product-page" className={classes.dropdownLink}>
-                            <ShoppingCart className={classes.dropdownIcons}/> Product Page
-                        </Link>,
-                        <Link to="/profile-page" className={classes.dropdownLink}>
-                            <AccountCircle className={classes.dropdownIcons}/> Profile Page
-                        </Link>,
-                        <Link to="/signup-page" className={classes.dropdownLink}>
-                            <PersonAdd className={classes.dropdownIcons}/> Signup Page
-                        </Link>
-                    ]}
-                />
-            </ListItem>
-            <ListItem className={classes.listItem}>
-                <Button
-                    href="https://www.creative-tim.com/product/material-kit-pro-react"
-                    color={window.innerWidth < 960 ? "info" : "white"}
-                    target="_blank"
-                    className={classes.navButton}
-                    round
-                >
-                    <ShoppingCart className={classes.icons}/> buy now
-                </Button>
-            </ListItem>
-        </List>
-    );
+    propTypes = {
+        dropdownHoverColor: PropTypes.oneOf([
+            "dark",
+            "primary",
+            "info",
+            "success",
+            "warning",
+            "danger",
+            "rose"
+        ])
+    };
 }
-
-Menu.defaultProps = {
-    hoverColor: "primary"
-};
-
-Menu.propTypes = {
-    dropdownHoverColor: PropTypes.oneOf([
-        "dark",
-        "primary",
-        "info",
-        "success",
-        "warning",
-        "danger",
-        "rose"
-    ])
-};
 
 export default withStyles(menuStyle)(Menu);

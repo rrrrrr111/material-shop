@@ -83,7 +83,6 @@ const appFooterStyle = {
         float: "none"
     },
     socialIcons: {
-        float: "right!important",
         "& ul": {
             marginBottom: 0,
             padding: 0,
@@ -94,10 +93,6 @@ const appFooterStyle = {
             "& a": {
                 display: "block"
             }
-        },
-        "& i": {
-            fontSize: "20px",
-            margin: "20px 10px 20px 10px"
         }
     },
     iconSocial: {
@@ -108,7 +103,7 @@ const appFooterStyle = {
         padding: 0,
         overflow: "hidden",
         position: "relative",
-        margin: "20px 5px"
+        margin: "0 5px 20px 0"
     },
     linksVertical: {
         "& li": {
@@ -162,16 +157,25 @@ const appFooterStyle = {
         height: "18px",
         position: "relative"
     },
-
     footerLinks: {
         textAlign: "left",
+        "& H5": {
+            fontWeight: "700",
+            fontFamily: "Roboto Slab,Times New Roman,serif",
+        },
         "& p": {
             fontSize: "13px",
             padding: "20px 5pc 0 5px",
             lineHeight: "16px",
             overflow: "hidden",
         },
-
+    },
+    copyRightInfo: {
+        fontSize: "8px",
+        lineHeight: "10px",
+        textAlign: "justify",
+        color: "#666",
+        margin: "12px 5px 0 5px",
     },
 };
 

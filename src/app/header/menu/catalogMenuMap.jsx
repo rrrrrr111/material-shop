@@ -1,4 +1,4 @@
-const menuMap = [
+const catalogMenuMap = [
     {id: 0, name: "Презентация", to: "/", iconComponent: ""},
     {id: 1, name: "Дазайн", to: "/design", iconComponent: "Apps"},
     {id: 2, name: "Длинное наименовение меню", to: "/long", iconComponent: "AccountCircle"},
@@ -11,4 +11,4 @@ const menuMap = [
     },
 ];
 
-export default menuMap;
+export default catalogMenuMap;

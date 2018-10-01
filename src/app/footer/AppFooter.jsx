@@ -3,13 +3,15 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Footer from "lib/components/Footer/Footer.jsx";
 import VkIcon from "../common/icon/VkIcon";
 import FacebookIcon from "../common/icon/FacebookIcon";
+import classNames from "classnames";
 import InstagramIcon from "../common/icon/InstragramIcon";
-import MessengerIcon from "../common/icon/MessengerIcon";
+import MessengerIcon from "../common/icon/WhatsappIcon";
 import GridItem from "../../lib/components/Grid/GridItem";
 import {Link} from "react-router-dom";
 import GridContainer from "../../lib/components/Grid/GridContainer";
 
 import appFooterStyle from "app/footer/appFooterStyle.jsx";
+import NavLink from "react-router-dom/es/NavLink";
 
 class AppFooter extends React.PureComponent {
 
@@ -27,62 +29,86 @@ class AppFooter extends React.PureComponent {
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>О компании</h5>
-                                    <p><Link to="/info/"> Миссия </Link></p>
-                                    <p><Link to="/info/"> История </Link></p>
-                                    <p><Link to="/info/"> Преимущества </Link></p>
-                                    <p><Link to="/info/"> Реквизиты </Link></p>
-                                    <p><Link to="/info/"> Контакты </Link></p>
-                                    <p><Link to="/info/"> Новости </Link></p>
-                                    <p><Link to="/info/"> Блог </Link></p>
+                                    <p><NavLink to="/info/mission"> Миссия </NavLink></p>
+                                    <p><NavLink to="/info/history"> История </NavLink></p>
+                                    <p><NavLink to="/info/advantage"> Преимущества </NavLink></p>
+                                    <p><NavLink to="/info/requisites"> Реквизиты </NavLink></p>
+                                    <p><NavLink to="/info/contacts"> Контакты </NavLink></p>
+                                    <p><NavLink to="/info/news"> Новости </NavLink></p>
+                                    <p><NavLink to="/info/blog"> Блог </NavLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Вопросы и ответы</h5>
-                                    <p><Link to="/info/"> Как сделать заказ </Link></p>
-                                    <p><Link to="/info/"> Как оплатить товар </Link></p>
-                                    <p><Link to="/info/"> Подарочные сертификаты </Link></p>
-                                    <p><Link to="/info/"> Условия доставки </Link></p>
-                                    <p><Link to="/info/"> Система бонусов </Link></p>
-                                    <p><Link to="/info/"> Возврат товара </Link></p>
+                                    <p><NavLink to="/info/how-to#order"> Как сделать заказ </NavLink></p>
+                                    <p><NavLink to="/info/how-to#pay"> Как оплатить товар </NavLink></p>
+                                    <p><NavLink to="/info/gift-certificates"> Подарочные сертификаты </NavLink></p>
+                                    <p><NavLink to="/info/delivery"> Условия доставки </NavLink></p>
+                                    <p><NavLink to="/info/bonuses"> Система бонусов </NavLink></p>
+                                    <p><NavLink to="/info/returns"> Возврат товара </NavLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
-                                        <Link to="/info/"> Вход </Link>
+                                        <NavLink to="/user/signin"> Вход </NavLink>
                                         \
-                                        <Link to="/info/"> Регистрация </Link>
+                                        <NavLink to="/user/signup"> Регистрация </NavLink>
                                     </p>
-                                    <p><Link to="/info/"> Смена пароля </Link></p>
-                                    <p><Link to="/info/"> Подписка на акции, скидки, распродажи и новости </Link></p>
-                                    <p><Link to="/info/"> Политика конфиденциальности </Link></p>
-                                    <p><Link to="/info/"> История заказов </Link></p>
+                                    <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
+                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и новости </NavLink></p>
+                                    <p><NavLink to="/info/privacy-policy"> Политика конфиденциальности </NavLink></p>
+                                    <p><NavLink to="/user/orders"> История заказов </NavLink></p>
+                                    <p><NavLink to="/user/settings"> Настройки </NavLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
-                                    <p><Link to="/info/"> Напишите нам </Link></p>
-                                    <p><Link to="/info/"> Торговля оптом </Link></p>
-                                    <p><Link to="/info/"> Отзывы </Link></p>
+                                    <p><NavLink to="/info/"> Напишите нам </NavLink></p>
+                                    <p><NavLink to="/info/"> Торговля оптом </NavLink></p>
+                                    <p><NavLink to="/info/"> Отзывы </NavLink></p>
                                 </GridItem>
                             </GridContainer>
 
-                            <div className={classes.socialIcons}>
-                                <ul>
-                                    <li>
-                                        <VkIcon className={classes.iconSocial}/>
-                                    </li>
-                                    <li>
-                                        <FacebookIcon className={classes.iconSocial}/>
-                                    </li>
-                                    <li>
-                                        <InstagramIcon className={classes.iconSocial}/>
-                                    </li>
-                                    <li>
-                                        <MessengerIcon className={classes.iconSocial}/>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    }
-                />
+                            <hr/>
+                            <GridContainer>
+                                <GridItem xs={12} sm={9} md={9}>
+                                    <div className={classNames(classes.copyRightInfo)}>
+                                        &copy; {1900 + new Date().getYear()}{" "}
+                                        <Link to="/" className={classes.aClasses}> LC Cosmetics </Link>{" "}
+                                        Вся информация на сайте – собственность интернет-магазина LC Cosmetics.
+                                        Публикация информации с сайта LC Cosmetics без разрешения правообладателя
+                                        запрещена.
+                                        Все права защищены.
+                                        Информация на сайте LC Cosmetics не является публичной офертой.
+                                        Указанные цены действуют только при оформлении заказа на сайте интернет-магазина
+                                        LC Cosmetics.
+                                        Цены в пунктах выдачи товара и магазинах компании LC Cosmetics могут отличаться
+                                        от указанных в интернет-магазине.
+                                        Вы принимаете условия
+                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </Link>{" "}
+                                        и пользовательского соглашения каждый раз, когда оставляете свои данные в любой
+                                        форме обратной связи на сайте LC Cosmetics.
+                                    </div>
+                                </GridItem>
+                                <GridItem xs={12} sm={3} md={3}>
+                                    <div className={classNames(classes.socialIcons, classes.right)}>
+                                        <ul>
+                                            <li>
+                                                <VkIcon className={classes.iconSocial}/>
+                                            </li>
+                                            <li>
+                                                <FacebookIcon className={classes.iconSocial}/>
+                                            </li>
+                                            <li>
+                                                <InstagramIcon className={classes.iconSocial}/>
+                                            </li>
+                                            <li>
+                                                <MessengerIcon className={classes.iconSocial}/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </GridItem>
+                            </GridContainer>
+                        </div>}>
+                </Footer>
             </div>
         );
     }

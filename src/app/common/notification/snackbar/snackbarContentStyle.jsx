@@ -1,7 +1,3 @@
-// ##############################
-// // // SnackbarContent styles
-// #############################
-
 import {
   defaultFont,
   primaryBoxShadow,
@@ -9,12 +5,13 @@ import {
   successBoxShadow,
   warningBoxShadow,
   dangerBoxShadow,
-  container
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+  roseBoxShadow
+} from "lib/assets/jss/material-kit-pro-react";
 
 const snackbarContentStyle = {
   root: {
     ...defaultFont,
+    flexWrap: "unset",
     position: "relative",
     padding: "20px 15px",
     lineHeight: "20px",
@@ -22,11 +19,15 @@ const snackbarContentStyle = {
     fontSize: "14px",
     backgroundColor: "white",
     color: "#555555",
-    borderRadius: "0px",
-    maxWidth: "100%",
-    minWidth: "auto",
+    borderRadius: "3px",
     boxShadow:
       "0 12px 20px -10px rgba(255, 255, 255, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2)"
+  },
+  top20: {
+    top: "20px"
+  },
+  top40: {
+    top: "40px"
   },
   info: {
     backgroundColor: "#00d3ee",
@@ -70,22 +71,38 @@ const snackbarContentStyle = {
   iconButton: {
     width: "24px",
     height: "24px",
-    float: "right",
-    fontSize: "1.5rem",
-    fontWeight: "500",
-    lineHeight: "1",
-    position: "absolute",
-    right: "-4px",
-    top: "0"
+    padding: "0px"
   },
   icon: {
     display: "block",
-    float: "left",
-    marginRight: "1.071rem"
+    left: "15px",
+    position: "absolute",
+    top: "50%",
+    marginTop: "-15px",
+    width: "30px",
+    height: "30px"
   },
-  container: {
-    ...container,
-    position: "relative"
+  infoIcon: {
+    color: "#00d3ee"
+  },
+  successIcon: {
+    color: "#5cb860"
+  },
+  warningIcon: {
+    color: "#ffa21a"
+  },
+  dangerIcon: {
+    color: "#f55a4e"
+  },
+  primaryIcon: {
+    color: "#af2cc5"
+  },
+  roseIcon: {
+    color: "#eb3573"
+  },
+  iconMessage: {
+    paddingLeft: "50px",
+    display: "block"
   }
 };
 

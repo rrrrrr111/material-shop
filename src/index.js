@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Route, Router, Switch } from "react-router";
 
-import routesMap from "app/main/routesMap.jsx";
+import routesMap from "app/common/routesMap.jsx";
 
 import "lib/assets/scss/material-kit-pro-react.css?v=1.1.0";
 import "app/common/styles.scss";

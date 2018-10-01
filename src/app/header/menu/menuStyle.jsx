@@ -1,5 +1,5 @@
 // ##############################
-// // // MenuLinks styles
+// // // Menu styles
 // #############################
 
 import {mlAuto} from "lib/assets/jss/material-kit-pro-react.jsx";

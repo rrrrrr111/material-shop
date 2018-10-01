@@ -1,6 +1,6 @@
 import MainLayout from "app/main/MainLayout.jsx";
 
-var routesMap = [
+const routesMap = [
     {path: "/", name: "MainLayout", component: MainLayout}
 ];
 

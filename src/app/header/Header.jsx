@@ -2,11 +2,10 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import MenuBar from "app/header/MenuBar.jsx";
-import MenuLinks from "app/header/menu/Menu.jsx";
+import Menu from "app/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 
 import headerStyle from "app/header/headerStyle.jsx";
-import menuMap from "app/header/headerStyle.jsx";
 
 class Header extends React.PureComponent {
 
@@ -16,7 +15,7 @@ class Header extends React.PureComponent {
             <div>
                 <MenuBar
                     brandName="LC Cosmetics"
-                    menuLinks={<MenuLinks dropdownHoverColor="info"/>}
+                    menuLinks={<Menu dropdownHoverColor="info"/>}
                     fixed
                     color="transparent"
                     changeColorOnScroll={{
