@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 // core components
 import snackbarContentStyle from "app/common/notification/snackbar/snackbarContentStyle.jsx";
+import {ALL_COLORS} from "../../styles";
 
 function Snackbar({...props}) {
     const {classes, message, color, close, icon, place, open} = props;
@@ -59,7 +60,7 @@ function Snackbar({...props}) {
 Snackbar.propTypes = {
     classes: PropTypes.object.isRequired,
     message: PropTypes.node.isRequired,
-    color: PropTypes.oneOf(["info", "success", "warning", "danger", "primary"]),
+    color: PropTypes.oneOf(ALL_COLORS),
     close: PropTypes.bool,
     icon: PropTypes.func,
     place: PropTypes.oneOf(["tl", "tr", "tc", "br", "bl", "bc"]),

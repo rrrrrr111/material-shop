@@ -21,7 +21,7 @@ import MenuItem from "./MenuItem";
 
 import {Notifications} from "@material-ui/icons";
 import Snackbar from "../../common/notification/snackbar/Snackbar";
-import {notificationColor, notificationPlace} from "../../common/styles";
+import {ALL_COLORS, notificationColor, notificationPlace, PRIMARY_COLOR} from "../../common/styles";
 
 class Menu extends React.PureComponent {
     constructor(props) {
@@ -109,20 +109,12 @@ class Menu extends React.PureComponent {
         );
     };
 
-    defaultProps = {
-        hoverColor: "primary"
+    static defaultProps = {
+        hoverColor: PRIMARY_COLOR
     };
 
-    propTypes = {
-        dropdownHoverColor: PropTypes.oneOf([
-            "dark",
-            "primary",
-            "info",
-            "success",
-            "warning",
-            "danger",
-            "rose"
-        ])
+    static propTypes = {
+        dropdownHoverColor: PropTypes.oneOf(ALL_COLORS)
     };
 }
 

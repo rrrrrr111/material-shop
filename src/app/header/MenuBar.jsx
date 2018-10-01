@@ -17,6 +17,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 // core components
 import menuBarStyle from "app/header/menuBarStyle.jsx";
+import {ALL_COLORS, WHITE_COLOR} from "../common/styles";
 
 class MenuBar extends React.PureComponent {
     constructor(props) {
@@ -117,49 +118,24 @@ class MenuBar extends React.PureComponent {
             </AppBar>
         );
     }
+
+    static defaultProp = {
+        color: WHITE_COLOR
+    };
+
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        color: PropTypes.oneOf(ALL_COLORS),
+        menuLinks: PropTypes.node,
+        brandName: PropTypes.string,
+        fixed: PropTypes.bool,
+        absolute: PropTypes.bool,
+        changeColorOnScroll: PropTypes.shape({
+            height: PropTypes.number.isRequired,
+            color: PropTypes.oneOf(ALL_COLORS).isRequired
+        })
+    };
 }
 
-MenuBar.defaultProp = {
-    color: "white"
-};
-
-MenuBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-    color: PropTypes.oneOf([
-        "primary",
-        "info",
-        "success",
-        "warning",
-        "danger",
-        "transparent",
-        "white",
-        "rose",
-        "dark"
-    ]),
-    menuLinks: PropTypes.node,
-    brandName: PropTypes.string,
-    fixed: PropTypes.bool,
-    absolute: PropTypes.bool,
-    // this will cause the sidebar to change the color from
-    // this.props.color (see above) to changeColorOnScroll.color
-    // when the window.pageYOffset is heigher or equal to
-    // changeColorOnScroll.height and then when it is smaller than
-    // changeColorOnScroll.height change it back to
-    // this.props.color (see above)
-    changeColorOnScroll: PropTypes.shape({
-        height: PropTypes.number.isRequired,
-        color: PropTypes.oneOf([
-            "primary",
-            "info",
-            "success",
-            "warning",
-            "danger",
-            "transparent",
-            "white",
-            "rose",
-            "dark"
-        ]).isRequired
-    })
-};
 
 export default withStyles(menuBarStyle)(MenuBar);

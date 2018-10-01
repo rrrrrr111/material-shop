@@ -5,6 +5,8 @@ import mainLayoutStyle from "app/main/mainLayoutStyle.jsx";
 import AppFooter from "../footer/AppFooter";
 import Header from "../header/Header";
 import Feed from "../feed/Feed";
+import Route from "react-router/es/Route";
+import SigninPopup from "../auth/SigninPopup";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {
@@ -18,6 +20,7 @@ class MainLayout extends React.PureComponent {
             <div>
                 <Header/>
                 <Feed/>
+                <Route path="/user/signin" exact component={SigninPopup}/>
                 <AppFooter/>
             </div>
         );

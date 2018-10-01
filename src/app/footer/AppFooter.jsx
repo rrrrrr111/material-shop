@@ -49,12 +49,16 @@ class AppFooter extends React.PureComponent {
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
-                                        <NavLink to="/user/signin"> Вход </NavLink>
+                                        <NavLink to={{
+                                            pathname: "/user/signin",
+                                            state: {modal: true} // флаг чтобы вернуться на туже страницу
+                                        }}> Вход </NavLink>
                                         \
                                         <NavLink to="/user/signup"> Регистрация </NavLink>
                                     </p>
                                     <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
-                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и новости </NavLink></p>
+                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и
+                                        новости </NavLink></p>
                                     <p><NavLink to="/info/privacy-policy"> Политика конфиденциальности </NavLink></p>
                                     <p><NavLink to="/user/orders"> История заказов </NavLink></p>
                                     <p><NavLink to="/user/settings"> Настройки </NavLink></p>
@@ -83,7 +87,8 @@ class AppFooter extends React.PureComponent {
                                         Цены в пунктах выдачи товара и магазинах компании LC Cosmetics могут отличаться
                                         от указанных в интернет-магазине.
                                         Вы принимаете условия
-                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </Link>{" "}
+                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики
+                                            конфиденциальности </Link>{" "}
                                         и пользовательского соглашения каждый раз, когда оставляете свои данные в любой
                                         форме обратной связи на сайте LC Cosmetics.
                                     </div>

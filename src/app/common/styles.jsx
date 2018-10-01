@@ -8,6 +8,8 @@ const WHITE_COLOR = "white";
 const ROSE_COLOR = "rose";
 const DARK_COLOR = "dark";
 
+const ALL_COLORS = [PRIMARY_COLOR, INFO_COLOR, SUCCESS_COLOR, WARNING_COLOR, DANGER_COLOR, TRANSPARENT_COLOR, WHITE_COLOR, ROSE_COLOR, DARK_COLOR];
+
 const notificationColor = ROSE_COLOR;
 const notificationPlace = "bc";
 
@@ -19,6 +21,17 @@ const dropdownHoverColor = menuAfterScrollColor;  // пункт меню при 
 
 
 export {
+    PRIMARY_COLOR,
+    INFO_COLOR,
+    SUCCESS_COLOR,
+    WARNING_COLOR,
+    DANGER_COLOR,
+    TRANSPARENT_COLOR,
+    WHITE_COLOR,
+    ROSE_COLOR,
+    DARK_COLOR,
+    ALL_COLORS,
+
     notificationColor,
     notificationPlace,
 
