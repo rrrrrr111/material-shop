@@ -134,7 +134,7 @@ const modalStyle = theme => ({
     }
   },
   modalSignup: {
-    maxWidth: "900px",
+    maxWidth: "360px",
     width: "100%",
     "& $modalHeader": {
       paddingTop: "0"

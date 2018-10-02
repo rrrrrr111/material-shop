@@ -1,12 +1,11 @@
 import React from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 
-import mainLayoutStyle from "app/main/mainLayoutStyle.jsx";
 import AppFooter from "../footer/AppFooter";
 import Header from "../header/Header";
 import Feed from "../feed/Feed";
 import Route from "react-router/es/Route";
 import SigninPopup from "../auth/SigninPopup";
+import SignupPopup from "../auth/SignupPopup";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {
@@ -15,16 +14,16 @@ class MainLayout extends React.PureComponent {
     }
 
     render() {
-        const {classes} = this.props; // eslint-disable-next-line
         return (
             <div>
                 <Header/>
                 <Feed/>
                 <Route path="/user/signin" exact component={SigninPopup}/>
+                <Route path="/user/signup" exact component={SignupPopup}/>
                 <AppFooter/>
             </div>
         );
     }
 }
 
-export default withStyles(mainLayoutStyle)(MainLayout);
+export default MainLayout;

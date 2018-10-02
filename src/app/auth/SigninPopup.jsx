@@ -38,6 +38,7 @@ class SigninPopup extends React.PureComponent {
         util.navigate.goToPreviousUrl(this.props.location, this.props.history);
     };
     handleSignin = (e) => {
+        e.stopPropagation();
         // todo ajax sign in
         this.handleClose(e);
     };
@@ -85,13 +86,19 @@ class SigninPopup extends React.PureComponent {
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <VkIcon/>
+                                    <i className="fab fa-vk"/>
                                 </Button>
                                 <Button
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <GooglePlusIcon/>
+                                    <i className="fab fa-facebook-square" />
+                                </Button>
+                                <Button
+                                    justIcon
+                                    link
+                                    className={classes.socialLineButton}>
+                                    <i className="fab fa-google-plus-g" />
                                 </Button>
                             </div>
                         </CardHeader>
@@ -113,8 +120,8 @@ class SigninPopup extends React.PureComponent {
                                             </InputAdornment>
                                         ),
                                         autoComplete: "on",
-                                        placeholder: "E-mail...",
-                                        name: "E-mail",
+                                        placeholder: "Email...",
+                                        name: "Email",
                                     }}
                                 />
                                 <CustomInput
