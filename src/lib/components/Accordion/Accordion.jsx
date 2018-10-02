@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-// @material-ui/core components
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
-// @material-ui/icons
+
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 import accordionStyle from "lib/assets/jss/material-kit-pro-react/components/accordionStyle.jsx";

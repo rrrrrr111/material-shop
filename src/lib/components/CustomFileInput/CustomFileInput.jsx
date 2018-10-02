@@ -1,9 +1,9 @@
 import React from "react";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
-// @material-ui/core components
+
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
+
 import CustomInput from "lib/components/CustomInput/CustomInput.jsx";
 import Button from "lib/components/CustomButtons/Button.jsx";
 

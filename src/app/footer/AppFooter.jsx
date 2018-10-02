@@ -35,6 +35,7 @@ class AppFooter extends React.PureComponent {
                                     <p><NavLink to="/info/requisites"> Реквизиты </NavLink></p>
                                     <p><NavLink to="/info/contacts"> Контакты </NavLink></p>
                                     <p><NavLink to="/info/news"> Новости </NavLink></p>
+                                    <p><NavLink to="/info/"> Отзывы </NavLink></p>
                                     <p><NavLink to="/info/blog"> Блог </NavLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
@@ -54,42 +55,50 @@ class AppFooter extends React.PureComponent {
                                             state: {modal: true} // флаг чтобы вернуться на туже страницу
                                         }}> Вход </NavLink>
                                         \
-                                        <NavLink to="/user/signup"> Регистрация </NavLink>
+                                        <NavLink to={{
+                                            pathname: "/user/signup",
+                                            state: {modal: true}
+                                        }}> Регистрация </NavLink>
                                     </p>
-                                    <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
-                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и
-                                        новости </NavLink></p>
-                                    <p><NavLink to="/info/privacy-policy"> Политика конфиденциальности </NavLink></p>
+                                    <p><NavLink to="/user/profile"> Профиль пользователя </NavLink></p>
+                                    <p><NavLink to="/user/cart"> Корзина </NavLink></p>
                                     <p><NavLink to="/user/orders"> История заказов </NavLink></p>
                                     <p><NavLink to="/user/settings"> Настройки </NavLink></p>
+                                    <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
                                     <p><NavLink to="/info/"> Напишите нам </NavLink></p>
                                     <p><NavLink to="/info/"> Торговля оптом </NavLink></p>
-                                    <p><NavLink to="/info/"> Отзывы </NavLink></p>
+                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и
+                                        новости </NavLink></p>
+                                    <p><NavLink to="/info/privacy-policy"> Политика конфиденциальности </NavLink></p>
                                 </GridItem>
                             </GridContainer>
-
                             <hr/>
                             <GridContainer>
                                 <GridItem xs={12} sm={9} md={9}>
                                     <div className={classNames(classes.copyRightInfo)}>
                                         &copy; {1900 + new Date().getYear()}{" "}
-                                        <Link to="/" className={classes.aClasses}> LC Cosmetics </Link>{" "}
+                                        <NavLink to="/" className={classes.aClasses}> LC Cosmetics </NavLink>{" "}
+                                        <br/>
                                         Вся информация на сайте – собственность интернет-магазина LC Cosmetics.
                                         Публикация информации с сайта LC Cosmetics без разрешения правообладателя
                                         запрещена.
+                                        <br/>
                                         Все права защищены.
                                         Информация на сайте LC Cosmetics не является публичной офертой.
+                                        <br/>
                                         Указанные цены действуют только при оформлении заказа на сайте интернет-магазина
                                         LC Cosmetics.
                                         Цены в пунктах выдачи товара и магазинах компании LC Cosmetics могут отличаться
                                         от указанных в интернет-магазине.
+                                        <br/>
                                         Вы принимаете условия
-                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики
-                                            конфиденциальности </Link>{" "}
-                                        и пользовательского соглашения каждый раз, когда оставляете свои данные в любой
+                                        <NavLink to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </NavLink>{" "}
+                                        и
+                                        <NavLink to="/info/user-agreement" className={classes.aClasses}> пользовательского соглашения </NavLink>{" "}
+                                        каждый раз, когда оставляете свои данные в любой
                                         форме обратной связи на сайте LC Cosmetics.
                                     </div>
                                 </GridItem>

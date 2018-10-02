@@ -1,4 +1,4 @@
-import {btnLink, container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
 const appFooterStyle = {
@@ -175,7 +175,7 @@ const appFooterStyle = {
         lineHeight: "10px",
         textAlign: "justify",
         color: "#666",
-        margin: "12px 5px 0 5px",
+        margin: "0 5px 0 5px",
     },
 };
 

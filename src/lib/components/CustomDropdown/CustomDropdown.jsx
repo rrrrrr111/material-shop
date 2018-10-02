@@ -1,10 +1,10 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-// nodejs library to set properties for components
+
 import PropTypes from "prop-types";
 
-// @material-ui/core components
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -13,7 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
-// core components
+
 import Button from "lib/components/CustomButtons/Button.jsx";
 
 import customDropdownStyle from "lib/assets/jss/material-kit-pro-react/components/customDropdownStyle.jsx";

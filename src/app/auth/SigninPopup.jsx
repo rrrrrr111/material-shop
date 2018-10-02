@@ -102,11 +102,10 @@ class SigninPopup extends React.PureComponent {
                             </div>
                         </CardHeader>
                     </DialogTitle>
-                    <DialogContent
-                        id="login-modal-slide-description"
-                        className={classes.modalBody}
-                    >
-                        <form>
+                    <form>
+                        <DialogContent
+                            id="login-modal-slide-description"
+                            className={classes.modalBody}>
                             <CardBody className={classes.cardLoginBody}>
                                 <CustomInput
                                     id="login-modal-email"
@@ -119,7 +118,9 @@ class SigninPopup extends React.PureComponent {
                                                 <Mail className={classes.icon}/>
                                             </InputAdornment>
                                         ),
-                                        placeholder: "E-mail..."
+                                        autoComplete: "on",
+                                        placeholder: "E-mail...",
+                                        name: "E-mail",
                                     }}
                                 />
                                 <CustomInput
@@ -135,23 +136,27 @@ class SigninPopup extends React.PureComponent {
                                                 </Icon>
                                             </InputAdornment>
                                         ),
-                                        placeholder: "Пароль..."
+                                        autoComplete: "on",
+                                        placeholder: "Пароль...",
+                                        type: "password",
+                                        name: "password",
                                     }}
                                 />
                             </CardBody>
-                        </form>
-                    </DialogContent>
-                    <DialogActions
-                        className={`${classes.modalFooter} ${
-                            classes.justifyContentCenter
-                            }`}
-                    >
-                        <Button color={buttonColor}
-                                onClick={this.handleSignin}
+                        </DialogContent>
+                        <DialogActions
+                            className={`${classes.modalFooter} ${
+                                classes.justifyContentCenter
+                                }`}
                         >
-                            Войти
-                        </Button>
-                    </DialogActions>
+                            <Button color={buttonColor}
+                                    onClick={this.handleSignin}
+                                    type="submit"
+                            >
+                                Войти
+                            </Button>
+                        </DialogActions>
+                    </form>
                 </Card>
             </Dialog>
         )

@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-// @material-ui/core components
+
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// core components
+
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem";
 

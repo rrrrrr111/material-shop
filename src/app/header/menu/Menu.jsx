@@ -1,15 +1,15 @@
 /* eslint-disable */
 import React from "react";
-// nodejs library to set properties for components
+
 import PropTypes from "prop-types";
-// react components for routing our app without refresh
-// @material-ui/core components
+
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-// @material-ui/icons
+
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
-// core components
+
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import Button from "lib/components/CustomButtons/Button.jsx";
 

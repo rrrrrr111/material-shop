@@ -1,20 +1,47 @@
 /* eslint-disable */
+import classNames from "classnames";
 import React from "react";
-// nodejs library to set properties for components
-// react components for routing our app without refresh
 import {Link} from "react-router-dom";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// @material-ui/icons
-// core components
+
+
 import menuStyle from "app/header/menu/menuStyle.jsx";
+import Icon from "@material-ui/core/Icon/Icon";
 
 class MenuItem extends React.PureComponent {
+
+    determineIcon() {
+        const {itemInfo, classes, iconComponent} = this.props;
+
+        if (iconComponent) {// as Component
+            return (
+                <this.props.iconComponent className={classes.dropdownIcons}/>
+            );
+
+        } else if (itemInfo.iconName) {
+
+            if (itemInfo.iconName.indexOf(" fa-") > 0) { // as Font Awesome https://fontawesome.com/icons
+                const parts = itemInfo.iconName.split(' ');
+
+                return ( // fas fa-.../fab fa-.../fal fa-.../far fa-...
+                    <i className={classNames(parts[0], parts[1], classes.icon, classes.dropdownIcons)}/>
+                );
+            } else { // as Material UI icon https://material.io/tools/icons
+                return (
+                    <Icon className={classNames(classes.icon, classes.dropdownIcons)}>
+                        {itemInfo.iconName}
+                    </Icon>
+                )
+            }
+        }
+        return null;
+    }
+
     render() {
         const {itemInfo, classes} = this.props;
         return (
             <Link to={itemInfo.to} className={classes.dropdownLink}>
-                {this.props.iconComponent ? <this.props.iconComponent className={classes.dropdownIcons}/> : null}
+                {this.determineIcon()}
                 {itemInfo.name}
             </Link>
         );

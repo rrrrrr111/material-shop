@@ -166,13 +166,16 @@ const menuStyle = theme => ({
     dropdownIcons: {
         width: "24px",
         height: "24px",
-        marginRight: "14px",
+        margin: "-4px 14px 0 0",
         opacity: "0.5",
-        marginTop: "-4px",
         top: "1px",
         verticalAlign: "middle",
         fontSize: "24px",
-        position: "relative"
+        position: "relative",
+        "&.fas, &.fab": { // my
+            margin: "-4px 11px 0 3px",
+            fontSize: "22px",
+        },
     },
     socialIcons: {
         position: "relative",

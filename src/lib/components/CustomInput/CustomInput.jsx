@@ -1,18 +1,18 @@
 import React from "react";
-// nodejs library to set properties for components
+
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
-// @material-ui/core components
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-// @material-ui/icons
+
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
-// core components
+
 
 import customInputStyle from "lib/assets/jss/material-kit-pro-react/components/customInputStyle.jsx";
 
