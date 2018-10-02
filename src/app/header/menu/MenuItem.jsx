@@ -33,7 +33,7 @@ class MenuItem extends React.PureComponent {
                 );
             } else {
                 // Material UI на основе Font Awesome https://material.io/tools/icons
-                // и https://materialdesignicons.com/ - работают не все
+                // и https://materialdesignicons.com/ - работают не все, только те у кого поставщик Google
                 // названия с нижним подчеркиванием (_)
 
                 return (
