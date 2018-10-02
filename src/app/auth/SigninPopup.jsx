@@ -20,6 +20,7 @@ import {buttonColor, popupHeaderColor} from "../common/styles";
 import VkIcon from "../common/icon/VkIcon";
 import GooglePlusIcon from "../common/icon/GooglePlusIcon";
 
+import util from "../utils/util"
 
 function Transition(props) {
     return <Slide direction="down" {...props} />;
@@ -30,18 +31,11 @@ class SigninPopup extends React.PureComponent {
         super(props);
         this.handleClose = this.handleClose.bind(this);
         this.handleSignin = this.handleSignin.bind(this);
-
     }
 
     handleClose = (e) => {
         e.stopPropagation();
-
-        const location = this.props.location;
-        if (location.state && location.state.modal) {
-            this.props.history.goBack();
-        } else {
-            this.props.history.push("/")
-        }
+        util.navigate.goToPreviousUrl(this.props.location, this.props.history);
     };
     handleSignin = (e) => {
         // todo ajax sign in
