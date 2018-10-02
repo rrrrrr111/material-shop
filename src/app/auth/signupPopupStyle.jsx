@@ -6,6 +6,7 @@ import tooltipsStyle from "../../lib/assets/jss/material-kit-pro-react/tooltipsS
 import popoverStyles from "../../lib/assets/jss/material-kit-pro-react/popoverStyles";
 import modalStyle from "../../lib/assets/jss/material-kit-pro-react/modalStyle";
 import customCheckboxRadioSwitch from "../../lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle";
+import {SOCIAL_VK_COLOR} from "../common/styles";
 
 const signupPopupStyle = theme => ({
     description,
@@ -132,7 +133,10 @@ const signupPopupStyle = theme => ({
         height: "18px",
         top: "3px",
         position: "relative"
-    }
+    },
+    vkColor: {
+        backgroundColor: SOCIAL_VK_COLOR,
+    },
 });
 
 export default signupPopupStyle;

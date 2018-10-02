@@ -97,7 +97,7 @@ class SignupPopup extends React.PureComponent {
                         className={classes.modalBody}
                     >
                         <div className={classes.textCenter}>
-                            <Button justIcon round color="vk">
+                            <Button justIcon round color="vk" className={classes.vkColor}>
                                 <i className="fab fa-vk"/>
                             </Button>
                             {` `}
