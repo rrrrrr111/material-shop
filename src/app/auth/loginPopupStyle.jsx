@@ -5,7 +5,7 @@ import tooltipsStyle from "lib/assets/jss/material-kit-pro-react/tooltipsStyle.j
 import popoverStyles from "lib/assets/jss/material-kit-pro-react/popoverStyles.jsx";
 import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle.jsx";
 
-const signinPopupStyle = theme => ({
+const loginPopupStyle = theme => ({
     container,
     description,
     cardTitle,
@@ -84,4 +84,4 @@ const signinPopupStyle = theme => ({
     }
 });
 
-export default signinPopupStyle;
+export default loginPopupStyle;

@@ -6,9 +6,9 @@ import tooltipsStyle from "../../lib/assets/jss/material-kit-pro-react/tooltipsS
 import popoverStyles from "../../lib/assets/jss/material-kit-pro-react/popoverStyles";
 import modalStyle from "../../lib/assets/jss/material-kit-pro-react/modalStyle";
 import customCheckboxRadioSwitch from "../../lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle";
-import {SOCIAL_VK_COLOR} from "../common/styles";
+import {vkColor} from "../common/styles";
 
-const signupPopupStyle = theme => ({
+const regPopupStyle = theme => ({
     description,
     mlAuto,
     mrAuto,
@@ -16,6 +16,7 @@ const signupPopupStyle = theme => ({
     ...popoverStyles,
     ...modalStyle(theme),
     ...customCheckboxRadioSwitch,
+    vkColor,
     container: {
         ...container,
         zIndex: "2",
@@ -134,9 +135,14 @@ const signupPopupStyle = theme => ({
         top: "3px",
         position: "relative"
     },
-    vkColor: {
-        backgroundColor: SOCIAL_VK_COLOR,
+    termAndCondAgreementBox: {
+        padding: "10px 20px 10px 20px",
+        margin: 0,
+    },
+    termAndCondAgreementLabel: {
+        fontSize: "10px",
+        lineHeight: "12px",
     },
 });
 
-export default signupPopupStyle;
+export default regPopupStyle;

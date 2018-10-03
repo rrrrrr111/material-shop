@@ -6,7 +6,7 @@ import { Route, Router, Switch } from "react-router";
 import routesMap from "app/common/routesMap.jsx";
 
 import "lib/assets/scss/material-kit-pro-react.css?v=1.1.0";
-import "app/common/styles.scss";
+import "app/common/styles.css";
 
 let hist = createBrowserHistory();
 

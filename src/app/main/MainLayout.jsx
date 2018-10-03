@@ -4,8 +4,8 @@ import AppFooter from "../footer/AppFooter";
 import Header from "../header/Header";
 import Feed from "../feed/Feed";
 import Route from "react-router/es/Route";
-import SigninPopup from "../auth/SigninPopup";
-import SignupPopup from "../auth/SignupPopup";
+import SigninPopup from "../auth/LoginPopup";
+import SignupPopup from "../auth/RegPopup";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {

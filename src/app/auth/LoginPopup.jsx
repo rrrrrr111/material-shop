@@ -15,10 +15,8 @@ import Icon from "@material-ui/core/Icon/Icon";
 import Slide from "@material-ui/core/Slide";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 
-import signinPopupStyle from "./signinPopupStyle";
+import loginPopupStyle from "./loginPopupStyle";
 import {buttonColor, popupHeaderColor} from "../common/styles";
-import VkIcon from "../common/icon/VkIcon";
-import GooglePlusIcon from "../common/icon/GooglePlusIcon";
 
 import util from "../utils/util"
 
@@ -26,7 +24,7 @@ function Transition(props) {
     return <Slide direction="down" {...props} />;
 }
 
-class SigninPopup extends React.PureComponent {
+class LoginPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleClose = this.handleClose.bind(this);
@@ -92,13 +90,13 @@ class SigninPopup extends React.PureComponent {
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <i className="fab fa-facebook-square" />
+                                    <i className="fab fa-facebook-square"/>
                                 </Button>
                                 <Button
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <i className="fab fa-google-plus-g" />
+                                    <i className="fab fa-google-plus-g"/>
                                 </Button>
                             </div>
                         </CardHeader>
@@ -145,6 +143,9 @@ class SigninPopup extends React.PureComponent {
                                 />
                             </CardBody>
                         </DialogContent>
+
+                        {/* todo reg form  */}
+
                         <DialogActions
                             className={`${classes.modalFooter} ${
                                 classes.justifyContentCenter
@@ -164,4 +165,4 @@ class SigninPopup extends React.PureComponent {
     }
 }
 
-export default withStyles(signinPopupStyle)(SigninPopup);
+export default withStyles(loginPopupStyle)(LoginPopup);

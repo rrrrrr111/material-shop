@@ -1,3 +1,5 @@
+// константы
+
 const PRIMARY_COLOR = "primary";
 const INFO_COLOR = "info";
 const SUCCESS_COLOR = "success";
@@ -11,6 +13,8 @@ const SOCIAL_VK_COLOR = "#4c75a3";
 
 const ALL_COLORS = [PRIMARY_COLOR, INFO_COLOR, SUCCESS_COLOR, WARNING_COLOR, DANGER_COLOR, TRANSPARENT_COLOR, WHITE_COLOR, ROSE_COLOR, DARK_COLOR];
 
+// стили приложения
+
 const notificationColor = ROSE_COLOR;
 const notificationPlace = "bc";
 
@@ -22,6 +26,14 @@ const headerParallaxFilterColor = ROSE_COLOR;
 const popupHeaderColor = ROSE_COLOR;
 const buttonColor = ROSE_COLOR;
 
+// общие классы
+
+const vkColor = {
+    backgroundColor: SOCIAL_VK_COLOR,
+    "&:hover": {
+        backgroundColor: SOCIAL_VK_COLOR,
+    },
+};
 
 export {
     PRIMARY_COLOR,
@@ -46,4 +58,5 @@ export {
 
     popupHeaderColor,
     buttonColor,
+    vkColor,
 };

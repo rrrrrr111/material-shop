@@ -16,14 +16,15 @@ import classNames from "classnames";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import {Check, Email, Face} from "@material-ui/icons";
-import signupPopupStyle from "./signupPopupStyle";
+import regPopupStyle from "./regPopupStyle";
 import {buttonColor} from "../common/styles";
+import Link from "react-router-dom/es/Link";
 
 function Transition(props) {
     return <Slide direction="down" {...props} />;
 }
 
-class SignupPopup extends React.PureComponent {
+class RegPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +46,6 @@ class SignupPopup extends React.PureComponent {
     };
 
     handleAggrCheckboxToggle(e) {
-
         this.setState({
             aggrCheckboxChecked: !this.state.aggrCheckboxChecked
         });
@@ -53,7 +53,6 @@ class SignupPopup extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
-
         return (
             <Dialog
                 classes={{
@@ -97,7 +96,7 @@ class SignupPopup extends React.PureComponent {
                         className={classes.modalBody}
                     >
                         <div className={classes.textCenter}>
-                            <Button justIcon round color="vk" className={classes.vkColor}>
+                            <Button justIcon round className={classes.vkColor}>
                                 <i className="fab fa-vk"/>
                             </Button>
                             {` `}
@@ -174,7 +173,7 @@ class SignupPopup extends React.PureComponent {
                                     name: "password",
                                 }}
                             />
-                            <FormControlLabel
+                            <FormControlLabel className={classes.termAndCondAgreementBox}
                                 classes={{
                                     label: classes.label
                                 }}
@@ -196,11 +195,12 @@ class SignupPopup extends React.PureComponent {
                                     />
                                 }
                                 label={
-                                    <span>
-                                                I agree to the{" "}
-                                        <a href="#pablo">terms and conditions</a>
-                                                .
-                                            </span>
+                                    <span className={classes.termAndCondAgreementLabel}>
+                                        Я принимаю условия
+                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </Link>{" "}
+                                        и
+                                        <Link to="/info/user-agreement" className={classes.aClasses}> пользовательского соглашения </Link>{" "}.
+                                    </span>
                                 }
                             />
                             <div className={classes.textCenter}>
@@ -218,4 +218,4 @@ class SignupPopup extends React.PureComponent {
     }
 }
 
-export default withStyles(signupPopupStyle)(SignupPopup);
+export default withStyles(regPopupStyle)(RegPopup);
