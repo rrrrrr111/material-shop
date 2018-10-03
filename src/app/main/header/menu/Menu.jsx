@@ -13,14 +13,14 @@ import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import Button from "lib/components/CustomButtons/Button.jsx";
 
-import menuStyle from "app/header/menu/menuStyle.jsx";
+import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import catalogMenuMap from "./catalogMenuMap";
 import userMenuMap from "./userMenuMap";
 import menuIconsMap from "./menuIconsMap";
 import MenuItem from "./MenuItem";
-import {ALL_COLORS, PRIMARY_COLOR} from "../../common/styles";
-import util from "../../utils/util";
-import Notify from "../../common/notification/Notify";
+import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
+import util from "app/utils/util";
+import Notify from "app/common/notification/Notify";
 
 class Menu extends React.PureComponent {
     constructor(props) {

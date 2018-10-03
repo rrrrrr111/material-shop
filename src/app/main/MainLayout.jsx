@@ -1,12 +1,13 @@
 import React from "react";
 
-import AppFooter from "../footer/AppFooter";
-import Header from "../header/Header";
+import AppFooter from "../main/footer/AppFooter";
+import Header from "./header/Header";
 import Feed from "../feed/Feed";
 import Route from "react-router/es/Route";
-import LoginPopup from "../auth/LoginPopup";
-import RegPopup from "../auth/RegPopup";
-import SignoutComponent from "../auth/SignoutComponent";
+import LoginPopup from "../user/auth/LoginPopup";
+import RegPopup from "../user/auth/RegPopup";
+import SignoutComponent from "../user/auth/SignoutComponent";
+import {Switch} from "react-router";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {
@@ -19,9 +20,11 @@ class MainLayout extends React.PureComponent {
             <div>
                 <Header/>
                 <Feed/>
-                <Route path="/user/signin" exact component={LoginPopup}/>
-                <Route path="/user/signup" exact component={RegPopup}/>
-                <Route path="/user/signout" exact component={SignoutComponent}/>
+                <Switch>
+                    <Route path="/user/signin" component={LoginPopup}/>
+                    <Route path="/user/signup" component={RegPopup}/>
+                    <Route path="/user/signout" component={SignoutComponent}/>
+                </Switch>
                 <AppFooter/>
             </div>
         );

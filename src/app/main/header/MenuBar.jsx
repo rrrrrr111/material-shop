@@ -16,8 +16,8 @@ import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
-import menuBarStyle from "app/header/menuBarStyle.jsx";
-import {ALL_COLORS, WHITE_COLOR} from "../common/styles";
+import menuBarStyle from "app/main/header/menuBarStyle.jsx";
+import {ALL_COLORS, WHITE_COLOR} from "app/common/styles";
 
 class MenuBar extends React.PureComponent {
     constructor(props) {

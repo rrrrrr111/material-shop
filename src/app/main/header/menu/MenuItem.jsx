@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 
-import menuStyle from "app/header/menu/menuStyle.jsx";
+import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import Icon from "@material-ui/core/Icon/Icon";
 
 class MenuItem extends React.PureComponent {

@@ -1,12 +1,12 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import MenuBar from "app/header/MenuBar.jsx";
-import Menu from "app/header/menu/Menu.jsx";
+import MenuBar from "app/main/header/MenuBar.jsx";
+import Menu from "app/main/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 
-import headerStyle from "app/header/headerStyle.jsx";
-import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "../common/styles";
+import headerStyle from "app/main/header/headerStyle.jsx";
+import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "app/common/styles";
 
 class Header extends React.PureComponent {
 
@@ -25,7 +25,7 @@ class Header extends React.PureComponent {
                     }}
                 />
                 <Parallax
-                    image={require("app/header/hero_bg.jpg")}
+                    image={require("app/main/header/hero_bg.jpg")}
                     filter={headerParallaxFilterColor}
                     small
                     className={classes.headerImage}

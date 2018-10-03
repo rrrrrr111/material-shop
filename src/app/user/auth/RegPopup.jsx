@@ -1,23 +1,23 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import Card from "../../lib/components/Card/Card";
+import Card from "lib/components/Card/Card";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import Button from "../../lib/components/CustomButtons/Button";
+import Button from "lib/components/CustomButtons/Button";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
-import CustomInput from "../../lib/components/CustomInput/CustomInput";
+import CustomInput from "lib/components/CustomInput/CustomInput";
 import Close from "@material-ui/icons/Close";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Icon from "@material-ui/core/Icon/Icon";
 import Slide from "@material-ui/core/Slide";
 
-import util from "../utils/util"
+import util from "app/utils/util"
 import classNames from "classnames";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import {Check, Email, Face} from "@material-ui/icons";
 import regPopupStyle from "./regPopupStyle";
-import {buttonColor} from "../common/styles";
+import {buttonColor} from "app/common/styles";
 import Link from "react-router-dom/es/Link";
 
 function Transition(props) {
@@ -174,34 +174,34 @@ class RegPopup extends React.PureComponent {
                                 }}
                             />
                             <FormControlLabel className={classes.termAndCondAgreementBox}
-                                classes={{
-                                    label: classes.label
-                                }}
-                                control={
-                                    <Checkbox
-                                        tabIndex={-1}
-                                        onClick={this.handleAggrCheckboxToggle}
-                                        checkedIcon={
-                                            <Check className={classes.checkedIcon}/>
-                                        }
-                                        icon={
-                                            <Check
-                                                className={classes.uncheckedIcon}
-                                            />
-                                        }
-                                        classes={{
-                                            checked: classes.checked
-                                        }}
-                                    />
-                                }
-                                label={
-                                    <span className={classes.termAndCondAgreementLabel}>
+                                              classes={{
+                                                  label: classes.label
+                                              }}
+                                              control={
+                                                  <Checkbox
+                                                      tabIndex={-1}
+                                                      onClick={this.handleAggrCheckboxToggle}
+                                                      checkedIcon={
+                                                          <Check className={classes.checkedIcon}/>
+                                                      }
+                                                      icon={
+                                                          <Check
+                                                              className={classes.uncheckedIcon}
+                                                          />
+                                                      }
+                                                      classes={{
+                                                          checked: classes.checked
+                                                      }}
+                                                  />
+                                              }
+                                              label={
+                                                  <span className={classes.termAndCondAgreementLabel}>
                                         Я принимаю условия
                                         <Link to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </Link>{" "}
-                                        и
+                                                      и
                                         <Link to="/info/user-agreement" className={classes.aClasses}> пользовательского соглашения </Link>{" "}.
                                     </span>
-                                }
+                                              }
                             />
                             <div className={classes.textCenter}>
                                 <Button color={buttonColor}

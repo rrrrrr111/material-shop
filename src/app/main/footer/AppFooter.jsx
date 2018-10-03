@@ -1,15 +1,15 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Footer from "lib/components/Footer/Footer.jsx";
-import VkIcon from "../common/icon/VkIcon";
-import FacebookIcon from "../common/icon/FacebookIcon";
+import VkIcon from "app/common/icon/VkIcon";
+import FacebookIcon from "app/common/icon/FacebookIcon";
 import classNames from "classnames";
-import InstagramIcon from "../common/icon/InstragramIcon";
-import MessengerIcon from "../common/icon/WhatsappIcon";
-import GridItem from "../../lib/components/Grid/GridItem";
-import GridContainer from "../../lib/components/Grid/GridContainer";
+import InstagramIcon from "app/common/icon/InstragramIcon";
+import MessengerIcon from "app/common/icon/WhatsappIcon";
+import GridItem from "lib/components/Grid/GridItem";
+import GridContainer from "lib/components/Grid/GridContainer";
 
-import appFooterStyle from "app/footer/appFooterStyle.jsx";
+import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import NavLink from "react-router-dom/es/NavLink";
 
 class AppFooter extends React.PureComponent {

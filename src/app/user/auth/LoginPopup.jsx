@@ -1,13 +1,13 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import Card from "../../lib/components/Card/Card";
+import Card from "lib/components/Card/Card";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import CardHeader from "../../lib/components/Card/CardHeader";
-import Button from "../../lib/components/CustomButtons/Button";
+import CardHeader from "lib/components/Card/CardHeader";
+import Button from "lib/components/CustomButtons/Button";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
-import CardBody from "../../lib/components/Card/CardBody";
-import CustomInput from "../../lib/components/CustomInput/CustomInput";
+import CardBody from "lib/components/Card/CardBody";
+import CustomInput from "lib/components/CustomInput/CustomInput";
 import Close from "@material-ui/icons/Close";
 import Mail from "@material-ui/icons/Mail";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -16,9 +16,9 @@ import Slide from "@material-ui/core/Slide";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 
 import loginPopupStyle from "./loginPopupStyle";
-import {buttonColor, popupHeaderColor} from "../common/styles";
+import {buttonColor, popupHeaderColor} from "app/common/styles";
 
-import util from "../utils/util"
+import util from "app/utils/util"
 
 function Transition(props) {
     return <Slide direction="down" {...props} />;

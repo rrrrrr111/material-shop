@@ -1,4 +1,4 @@
-import {main, mainRaised} from "../../lib/assets/jss/material-kit-pro-react";
+import {main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
 
 const style = {
     main: {
