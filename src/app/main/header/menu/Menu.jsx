@@ -20,7 +20,7 @@ import menuIconsMap from "./menuIconsMap";
 import MenuItem from "./MenuItem";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 import util from "app/utils/util";
-import Notify from "app/common/notification/Notify";
+import Notify from "app/common/notify/Notify";
 
 class Menu extends React.PureComponent {
     constructor(props) {

@@ -15,6 +15,16 @@
 Первичная настройка
     1. npm i
     2. В идее установить папку /src как папку исходников, иначе импорты криво подсвечиваются
+    3. в настрйоках IDEA включить прямые импорты для JavaScript
 
 Troubleshooting
     - SCSS файлы преобразуются в CSS только при перезапуске npm run start, в онлайне при правках не подхватываются
+
+Используется
+    - React.js -
+    - react-router
+    - Redux -
+    - JSS
+    - Node.js
+    - Material UI -
+    - Creative Tim Material Kit https://demos.creative-tim.com/

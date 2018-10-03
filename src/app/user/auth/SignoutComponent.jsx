@@ -1,6 +1,6 @@
 import React from "react";
 import util from "app/utils/util"
-import Notify from "app/common/notification/Notify";
+import Notify from "app/common/notify/Notify";
 
 class SignoutComponent extends React.PureComponent {
     constructor(props) {

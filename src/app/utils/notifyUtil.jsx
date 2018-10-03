@@ -16,6 +16,7 @@ const notify = {
             function () {
                 state[notifyStateFieldName] = false;
                 component.setState(state);
+                // eslint-disable-next-line
             }.bind(component),
             3000
         );

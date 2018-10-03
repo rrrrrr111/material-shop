@@ -50,12 +50,12 @@ class AppFooter extends React.PureComponent {
                                     <h5>Личный кабинет</h5>
                                     <p>
                                         <NavLink to={{
-                                            pathname: "/user/signin",
+                                            pathname: "/auth/signin",
                                             state: {modal: true} // флаг чтобы вернуться на туже страницу
                                         }}> Вход </NavLink>
                                         \
                                         <NavLink to={{
-                                            pathname: "/user/signup",
+                                            pathname: "/auth/signup",
                                             state: {modal: true}
                                         }}> Регистрация </NavLink>
                                     </p>
@@ -66,7 +66,7 @@ class AppFooter extends React.PureComponent {
                                     <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
                                     <p>
                                         <NavLink to={{
-                                            pathname: "/user/signout",
+                                            pathname: "/auth/signout",
                                             state: {modal: true}
                                         }}> Выход </NavLink>
                                     </p>

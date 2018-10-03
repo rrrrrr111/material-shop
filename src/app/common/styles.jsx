@@ -25,6 +25,7 @@ const headerParallaxFilterColor = ROSE_COLOR;
 
 const popupHeaderColor = ROSE_COLOR;
 const buttonColor = ROSE_COLOR;
+const navPillsColor = ROSE_COLOR;
 
 // общие классы
 
@@ -58,5 +59,7 @@ export {
 
     popupHeaderColor,
     buttonColor,
+    navPillsColor,
+
     vkColor,
 };

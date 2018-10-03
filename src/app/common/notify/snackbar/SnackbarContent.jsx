@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import Close from "@material-ui/icons/Close";
 
-import snackbarContentStyle from "app/common/notification/snackbar/snackbarContentStyle.jsx";
+import snackbarContentStyle from "app/common/notify/snackbar/snackbarContentStyle.jsx";
 
 function SnackbarContent({...props}) {
     const {classes, message, color, close, icon} = props;

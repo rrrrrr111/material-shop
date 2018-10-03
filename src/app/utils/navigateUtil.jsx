@@ -36,6 +36,13 @@ const navigate = {
     },
 
     /**
+     * Переход на URL
+     */
+    goToUrl: (url, history) => {
+        history.push(url);
+    },
+
+    /**
      * Мягкая прокрутка к якорю на странице
      */
     smoothScrollTo: (e, targetId) => {

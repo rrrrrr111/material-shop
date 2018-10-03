@@ -1,13 +1,14 @@
-import React from "react";
+import Feed from "app/feed/Feed";
 
-import AppFooter from "../main/footer/AppFooter";
-import Header from "./header/Header";
-import Feed from "../feed/Feed";
-import Route from "react-router/es/Route";
-import LoginPopup from "../user/auth/LoginPopup";
-import RegPopup from "../user/auth/RegPopup";
-import SignoutComponent from "../user/auth/SignoutComponent";
+import AppFooter from "app/main/footer/AppFooter";
+import Header from "app/main/header/Header";
+import LoginPopup from "app/user/auth/LoginPopup";
+import RegPopup from "app/user/auth/RegPopup";
+import SignoutComponent from "app/user/auth/SignoutComponent";
+import UserProfile from "app/user/profile/UserProfile";
+import React from "react";
 import {Switch} from "react-router";
+import Route from "react-router/es/Route";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {
@@ -19,11 +20,16 @@ class MainLayout extends React.PureComponent {
         return (
             <div>
                 <Header/>
-                <Feed/>
                 <Switch>
-                    <Route path="/user/signin" component={LoginPopup}/>
-                    <Route path="/user/signup" component={RegPopup}/>
-                    <Route path="/user/signout" component={SignoutComponent}/>
+                    {/* контент главного окна */}
+                    <Route path={"/user/:activeTabKey"} component={UserProfile}/>
+                    <Route path="/" component={Feed}/>
+                </Switch>
+                <Switch>
+                    {/* Попапы */}
+                    <Route path="/auth/signin" component={LoginPopup}/>
+                    <Route path="/auth/signup" component={RegPopup}/>
+                    <Route path="/auth/signout" component={SignoutComponent}/>
                 </Switch>
                 <AppFooter/>
             </div>
