@@ -4,8 +4,9 @@ import AppFooter from "../footer/AppFooter";
 import Header from "../header/Header";
 import Feed from "../feed/Feed";
 import Route from "react-router/es/Route";
-import SigninPopup from "../auth/LoginPopup";
-import SignupPopup from "../auth/RegPopup";
+import LoginPopup from "../auth/LoginPopup";
+import RegPopup from "../auth/RegPopup";
+import SignoutComponent from "../auth/SignoutComponent";
 
 class MainLayout extends React.PureComponent {
     componentDidMount() {
@@ -18,8 +19,9 @@ class MainLayout extends React.PureComponent {
             <div>
                 <Header/>
                 <Feed/>
-                <Route path="/user/signin" exact component={SigninPopup}/>
-                <Route path="/user/signup" exact component={SignupPopup}/>
+                <Route path="/user/signin" exact component={LoginPopup}/>
+                <Route path="/user/signup" exact component={RegPopup}/>
+                <Route path="/user/signout" exact component={SignoutComponent}/>
                 <AppFooter/>
             </div>
         );

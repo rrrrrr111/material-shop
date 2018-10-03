@@ -18,30 +18,26 @@ import catalogMenuMap from "./catalogMenuMap";
 import userMenuMap from "./userMenuMap";
 import menuIconsMap from "./menuIconsMap";
 import MenuItem from "./MenuItem";
-
-import {Notifications} from "@material-ui/icons";
-import Snackbar from "../../common/notification/snackbar/Snackbar";
-import {ALL_COLORS, notificationColor, notificationPlace, PRIMARY_COLOR} from "../../common/styles";
+import {ALL_COLORS, PRIMARY_COLOR} from "../../common/styles";
+import util from "../../utils/util";
+import Notify from "../../common/notification/Notify";
 
 class Menu extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            showEmptyCartNotification: false,
+            emptyCartNotification: false,
         };
+        this.handleShowEmptyCartNotification = this.handleShowEmptyCartNotification.bind(this);
+        this.handleCloseEmptyCartNotification = this.handleCloseEmptyCartNotification.bind(this);
     }
 
-    showNotification(place) {
-        var x = [];
-        x[place] = true;
-        this.setState(x);
-        this.alertTimeout = setTimeout(
-            function () {
-                x[place] = false;
-                this.setState(x);
-            }.bind(this),
-            3000
-        );
+    handleShowEmptyCartNotification() {
+        util.notify.showNotify(this, "emptyCartNotification");
+    }
+
+    handleCloseEmptyCartNotification() {
+        util.notify.closeNotify(this, "emptyCartNotification");
     }
 
     render = () => {
@@ -90,19 +86,14 @@ class Menu extends React.PureComponent {
                         color="transparent"
                         aria-label="Корзина"
                         aria-haspopup="false"
-                        onClick={() => this.showNotification("showEmptyCartNotification")}
+                        onClick={this.handleShowEmptyCartNotification}
                     >
                         <ShoppingCart className={classes.icons}/>
                         Корзина
                     </Button>
-                    <Snackbar
-                        place={notificationPlace}
-                        color={notificationColor}
-                        icon={Notifications}
-                        message="Ваша корзина пуста"
-                        open={this.state.showEmptyCartNotification}
-                        closeNotification={() => this.setState({showEmptyCartNotification: false})}
-                        close
+                    <Notify text="Ваша корзина пуста"
+                            isOpen={this.state.emptyCartNotification}
+                            onClose={this.handleCloseEmptyCartNotification}
                     />
                 </ListItem>
             </List>

@@ -7,7 +7,6 @@ import classNames from "classnames";
 import InstagramIcon from "../common/icon/InstragramIcon";
 import MessengerIcon from "../common/icon/WhatsappIcon";
 import GridItem from "../../lib/components/Grid/GridItem";
-import {Link} from "react-router-dom";
 import GridContainer from "../../lib/components/Grid/GridContainer";
 
 import appFooterStyle from "app/footer/appFooterStyle.jsx";
@@ -65,6 +64,12 @@ class AppFooter extends React.PureComponent {
                                     <p><NavLink to="/user/orders"> История заказов </NavLink></p>
                                     <p><NavLink to="/user/settings"> Настройки </NavLink></p>
                                     <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
+                                    <p>
+                                        <NavLink to={{
+                                            pathname: "/user/signout",
+                                            state: {modal: true}
+                                        }}> Выход </NavLink>
+                                    </p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
@@ -95,9 +100,12 @@ class AppFooter extends React.PureComponent {
                                         от указанных в интернет-магазине.
                                         <br/>
                                         Вы принимаете условия
-                                        <NavLink to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </NavLink>{" "}
+                                        <NavLink to="/info/privacy-policy" className={classes.aClasses}> политики
+                                            конфиденциальности </NavLink>{" "}
                                         и
-                                        <NavLink to="/info/user-agreement" className={classes.aClasses}> пользовательского соглашения </NavLink>{" "}
+                                        <NavLink to="/info/user-agreement"
+                                                 className={classes.aClasses}> пользовательского
+                                            соглашения </NavLink>{" "}
                                         каждый раз, когда оставляете свои данные в любой
                                         форме обратной связи на сайте LC Cosmetics.
                                     </div>
