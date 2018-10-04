@@ -1,56 +1,38 @@
-/* eslint-disable */
+import withStyles from "@material-ui/core/styles/withStyles";
+
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Apps from "@material-ui/icons/Apps";
+import Face from "@material-ui/icons/Face";
+import Fingerprint from "@material-ui/icons/Fingerprint";
+import History from "@material-ui/icons/History";
+import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
+
+import AppIcon from "app/common/icon/AppIcon";
+import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import classNames from "classnames";
 import React from "react";
 import {Link} from "react-router-dom";
-import withStyles from "@material-ui/core/styles/withStyles";
-
-
-import menuStyle from "app/main/header/menu/menuStyle.jsx";
-import Icon from "@material-ui/core/Icon/Icon";
 
 class MenuItem extends React.PureComponent {
 
-    determineIcon() {
-        const {itemInfo, classes, iconComponent} = this.props;
+    menuIconNames = ["Apps", "ShoppingCart", "AccountCircle", "Face", "Fingerprint", "SettingsApplications", "History"];
+    menuIcons = [Apps, ShoppingCart, AccountCircle, Face, Fingerprint, SettingsApplications, History];
 
-        if (iconComponent) {
-            // Component из Material UI https://material.io/tools/icons
-            // название в snake_case, преобразовать в CamelCase
-            // можно создавать свои из SVG кодов
-            return (
-                <this.props.iconComponent className={classes.dropdownIcons}/>
-            );
-
-        } else if (itemInfo.iconName) {
-
-            if (itemInfo.iconName.indexOf(" fa-") > 0) {
-                // as Font Awesome https://fontawesome.com/icons - PRO не работают
-                // пишутся как fas fa-... / fab fa-... / fal fa-... / far fa-...
-
-                const parts = itemInfo.iconName.split(' ');
-                return (
-                    <i className={classNames(parts[0], parts[1], classes.icon, classes.dropdownIcons)}/>
-                );
-            } else {
-                // Material UI на основе Font Awesome https://material.io/tools/icons
-                // и https://materialdesignicons.com/ - работают не все, только те у кого поставщик Google
-                // названия с нижним подчеркиванием (_)
-
-                return (
-                    <Icon className={classNames(classes.icon, classes.dropdownIcons)}>
-                        {itemInfo.iconName}
-                    </Icon>
-                )
-            }
+    checkComponent(name) {
+        const i = this.menuIconNames.indexOf(name);
+        if (i > -1) {
+            return this.menuIcons[i];
         }
-        return null;
+        return name;
     }
 
     render() {
         const {itemInfo, classes} = this.props;
         return (
             <Link to={itemInfo.to} className={classes.dropdownLink}>
-                {this.determineIcon()}
+                <AppIcon name={this.checkComponent(itemInfo.icon)}
+                         className={classNames(classes.icon, classes.dropdownIcons)}/>
                 {itemInfo.name}
             </Link>
         );

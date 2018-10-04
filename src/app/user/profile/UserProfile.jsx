@@ -1,6 +1,4 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-
-import {Face, Fingerprint, History, SettingsApplications} from "@material-ui/icons";
 import {navPillsColor} from "app/common/styles";
 import OrdersTab from "app/user/profile/OrdersTab";
 import PasswordTab from "app/user/profile/PasswordTab";
@@ -66,10 +64,10 @@ class UserProfile extends React.Component {
     };
 
     tabsConfig = [
-        {key: "profile", name: "Профиль пользователя", icon: Face, content: <ProfileTab/>},
-        {key: "orders", name: "История Заказов", icon: History, content: <OrdersTab/>},
-        {key: "settings", name: "Настройки", icon: SettingsApplications, content: <SettingsTab/>},
-        {key: "password", name: "Смена пароля", icon: Fingerprint, content: <PasswordTab/>},
+        {key: "profile", name: "Профиль пользователя", icon: "face", content: <ProfileTab/>},
+        {key: "orders", name: "История Заказов", icon: "history", content: <OrdersTab/>},
+        {key: "settings", name: "Настройки", icon: "settings", content: <SettingsTab/>},
+        {key: "password", name: "Смена пароля", icon: "fingerprint", content: <PasswordTab/>},
     ];
 
     render() {

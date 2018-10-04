@@ -56,6 +56,7 @@ const navPillsStyle = theme => ({
     width: "30px",
     height: "30px",
     display: "block",
+    fontSize: "30px",
     margin: "15px 0"
   },
   horizontalPills: {

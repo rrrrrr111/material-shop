@@ -1,5 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import {Close, Edit, Person} from "@material-ui/icons";
+import AppIcon from "app/common/icon/AppIcon";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
@@ -13,13 +13,13 @@ class OrdersTab extends React.Component {
     }
 
     rowActionButtons = [
-        {color: "info", icon: Person},
-        {color: "success", icon: Edit},
-        {color: "danger", icon: Close}
+        {color: "primary"},
     ].map((prop, key) => {
         return (
             <Button simple justIcon size="sm" color={prop.color} key={key}>
-                <prop.icon/>
+                {/*<Icon name={AddShoppingCart}/>*/}
+                {/*<Icon name="fas fa-cart-plus"/>*/}
+                <AppIcon name="add_shopping_cart"/>
             </Button>
         );
     });

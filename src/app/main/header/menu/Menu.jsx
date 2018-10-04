@@ -1,26 +1,26 @@
-/* eslint-disable */
-import React from "react";
-
-import PropTypes from "prop-types";
-
-
-import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
 
-import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
-import Button from "lib/components/CustomButtons/Button.jsx";
+import withStyles from "@material-ui/core/styles/withStyles";
+import {AccountCircle, Apps} from "@material-ui/icons";
+
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import Notify from "app/common/notify/Notify";
+import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
-import catalogMenuMap from "./catalogMenuMap";
-import userMenuMap from "./userMenuMap";
-import menuIconsMap from "./menuIconsMap";
-import MenuItem from "./MenuItem";
-import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 import util from "app/utils/util";
-import Notify from "app/common/notify/Notify";
+import Button from "lib/components/CustomButtons/Button.jsx";
+
+import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
+
+import PropTypes from "prop-types";
+/* eslint-disable */
+import React from "react";
+import catalogMenuMap from "./catalogMenuMap";
+import MenuItem from "./MenuItem";
+import userMenuMap from "./userMenuMap";
 
 class Menu extends React.PureComponent {
     constructor(props) {
@@ -55,10 +55,10 @@ class Menu extends React.PureComponent {
                             className: classes.navLink,
                             color: "transparent"
                         }}
-                        buttonIcon={menuIconsMap["Apps"]}
+                        buttonIcon={Apps}
                         dropdownList={
                             catalogMenuMap.map(item =>
-                                <MenuItem itemInfo={item} iconComponent={menuIconsMap[item.iconComponent]}/>
+                                <MenuItem itemInfo={item} icon={item.icon}/>
                             )
                         }
                     />
@@ -73,10 +73,10 @@ class Menu extends React.PureComponent {
                             className: classes.navLink,
                             color: "transparent"
                         }}
-                        buttonIcon={menuIconsMap["AccountCircle"]}
+                        buttonIcon={AccountCircle}
                         dropdownList={
                             userMenuMap.map(item =>
-                                <MenuItem itemInfo={item} iconComponent={menuIconsMap[item.iconComponent]}/>
+                                <MenuItem itemInfo={item} icon={item.icon}/>
                             )}
                     />
                 </ListItem>

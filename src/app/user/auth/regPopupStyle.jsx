@@ -1,4 +1,4 @@
-import {appStyles, vkColor} from "app/common/styles";
+import {appStyles} from "app/common/styles";
 import {description, mlAuto, mrAuto} from "lib/assets/jss/material-kit-pro-react";
 import {cardTitle, container} from "lib/assets/jss/material-kit-pro-react.jsx";
 import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle";

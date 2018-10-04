@@ -27,7 +27,7 @@ const customTabsStyle = theme => ({
   tabIcon: {
     width: "24px",
     height: "24px",
-    marginRight: "4px"
+    marginRight: "4px",
   },
   customTabsRoot: {
     height: "auto",

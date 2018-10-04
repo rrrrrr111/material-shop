@@ -1,6 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import AppIcon from "app/common/icon/AppIcon";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
@@ -46,7 +47,7 @@ class NavPills extends React.PureComponent {
                 {tabs.map((prop, key) => {
                     var icon = {};
                     if (prop.tabIcon !== undefined) {
-                        icon["icon"] = <prop.tabIcon className={classes.tabIcon}/>;
+                        icon["icon"] = <AppIcon name={prop.tabIcon} className={classes.tabIcon}/>;
                     }
                     const pillsClasses = classNames({
                         [classes.pills]: true,
@@ -112,7 +113,7 @@ class NavPills extends React.PureComponent {
         tabs: PropTypes.arrayOf(
             PropTypes.shape({
                 tabButton: PropTypes.string,
-                tabIcon: PropTypes.func,
+                tabIcon: PropTypes.string,
                 tabContent: PropTypes.node,
                 pillClasses: PropTypes.string,
             })
