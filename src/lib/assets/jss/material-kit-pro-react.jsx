@@ -255,6 +255,27 @@ const coloredShadow = {
   opacity: "0"
 };
 
+const labelRoot = {
+    ...defaultFont,
+    color: "#AAAAAA !important",
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "1.42857",
+    top: "10px",
+    "& + $underline": {
+        marginTop: "0px"
+    }
+};
+
+const formControl = {
+    margin: "0 0 0 0", // my
+        paddingTop: "27px",
+        position: "relative",
+        "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {
+        color: "#495057"
+    }
+};
+
 export {
   //variables
   drawerWidth,
@@ -300,5 +321,7 @@ export {
   mlAuto,
   mrAuto,
   btnLink,
-  coloredShadow
+  coloredShadow,
+  labelRoot, // my
+  formControl, // my
 };

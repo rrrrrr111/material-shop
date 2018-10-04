@@ -27,12 +27,26 @@ const popupHeaderColor = ROSE_COLOR;
 const buttonColor = ROSE_COLOR;
 const navPillsColor = ROSE_COLOR;
 
-// общие классы
-
-const vkColor = {
-    backgroundColor: SOCIAL_VK_COLOR,
-    "&:hover": {
+// общие стили
+const appStyles = {
+    vkColor: {
         backgroundColor: SOCIAL_VK_COLOR,
+        "&:hover": {
+            backgroundColor: SOCIAL_VK_COLOR,
+        },
+    },
+    width100: {
+        width: "100%",
+    },
+    right: {
+        float: "right",
+    },
+    left: {
+        float: "left",
+    },
+    alignCenter: {
+        marginLeft: "auto",
+        marginRight: "auto",
     },
 };
 
@@ -61,5 +75,5 @@ export {
     buttonColor,
     navPillsColor,
 
-    vkColor,
+    appStyles,
 };

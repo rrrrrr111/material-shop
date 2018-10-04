@@ -1,24 +1,24 @@
-import React from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import Card from "lib/components/Card/Card";
-import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import Button from "lib/components/CustomButtons/Button";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
-import CustomInput from "lib/components/CustomInput/CustomInput";
-import Close from "@material-ui/icons/Close";
-import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Icon from "@material-ui/core/Icon/Icon";
+import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
+import withStyles from "@material-ui/core/styles/withStyles";
+import {Check, Email, Face} from "@material-ui/icons";
+import Close from "@material-ui/icons/Close";
+import {buttonColor} from "app/common/styles";
 
 import util from "app/utils/util"
 import classNames from "classnames";
-import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox/Checkbox";
-import {Check, Email, Face} from "@material-ui/icons";
-import regPopupStyle from "./regPopupStyle";
-import {buttonColor} from "app/common/styles";
+import Card from "lib/components/Card/Card";
+import Button from "lib/components/CustomButtons/Button";
+import CustomInput from "lib/components/CustomInput/CustomInput";
+import React from "react";
 import Link from "react-router-dom/es/Link";
+import regPopupStyle from "./regPopupStyle";
 
 function Transition(props) {
     return <Slide direction="down" {...props} />;
@@ -204,9 +204,7 @@ class RegPopup extends React.PureComponent {
                                               }
                             />
                             <div className={classes.textCenter}>
-                                <Button color={buttonColor}
-                                        type="submit"
-                                >
+                                <Button color={buttonColor}>
                                     Зарегистрироваться
                                 </Button>
                             </div>

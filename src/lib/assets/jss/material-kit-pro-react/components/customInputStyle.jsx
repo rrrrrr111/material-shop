@@ -6,10 +6,13 @@ import {
   primaryColor,
   dangerColor,
   successColor,
-  defaultFont
+    labelRoot,
+    formControl,
 } from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const customInputStyle = {
+    formControl,
+  labelRoot,
   disabled: {
     "&:before": {
       backgroundColor: "transparent !important"
@@ -34,17 +37,6 @@ const customInputStyle = {
       borderBottomColor: successColor
     }
   },
-  labelRoot: {
-    ...defaultFont,
-    color: "#AAAAAA !important",
-    fontWeight: "400",
-    fontSize: "14px",
-    lineHeight: "1.42857",
-    top: "10px",
-    "& + $underline": {
-      marginTop: "0px"
-    }
-  },
   labelRootError: {
     color: dangerColor + " !important"
   },
@@ -61,14 +53,6 @@ const customInputStyle = {
     height: "24px",
     textAlign: "center",
     pointerEvents: "none"
-  },
-  formControl: {
-    margin: "0 0 10px 0",
-    paddingTop: "10px",
-    position: "relative",
-    "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {
-      color: "#495057"
-    }
   },
   whiteUnderline: {
     "&:hover:not($disabled):before,&:before": {

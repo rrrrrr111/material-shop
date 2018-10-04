@@ -153,7 +153,6 @@ class LoginPopup extends React.PureComponent {
                         >
                             <Button color={buttonColor}
                                     onClick={this.handleSignin}
-                                    type="submit"
                             >
                                 Войти
                             </Button>
