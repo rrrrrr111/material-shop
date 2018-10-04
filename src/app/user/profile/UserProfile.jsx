@@ -53,8 +53,11 @@ class UserProfile extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 150) { // не скролим если не далеко от верхушки
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+        }
     }
 
     getTabIndex = (props) => {

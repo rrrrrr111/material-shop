@@ -48,6 +48,15 @@ const appStyles = {
         marginLeft: "auto",
         marginRight: "auto",
     },
+    textCenter: {
+        textAlign: "center"
+    },
+    textRight: {
+        textAlign: "right"
+    },
+    floatRight: {
+        float: "right"
+    }
 };
 
 export {

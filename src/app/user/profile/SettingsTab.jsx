@@ -51,7 +51,7 @@ class SettingsTab extends React.Component {
                                         />
                                     }
                                     classes={{label: classes.label}}
-                                    label="Получать сообщения о распроажах, акциях, скидках и новостях компании."
+                                    label="Получать сообщения о распродажах, акциях, скидках и новостях компании"
                                 />
                             </div>
                         </GridItem>
