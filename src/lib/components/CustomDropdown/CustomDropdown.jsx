@@ -121,9 +121,7 @@ class CustomDropdown extends React.PureComponent {
             {...buttonProps}
             onClick={open ? this.handleClose : this.handleClick}
           >
-            {buttonIcon !== undefined ? (
-              <this.props.buttonIcon className={classes.buttonIcon} />
-            ) : null}
+            {buttonIcon !== undefined ? buttonIcon : null}
             {buttonText !== undefined ? buttonText : null}
             {caret ? <b className={caretClasses} /> : null}
           </Button>

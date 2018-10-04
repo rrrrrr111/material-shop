@@ -1,24 +1,24 @@
-import React from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import Card from "lib/components/Card/Card";
-import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import CardHeader from "lib/components/Card/CardHeader";
-import Button from "lib/components/CustomButtons/Button";
-import DialogContent from "@material-ui/core/DialogContent/DialogContent";
-import CardBody from "lib/components/Card/CardBody";
-import CustomInput from "lib/components/CustomInput/CustomInput";
-import Close from "@material-ui/icons/Close";
-import Mail from "@material-ui/icons/Mail";
-import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import Icon from "@material-ui/core/Icon/Icon";
-import Slide from "@material-ui/core/Slide";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
-
-import loginPopupStyle from "./loginPopupStyle";
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import Icon from "@material-ui/core/Icon/Icon";
+import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import Slide from "@material-ui/core/Slide";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Mail from "@material-ui/icons/Mail";
+import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor, popupHeaderColor} from "app/common/styles";
 
 import util from "app/utils/util"
+import Card from "lib/components/Card/Card";
+import CardBody from "lib/components/Card/CardBody";
+import CardHeader from "lib/components/Card/CardHeader";
+import Button from "lib/components/CustomButtons/Button";
+import CustomInput from "lib/components/CustomInput/CustomInput";
+import React from "react";
+
+import loginPopupStyle from "./loginPopupStyle";
 
 function Transition(props) {
     return <Slide direction="down" {...props} />;
@@ -76,7 +76,7 @@ class LoginPopup extends React.PureComponent {
                                 onClick={this.handleClose}
                             >
                                 {" "}
-                                <Close className={classes.modalClose}/>
+                                <AppIcon name="close" className={classes.modalClose}/>
                             </Button>
                             <h5 className={classes.cardTitleWhite}>LC Cosmetics</h5>
                             <div className={classes.socialLine}>
@@ -84,19 +84,19 @@ class LoginPopup extends React.PureComponent {
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <i className="fab fa-vk"/>
+                                    <AppIcon name="fab fa-vk"/>
                                 </Button>
                                 <Button
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <i className="fab fa-facebook-square"/>
+                                    <AppIcon name="fab fa-facebook-square"/>
                                 </Button>
                                 <Button
                                     justIcon
                                     link
                                     className={classes.socialLineButton}>
-                                    <i className="fab fa-google-plus-g"/>
+                                    <AppIcon name="fab fa-google-plus-g"/>
                                 </Button>
                             </div>
                         </CardHeader>

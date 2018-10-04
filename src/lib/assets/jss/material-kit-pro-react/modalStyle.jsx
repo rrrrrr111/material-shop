@@ -47,8 +47,9 @@ const modalStyle = theme => ({
     opacity: ".5"
   },
   modalClose: {
-    width: "16px",
-    height: "16px"
+    fontSize: "16px",
+    lineHeight: "40px",
+    overflow: "visible",
   },
   modalBody: {
     paddingTop: "24px",

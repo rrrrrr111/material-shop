@@ -1,12 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Apps from "@material-ui/icons/Apps";
-import Face from "@material-ui/icons/Face";
-import Fingerprint from "@material-ui/icons/Fingerprint";
-import History from "@material-ui/icons/History";
-import SettingsApplications from "@material-ui/icons/SettingsApplications";
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
 
 import AppIcon from "app/common/icon/AppIcon";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
@@ -16,8 +9,8 @@ import {Link} from "react-router-dom";
 
 class MenuItem extends React.PureComponent {
 
-    menuIconNames = ["Apps", "ShoppingCart", "AccountCircle", "Face", "Fingerprint", "SettingsApplications", "History"];
-    menuIcons = [Apps, ShoppingCart, AccountCircle, Face, Fingerprint, SettingsApplications, History];
+    menuIconNames = ["Apps"];
+    menuIcons = [Apps];
 
     checkComponent(name) {
         const i = this.menuIconNames.indexOf(name);

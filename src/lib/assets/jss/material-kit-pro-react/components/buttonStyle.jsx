@@ -51,7 +51,7 @@ const buttonStyle = {
       top: "0",
       marginTop: "-1em",
       marginBottom: "-1em",
-      fontSize: "1.1rem",
+      // fontSize: "1.1rem", // my
       marginRight: "4px",
       verticalAlign: "middle"
     },

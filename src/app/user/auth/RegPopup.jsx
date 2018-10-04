@@ -8,7 +8,7 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Check, Email, Face} from "@material-ui/icons";
-import Close from "@material-ui/icons/Close";
+import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/styles";
 
 import util from "app/utils/util"
@@ -81,7 +81,7 @@ class RegPopup extends React.PureComponent {
                             onClick={this.handleClose}
                         >
                             {" "}
-                            <Close className={classes.modalClose}/>
+                            <AppIcon name="close" className={classes.modalClose}/>
                         </Button>
                         <h3
                             className={`${classes.cardTitle} ${
@@ -97,15 +97,15 @@ class RegPopup extends React.PureComponent {
                     >
                         <div className={classes.textCenter}>
                             <Button justIcon round className={classes.vkColor}>
-                                <i className="fab fa-vk"/>
+                                <AppIcon name="fab fa-vk"/>
                             </Button>
                             {` `}
                             <Button justIcon round color="facebook">
-                                <i className="fab fa-facebook-f"/>
+                                <AppIcon name="fab fa-facebook-f"/>
                             </Button>
                             {` `}
                             <Button justIcon round color="google">
-                                <i className="fab fa-google"/>
+                                <AppIcon name="fab fa-google"/>
                             </Button>
                             {` `}
                         </div>

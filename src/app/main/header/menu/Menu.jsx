@@ -3,9 +3,9 @@ import ListItem from "@material-ui/core/ListItem";
 
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import {AccountCircle, Apps} from "@material-ui/icons";
+import AppIcon from "app/common/icon/AppIcon";
 
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
+
 import Notify from "app/common/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 
@@ -55,7 +55,7 @@ class Menu extends React.PureComponent {
                             className: classes.navLink,
                             color: "transparent"
                         }}
-                        buttonIcon={Apps}
+                        buttonIcon={<AppIcon name="apps"/>}
                         dropdownList={
                             catalogMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
@@ -73,7 +73,7 @@ class Menu extends React.PureComponent {
                             className: classes.navLink,
                             color: "transparent"
                         }}
-                        buttonIcon={AccountCircle}
+                        buttonIcon={<AppIcon name="account_circle"/>}
                         dropdownList={
                             userMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
@@ -88,7 +88,7 @@ class Menu extends React.PureComponent {
                         aria-haspopup="false"
                         onClick={this.handleShowEmptyCartNotification}
                     >
-                        <ShoppingCart className={classes.icons}/>
+                        <AppIcon name="shopping_cart" className={classes.icons}/>
                         Корзина
                     </Button>
                     <Notify text="Ваша корзина пуста"
