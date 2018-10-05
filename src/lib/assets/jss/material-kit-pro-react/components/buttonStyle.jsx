@@ -304,6 +304,18 @@ const buttonStyle = {
         "0 14px 26px -12px rgba(18, 86, 136, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(18, 86, 136, 0.2)"
     }
   },
+  vk: {
+    backgroundColor: "#4c75a3",
+    color: " #fff",
+    boxShadow:
+      "0 2px 2px 0 rgba(76, 117, 163, 0.14), 0 3px 1px -2px rgba(76, 117, 163, 0.2), 0 1px 5px 0 rgba(76, 117, 163, 0.12)",
+    "&:hover,&:focus": {
+      backgroundColor: "#6389b6",
+      color: " #fff",
+      boxShadow:
+        "0 14px 26px -12px rgba(76, 117, 163, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 117, 163, 0.2)"
+    }
+  },
   simple: {
     "&,&:focus,&:hover": {
       color: "#FFFFFF",
@@ -399,7 +411,12 @@ const buttonStyle = {
       "&,&:focus,&:hover,&:visited": {
         color: "#125688"
       }
-    }
+    },
+   "&$vk": {
+      "&,&:focus,&:hover,&:visited": {
+        color: "#4c75a3"
+      }
+    },
   },
   transparent: {
     "&,&:focus,&:hover": {

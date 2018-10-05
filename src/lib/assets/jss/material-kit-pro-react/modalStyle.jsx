@@ -100,60 +100,6 @@ const modalStyle = theme => ({
     marginBottom: "0",
     marginLeft: "5px"
   },
-  modalLogin: {
-    maxWidth: "360px",
-    overflowY: "visible",
-    width: "100%",
-    "& $modalCloseButton": {
-      color: "#fff",
-      top: "-10px",
-      right: "10px",
-      textShadow: "none",
-      position: "relative"
-    },
-    "& $modalHeader": {
-      borderBottom: "none",
-      paddingTop: "24px",
-      paddingRight: "24px",
-      paddingBottom: "0",
-      paddingLeft: "24px"
-    },
-    "& $modalBody": {
-      paddingBottom: "0",
-      paddingTop: "0"
-    },
-    "& $modalFooter": {
-      paddingBottom: "0",
-      paddingTop: "0"
-    }
-  },
-  modalLoginCard: {
-    marginBottom: "0",
-    margin: "0",
-    "& $modalHeader": {
-      paddingTop: "0"
-    }
-  },
-  modalSignup: {
-    maxWidth: "360px",
-    width: "100%",
-    "& $modalHeader": {
-      paddingTop: "0"
-    },
-    "& $modalTitle": {
-      textAlign: "center",
-      width: "100%",
-      marginTop: "0.625rem"
-    },
-    "& $modalBody": {
-      paddingBottom: "0",
-      paddingTop: "0"
-    }
-  },
-  modalSignupCard: {
-    padding: "40px 0",
-    margin: "0"
-  }
 });
 
 export default modalStyle;

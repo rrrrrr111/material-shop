@@ -1,9 +1,9 @@
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "lib/assets/jss/material-kit-pro-react.jsx";
+import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle.jsx";
 
 import modalStyle from "lib/assets/jss/material-kit-pro-react/modalStyle.jsx";
-import tooltipsStyle from "lib/assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
 import popoverStyles from "lib/assets/jss/material-kit-pro-react/popoverStyles.jsx";
-import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle.jsx";
+import tooltipsStyle from "lib/assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
 
 const loginPopupStyle = theme => ({
     container,
@@ -17,6 +17,44 @@ const loginPopupStyle = theme => ({
     ...customCheckboxRadioSwitch,
     section: {
         padding: "70px 0 0"
+    },
+    modalLogin: {
+        width: "100%",
+        minWidth: "250px",
+        maxWidth: "360px",
+        [theme.breakpoints.down("sm")]: {
+            width: "80%",
+            maxWidth: "300px",
+        },
+        "& $modalCloseButton": {
+            color: "#fff",
+            top: "-10px",
+            right: "10px",
+            textShadow: "none",
+            position: "relative"
+        },
+        "& $modalHeader": {
+            borderBottom: "none",
+            paddingTop: "24px",
+            paddingRight: "24px",
+            paddingBottom: "0",
+            paddingLeft: "24px"
+        },
+        "& $modalBody": {
+            paddingBottom: "0",
+            paddingTop: "0"
+        },
+        "& $modalFooter": {
+            paddingBottom: "0",
+            paddingTop: "0"
+        }
+    },
+    modalLoginCard: {
+        marginBottom: "20px",
+        margin: "0",
+        "& $modalHeader": {
+            paddingTop: "0"
+        }
     },
     title: {
         ...title,
@@ -68,7 +106,11 @@ const loginPopupStyle = theme => ({
     },
     cardLoginBody: {
         paddingTop: "17px",
-        paddingBottom: "17px"
+        paddingBottom: "17px",
+        [theme.breakpoints.down("sm")]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+        },
     },
     justifyContentCenter: {
         WebkitBoxPack: "center !important",
@@ -81,7 +123,7 @@ const loginPopupStyle = theme => ({
     space50: {
         height: "50px",
         display: "block"
-    }
+    },
 });
 
 export default loginPopupStyle;

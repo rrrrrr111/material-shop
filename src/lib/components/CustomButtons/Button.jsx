@@ -70,6 +70,7 @@ RegularButton.propTypes = {
     "dribbble",
     "reddit",
     "instagram",
+    "vk",
     "transparent"
   ]),
   size: PropTypes.oneOf(["sm", "lg"]),

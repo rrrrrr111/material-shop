@@ -24,6 +24,39 @@ const regPopupStyle = theme => ({
         paddingTop: "20vh",
         color: "#FFFFFF"
     },
+    modalSignup: {
+        width: "100%",
+        minWidth: "250px",
+        maxWidth: "360px",
+        [theme.breakpoints.down("sm")]: {
+            width: "80%",
+            maxWidth: "300px",
+        },
+        "& $modalHeader": {
+            paddingTop: "0"
+        },
+        "& $modalTitle": {
+            textAlign: "center",
+            width: "100%",
+            marginTop: "0.625rem"
+        },
+        "& $modalBody": {
+            paddingBottom: "0",
+            paddingTop: "0"
+        }
+    },
+    modalSignupCard: {
+        padding: "40px 0",
+        margin: "0"
+    },
+    modalCloseDark: {
+        ...modalStyle(theme).modalClose,
+        color: "#495057",
+        marginTop: "-5em !Important",
+        "&:hover,&:focus": {
+            color: "#343a40",
+        },
+    },
     pageHeader: {
         minHeight: "100vh",
         maxHeight: "1600px",
@@ -77,6 +110,12 @@ const regPopupStyle = theme => ({
         lineHeight: "41px",
         fontSize: "20px"
     },
+    cardSignupBody: {
+        [theme.breakpoints.down("sm")]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+        },
+    },
     textCenter: {
         textAlign: "center"
     },
@@ -118,7 +157,7 @@ const regPopupStyle = theme => ({
         float: "left!important",
         display: "block",
         "&,& *,& *:hover,& *:focus": {
-            color: "#FFFFFF !important"
+            color: "#FFFFFF"
         }
     },
     right: {
@@ -126,7 +165,7 @@ const regPopupStyle = theme => ({
         margin: "0",
         float: "right",
         "&,& *,& *:hover,& *:focus": {
-            color: "#FFFFFF !important"
+            color: "#FFFFFF"
         }
     },
     icon: {
@@ -136,7 +175,7 @@ const regPopupStyle = theme => ({
         position: "relative"
     },
     termAndCondAgreementBox: {
-        padding: "10px 20px 10px 20px",
+        padding: 14,
         margin: 0,
     },
     termAndCondAgreementLabel: {

@@ -9,7 +9,6 @@ const TRANSPARENT_COLOR = "transparent";
 const WHITE_COLOR = "white";
 const ROSE_COLOR = "rose";
 const DARK_COLOR = "dark";
-const SOCIAL_VK_COLOR = "#4c75a3";
 
 const ALL_COLORS = [PRIMARY_COLOR, INFO_COLOR, SUCCESS_COLOR, WARNING_COLOR, DANGER_COLOR, TRANSPARENT_COLOR, WHITE_COLOR, ROSE_COLOR, DARK_COLOR];
 
@@ -29,12 +28,6 @@ const navPillsColor = ROSE_COLOR;
 
 // общие стили
 const appStyles = {
-    vkColor: {
-        backgroundColor: SOCIAL_VK_COLOR,
-        "&:hover": {
-            backgroundColor: SOCIAL_VK_COLOR,
-        },
-    },
     width100: {
         width: "100%",
     },
@@ -70,7 +63,6 @@ export {
     ROSE_COLOR,
     DARK_COLOR,
     ALL_COLORS,
-    SOCIAL_VK_COLOR,
 
     notificationColor,
     notificationPlace,

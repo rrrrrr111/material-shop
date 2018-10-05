@@ -17,6 +17,7 @@ import CardHeader from "lib/components/Card/CardHeader";
 import Button from "lib/components/CustomButtons/Button";
 import CustomInput from "lib/components/CustomInput/CustomInput";
 import React from "react";
+import Link from "react-router-dom/es/Link";
 
 import loginPopupStyle from "./loginPopupStyle";
 
@@ -81,21 +82,15 @@ class LoginPopup extends React.PureComponent {
                             <h5 className={classes.cardTitleWhite}>LC Cosmetics</h5>
                             <div className={classes.socialLine}>
                                 <Button
-                                    justIcon
-                                    link
-                                    className={classes.socialLineButton}>
+                                    justIcon link className={classes.socialLineButton}>
                                     <AppIcon name="fab fa-vk"/>
                                 </Button>
                                 <Button
-                                    justIcon
-                                    link
-                                    className={classes.socialLineButton}>
+                                    justIcon link className={classes.socialLineButton}>
                                     <AppIcon name="fab fa-facebook-square"/>
                                 </Button>
                                 <Button
-                                    justIcon
-                                    link
-                                    className={classes.socialLineButton}>
+                                    justIcon link className={classes.socialLineButton}>
                                     <AppIcon name="fab fa-google-plus-g"/>
                                 </Button>
                             </div>
@@ -143,20 +138,14 @@ class LoginPopup extends React.PureComponent {
                                 />
                             </CardBody>
                         </DialogContent>
-
-                        {/* todo reg form  */}
-
-                        <DialogActions
-                            className={`${classes.modalFooter} ${
-                                classes.justifyContentCenter
-                                }`}
-                        >
-                            <Button color={buttonColor}
-                                    onClick={this.handleSignin}
-                            >
+                        <DialogActions className={`${classes.modalFooter} ${classes.justifyContentCenter}`}>
+                            <Button color={buttonColor} onClick={this.handleSignin}>
                                 Войти
                             </Button>
                         </DialogActions>
+                        <div className={classes.textCenter}>
+                            <Link to="/auth/signup"> Зарегистрироваться </Link>
+                        </div>
                     </form>
                 </Card>
             </Dialog>
