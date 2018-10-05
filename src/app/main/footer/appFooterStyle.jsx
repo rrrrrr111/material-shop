@@ -1,3 +1,4 @@
+import {appStyles} from "app/common/styles";
 import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
@@ -6,6 +7,7 @@ const appFooterStyle = {
     container,
     title,
     description,
+    ...appStyles,
     dividerBlock: {
         height: 40
     },
@@ -43,15 +45,6 @@ const appFooterStyle = {
         padding: "0px",
         width: "auto"
     },
-    left: {
-        float: "left!important",
-        display: "block"
-    },
-    right: {
-        padding: "15px 0",
-        margin: "0",
-        float: "right"
-    },
     aClass: {
         textDecoration: "none",
         backgroundColor: "transparent"
@@ -67,21 +60,6 @@ const appFooterStyle = {
         position: "relative",
         display: "block"
     },
-    footerBrand: {
-        height: "50px",
-        padding: "15px 15px",
-        fontSize: "18px",
-        lineHeight: "50px",
-        marginLeft: "-15px",
-        color: "#3c4858",
-        textDecoration: "none",
-        fontWeight: 700,
-        fontFamily: "Roboto Slab,Times New Roman,serif"
-    },
-    pullCenter: {
-        display: "inline-block",
-        float: "none"
-    },
     socialIcons: {
         "& ul": {
             marginBottom: 0,
@@ -96,24 +74,12 @@ const appFooterStyle = {
         }
     },
     iconSocial: {
-        width: "25px",
-        height: "25px",
-        fontSize: "24px",
-        minWidth: "41px",
+        height: "40px",
+        fontSize: "20px",
         padding: 0,
-        overflow: "hidden",
+        overflow: "visible",
         position: "relative",
-        margin: "0 5px 20px 0"
-    },
-    linksVertical: {
-        "& li": {
-            display: "block !important",
-            marginLeft: "-5px",
-            marginRight: "-5px",
-            "& a": {
-                padding: "5px !important"
-            }
-        }
+        margin: "5px 5px 0 0",
     },
     footer: {
         "& ul li": {

@@ -1,15 +1,13 @@
-import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Footer from "lib/components/Footer/Footer.jsx";
-import VkIcon from "app/common/icon/VkIcon";
-import FacebookIcon from "app/common/icon/FacebookIcon";
-import classNames from "classnames";
-import InstagramIcon from "app/common/icon/InstragramIcon";
-import MessengerIcon from "app/common/icon/WhatsappIcon";
-import GridItem from "lib/components/Grid/GridItem";
-import GridContainer from "lib/components/Grid/GridContainer";
+import AppIcon from "app/common/icon/AppIcon";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
+import classNames from "classnames";
+import Button from "lib/components/CustomButtons/Button";
+import Footer from "lib/components/Footer/Footer.jsx";
+import GridContainer from "lib/components/Grid/GridContainer";
+import GridItem from "lib/components/Grid/GridItem";
+import React from "react";
 import NavLink from "react-router-dom/es/NavLink";
 
 class AppFooter extends React.PureComponent {
@@ -114,16 +112,24 @@ class AppFooter extends React.PureComponent {
                                     <div className={classNames(classes.socialIcons, classes.right)}>
                                         <ul>
                                             <li>
-                                                <VkIcon className={classes.iconSocial}/>
+                                                <Button justIcon link className={classes.iconSocial}>
+                                                    <AppIcon name="fab fa-vk"/>
+                                                </Button>
                                             </li>
                                             <li>
-                                                <FacebookIcon className={classes.iconSocial}/>
+                                                <Button justIcon link className={classes.iconSocial}>
+                                                    <AppIcon name="fab fa-facebook-square"/>
+                                                </Button>
                                             </li>
                                             <li>
-                                                <InstagramIcon className={classes.iconSocial}/>
+                                                <Button justIcon link className={classes.iconSocial}>
+                                                    <AppIcon name="fab fa-instagram"/>
+                                                </Button>
                                             </li>
                                             <li>
-                                                <MessengerIcon className={classes.iconSocial}/>
+                                                <Button justIcon link className={classes.iconSocial}>
+                                                    <AppIcon name="fab fa-whatsapp"/>
+                                                </Button>
                                             </li>
                                         </ul>
                                     </div>

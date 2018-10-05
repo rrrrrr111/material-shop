@@ -61,21 +61,18 @@ class LoginPopup extends React.PureComponent {
                     <DialogTitle
                         id="login-modal-slide-title"
                         disableTypography
-                        className={classes.modalHeader}
-                    >
+                        className={classes.modalHeader}                    >
                         <CardHeader
                             plain
                             color={popupHeaderColor}
-                            className={`${classes.textCenter} ${classes.cardLoginHeader}`}
-                        >
+                            className={`${classes.textCenter} ${classes.cardLoginHeader}`}                        >
                             <Button
                                 simple
                                 className={classes.modalCloseButton}
                                 key="close"
                                 round
                                 aria-label="Закрыть"
-                                onClick={this.handleClose}
-                            >
+                                onClick={this.handleClose}                            >
                                 {" "}
                                 <AppIcon name="close" className={classes.modalClose}/>
                             </Button>

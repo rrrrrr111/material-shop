@@ -1,6 +1,5 @@
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
@@ -155,13 +154,15 @@ class RegPopup extends React.PureComponent {
                                                                 icon={<Check className={classes.uncheckedIcon}/>}
                                                                 classes={{checked: classes.checked}}/>
                                                   }
-                                                  label={
-                                                      <span className={classes.termAndCondAgreementLabel}>
-                                        Я принимаю условия
-                                        <Link to="/info/privacy-policy" className={classes.aClasses}> политики конфиденциальности </Link>{" "}
-                                                          и
-                                        <Link to="/info/user-agreement" className={classes.aClasses}> пользовательского соглашения </Link>{" "}.
-                                    </span>}
+                                                  label={<span className={classes.termAndCondAgreementLabel}>
+                                                            Я принимаю условия
+                                                            <Link to="/info/privacy-policy"
+                                                                  className={classes.aClasses}> политики конфиденциальности </Link>{" "}
+                                                      и
+                                                            <Link to="/info/user-agreement"
+                                                                  className={classes.aClasses}> пользовательского соглашения </Link>{" "}
+                                                      .
+                                                        </span>}
                                 />
                                 <div className={classes.textCenter}>
                                     <Button color={buttonColor}>
