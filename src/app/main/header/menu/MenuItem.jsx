@@ -1,6 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Apps from "@material-ui/icons/Apps";
-
 import AppIcon from "app/common/icon/AppIcon";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import classNames from "classnames";

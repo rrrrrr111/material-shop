@@ -1,26 +1,16 @@
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-
-
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-
-
 import Notify from "app/common/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
-
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import util from "app/utils/util";
 import Button from "lib/components/CustomButtons/Button.jsx";
-
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
-
 import PropTypes from "prop-types";
-/* eslint-disable */
 import React from "react";
-import catalogMenuMap from "./catalogMenuMap";
 import MenuItem from "./MenuItem";
-import userMenuMap from "./userMenuMap";
 
 class Menu extends React.PureComponent {
     constructor(props) {
@@ -40,6 +30,28 @@ class Menu extends React.PureComponent {
         util.notify.closeNotify(this, "emptyCartNotification");
     }
 
+    catalogMenuMap = [
+        {id: 0, name: "Презентация", to: "/", icon: null},
+        {id: 1, name: "Дазайн", to: "/design", icon: "apps"},
+        {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle"},
+        {id: 3, name: "Еще более длинное наименование меню", to: "/very-long", icon: "fingerprint"},
+        {
+            id: 4, name: "Совсем, совсем при совсем, очень длинное придлинное наименование " +
+                "меню, трали вали трали вали трали вали вали валилилилилии",
+            to: "/very-very-very-loooooong",
+            icon: "shopping_cart"
+        },
+    ];
+
+    userMenuMap = [
+        {id: 1, name: "Корзина", to: "/user/cart", icon: "shopping_cart"},
+        {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face"},
+        {id: 2, name: "История заказов", to: "/user/orders", icon: "history"},
+        {id: 3, name: "Настройки", to: "/user/settings", icon: "settings"},
+        {id: 4, name: "Смена пароля", to: "/user/password", icon: "fingerprint"},
+        {id: 5, name: "Выход", to: "/auth/signout", icon: "fas fa-sign-out-alt"},
+    ];
+
     render = () => {
         const {classes, dropdownHoverColor} = this.props;
 
@@ -57,7 +69,7 @@ class Menu extends React.PureComponent {
                         }}
                         buttonIcon={<AppIcon name="apps"/>}
                         dropdownList={
-                            catalogMenuMap.map(item =>
+                            this.catalogMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
                             )
                         }
@@ -75,7 +87,7 @@ class Menu extends React.PureComponent {
                         }}
                         buttonIcon={<AppIcon name="account_circle"/>}
                         dropdownList={
-                            userMenuMap.map(item =>
+                            this.userMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
                             )}
                     />

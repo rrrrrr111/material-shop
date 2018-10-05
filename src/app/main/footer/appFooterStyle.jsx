@@ -49,6 +49,10 @@ const appFooterStyle = {
         textDecoration: "none",
         backgroundColor: "transparent"
     },
+    pullCenter: {
+        display: "inline-block",
+        float: "none"
+    },
     block: {
         color: "inherit",
         padding: "0.9375rem",

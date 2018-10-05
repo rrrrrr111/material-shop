@@ -1,10 +1,8 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import MenuBar from "app/main/header/MenuBar.jsx";
 import Menu from "app/main/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
-
 import headerStyle from "app/main/header/headerStyle.jsx";
 import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "app/common/styles";
 

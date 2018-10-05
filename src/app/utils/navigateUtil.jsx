@@ -59,5 +59,16 @@ const navigate = {
             }
         }
     },
+
+    scrollUp: (offsetEdge) => {
+        const currentScroll = window.pageYOffset
+            || document.documentElement.scrollTop
+            || document.body.scrollTop;
+
+        if (currentScroll > offsetEdge) { // не скролим если не далеко от верхушки
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+        }
+    }
 };
 export default navigate;
