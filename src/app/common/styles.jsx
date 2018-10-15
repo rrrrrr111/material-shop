@@ -1,6 +1,6 @@
 // константы
 
-const PRIMARY_COLOR = "primary";
+const PRIMARY_COLOR = "primary"; // имена соотв классов (classes["primary"])
 const INFO_COLOR = "info";
 const SUCCESS_COLOR = "success";
 const WARNING_COLOR = "warning";
@@ -31,24 +31,23 @@ const appStyles = {
     width100: {
         width: "100%",
     },
+    // выравнивание блока
+    alignCenter: {
+        marginLeft: "auto",
+        marginRight: "auto",
+    },
     right: {
         float: "right",
     },
     left: {
         float: "left",
     },
-    alignCenter: {
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
+    // выравнивание для span или текста
     textCenter: {
         textAlign: "center"
     },
     textRight: {
         textAlign: "right"
-    },
-    floatRight: {
-        float: "right"
     }
 };
 

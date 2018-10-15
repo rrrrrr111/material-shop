@@ -24,7 +24,7 @@ const customTabsStyle = theme => ({
   tabsContainerRTL: {
     float: "right"
   },
-  tabIcon: {
+  pillIcon: {
     width: "24px",
     height: "24px",
     marginRight: "4px",

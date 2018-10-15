@@ -1,19 +1,19 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import userCartStyle from "app/cart/userCartStyle";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/styles";
-import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import Button from "lib/components/CustomButtons/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
 
-class OrdersTab extends React.Component {
+class CartGoodsTab extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    orders = [
+    cartGoods = [
         {
             date: "18.02.2018", address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",
             goods: <ul>
@@ -26,7 +26,7 @@ class OrdersTab extends React.Component {
         {
             date: "18.02.2003", address: "выа фывафыва фывафы вафывафы фыва фыва фываф2",
             goods: <ul>
-                <li>56 x sdfasdf asdf asdf asdf sdf </li>
+                <li>56 x sdfasdf asdf asdf asdf sdf</li>
             </ul>,
             amount: "1189p"
         },
@@ -55,9 +55,9 @@ class OrdersTab extends React.Component {
                 <CardBody>
                     <Table
                         tableHead={[
-                            "Дата", "Адрес доставки", "Товары", "Сумма", ""
+                            "Фото", "Наименование", "Количество", "Стоимость", ""
                         ]}
-                        tableData={this.orders.map((item) => {
+                        tableData={this.cartGoods.map((item) => {
                             return [item.date, item.address, item.cartGoods, item.amount, this.rowActionButtons];
                         })}
                         customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter]}
@@ -71,4 +71,4 @@ class OrdersTab extends React.Component {
     }
 }
 
-export default withStyles(userProfileStyle)(OrdersTab);
+export default withStyles(userCartStyle)(CartGoodsTab);

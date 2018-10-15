@@ -1,21 +1,21 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import CartGoodsTab from "app/cart/CartGoodsTab";
+import CartOrderTab from "app/cart/CartOrderTab";
+import CartPaymentTab from "app/cart/CartPaymentTab";
 import userCartStyle from "app/cart/userCartStyle";
 import {navPillsColor} from "app/common/styles";
-import OrdersTab from "app/user/profile/OrdersTab";
-import PasswordTab from "app/user/profile/PasswordTab";
-import ProfileTab from "app/user/profile/ProfileTab";
+import Wizard from "app/common/wizard/Wizard";
 import classNames from "classnames";
 import Clearfix from "lib/components/Clearfix/Clearfix";
-import NavPills from "lib/components/NavPills/NavPills";
 import React from "react";
 
 
 class UserCart extends React.PureComponent {
 
     tabsConfig = [
-        {key: "goods", content: <ProfileTab/>},
-        {key: "order", content: <OrdersTab/>},
-        {key: "payment", content: <PasswordTab/>},
+        {key: "goods", url: "/cart/goods", content: <CartGoodsTab/>},
+        {key: "order", url: "/cart/order", content: <CartOrderTab/>},
+        {key: "payment", url: "/cart/payment", content: <CartPaymentTab/>},
     ];
 
     render() {
@@ -25,19 +25,14 @@ class UserCart extends React.PureComponent {
             <div className={classes.container}>
                 <Clearfix/>
                 <div className={classes.profileTabs}>
-                    <NavPills
+                    <Wizard
                         alignCenter
-                        activeTabIndex={tabIndex}
+                        activeTabIndex={0}
                         onSwipe={this.handleSwipe}
                         onChange={this.handleChange}
                         color={navPillsColor}
-                        tabs={this.tabsConfig.map((tab) => {
-                            return {
-                                tabButton: tab.name,
-                                pillClasses: classes.profileTabPill,
-                                tabIcon: tab.icon,
-                                tabContent: tab.content
-                            }
+                        tabsConfig={this.tabsConfig.map((tab) => {
+                            return {...tab}
                         })}
                     />
                 </div>

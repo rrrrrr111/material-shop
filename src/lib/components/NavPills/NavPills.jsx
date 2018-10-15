@@ -46,18 +46,18 @@ class NavPills extends React.PureComponent {
             >
                 {tabs.map((prop, key) => {
                     var icon = {};
-                    if (prop.tabIcon !== undefined) {
-                        icon["icon"] = <AppIcon name={prop.tabIcon} className={classes.tabIcon}/>;
+                    if (prop.pillIcon !== undefined) {
+                        icon["icon"] = <AppIcon name={prop.pillIcon} className={classes.pillIcon}/>;
                     }
                     const pillsClasses = classNames({
                         [classes.pills]: true,
                         [classes.horizontalPills]: horizontal !== undefined,
-                        [classes.pillsWithIcons]: prop.tabIcon !== undefined,
+                        [classes.pillsWithIcons]: prop.pillIcon !== undefined,
                         [prop.pillClasses]: prop.pillClasses !== undefined
                     });
                     return (
                         <Tab
-                            label={prop.tabButton}
+                            label={prop.pillText}
                             key={key}
                             {...icon}
                             selected={key === activeTabIndex}
@@ -81,8 +81,8 @@ class NavPills extends React.PureComponent {
                 >
                     {tabs.map((prop, key) => {
                         return (
-                            <div className={classes.tabContent} key={key}>
-                                {prop.tabContent}
+                            <div className={classes.content} key={key}>
+                                {prop.content}
                             </div>
                         );
                     })}
@@ -112,9 +112,9 @@ class NavPills extends React.PureComponent {
         activeTabIndex: PropTypes.number,
         tabs: PropTypes.arrayOf(
             PropTypes.shape({
-                tabButton: PropTypes.string,
-                tabIcon: PropTypes.string,
-                tabContent: PropTypes.node,
+                pillText: PropTypes.string,
+                pillIcon: PropTypes.string,
+                content: PropTypes.node,
                 pillClasses: PropTypes.string,
             })
         ).isRequired,

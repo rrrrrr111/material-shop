@@ -56,7 +56,7 @@ const wizardStyle = theme => ({
   pillsWithIcons: {
     borderRadius: "4px"
   },
-  tabIcon: {
+  pillIcon: {
     width: "30px",
     height: "30px",
     display: "block",

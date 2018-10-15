@@ -60,9 +60,9 @@ class CustomTabs extends React.PureComponent {
           >
             {tabs.map((prop, key) => {
               var icon = {};
-              if (prop.tabIcon !== undefined) {
+              if (prop.pillIcon !== undefined) {
                 icon = {
-                  icon: <prop.tabIcon className={classes.tabIcon} />
+                  icon: <prop.tabIcon className={classes.pillIcon} />
                 };
               } else {
                 icon = {};
@@ -107,7 +107,7 @@ class CustomTabs extends React.PureComponent {
         <CardBody>
           {tabs.map((prop, key) => {
             if (key === this.state.value) {
-              return <div key={key}>{prop.tabContent}</div>;
+              return <div key={key}>{prop.content}</div>;
             }
             return null;
           })}
@@ -135,8 +135,8 @@ CustomTabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       tabName: PropTypes.string.isRequired,
-      tabIcon: PropTypes.func,
-      tabContent: PropTypes.node.isRequired
+      pillIcon: PropTypes.func,
+      content: PropTypes.node.isRequired
     })
   ),
   rtlActive: PropTypes.bool,

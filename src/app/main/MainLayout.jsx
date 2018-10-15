@@ -1,3 +1,4 @@
+import UserCart from "app/cart/UserCart";
 import Feed from "app/feed/Feed";
 
 import AppFooter from "app/main/footer/AppFooter";
@@ -23,6 +24,7 @@ class MainLayout extends React.PureComponent {
                 <Switch>
                     {/* контент главного окна */}
                     <Route path={"/user/:activeTabKey"} component={UserProfile}/>
+                    <Route path={"/cart/:activeTabKey"} component={UserCart}/>
                     <Route path="/" component={Feed}/>
                 </Switch>
                 <Switch>

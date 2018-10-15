@@ -38,10 +38,6 @@ class UserProfile extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        const tabIndex = this.getTabIndex(nextProps);
-        if (tabIndex < 0) {
-            return false;
-        }
         return this.state.activeTabKey !== nextProps.match.params.activeTabKey;
     }
 
@@ -85,10 +81,10 @@ class UserProfile extends React.Component {
                         color={navPillsColor}
                         tabs={this.tabsConfig.map((tab) => {
                             return {
-                                tabButton: tab.name,
+                                pillText: tab.name,
                                 pillClasses: classes.profileTabPill,
-                                tabIcon: tab.icon,
-                                tabContent: tab.content
+                                pillIcon: tab.icon,
+                                content: tab.content
                             }
                         })}
                     />
