@@ -30,13 +30,6 @@ const userProfileStyle = {
         width: 115,
         height: 120,
     },
-    footerContainer: {
-        ...appStyles.width100,
-    },
-    footerButton: {
-        ...appStyles.right,
-        margin: "30px 20px 20px 20px",
-    },
     profileTab: {
         ...commonTabStyle,
     },

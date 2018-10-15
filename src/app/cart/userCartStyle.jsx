@@ -1,5 +1,7 @@
-const userCartStyle = {
+import {appStyles} from "app/common/styles";
 
+const userCartStyle = {
+    ...appStyles,
 
 };
 

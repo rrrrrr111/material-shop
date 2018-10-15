@@ -3,7 +3,6 @@ import CartGoodsTab from "app/cart/CartGoodsTab";
 import CartOrderTab from "app/cart/CartOrderTab";
 import CartPaymentTab from "app/cart/CartPaymentTab";
 import userCartStyle from "app/cart/userCartStyle";
-import {navPillsColor} from "app/common/styles";
 import Wizard from "app/common/wizard/Wizard";
 import classNames from "classnames";
 import Clearfix from "lib/components/Clearfix/Clearfix";
@@ -13,9 +12,20 @@ import React from "react";
 class UserCart extends React.PureComponent {
 
     tabsConfig = [
-        {key: "goods", url: "/cart/goods", content: <CartGoodsTab/>},
-        {key: "order", url: "/cart/order", content: <CartOrderTab/>},
-        {key: "payment", url: "/cart/payment", content: <CartPaymentTab/>},
+        {
+            key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
+            nextButtonText: "К оформлению заказа"
+        },
+        {
+            key: "order", url: "/cart/order", content: <CartOrderTab/>,
+            prevButtonText: "Назад",
+            nextButtonText: "К оплате"
+        },
+        {
+            key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
+            prevButtonText: "Назад",
+            nextButtonText: "Закрыть"
+        },
     ];
 
     render() {
@@ -25,15 +35,10 @@ class UserCart extends React.PureComponent {
             <div className={classes.container}>
                 <Clearfix/>
                 <div className={classes.profileTabs}>
-                    <Wizard
-                        alignCenter
-                        activeTabIndex={0}
-                        onSwipe={this.handleSwipe}
-                        onChange={this.handleChange}
-                        color={navPillsColor}
-                        tabsConfig={this.tabsConfig.map((tab) => {
-                            return {...tab}
-                        })}
+                    <Wizard tabsConfig={this.tabsConfig.map((tab) => {
+                        return {...tab}
+                    })}
+                            finalUrl={"/"}
                     />
                 </div>
                 <Clearfix/>

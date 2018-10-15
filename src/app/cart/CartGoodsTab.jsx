@@ -7,6 +7,7 @@ import CardBody from "lib/components/Card/CardBody.jsx";
 import Button from "lib/components/CustomButtons/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
+import {withRouter} from "react-router";
 
 class CartGoodsTab extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class CartGoodsTab extends React.Component {
     });
 
     render() {
-        const {classes} = this.props;
+        const {classes, history} = this.props;
         return (
             <Card className={classes.ordersTab}>
                 <CardBody>
@@ -71,4 +72,4 @@ class CartGoodsTab extends React.Component {
     }
 }
 
-export default withStyles(userCartStyle)(CartGoodsTab);
+export default withStyles(userCartStyle)(withRouter(CartGoodsTab));

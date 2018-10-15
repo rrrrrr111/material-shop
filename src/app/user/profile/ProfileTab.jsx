@@ -76,8 +76,8 @@ class ProfileTab extends React.Component {
                     </GridContainer>
                 </CardBody>
                 <CardFooter>
-                    <div className={classes.footerContainer}>
-                        <Button color={buttonColor} className={classes.footerButton}>
+                    <div className={classes.width100}>
+                        <Button color={buttonColor} className={classes.cardFooterRightButton}>
                             Обновить профиль
                         </Button>
                     </div>

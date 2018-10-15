@@ -19,8 +19,10 @@ class UserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.history = props.history;
+        let tabIndex = this.getTabIndex(this.props);
+        tabIndex = tabIndex >= 0 ? tabIndex : 0; // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
         this.state = {
-            activeTabKey: this.tabsConfig[0].key,
+            activeTabKey: this.tabsConfig[tabIndex].key,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSwipe = this.handleSwipe.bind(this);
@@ -43,6 +45,9 @@ class UserProfile extends React.Component {
 
     componentWillUpdate(nextProps, nextState, nextContext) {
         const tabIndex = this.getTabIndex(nextProps);
+        if (tabIndex < 0) { // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
+            return;
+        }
         this.setState({activeTabKey: this.tabsConfig[tabIndex].key,});
     }
 

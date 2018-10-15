@@ -48,7 +48,16 @@ const appStyles = {
     },
     textRight: {
         textAlign: "right"
-    }
+    },
+
+    cardFooterLeftButton: {
+        float: "left",
+        margin: "30px 20px 20px 20px",
+    },
+    cardFooterRightButton: {
+        float: "right",
+        margin: "30px 20px 20px 20px",
+    },
 };
 
 export {
