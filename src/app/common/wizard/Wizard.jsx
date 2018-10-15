@@ -28,6 +28,7 @@ class Wizard extends React.Component {
         this.handleSwipe = this.handleSwipe.bind(this);
         this.handleClickPrev = this.handleClickPrev.bind(this);
         this.handleClickNext = this.handleClickNext.bind(this);
+        util.navigate.scrollUp(150);
     }
 
     handleSwipe = activeTabIndex => {
@@ -63,7 +64,7 @@ class Wizard extends React.Component {
             }
             util.navigate.goToUrl(url, history);
 
-        }, 1000, {leading: true, trailing: false});
+        }, 500, {leading: true, trailing: false});
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         return this.state.activeTabKey !== nextProps.match.params.activeTabKey;

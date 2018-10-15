@@ -26,6 +26,7 @@ class UserProfile extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSwipe = this.handleSwipe.bind(this);
+        util.navigate.scrollUp(150);
     }
 
     handleChange = (event, activeTabIndex) => {

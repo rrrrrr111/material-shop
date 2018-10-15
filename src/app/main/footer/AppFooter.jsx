@@ -58,7 +58,7 @@ class AppFooter extends React.PureComponent {
                                         }}> Регистрация </NavLink>
                                     </p>
                                     <p><NavLink to="/user/profile"> Профиль пользователя </NavLink></p>
-                                    <p><NavLink to="/user/cart"> Корзина </NavLink></p>
+                                    <p><NavLink to="/cart/goods"> Корзина </NavLink></p>
                                     <p><NavLink to="/user/orders"> История заказов </NavLink></p>
                                     <p><NavLink to="/user/settings"> Настройки </NavLink></p>
                                     <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
