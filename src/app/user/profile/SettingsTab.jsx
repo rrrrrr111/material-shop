@@ -12,7 +12,7 @@ import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import React from "react";
 
-class SettingsTab extends React.Component {
+class SettingsTab extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,7 +59,7 @@ class SettingsTab extends React.Component {
                 </CardBody>
                 <CardFooter>
                     <div className={classes.width100}>
-                        <Button color={buttonColor} className={classes.cardFooterRightButton}>
+                        <Button color={buttonColor} className={classes.cardFooterButton}>
                             Сохранить
                         </Button>
                     </div>

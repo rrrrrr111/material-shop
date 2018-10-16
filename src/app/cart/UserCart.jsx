@@ -13,20 +13,24 @@ class UserCart extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        const classes = props.classes;
+
         this.state = {
             tabsConfig: [
                 {
                     key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
-                    containerClassName: props.classes.goodsContainer,
+                    containerClassName: classes.goodsContainer,
                     nextButtonText: "К оформлению заказа",
                 },
                 {
                     key: "order", url: "/cart/order", content: <CartOrderTab/>,
+                    containerClassName: classes.orderContainer,
                     prevButtonText: "Назад",
                     nextButtonText: "К оплате",
                 },
                 {
                     key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
+                    containerClassName: classes.paymentContainer,
                     prevButtonText: "Назад",
                     nextButtonText: "Закрыть",
                 },

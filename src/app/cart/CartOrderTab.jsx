@@ -4,10 +4,7 @@ import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import React from "react";
 
-class CartOrderTab extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+class CartOrderTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;

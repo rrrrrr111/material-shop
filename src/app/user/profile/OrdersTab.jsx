@@ -8,11 +8,7 @@ import Button from "app/common/button/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
 
-class OrdersTab extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+class OrdersTab extends React.PureComponent {
     orders = [
         {
             date: "18.02.2018", address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",

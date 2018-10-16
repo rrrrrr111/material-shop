@@ -46,6 +46,8 @@ class AppIcon extends React.PureComponent {
                         </Icon>
                     )
                 }
+            default:
+                break;
         }
         return null;
     }

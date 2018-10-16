@@ -7,6 +7,14 @@ const userCartStyle = theme => ({
         ...appStyles(theme).centeredContainer,
         maxWidth: 1200,
     },
+    orderContainer: {
+        ...appStyles(theme).centeredContainer,
+        maxWidth: 1200,
+    },
+    paymentContainer: {
+        ...appStyles(theme).centeredContainer,
+        maxWidth: 1200,
+    },
     imgContainer: {
         width: "60px",
         maxHeight: "80px",

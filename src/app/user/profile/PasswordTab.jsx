@@ -10,10 +10,7 @@ import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import React from "react";
 
-class PasswordTab extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+class PasswordTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
@@ -72,7 +69,7 @@ class PasswordTab extends React.Component {
                 </CardBody>
                 <CardFooter>
                     <div className={classes.width100}>
-                        <Button color={buttonColor} className={classes.cardFooterRightButton}>
+                        <Button color={buttonColor} className={classes.cardFooterButton}>
                             Сменить пароль
                         </Button>
                     </div>

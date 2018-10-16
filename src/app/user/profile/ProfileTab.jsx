@@ -10,10 +10,7 @@ import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import React from "react";
 
-class ProfileTab extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+class ProfileTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;

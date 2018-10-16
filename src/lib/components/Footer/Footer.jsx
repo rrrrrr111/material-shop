@@ -9,7 +9,7 @@ import React from "react";
 function Footer(props) {
     const {children, content, classes, theme, big, className} = props;
     const themeType =
-        theme === "transparent" || theme == undefined ? false : true;
+        theme === "transparent" || theme === undefined ? false : true;
     const footerClasses = classNames({
         [classes.footer]: true,
         [classes[theme]]: themeType,
