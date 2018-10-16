@@ -6,6 +6,7 @@ import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
 import customInputStyle from "app/common/input/customInputStyle.jsx";
 import MaskedInputWrapper from "app/common/input/MaskedInputWrapper";
+import NumberInputWrapper from "app/common/input/NumberInputWrapper";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -20,11 +21,13 @@ function CustomInput({...props}) {
         id,
         labelProps,
         inputProps,
+        numberProps,
         maskProps,
         error,
         white,
         inputRootCustomClasses,
-        success
+        success,
+        inputClasses,
     } = props;
 
     const labelClasses = classNames({
@@ -40,7 +43,8 @@ function CustomInput({...props}) {
     const marginTop = classNames({
         [inputRootCustomClasses]: inputRootCustomClasses !== undefined
     });
-    const inputClasses = classNames({
+    const inputClassNames = classNames({
+        [inputClasses]: inputClasses,
         [classes.input]: true,
         [classes.whiteInput]: white
     });
@@ -50,7 +54,7 @@ function CustomInput({...props}) {
     const input = (
         <Input
             classes={{
-                input: inputClasses,
+                input: inputClassNames,
                 root: marginTop,
                 disabled: classes.disabled,
                 underline: underlineClasses
@@ -59,12 +63,18 @@ function CustomInput({...props}) {
             {...inputProps}
             inputComponent={
                 maskProps === undefined
-                    ? null
+                    ? (numberProps === undefined
+                        ? null
+                        : NumberInputWrapper
+                    )
                     : MaskedInputWrapper
             }
             inputProps={
                 maskProps === undefined
-                    ? null
+                    ? (numberProps === undefined
+                        ? null
+                        : numberProps
+                    )
                     : maskProps
             }
         />
@@ -98,8 +108,10 @@ CustomInput.propTypes = {
     id: PropTypes.string,
     inputProps: PropTypes.object,
     maskProps: PropTypes.object,
+    numberProps: PropTypes.object,
     formControlProps: PropTypes.object,
     inputRootCustomClasses: PropTypes.string,
+    inputClasses: PropTypes.string,
     error: PropTypes.bool,
     success: PropTypes.bool,
     white: PropTypes.bool

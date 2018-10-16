@@ -15,6 +15,11 @@ const userCartStyle = theme => ({
     goodsName: {
         color: "#3C4858",
     },
+    quantityInput: {
+        ...appStyles(theme).textRight,
+        marginRight: 20,
+        width: 40,
+    },
     price: {
         whiteSpace: "nowrap",
     },

@@ -15,7 +15,6 @@ function MaskedInputWrapper(props) {
 
 MaskedInputWrapper.propTypes = {
     inputRef: PropTypes.func.isRequired,
-    maskProps: PropTypes.object.isRequired,
 };
 
 export default (MaskedInputWrapper);

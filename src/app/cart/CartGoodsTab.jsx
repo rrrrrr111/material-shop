@@ -69,13 +69,16 @@ class CartGoodsTab extends React.Component {
                                         formControlProps={{
                                             width: "10px",
                                         }}
+                                        inputClasses={classes.quantityInput}
                                         inputProps={{
                                             autoComplete: "off",
                                             value: item.quantity,
                                         }}
-                                        maskProps={{
-                                            mask: [/[1-9]{2}/],
-                                            showMask: false,
+                                        numberProps={{
+                                            allowNegative: false,
+                                            decimalScale: 0,
+                                            thousandSeparator: ' ',
+                                            maxlength: 4,
                                         }}
                                     />
                                     <Button simple justIcon size="sm" color={iconButtonColor}>
