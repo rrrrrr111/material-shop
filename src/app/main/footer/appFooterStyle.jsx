@@ -2,12 +2,12 @@ import {appStyles} from "app/common/styles";
 import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
-const appFooterStyle = {
+const appFooterStyle = theme => ({
     ...imagesStyles,
     container,
     title,
     description,
-    ...appStyles,
+    ...appStyles(theme),
     dividerBlock: {
         height: 40
     },
@@ -147,6 +147,6 @@ const appFooterStyle = {
         color: "#666",
         margin: "0 5px 0 5px",
     },
-};
+});
 
 export default appFooterStyle;

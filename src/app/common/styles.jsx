@@ -26,8 +26,7 @@ const popupHeaderColor = ROSE_COLOR;
 const buttonColor = ROSE_COLOR;
 const navPillsColor = ROSE_COLOR;
 
-// общие стили
-const appStyles = {
+const simpleStyles = theme => ({
     width100: {
         width: "100%",
     },
@@ -49,16 +48,43 @@ const appStyles = {
     textRight: {
         textAlign: "right"
     },
+});
 
-    cardFooterLeftButton: {
-        float: "left",
+// общие стили
+const appStyles = theme => ({
+    ...simpleStyles(theme),
+
+    // кнопки в подвале формы
+    cardFooterButton: {
         margin: "30px 20px 20px 20px",
+        float: "none",
+        display: "block",
+        ...simpleStyles(theme).alignCenter,
+        [theme.breakpoints.up("sm")]: {
+            "&.left": {
+                ...simpleStyles(theme).left,
+            },
+            "&.right": {
+                ...simpleStyles(theme).right,
+            },
+        },
     },
-    cardFooterRightButton: {
-        float: "right",
-        margin: "30px 20px 20px 20px",
+
+    // иконка в кнопке
+    buttonRightIcon: {
+        "&.fab,&.fas,&.far,&.fal,&.material-icons": { // больше добавоных классов для перекрытия дефолтного стиля
+            margin: "-5px -10px -5px 10px",
+            fontSize: "1.25rem",
+        },
+
     },
-};
+    buttonLeftIcon: {
+        "&.fab,&.fas,&.far,&.fal,&.material-icons": {
+            margin: "-5px 10px -5px -10px",
+            fontSize: "1.25rem",
+        }
+    },
+});
 
 export {
     PRIMARY_COLOR,

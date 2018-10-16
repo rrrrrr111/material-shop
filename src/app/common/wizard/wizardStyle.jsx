@@ -5,7 +5,7 @@
 import {appStyles} from "app/common/styles";
 
 const wizardStyle = theme => ({
-    ...appStyles,
+    ...appStyles(theme),
 
     contentWrapper: {
         marginTop: "20px",

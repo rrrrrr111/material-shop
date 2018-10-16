@@ -3,19 +3,19 @@ import {container, formControl, labelRoot, main, mainRaised} from "lib/assets/js
 import customInputStyle from "lib/assets/jss/material-kit-pro-react/components/customInputStyle";
 import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle";
 
-const commonTabStyle = {
+const commonTabStyle = theme => ({
     maxWidth: 600,
-    ...appStyles.width100,
-    ...appStyles.alignCenter,
-};
+    ...appStyles(theme).width100,
+    ...appStyles(theme).alignCenter,
+});
 
-const userProfileStyle = {
+const userProfileStyle = theme => ({
     ...customCheckboxRadioSwitch,
     ...labelRoot,
     ...formControl,
     ...customInputStyle,
     ...container,
-    ...appStyles,
+    ...appStyles(theme),
     main: {
         ...main
     },
@@ -31,18 +31,18 @@ const userProfileStyle = {
         height: 120,
     },
     profileTab: {
-        ...commonTabStyle,
+        ...commonTabStyle(theme),
     },
     ordersTab: {
-        ...commonTabStyle,
+        ...commonTabStyle(theme),
         maxWidth: 800,
     },
     settingsTab: {
-        ...commonTabStyle,
+        ...commonTabStyle(theme),
     },
     passwordTab: {
-        ...commonTabStyle,
+        ...commonTabStyle(theme),
     },
-};
+});
 
 export default userProfileStyle;

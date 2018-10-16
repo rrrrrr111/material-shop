@@ -16,7 +16,7 @@ const regPopupStyle = theme => ({
     ...popoverStyles,
     ...modalStyle(theme),
     ...customCheckboxRadioSwitch,
-    ...appStyles,
+    ...appStyles(theme),
     container: {
         ...container,
         zIndex: "2",

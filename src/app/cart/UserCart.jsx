@@ -11,22 +11,28 @@ import React from "react";
 
 class UserCart extends React.PureComponent {
 
-    tabsConfig = [
-        {
-            key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
-            nextButtonText: "К оформлению заказа"
-        },
-        {
-            key: "order", url: "/cart/order", content: <CartOrderTab/>,
-            prevButtonText: "Назад",
-            nextButtonText: "К оплате"
-        },
-        {
-            key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
-            prevButtonText: "Назад",
-            nextButtonText: "Закрыть"
-        },
-    ];
+    constructor(props) {
+        super(props);
+        this.state = {
+            tabsConfig: [
+                {
+                    key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
+                    nextButtonText: "К оформлению заказа"
+                },
+                {
+                    key: "order", url: "/cart/order", content: <CartOrderTab/>,
+                    prevButtonText: "Назад",
+                    nextButtonText: "К оплате"
+                },
+                {
+                    key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
+                    prevButtonText: "Назад",
+                    nextButtonText: "Закрыть"
+                },
+            ],
+            finalUrl: "/",
+        };
+    }
 
     render() {
         const {classes} = this.props;
@@ -35,10 +41,10 @@ class UserCart extends React.PureComponent {
             <div className={classes.container}>
                 <Clearfix/>
                 <div className={classes.profileTabs}>
-                    <Wizard tabsConfig={this.tabsConfig.map((tab) => {
+                    <Wizard tabsConfig={this.state.tabsConfig.map((tab) => {
                         return {...tab}
                     })}
-                            finalUrl={"/"}
+                            finalUrl={this.state.finalUrl}
                     />
                 </div>
                 <Clearfix/>

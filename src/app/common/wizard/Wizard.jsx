@@ -3,6 +3,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
 import util from "app/utils/util";
+import classNames from "classnames";
 import Button from "lib/components/CustomButtons/Button";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
@@ -58,12 +59,9 @@ class Wizard extends React.Component {
             if (tabIndex === this.props.tabsConfig.length) {
                 url = this.props.finalUrl;
             } else {
-
-                console.log('function executed tabIndex:' + tabIndex);
                 url = this.props.tabsConfig[tabIndex].url;
             }
             util.navigate.goToUrl(url, history);
-
         }, 500, {leading: true, trailing: false});
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -95,12 +93,12 @@ class Wizard extends React.Component {
         if (buttonText === undefined) {
             return null;
         }
-        return <Button color={buttonColor} className={classes.cardFooterLeftButton}
+        return <Button color={buttonColor} className={classNames(classes.cardFooterButton, "left")}
                        aria-label={buttonText}
                        aria-haspopup="false"
                        onClick={this.handleClickPrev}
         >
-            <AppIcon name="shopping_cart"/>
+            <AppIcon name="fas fa-arrow-left" className={classes.buttonLeftIcon}/>
             {buttonText}
         </Button>;
     };
@@ -110,13 +108,17 @@ class Wizard extends React.Component {
         if (buttonText === undefined) {
             return null;
         }
-        return <Button color={buttonColor} className={classes.cardFooterRightButton}
+        return <Button color={buttonColor} className={classNames(classes.cardFooterButton, "right")}
                        aria-label={buttonText}
                        aria-haspopup="false"
                        onClick={this.handleClickNext}
         >
             {buttonText}
-            <AppIcon name="shopping_cart"/>
+            {this.props.tabsConfig[this.props.tabsConfig.length - 1].key === tabConfig.key
+                ? null
+                : <AppIcon name="fas fa-arrow-right" className={classes.buttonRightIcon}/>
+            }
+
         </Button>;
     }
 
@@ -144,10 +146,9 @@ class Wizard extends React.Component {
                         return (
                             <div key={key}>
                                 {tabConfig.content}
-
                                 <div className={classes.width100}>
-                                    {this.renderPrevButton(classes, tabConfig)}
                                     {this.renderNextButton(classes, tabConfig)}
+                                    {this.renderPrevButton(classes, tabConfig)}
                                 </div>
                             </div>
                         );
