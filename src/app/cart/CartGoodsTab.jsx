@@ -91,7 +91,7 @@ class CartGoodsTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         return (
-            <Card>
+            <Card className={classes.goodsTableContainer}>
                 <CardBody>
                     <Table
                         tableHead={[
@@ -146,10 +146,10 @@ class CartGoodsTab extends React.PureComponent {
                                 </Button>
                             ];
                         })}
-                        customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter]}
-                        customClassesForCells={[0, 3, 4]}
-                        customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter]}
-                        customHeadClassesForCells={[0, 3, 4]}
+                        customCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
+                        customClassesForCells={[0, 2, 3, 4]}
+                        customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
+                        customHeadClassesForCells={[0, 2, 3, 4]}
                     />
                 </CardBody>
             </Card>

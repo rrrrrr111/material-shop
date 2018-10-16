@@ -15,7 +15,11 @@ const userCartStyle = theme => ({
         ...appStyles(theme).centeredContainer,
         maxWidth: 1200,
     },
+    goodsTableContainer: {
+        minHeight: 400,
+    },
     imgContainer: {
+        ...appStyles(theme).alignCenter,
         width: "60px",
         maxHeight: "80px",
         overflow: "hidden",
