@@ -48,7 +48,7 @@ class CartGoodsTab extends React.Component {
     render() {
         const {classes, history} = this.props;
         return (
-            <Card className={classes.ordersTab}>
+            <Card>
                 <CardBody>
                     <Table
                         tableHead={[

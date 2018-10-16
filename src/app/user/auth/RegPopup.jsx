@@ -112,6 +112,9 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Имя...",
                                         name: "Name",
                                     }}
+                                    otherProps={{
+                                        maxLength: 100,
+                                    }}
                                 />
                                 <CustomInput
                                     formControlProps={{
@@ -128,7 +131,11 @@ class RegPopup extends React.PureComponent {
                                         autoComplete: "on",
                                         placeholder: "Email...",
                                         name: "Email",
-                                    }}/>
+                                    }}
+                                    otherProps={{
+                                        maxLength: 200,
+                                    }}
+                                />
                                 <CustomInput
                                     formControlProps={{fullWidth: true,}}
                                     inputProps={{
@@ -143,6 +150,9 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Пароль...",
                                         type: "password",
                                         name: "password",
+                                    }}
+                                    otherProps={{
+                                        maxLength: 100,
                                     }}
                                 />
                                 <FormControlLabel className={classes.termAndCondAgreementBox}

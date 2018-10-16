@@ -75,6 +75,12 @@ const simpleStyles = theme => ({
 const appStyles = theme => ({
     ...simpleStyles(theme),
 
+    // растягивающийся контейнер по центру экрана, можно добавить maxWidth
+    centeredContainer: {
+        ...simpleStyles(theme).width100,
+        ...simpleStyles(theme).alignCenter
+    },
+
     // кнопки в подвале формы
     cardFooterButton: {
         margin: "30px 20px 20px 20px",

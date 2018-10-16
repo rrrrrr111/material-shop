@@ -1,12 +1,11 @@
+import customInputStyle from "app/common/input/customInputStyle";
 import {appStyles} from "app/common/styles";
 import {container, formControl, labelRoot, main, mainRaised} from "lib/assets/jss/material-kit-pro-react.jsx";
-import customInputStyle from "app/common/input/customInputStyle";
 import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle";
 
 const commonTabStyle = theme => ({
     maxWidth: 600,
-    ...appStyles(theme).width100,
-    ...appStyles(theme).alignCenter,
+    ...appStyles(theme).centeredContainer,
 });
 
 const userProfileStyle = theme => ({

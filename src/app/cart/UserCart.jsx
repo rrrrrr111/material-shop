@@ -17,17 +17,18 @@ class UserCart extends React.PureComponent {
             tabsConfig: [
                 {
                     key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
-                    nextButtonText: "К оформлению заказа"
+                    containerClassName: props.classes.goodsContainer,
+                    nextButtonText: "К оформлению заказа",
                 },
                 {
                     key: "order", url: "/cart/order", content: <CartOrderTab/>,
                     prevButtonText: "Назад",
-                    nextButtonText: "К оплате"
+                    nextButtonText: "К оплате",
                 },
                 {
                     key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
                     prevButtonText: "Назад",
-                    nextButtonText: "Закрыть"
+                    nextButtonText: "Закрыть",
                 },
             ],
             finalUrl: "/",

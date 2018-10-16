@@ -1,10 +1,10 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
-import Button from "app/common/button/Button";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import debounce from 'lodash/debounce'
@@ -144,7 +144,10 @@ class Wizard extends React.Component {
                 >
                     {tabsConfig.map((tabConfig, key) => {
                         return (
-                            <div key={key}>
+                            <div key={key} className={
+                                classNames({
+                                    [tabConfig.containerClassName]: tabConfig.containerClassName,
+                                })}>
                                 {tabConfig.content}
                                 <div className={classes.width100}>
                                     {this.renderNextButton(classes, tabConfig)}
@@ -174,6 +177,7 @@ class Wizard extends React.Component {
                 key: PropTypes.string.isRequired,
                 url: PropTypes.string.isRequired,
                 content: PropTypes.node.isRequired,
+                containerClassName: PropTypes.string,
                 prevButtonText: PropTypes.string,
                 nextButtonText: PropTypes.string,
             })

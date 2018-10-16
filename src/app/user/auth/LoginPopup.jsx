@@ -113,6 +113,9 @@ class LoginPopup extends React.PureComponent {
                                         placeholder: "Email...",
                                         name: "Email",
                                     }}
+                                    otherProps={{
+                                        maxLength: 200,
+                                    }}
                                 />
                                 <CustomInput
                                     id="login-modal-pass"
@@ -131,6 +134,9 @@ class LoginPopup extends React.PureComponent {
                                         placeholder: "Пароль...",
                                         type: "password",
                                         name: "password",
+                                    }}
+                                    otherProps={{
+                                        maxLength: 100,
                                     }}
                                 />
                             </CardBody>

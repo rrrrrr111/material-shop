@@ -31,6 +31,9 @@ class PasswordTab extends React.Component {
                                     autoComplete: "off",
                                     type: "password",
                                 }}
+                                otherProps={{
+                                    maxLength: 100,
+                                }}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
@@ -42,6 +45,9 @@ class PasswordTab extends React.Component {
                                 inputProps={{
                                     autoComplete: "off",
                                     type: "password",
+                                }}
+                                otherProps={{
+                                    maxLength: 100,
                                 }}
                             />
                         </GridItem>
@@ -56,6 +62,9 @@ class PasswordTab extends React.Component {
                                 inputProps={{
                                     autoComplete: "off",
                                     type: "password",
+                                }}
+                                otherProps={{
+                                    maxLength: 100,
                                 }}
                             />
                         </GridItem>

@@ -10,7 +10,6 @@ import NumberInputWrapper from "app/common/input/NumberInputWrapper";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import {MaskedInput} from "react-text-mask";
 
 
 function CustomInput({...props}) {
@@ -22,6 +21,7 @@ function CustomInput({...props}) {
         labelProps,
         inputProps,
         numberProps,
+        otherProps,
         maskProps,
         error,
         white,
@@ -53,18 +53,18 @@ function CustomInput({...props}) {
         : classes.formControl;
     const input = (
         <Input
+            id={id}
             classes={{
                 input: inputClassNames,
                 root: marginTop,
                 disabled: classes.disabled,
                 underline: underlineClasses
             }}
-            id={id}
             {...inputProps}
             inputComponent={
                 maskProps === undefined
                     ? (numberProps === undefined
-                        ? null
+                        ? undefined
                         : NumberInputWrapper
                     )
                     : MaskedInputWrapper
@@ -72,7 +72,10 @@ function CustomInput({...props}) {
             inputProps={
                 maskProps === undefined
                     ? (numberProps === undefined
-                        ? null
+                        ? (otherProps === undefined
+                                ? undefined
+                                : otherProps
+                        )
                         : numberProps
                     )
                     : maskProps
@@ -109,6 +112,7 @@ CustomInput.propTypes = {
     inputProps: PropTypes.object,
     maskProps: PropTypes.object,
     numberProps: PropTypes.object,
+    otherProps: PropTypes.object, // баг, maxLength не передается через обычные атрибуты, но работает через inputProps
     formControlProps: PropTypes.object,
     inputRootCustomClasses: PropTypes.string,
     inputClasses: PropTypes.string,

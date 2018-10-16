@@ -3,6 +3,10 @@ import {appStyles} from "app/common/styles";
 const userCartStyle = theme => ({
     ...appStyles(theme),
 
+    goodsContainer: {
+        ...appStyles(theme).centeredContainer,
+        maxWidth: 1200,
+    },
     imgContainer: {
         width: "60px",
         maxHeight: "80px",
