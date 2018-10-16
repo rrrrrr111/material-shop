@@ -8,8 +8,8 @@ import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import Table from "lib/components/Table/Table";
-import React from "react";
 import toNumber from 'lodash/toNumber'
+import React from "react";
 import {withRouter} from "react-router";
 import {Link} from "react-router-dom";
 
@@ -70,12 +70,17 @@ class CartGoodsTab extends React.PureComponent {
     handleChangeQuantity = (e, index) => {
         this.changeQuantity(index, toNumber(e.target.value));
     };
+
     changeQuantity(index, newQuantity) {
-        this.state.cartGoods[index] = {...this.state.cartGoods[index], quantity: newQuantity};
-        this.setState({...this.state.cartGoods});
+        const goods = this.state.cartGoods;
+        goods.splice(index, 1, {...goods[index], quantity: newQuantity});
+        this.setState({...goods});
     }
+
     handleClickDelete = (e, index) => {
-        this.setState({...this.state.cartGoods.splice(index, 1)});
+        const goods = this.state.cartGoods;
+        goods.splice(index, 1);
+        this.setState({cartGoods: [...goods]});
     };
 
     render() {
