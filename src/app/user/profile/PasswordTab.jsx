@@ -5,7 +5,7 @@ import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import CardFooter from "lib/components/Card/CardFooter.jsx";
 import Button from "app/common/button/Button.jsx";
-import CustomInput from "lib/components/CustomInput/CustomInput";
+import CustomInput from "app/common/input/CustomInput";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import React from "react";

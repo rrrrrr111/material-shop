@@ -1,11 +1,12 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
+import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
+import CustomInput from "app/common/input/CustomInput";
 import {iconButtonColor} from "app/common/styles";
 import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
-import Button from "app/common/button/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
 import {withRouter} from "react-router";
@@ -64,7 +65,25 @@ class CartGoodsTab extends React.Component {
                                 </Link>
                                 ,
                                 <span>
-                                    {item.quantity}
+                                    <CustomInput
+                                        formControlProps={{
+                                            width: "10px",
+                                        }}
+                                        inputProps={{
+                                            autoComplete: "off",
+                                            value: item.quantity,
+                                        }}
+                                        maskProps={{
+                                            mask: [/[1-9]{2}/],
+                                            showMask: false,
+                                        }}
+                                    />
+                                    <Button simple justIcon size="sm" color={iconButtonColor}>
+                                        <AppIcon name="fas fa-plus-circle"/>
+                                    </Button>
+                                    <Button simple justIcon size="sm" color={iconButtonColor}>
+                                        <AppIcon name="fas fa-minus-circle"/>
+                                    </Button>
                                 </span>
                                 ,
                                 <span className={classes.price}>
