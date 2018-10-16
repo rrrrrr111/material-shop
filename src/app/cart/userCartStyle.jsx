@@ -27,9 +27,11 @@ const userCartStyle = theme => ({
     goodsName: {
         color: "#3C4858",
     },
+    quantityCustomInput: {
+        padding: 0,
+    },
     quantityInput: {
-        ...appStyles(theme).textRight,
-        marginRight: 20,
+        ...appStyles(theme).textCenter,
         width: 40,
     },
     price: {

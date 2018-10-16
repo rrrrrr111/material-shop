@@ -108,9 +108,14 @@ class CartGoodsTab extends React.PureComponent {
                                 </Link>
                                 ,
                                 <span>
+                                    <Button simple justIcon size="sm" color={iconButtonColor}
+                                            onClick={this.handleClickMinus.bind(this, null, index)}>
+                                        <AppIcon name="fas fa-minus"/>
+                                    </Button>
                                     <CustomInput
                                         formControlProps={{
                                             width: "10px",
+                                            className: classes.quantityCustomInput
                                         }}
                                         inputClasses={classes.quantityInput}
                                         inputProps={{
@@ -127,11 +132,7 @@ class CartGoodsTab extends React.PureComponent {
                                     />
                                     <Button simple justIcon size="sm" color={iconButtonColor}
                                             onClick={this.handleClickPlus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-plus-circle"/>
-                                    </Button>
-                                    <Button simple justIcon size="sm" color={iconButtonColor}
-                                            onClick={this.handleClickMinus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-minus-circle"/>
+                                        <AppIcon name="fas fa-plus"/>
                                     </Button>
                                 </span>
                                 ,
