@@ -60,11 +60,16 @@ class CartGoodsTab extends React.PureComponent {
     }
 
     handleClickMinus = (e, index) => {
-        const newQuantity = Math.max(this.state.cartGoods[index].quantity - 1, 0);
+        const newQuantity = Math.max(this.getGoods()[index].quantity - 1, 0);
         this.changeQuantity(index, newQuantity);
     };
+
+    getGoods() {
+        return this.state.cartGoods;
+    }
+
     handleClickPlus = (e, index) => {
-        const newQuantity = Math.min(this.state.cartGoods[index].quantity + 1, 9999);
+        const newQuantity = Math.min(this.getGoods()[index].quantity + 1, 9999);
         this.changeQuantity(index, newQuantity);
     };
     handleChangeQuantity = (e, index) => {
@@ -72,13 +77,13 @@ class CartGoodsTab extends React.PureComponent {
     };
 
     changeQuantity(index, newQuantity) {
-        const goods = this.state.cartGoods;
+        const goods = this.getGoods();
         goods.splice(index, 1, {...goods[index], quantity: newQuantity});
         this.setState({...goods});
     }
 
     handleClickDelete = (e, index) => {
-        const goods = this.state.cartGoods;
+        const goods = this.getGoods();
         goods.splice(index, 1);
         this.setState({cartGoods: [...goods]});
     };
