@@ -14,7 +14,7 @@ import util from "app/utils/util"
 import Card from "lib/components/Card/Card";
 import CardBody from "lib/components/Card/CardBody";
 import CardHeader from "lib/components/Card/CardHeader";
-import Button from "lib/components/CustomButtons/Button";
+import Button from "app/common/button/Button";
 import CustomInput from "lib/components/CustomInput/CustomInput";
 import React from "react";
 import Link from "react-router-dom/es/Link";

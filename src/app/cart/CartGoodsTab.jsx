@@ -1,53 +1,48 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
 import AppIcon from "app/common/icon/AppIcon";
-import {buttonColor} from "app/common/styles";
+import {iconButtonColor} from "app/common/styles";
+import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
-import Button from "lib/components/CustomButtons/Button";
+import Button from "app/common/button/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
 import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 class CartGoodsTab extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            cartGoods: [
+                {
+                    id: 1,
+                    image: "000/000/product3.jpg",
+                    link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
+                    name: "Spring Jacket",
+                    quantity: 1,
+                    price: "1 093 232 p."
+                },
+                {
+                    id: 2,
+                    image: "000/000/product2.jpg",
+                    link: "/goods/spring_jacket_p-2",
+                    name: "Spring Jacket as dasd asdaSD;Asldj;skldfgj;sld ksdf;g jskdf;gkljs df;glksjdfg;l ksd;flkg sjdf;lgsjd;f lkjsdf;lkj ;sldkgj;slkdf",
+                    quantity: 3,
+                    price: "32 p."
+                },
+                {
+                    id: 3,
+                    image: "000/000/product1.jpg",
+                    link: "/goods/spri__________SD_asd_ng_jacket_p-3",
+                    name: "Spring Jacket",
+                    quantity: 1,
+                    price: "3 232 p."
+                },
+            ]
+        };
     }
-
-    cartGoods = [
-        {
-            date: "18.02.2018", address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",
-            goods: <ul>
-                <li>2 x Колонка JBL Masters 1200 Kb (1500p)</li>
-                <li>1 x dsf asd fasdf (1800p)</li>
-                <li>56 x sdfasdf asdf asdf asdf sdf asdfa sdfasd asdf sdf dsf gsdfgsdfgsdfg sdf</li>
-            </ul>,
-            amount: "19912p"
-        },
-        {
-            date: "18.02.2003", address: "выа фывафыва фывафы вафывафы фыва фыва фываф2",
-            goods: <ul>
-                <li>56 x sdfasdf asdf asdf asdf sdf</li>
-            </ul>,
-            amount: "1189p"
-        },
-        {
-            date: "18.02.2000", address: " фыва фыв афывафывAlex Mikфывe",
-            goods: <ul>
-                <li>1 x dsf asd fasdf (180p)</li>
-                <li>1 x dsf asd fasdf (1800p)</li>
-            </ul>,
-            amount: "92p"
-        },
-    ];
-
-    rowActionButtons = [1].map((prop, key) => {
-        return (
-            <Button simple justIcon size="sm" color={buttonColor} key={key}>
-                <AppIcon name="add_shopping_cart"/>
-            </Button>
-        );
-    });
 
     render() {
         const {classes, history} = this.props;
@@ -56,10 +51,30 @@ class CartGoodsTab extends React.Component {
                 <CardBody>
                     <Table
                         tableHead={[
-                            "Фото", "Наименование", "Количество", "Стоимость", ""
+                            "", "Наименование", "Количество", "Цена", ""
                         ]}
-                        tableData={this.cartGoods.map((item) => {
-                            return [item.date, item.address, item.cartGoods, item.amount, this.rowActionButtons];
+                        tableData={this.state.cartGoods.map((item) => {
+                            return [
+                                <div className={classes.imgContainer}>
+                                    <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
+                                </div>
+                                ,
+                                <Link to={item.link} className={classes.goodsName}>
+                                    {item.name}
+                                </Link>
+                                ,
+                                <span>
+                                    {item.quantity}
+                                </span>
+                                ,
+                                <span className={classes.price}>
+                                    {item.price}
+                                </span>
+                                ,
+                                <Button simple justIcon size="sm" color={iconButtonColor}>
+                                    <AppIcon name="fas fa-trash-alt"/>
+                                </Button>
+                            ];
                         })}
                         customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter]}
                         customClassesForCells={[0, 3, 4]}

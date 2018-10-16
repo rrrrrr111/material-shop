@@ -7,7 +7,7 @@ import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import CardFooter from "lib/components/Card/CardFooter.jsx";
-import Button from "lib/components/CustomButtons/Button.jsx";
+import Button from "app/common/button/Button.jsx";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import React from "react";

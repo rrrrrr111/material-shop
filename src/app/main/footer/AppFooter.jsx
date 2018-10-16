@@ -3,7 +3,7 @@ import AppIcon from "app/common/icon/AppIcon";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";
-import Button from "lib/components/CustomButtons/Button";
+import Button from "app/common/button/Button";
 import Footer from "lib/components/Footer/Footer.jsx";
 import GridContainer from "lib/components/Grid/GridContainer";
 import GridItem from "lib/components/Grid/GridItem";

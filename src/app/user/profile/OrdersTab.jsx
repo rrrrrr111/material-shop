@@ -1,10 +1,10 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {buttonColor} from "app/common/styles";
+import {iconButtonColor} from "app/common/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
-import Button from "lib/components/CustomButtons/Button";
+import Button from "app/common/button/Button";
 import Table from "lib/components/Table/Table";
 import React from "react";
 
@@ -26,7 +26,7 @@ class OrdersTab extends React.Component {
         {
             date: "18.02.2003", address: "выа фывафыва фывафы вафывафы фыва фыва фываф2",
             goods: <ul>
-                <li>56 x sdfasdf asdf asdf asdf sdf </li>
+                <li>56 x sdfasdf asdf asdf asdf sdf</li>
             </ul>,
             amount: "1189p"
         },
@@ -42,7 +42,7 @@ class OrdersTab extends React.Component {
 
     rowActionButtons = [1].map((prop, key) => {
         return (
-            <Button simple justIcon size="sm" color={buttonColor} key={key}>
+            <Button simple justIcon size="sm" color={iconButtonColor} key={key}>
                 <AppIcon name="add_shopping_cart"/>
             </Button>
         );
@@ -58,7 +58,7 @@ class OrdersTab extends React.Component {
                             "Дата", "Адрес доставки", "Товары", "Сумма", ""
                         ]}
                         tableData={this.orders.map((item) => {
-                            return [item.date, item.address, item.cartGoods, item.amount, this.rowActionButtons];
+                            return [item.date, item.address, item.goods, item.amount, this.rowActionButtons];
                         })}
                         customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter]}
                         customClassesForCells={[0, 3, 4]}

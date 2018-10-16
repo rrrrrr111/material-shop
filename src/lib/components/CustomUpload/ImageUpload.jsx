@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-import Button from "lib/components/CustomButtons/Button.jsx";
+import Button from "app/common/button/Button.jsx";
 
 import defaultImage from "assets/img/image_placeholder.jpg";
 import defaultAvatar from "assets/img/placeholder.jpg";

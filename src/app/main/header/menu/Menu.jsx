@@ -6,7 +6,7 @@ import Notify from "app/common/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import util from "app/utils/util";
-import Button from "lib/components/CustomButtons/Button.jsx";
+import Button from "app/common/button/Button.jsx";
 import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import PropTypes from "prop-types";
 import React from "react";

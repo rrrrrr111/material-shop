@@ -4,7 +4,7 @@ import {buttonColor} from "app/common/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
-import Button from "lib/components/CustomButtons/Button";
+import Button from "app/common/button/Button";
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
 import debounce from 'lodash/debounce'
