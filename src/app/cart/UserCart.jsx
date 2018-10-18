@@ -20,6 +20,7 @@ class UserCart extends React.PureComponent {
                 {
                     key: "goods", url: "/cart/goods", content: <CartGoodsTab/>,
                     containerClassName: classes.goodsContainer,
+                    prevButtonText: "Вернуться",
                     nextButtonText: "К оформлению заказа",
                 },
                 {

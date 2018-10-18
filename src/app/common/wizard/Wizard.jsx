@@ -14,11 +14,8 @@ import {Redirect, withRouter} from "react-router";
 import SwipeableViews from "react-swipeable-views";
 
 class Wizard extends React.Component {
-    history = null;
-
     constructor(props) {
         super(props);
-        this.history = props.history;
 
         let tabIndex = this.getTabIndex(this.props);
         tabIndex = tabIndex >= 0 ? tabIndex : 0; // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
@@ -37,7 +34,7 @@ class Wizard extends React.Component {
     };
 
     pushToTab(activeTabIndex) {
-        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url, this.history);
+        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url, this.props);
     }
 
     handleClickPrev = (e) => {
@@ -49,19 +46,23 @@ class Wizard extends React.Component {
     };
 
     debounceChangeTab(e, step) {
-        this._delayedChangeTab(e, step, this.history);
+        this._delayedChangeTab(e, step, this.props);
     };
 
     _delayedChangeTab = debounce( // для избежания двойного клика
-        function (e, step, history) {
+        function (e, step, props) {
             const tabIndex = this.state.activeTabIndex + step;
+            if (tabIndex === -1) {
+                util.navigate.goToPreviousUrl(props.location, props.history);
+                return
+            }
             let url;
             if (tabIndex === this.props.tabsConfig.length) {
                 url = this.props.finalUrl;
             } else {
                 url = this.props.tabsConfig[tabIndex].url;
             }
-            util.navigate.goToUrl(url, history);
+            util.navigate.goToUrl(url, props.history);
         }, 500, {leading: true, trailing: false});
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {

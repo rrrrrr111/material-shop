@@ -1,23 +1,23 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+
+import withStyles from "@material-ui/core/styles/withStyles";
+import Toolbar from "@material-ui/core/Toolbar";
+import CloseIcon from "@material-ui/icons/Close";
+
+import MenuIcon from "@material-ui/icons/Menu";
+import LocalLink from "app/common/link/LocalLink";
+import {ALL_COLORS, WHITE_COLOR} from "app/common/styles";
+
+import menuBarStyle from "app/main/header/menuBarStyle.jsx";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
 import PropTypes from "prop-types";
-
-import withStyles from "@material-ui/core/styles/withStyles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
-import Drawer from "@material-ui/core/Drawer";
-
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
-
-import menuBarStyle from "app/main/header/menuBarStyle.jsx";
-import {ALL_COLORS, WHITE_COLOR} from "app/common/styles";
+import React from "react";
 
 class MenuBar extends React.PureComponent {
     constructor(props) {
@@ -73,7 +73,7 @@ class MenuBar extends React.PureComponent {
             <AppBar className={menuBarClasses}>
                 <Toolbar className={classes.container}>
                     <Button className={classes.title}>
-                        <Link to="/">{brandName}</Link>
+                        <LocalLink to="/">{brandName}</LocalLink>
                     </Button>
 
                     {/* для десктопа */}

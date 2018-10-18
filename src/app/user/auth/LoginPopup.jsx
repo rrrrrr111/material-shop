@@ -7,17 +7,17 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Mail from "@material-ui/icons/Mail";
+import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
+import CustomInput from "app/common/input/CustomInput";
+import LocalLink from "app/common/link/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/styles";
 
 import util from "app/utils/util"
 import Card from "lib/components/Card/Card";
 import CardBody from "lib/components/Card/CardBody";
 import CardHeader from "lib/components/Card/CardHeader";
-import Button from "app/common/button/Button";
-import CustomInput from "app/common/input/CustomInput";
 import React from "react";
-import Link from "react-router-dom/es/Link";
 
 import loginPopupStyle from "./loginPopupStyle";
 
@@ -61,18 +61,18 @@ class LoginPopup extends React.PureComponent {
                     <DialogTitle
                         id="login-modal-slide-title"
                         disableTypography
-                        className={classes.modalHeader}                    >
+                        className={classes.modalHeader}>
                         <CardHeader
                             plain
                             color={popupHeaderColor}
-                            className={`${classes.textCenter} ${classes.cardLoginHeader}`}                        >
+                            className={`${classes.textCenter} ${classes.cardLoginHeader}`}>
                             <Button
                                 simple
                                 className={classes.modalCloseButton}
                                 key="close"
                                 round
                                 aria-label="Закрыть"
-                                onClick={this.handleClose}                            >
+                                onClick={this.handleClose}>
                                 {" "}
                                 <AppIcon name="close" className={classes.modalClose}/>
                             </Button>
@@ -147,7 +147,7 @@ class LoginPopup extends React.PureComponent {
                             </Button>
                         </DialogActions>
                         <div className={classes.textCenter}>
-                            <Link to="/auth/signup"> Зарегистрироваться </Link>
+                            <LocalLink to="/auth/signup"> Зарегистрироваться </LocalLink>
                         </div>
                     </form>
                 </Card>

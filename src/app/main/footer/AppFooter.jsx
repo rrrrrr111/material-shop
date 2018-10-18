@@ -1,17 +1,16 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
+import LocalLink from "app/common/link/LocalLink";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";
-import Button from "app/common/button/Button";
 import Footer from "lib/components/Footer/Footer.jsx";
 import GridContainer from "lib/components/Grid/GridContainer";
 import GridItem from "lib/components/Grid/GridItem";
 import React from "react";
-import NavLink from "react-router-dom/es/NavLink";
 
 class AppFooter extends React.PureComponent {
-
     render() {
         const {classes} = this.props;
         return (
@@ -26,56 +25,47 @@ class AppFooter extends React.PureComponent {
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>О компании</h5>
-                                    <p><NavLink to="/info/mission"> Миссия </NavLink></p>
-                                    <p><NavLink to="/info/history"> История </NavLink></p>
-                                    <p><NavLink to="/info/advantage"> Преимущества </NavLink></p>
-                                    <p><NavLink to="/info/requisites"> Реквизиты </NavLink></p>
-                                    <p><NavLink to="/info/contacts"> Контакты </NavLink></p>
-                                    <p><NavLink to="/info/news"> Новости </NavLink></p>
-                                    <p><NavLink to="/info/"> Отзывы </NavLink></p>
-                                    <p><NavLink to="/info/blog"> Блог </NavLink></p>
+                                    <p><LocalLink navLink to="/info/mission"> Миссия </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/history"> История </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/advantage"> Преимущества </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/requisites"> Реквизиты </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/contacts"> Контакты </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/news"> Новости </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/"> Отзывы </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/blog"> Блог </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Вопросы и ответы</h5>
-                                    <p><NavLink to="/info/how-to#order"> Как сделать заказ </NavLink></p>
-                                    <p><NavLink to="/info/how-to#pay"> Как оплатить товар </NavLink></p>
-                                    <p><NavLink to="/info/gift-certificates"> Подарочные сертификаты </NavLink></p>
-                                    <p><NavLink to="/info/delivery"> Условия доставки </NavLink></p>
-                                    <p><NavLink to="/info/bonuses"> Система бонусов </NavLink></p>
-                                    <p><NavLink to="/info/returns"> Возврат товара </NavLink></p>
+                                    <p><LocalLink navLink to="/info/how-to#order"> Как сделать заказ </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/how-to#pay"> Как оплатить товар </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/gift-certificates"> Подарочные
+                                        сертификаты </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/delivery"> Условия доставки </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/bonuses"> Система бонусов </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/returns"> Возврат товара </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
-                                        <NavLink to={{
-                                            pathname: "/auth/signin",
-                                            state: {modal: true} // флаг чтобы вернуться на туже страницу
-                                        }}> Вход </NavLink>
+                                        <LocalLink navLink to="/auth/signin"> Вход </LocalLink>
                                         \
-                                        <NavLink to={{
-                                            pathname: "/auth/signup",
-                                            state: {modal: true}
-                                        }}> Регистрация </NavLink>
+                                        <LocalLink navLink to="/auth/signup"> Регистрация </LocalLink>
                                     </p>
-                                    <p><NavLink to="/user/profile"> Профиль пользователя </NavLink></p>
-                                    <p><NavLink to="/cart/goods"> Корзина </NavLink></p>
-                                    <p><NavLink to="/user/orders"> История заказов </NavLink></p>
-                                    <p><NavLink to="/user/settings"> Настройки </NavLink></p>
-                                    <p><NavLink to="/user/password"> Смена пароля </NavLink></p>
-                                    <p>
-                                        <NavLink to={{
-                                            pathname: "/auth/signout",
-                                            state: {modal: true}
-                                        }}> Выход </NavLink>
-                                    </p>
+                                    <p><LocalLink navLink to="/user/profile"> Профиль пользователя </LocalLink></p>
+                                    <p><LocalLink navLink to="/cart/goods"> Корзина </LocalLink></p>
+                                    <p><LocalLink navLink to="/user/orders"> История заказов </LocalLink></p>
+                                    <p><LocalLink navLink to="/user/settings"> Настройки </LocalLink></p>
+                                    <p><LocalLink navLink to="/user/password"> Смена пароля </LocalLink></p>
+                                    <p><LocalLink navLink to="/auth/signout"> Выход </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
-                                    <p><NavLink to="/info/"> Напишите нам </NavLink></p>
-                                    <p><NavLink to="/info/"> Торговля оптом </NavLink></p>
-                                    <p><NavLink to="/subscribe/sales-and-news"> Подписка на акции, скидки, распродажи и
-                                        новости </NavLink></p>
-                                    <p><NavLink to="/info/privacy-policy"> Политика конфиденциальности </NavLink></p>
+                                    <p><LocalLink navLink to="/info/"> Напишите нам </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/"> Торговля оптом </LocalLink></p>
+                                    <p><LocalLink navLink to="/subscribe/sales-and-news"> Подписка на акции, скидки,
+                                        распродажи и новости </LocalLink></p>
+                                    <p><LocalLink navLink to="/info/privacy-policy"> Политика
+                                        конфиденциальности </LocalLink></p>
                                 </GridItem>
                             </GridContainer>
                             <hr/>
@@ -83,7 +73,7 @@ class AppFooter extends React.PureComponent {
                                 <GridItem xs={12} sm={9} md={9}>
                                     <div className={classNames(classes.copyRightInfo)}>
                                         &copy; {1900 + new Date().getYear()}{" "}
-                                        <NavLink to="/" className={classes.aClasses}> LC Cosmetics </NavLink>{" "}
+                                        <LocalLink to="/" className={classes.aClasses}> LC Cosmetics </LocalLink>{" "}
                                         <br/>
                                         Вся информация на сайте – собственность интернет-магазина LC Cosmetics.
                                         Публикация информации с сайта LC Cosmetics без разрешения правообладателя
@@ -98,12 +88,12 @@ class AppFooter extends React.PureComponent {
                                         от указанных в интернет-магазине.
                                         <br/>
                                         Вы принимаете условия
-                                        <NavLink to="/info/privacy-policy" className={classes.aClasses}> политики
-                                            конфиденциальности </NavLink>{" "}
+                                        <LocalLink to="/info/privacy-policy" className={classes.aClasses}> политики
+                                            конфиденциальности </LocalLink>{" "}
                                         и
-                                        <NavLink to="/info/user-agreement"
-                                                 className={classes.aClasses}> пользовательского
-                                            соглашения </NavLink>{" "}
+                                        <LocalLink to="/info/user-agreement"
+                                                   className={classes.aClasses}> пользовательского
+                                            соглашения </LocalLink>{" "}
                                         каждый раз, когда оставляете свои данные в любой
                                         форме обратной связи на сайте LC Cosmetics.
                                     </div>

@@ -3,6 +3,7 @@ import userCartStyle from "app/cart/userCartStyle";
 import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
+import LocalLink from "app/common/link/LocalLink";
 import {iconButtonColor} from "app/common/styles";
 import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";
@@ -11,7 +12,6 @@ import Table from "lib/components/Table/Table";
 import toNumber from 'lodash/toNumber'
 import React from "react";
 import {withRouter} from "react-router";
-import {Link} from "react-router-dom";
 
 class CartGoodsTab extends React.PureComponent {
     constructor(props) {
@@ -115,9 +115,9 @@ class CartGoodsTab extends React.PureComponent {
                                     <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
                                 </div>
                                 ,
-                                <Link to={item.link} className={classes.goodsName}>
+                                <LocalLink to={item.link} className={classes.goodsName}>
                                     {item.name}
-                                </Link>
+                                </LocalLink>
                                 ,
                                 <span className={classes.nowrap}>
                                     {item.price}

@@ -8,17 +8,17 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Check, Email, Face} from "@material-ui/icons";
+import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
+import CustomInput from "app/common/input/CustomInput";
+import LocalLink from "app/common/link/LocalLink";
 import {buttonColor} from "app/common/styles";
 
 import util from "app/utils/util"
 import classNames from "classnames";
 import Card from "lib/components/Card/Card";
 import CardBody from "lib/components/Card/CardBody";
-import Button from "app/common/button/Button";
-import CustomInput from "app/common/input/CustomInput";
 import React from "react";
-import Link from "react-router-dom/es/Link";
 import regPopupStyle from "./regPopupStyle";
 
 function Transition(props) {
@@ -166,11 +166,11 @@ class RegPopup extends React.PureComponent {
                                                   }
                                                   label={<span className={classes.termAndCondAgreementLabel}>
                                                             Я принимаю условия
-                                                            <Link to="/info/privacy-policy"
-                                                                  className={classes.aClasses}> политики конфиденциальности </Link>{" "}
+                                                            <LocalLink to="/info/privacy-policy"
+                                                                       className={classes.aClasses}> политики конфиденциальности </LocalLink>{" "}
                                                       и
-                                                            <Link to="/info/user-agreement"
-                                                                  className={classes.aClasses}> пользовательского соглашения </Link>{" "}
+                                                            <LocalLink to="/info/user-agreement"
+                                                                       className={classes.aClasses}> пользовательского соглашения </LocalLink>{" "}
                                                       .
                                                         </span>}
                                 />
@@ -182,7 +182,7 @@ class RegPopup extends React.PureComponent {
                             </CardBody>
                         </DialogContent>
                         <div className={classes.textCenter}>
-                            <Link to="/auth/signin"> Войти </Link>
+                            <LocalLink to="/auth/signin"> Войти </LocalLink>
                         </div>
                     </form>
                 </Card>
