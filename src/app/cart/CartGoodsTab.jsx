@@ -174,7 +174,7 @@ class CartGoodsTab extends React.PureComponent {
                                    </div>
                                    <div className={classes.priceTotal}>
                                        <NumberFormat value={
-                                           goods.map(item => item.price).reduce((a, b) => a + b, 0)
+                                           goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
                                        } displayType='text' thousandSeparator=' '/>
                                        <AppIcon className={classes.rubSignTotal} name="fas fa-ruble-sign"/>
                                    </div>
