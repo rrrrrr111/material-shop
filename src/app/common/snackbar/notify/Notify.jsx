@@ -1,6 +1,6 @@
 import React from "react";
-import Snackbar from "./snackbar/Snackbar";
-import {notificationColor, notificationPlace} from "../styles";
+import Snackbar from "./Snackbar";
+import {notificationColor, notificationPlace} from "../../styles";
 import {Notifications} from "@material-ui/icons";
 
 function Notify({...props}) {

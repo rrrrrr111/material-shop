@@ -5,7 +5,7 @@ import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import Button from "app/common/button/Button";
-import Table from "lib/components/Table/Table";
+import Table from "app/common/table/CustomTable";
 import React from "react";
 
 class OrdersTab extends React.PureComponent {

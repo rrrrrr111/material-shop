@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import Close from "@material-ui/icons/Close";
 
-import snackbarContentStyle from "app/common/notify/snackbar/snackbarContentStyle.jsx";
+import snackbarStyle from "app/common/snackbar/notify/snackbarStyle.jsx";
 import {ALL_COLORS} from "../../styles";
 
 function Snackbar({...props}) {
@@ -67,4 +67,4 @@ Snackbar.propTypes = {
     open: PropTypes.bool
 };
 
-export default withStyles(snackbarContentStyle)(Snackbar);
+export default withStyles(snackbarStyle)(Snackbar);

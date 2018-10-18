@@ -5,10 +5,10 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import {iconButtonColor} from "app/common/styles";
+import Table from "app/common/table/CustomTable";
 import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
-import Table from "lib/components/Table/Table";
 import toNumber from 'lodash/toNumber'
 import React from "react";
 import {withRouter} from "react-router";
@@ -105,25 +105,25 @@ class CartGoodsTab extends React.PureComponent {
         return (
             <Card className={classes.goodsTableContainer}>
                 <CardBody>
-                    <Table
-                        tableHead={[
-                            "", "Наименование", "Цена", "Количество", ""
-                        ]}
-                        tableData={goods.map((item, index) => {
-                            return [
-                                <div className={classes.imgContainer}>
-                                    <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
-                                </div>
-                                ,
-                                <LocalLink to={item.link} className={classes.goodsName}>
-                                    {item.name}
-                                </LocalLink>
-                                ,
-                                <span className={classes.nowrap}>
+                    <Table tableShopping
+                           tableHead={[
+                               "", "Наименование", "Цена", "Количество", ""
+                           ]}
+                           tableData={goods.map((item, index) => {
+                               return [
+                                   <div className={classes.imgContainer}>
+                                       <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
+                                   </div>
+                                   ,
+                                   <LocalLink to={item.link} className={classes.goodsName}>
+                                       {item.name}
+                                   </LocalLink>
+                                   ,
+                                   <span className={classes.nowrap}>
                                     {item.price}
                                 </span>
-                                ,
-                                <span className={classes.nowrap}>
+                                   ,
+                                   <span className={classes.nowrap}>
                                    <Button simple justIcon size="sm"
                                            color={iconButtonColor}
                                            onClick={this.handleClickPlus.bind(this, null, index)}>
@@ -153,17 +153,17 @@ class CartGoodsTab extends React.PureComponent {
                                         <AppIcon name="fas fa-minus"/>
                                     </Button>
                                 </span>
-                                ,
-                                <Button simple justIcon size="sm" color={iconButtonColor}
-                                        onClick={this.handleClickDelete.bind(this, null, index)}>
-                                    <AppIcon name="fas fa-trash-alt"/>
-                                </Button>
-                            ];
-                        })}
-                        customCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
-                        customClassesForCells={[0, 2, 3, 4]}
-                        customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
-                        customHeadClassesForCells={[0, 2, 3, 4]}
+                                   ,
+                                   <Button simple justIcon size="sm" color={iconButtonColor}
+                                           onClick={this.handleClickDelete.bind(this, null, index)}>
+                                       <AppIcon name="fas fa-trash-alt"/>
+                                   </Button>
+                               ];
+                           })}
+                           customCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
+                           customClassesForCells={[0, 2, 3, 4]}
+                           customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
+                           customHeadClassesForCells={[0, 2, 3, 4]}
                     />
                 </CardBody>
             </Card>

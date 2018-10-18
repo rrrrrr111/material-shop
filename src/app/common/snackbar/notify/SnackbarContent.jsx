@@ -1,14 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import withStyles from "@material-ui/core/styles/withStyles";
-import Snack from "@material-ui/core/SnackbarContent";
 import IconButton from "@material-ui/core/IconButton";
-
+import Snack from "@material-ui/core/SnackbarContent";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Close from "@material-ui/icons/Close";
-
-import snackbarContentStyle from "app/common/notify/snackbar/snackbarContentStyle.jsx";
+import snackbarStyle from "app/common/snackbar/notify/snackbarStyle.jsx";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 
 function SnackbarContent({...props}) {
     const {classes, message, color, close, icon} = props;
@@ -53,4 +50,4 @@ SnackbarContent.propTypes = {
     icon: PropTypes.func
 };
 
-export default withStyles(snackbarContentStyle)(SnackbarContent);
+export default withStyles(snackbarStyle)(SnackbarContent);

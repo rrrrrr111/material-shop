@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
 import MenuDropdown from "app/common/dropdown/MenuDropdown.jsx";
 import AppIcon from "app/common/icon/AppIcon";
-import Notify from "app/common/notify/Notify";
+import Notify from "app/common/snackbar/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import util from "app/utils/util";
