@@ -69,6 +69,11 @@ const simpleStyles = theme => ({
     textRight: {
         textAlign: "right"
     },
+
+    // не переносить lnline элементы на новую строку
+    nowrap: {
+        whiteSpace: "nowrap",
+    },
 });
 
 // общие стили

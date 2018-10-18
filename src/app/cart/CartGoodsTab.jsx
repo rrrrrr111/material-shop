@@ -90,14 +90,26 @@ class CartGoodsTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const goods = this.state.cartGoods;
+
+        if (goods.length === 0) {
+            return (
+                <Card className={classes.goodsTableContainer}>
+                    <CardBody>
+                        <h2>Ваша корзина пуста</h2>
+                    </CardBody>
+                </Card>
+            )
+        }
+
         return (
             <Card className={classes.goodsTableContainer}>
                 <CardBody>
                     <Table
                         tableHead={[
-                            "", "Наименование", "Количество", "Цена", ""
+                            "", "Наименование", "Цена", "Количество", ""
                         ]}
-                        tableData={this.state.cartGoods.map((item, index) => {
+                        tableData={goods.map((item, index) => {
                             return [
                                 <div className={classes.imgContainer}>
                                     <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
@@ -107,10 +119,15 @@ class CartGoodsTab extends React.PureComponent {
                                     {item.name}
                                 </Link>
                                 ,
-                                <span>
-                                    <Button simple justIcon size="sm" color={iconButtonColor}
-                                            onClick={this.handleClickMinus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-minus"/>
+                                <span className={classes.nowrap}>
+                                    {item.price}
+                                </span>
+                                ,
+                                <span className={classes.nowrap}>
+                                   <Button simple justIcon size="sm"
+                                           color={iconButtonColor}
+                                           onClick={this.handleClickPlus.bind(this, null, index)}>
+                                        <AppIcon name="fas fa-plus"/>
                                     </Button>
                                     <CustomInput
                                         formControlProps={{
@@ -130,14 +147,11 @@ class CartGoodsTab extends React.PureComponent {
                                             maxLength: 4,
                                         }}
                                     />
-                                    <Button simple justIcon size="sm" color={iconButtonColor}
-                                            onClick={this.handleClickPlus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-plus"/>
+                                    <Button simple justIcon size="sm"
+                                            color={iconButtonColor}
+                                            onClick={this.handleClickMinus.bind(this, null, index)}>
+                                        <AppIcon name="fas fa-minus"/>
                                     </Button>
-                                </span>
-                                ,
-                                <span className={classes.price}>
-                                    {item.price}
                                 </span>
                                 ,
                                 <Button simple justIcon size="sm" color={iconButtonColor}

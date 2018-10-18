@@ -38,9 +38,6 @@ const userCartStyle = theme => ({
         ...appStyles(theme).textCenter,
         width: 40,
     },
-    price: {
-        whiteSpace: "nowrap",
-    },
 });
 
 export default userCartStyle;
