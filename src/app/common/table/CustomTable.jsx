@@ -15,6 +15,7 @@ function CustomTable({...props}) {
         classes,
         tableHead,
         tableData,
+        tableFooter,
         tableHeaderColor,
         hover,
         colorsColls,
@@ -151,6 +152,7 @@ function CustomTable({...props}) {
                     })}
                 </TableBody>
             </Table>
+            {!tableFooter ? null : tableFooter}
         </div>
     );
 }
@@ -181,6 +183,7 @@ CustomTable.propTypes = {
     tableHead: PropTypes.arrayOf(PropTypes.string),
     // Of(PropTypes.arrayOf(PropTypes.node)) || Of(PropTypes.object),
     tableData: PropTypes.array,
+    tableFooter: PropTypes.object,
     hover: PropTypes.bool,
     coloredColls: PropTypes.arrayOf(PropTypes.number),
     // Of(["warning","primary","danger","success","info","rose","gray"]) - colorsColls

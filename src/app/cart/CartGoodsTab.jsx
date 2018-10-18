@@ -7,10 +7,12 @@ import LocalLink from "app/common/misc/LocalLink";
 import {iconButtonColor} from "app/common/styles";
 import Table from "app/common/table/CustomTable";
 import util from "app/utils/util"
+import classNames from "classnames";
 import Card from "lib/components/Card/Card.jsx";
 import CardBody from "lib/components/Card/CardBody.jsx";
 import toNumber from 'lodash/toNumber'
 import React from "react";
+import NumberFormat from 'react-number-format';
 import {withRouter} from "react-router";
 
 class CartGoodsTab extends React.PureComponent {
@@ -24,7 +26,7 @@ class CartGoodsTab extends React.PureComponent {
                     link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
                     name: "Spring Jacket",
                     quantity: 1,
-                    price: "1 093 232 p."
+                    price: 1093232
                 },
                 {
                     id: 2,
@@ -32,7 +34,7 @@ class CartGoodsTab extends React.PureComponent {
                     link: "/goods/spring_jacket_p-2",
                     name: "Spring Jacket as dasd asdaSD;Asldj;skldfgj;sld ksdf;g jskdf;gkljs df;glksjdfg;l ksd;flkg sjdf;lgsjd;f lkjsdf;lkj ;sldkgj;slkdf",
                     quantity: 3,
-                    price: "32 p."
+                    price: 32
                 },
                 {
                     id: 3,
@@ -40,7 +42,7 @@ class CartGoodsTab extends React.PureComponent {
                     link: "/goods/spri__________SD_asd_ng_jacket_p-3",
                     name: "Spring Jacket",
                     quantity: 1,
-                    price: "3 232 p."
+                    price: 3232
                 },
                 {
                     id: 4,
@@ -48,7 +50,7 @@ class CartGoodsTab extends React.PureComponent {
                     link: "/goods/spri__________SD_asd_ng_jacket_p-3",
                     name: "Spring Jacket",
                     quantity: 1,
-                    price: "3 232 p."
+                    price: 3232
                 },
             ]
         };
@@ -111,48 +113,51 @@ class CartGoodsTab extends React.PureComponent {
                            ]}
                            tableData={goods.map((item, index) => {
                                return [
-                                   <div className={classes.imgContainer}>
-                                       <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
+                                   <div className={classes.imgCell}>
+                                       <div className={classes.imgContainer}>
+                                           <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
+                                       </div>
                                    </div>
                                    ,
                                    <LocalLink to={item.link} className={classes.goodsName}>
                                        {item.name}
                                    </LocalLink>
                                    ,
-                                   <span className={classes.nowrap}>
-                                    {item.price}
-                                </span>
+                                   <span className={classNames(classes.price)}>
+                                       <NumberFormat value={item.price} displayType='text' thousandSeparator=' '/>
+                                       <AppIcon className={classes.rubSign} name="fas fa-ruble-sign"/>
+                                   </span>
                                    ,
                                    <span className={classes.nowrap}>
-                                   <Button simple justIcon size="sm"
-                                           color={iconButtonColor}
-                                           onClick={this.handleClickPlus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-plus"/>
-                                    </Button>
-                                    <CustomInput
-                                        formControlProps={{
-                                            width: "10px",
-                                            className: classes.quantityCustomInput
-                                        }}
-                                        inputClasses={classes.quantityInput}
-                                        inputProps={{
-                                            autoComplete: "off",
-                                            value: item.quantity,
-                                            onChange: (e) => this.handleChangeQuantity(e, index),
-                                        }}
-                                        numberProps={{
-                                            allowNegative: false,
-                                            decimalScale: 0,
-                                            thousandSeparator: ' ',
-                                            maxLength: 4,
-                                        }}
-                                    />
-                                    <Button simple justIcon size="sm"
-                                            color={iconButtonColor}
-                                            onClick={this.handleClickMinus.bind(this, null, index)}>
-                                        <AppIcon name="fas fa-minus"/>
-                                    </Button>
-                                </span>
+                                        <Button simple justIcon size="sm"
+                                                color={iconButtonColor}
+                                                onClick={this.handleClickPlus.bind(this, null, index)}>
+                                            <AppIcon name="fas fa-plus"/>
+                                        </Button>
+                                        <CustomInput
+                                            formControlProps={{
+                                                width: "10px",
+                                                className: classes.quantityCustomInput
+                                            }}
+                                            inputClasses={classes.quantityInput}
+                                            inputProps={{
+                                                autoComplete: "off",
+                                                value: item.quantity,
+                                                onChange: (e) => this.handleChangeQuantity(e, index),
+                                            }}
+                                            numberProps={{
+                                                allowNegative: false,
+                                                decimalScale: 0,
+                                                thousandSeparator: ' ',
+                                                maxLength: 4,
+                                            }}
+                                        />
+                                        <Button simple justIcon size="sm"
+                                                color={iconButtonColor}
+                                                onClick={this.handleClickMinus.bind(this, null, index)}>
+                                            <AppIcon name="fas fa-minus"/>
+                                        </Button>
+                                    </span>
                                    ,
                                    <Button simple justIcon size="sm" color={iconButtonColor}
                                            onClick={this.handleClickDelete.bind(this, null, index)}>
@@ -160,6 +165,20 @@ class CartGoodsTab extends React.PureComponent {
                                    </Button>
                                ];
                            })}
+                           tableFooter={
+                               <div className={classes.tableFooterContainer}>
+                                   <div className={classes.left}>
+                                       <h4 className={classes.nowrap}>
+                                           Всего {goods.length} товаров
+                                       </h4>
+                                   </div>
+                                   <div className={classes.priceTotal}>
+                                       <NumberFormat value={
+                                           goods.map(item => item.price).reduce((a, b) => a + b, 0)
+                                       } displayType='text' thousandSeparator=' '/>
+                                       <AppIcon className={classes.rubSignTotal} name="fas fa-ruble-sign"/>
+                                   </div>
+                               </div>}
                            customCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
                            customClassesForCells={[0, 2, 3, 4]}
                            customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
