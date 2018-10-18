@@ -40,9 +40,11 @@ const getCurrentYScroll = () => {
  * нужно в state передать флаг modal
  */
 const goToPreviousUrl = (location, history) => {
-    if (location.state && location.state.local) {
+    const state = location.state;
+
+    if (state && state.local) {
         history.goBack();
-        scrollY(location.state.yScroll);
+        scrollY(state.yScroll);
     } else {
         history.push("/");
         scrollY(0);
