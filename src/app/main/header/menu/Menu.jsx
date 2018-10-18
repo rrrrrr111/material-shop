@@ -1,15 +1,16 @@
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "app/common/button/Button.jsx";
+import MenuDropdown from "app/common/dropdown/MenuDropdown.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import Notify from "app/common/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import util from "app/utils/util";
-import Button from "app/common/button/Button.jsx";
-import CustomDropdown from "lib/components/CustomDropdown/CustomDropdown.jsx";
 import PropTypes from "prop-types";
 import React from "react";
+import {withRouter} from "react-router";
 import MenuItem from "./MenuItem";
 
 class Menu extends React.PureComponent {
@@ -23,6 +24,8 @@ class Menu extends React.PureComponent {
     }
 
     handleShowEmptyCartNotification() {
+
+        util.navigate.goToUrl("/cart/goods", this.props.history);
         util.notify.showNotify(this, "emptyCartNotification");
     }
 
@@ -44,7 +47,7 @@ class Menu extends React.PureComponent {
     ];
 
     userMenuMap = [
-        {id: 1, name: "Корзина", to: "/user/cart", icon: "shopping_cart"},
+        {id: 1, name: "Корзина", to: "/cart/goods", icon: "shopping_cart"},
         {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face"},
         {id: 2, name: "История заказов", to: "/user/orders", icon: "history"},
         {id: 3, name: "Настройки", to: "/user/settings", icon: "settings"},
@@ -58,7 +61,7 @@ class Menu extends React.PureComponent {
         return (
             <List className={classes.list + " " + classes.mlAuto}>
                 <ListItem className={classes.listItem}>
-                    <CustomDropdown
+                    <MenuDropdown
                         noLiPadding
                         navDropdown
                         hoverColor={dropdownHoverColor}
@@ -76,11 +79,10 @@ class Menu extends React.PureComponent {
                     />
                 </ListItem>
                 <ListItem className={classes.listItem}>
-                    <CustomDropdown
+                    <MenuDropdown
                         noLiPadding
                         navDropdown
                         hoverColor={dropdownHoverColor}
-                        buttonText=""
                         buttonProps={{
                             className: classes.navLink,
                             color: "transparent"
@@ -94,7 +96,6 @@ class Menu extends React.PureComponent {
                 </ListItem>
                 <ListItem className={classes.listItem}>
                     <Button
-                        to="/user/cart"
                         color="transparent"
                         aria-label="Корзина"
                         aria-haspopup="false"
@@ -121,4 +122,4 @@ class Menu extends React.PureComponent {
     };
 }
 
-export default withStyles(menuStyle)(Menu);
+export default withStyles(menuStyle)(withRouter(Menu));

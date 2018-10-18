@@ -2,15 +2,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import AppIcon from "app/common/icon/AppIcon";
-// nodejs library that concatenates classes
+import navPillsStyle from "app/common/tabs/navPillsStyle.jsx";
 import classNames from "classnames";
-
-import navPillsStyle from "lib/assets/jss/material-kit-pro-react/components/navPillsStyle.jsx";
-
-
 import GridContainer from "lib/components/Grid/GridContainer.jsx";
 import GridItem from "lib/components/Grid/GridItem.jsx";
-
 import PropTypes from "prop-types";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";

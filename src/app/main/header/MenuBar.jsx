@@ -9,7 +9,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import CloseIcon from "@material-ui/icons/Close";
 
 import MenuIcon from "@material-ui/icons/Menu";
-import LocalLink from "app/common/link/LocalLink";
+import LocalLink from "app/common/misc/LocalLink";
 import {ALL_COLORS, WHITE_COLOR} from "app/common/styles";
 
 import menuBarStyle from "app/main/header/menuBarStyle.jsx";

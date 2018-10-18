@@ -11,7 +11,7 @@ import {Check, Email, Face} from "@material-ui/icons";
 import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
-import LocalLink from "app/common/link/LocalLink";
+import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/styles";
 
 import util from "app/utils/util"

@@ -1,7 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
-import LocalLink from "app/common/link/LocalLink";
+import LocalLink from "app/common/misc/LocalLink";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";

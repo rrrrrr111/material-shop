@@ -34,7 +34,10 @@ class Wizard extends React.Component {
     };
 
     pushToTab(activeTabIndex) {
-        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url, this.props);
+        util.navigate.goToUrl(
+            this.props.tabsConfig[activeTabIndex].url,
+            this.props
+        );
     }
 
     handleClickPrev = (e) => {

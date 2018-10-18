@@ -46,7 +46,7 @@ const goToPreviousUrl = (location, history) => {
         history.goBack();
         scrollY(state.yScroll);
     } else {
-        history.push("/");
+        goToUrl("/", history);
         scrollY(0);
     }
 };
@@ -55,7 +55,13 @@ const goToPreviousUrl = (location, history) => {
  * Переход на URL
  */
 const goToUrl = (url, history) => {
-    history.push(url);
+    history.push({
+        pathname: url,
+        state: {
+            local: true,
+            yScroll: getCurrentYScroll()
+        }
+    });
 };
 
 /**

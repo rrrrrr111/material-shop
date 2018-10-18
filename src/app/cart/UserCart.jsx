@@ -5,7 +5,7 @@ import CartPaymentTab from "app/cart/CartPaymentTab";
 import userCartStyle from "app/cart/userCartStyle";
 import Wizard from "app/common/wizard/Wizard";
 import classNames from "classnames";
-import Clearfix from "lib/components/Clearfix/Clearfix";
+import Clearfix from "app/common/misc/Clearfix";
 import React from "react";
 
 

@@ -7,8 +7,8 @@ import SettingsTab from "app/user/profile/SettingsTab";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
-import Clearfix from "lib/components/Clearfix/Clearfix";
-import NavPills from "lib/components/NavPills/NavPills";
+import Clearfix from "app/common/misc/Clearfix";
+import NavPills from "app/common/tabs/NavPills";
 
 import React from "react";
 import {Redirect} from "react-router";

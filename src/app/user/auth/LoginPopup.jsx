@@ -10,7 +10,7 @@ import Mail from "@material-ui/icons/Mail";
 import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
-import LocalLink from "app/common/link/LocalLink";
+import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/styles";
 
 import util from "app/utils/util"

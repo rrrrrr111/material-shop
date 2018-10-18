@@ -3,7 +3,7 @@ import userCartStyle from "app/cart/userCartStyle";
 import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
-import LocalLink from "app/common/link/LocalLink";
+import LocalLink from "app/common/misc/LocalLink";
 import {iconButtonColor} from "app/common/styles";
 import util from "app/utils/util"
 import Card from "lib/components/Card/Card.jsx";

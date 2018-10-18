@@ -14,7 +14,7 @@ import {
   roseBoxShadow
 } from "lib/assets/jss/material-kit-pro-react.jsx";
 
-const customDropdownStyle = theme => ({
+const dropdownStyle = theme => ({
   popperClose: {
     pointerEvents: "none",
     display: "none !important"
@@ -207,4 +207,4 @@ const customDropdownStyle = theme => ({
   }
 });
 
-export default customDropdownStyle;
+export default dropdownStyle;
