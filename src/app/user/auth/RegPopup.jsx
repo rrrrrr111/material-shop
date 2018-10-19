@@ -16,8 +16,8 @@ import {buttonColor} from "app/common/styles";
 
 import util from "app/utils/util"
 import classNames from "classnames";
-import Card from "lib/components/Card/Card";
-import CardBody from "lib/components/Card/CardBody";
+import Card from "app/common/card/Card";
+import CardBody from "app/common/card/CardBody";
 import React from "react";
 import regPopupStyle from "./regPopupStyle";
 

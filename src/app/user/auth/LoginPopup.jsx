@@ -14,9 +14,9 @@ import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/styles";
 
 import util from "app/utils/util"
-import Card from "lib/components/Card/Card";
-import CardBody from "lib/components/Card/CardBody";
-import CardHeader from "lib/components/Card/CardHeader";
+import Card from "app/common/card/Card";
+import CardBody from "app/common/card/CardBody";
+import CardHeader from "app/common/card/CardHeader";
 import React from "react";
 
 import loginPopupStyle from "./loginPopupStyle";

@@ -4,12 +4,13 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Check from "@material-ui/icons/Check";
 import userCartStyle from "app/cart/userCartStyle";
+import Card from "app/common/card/Card.jsx";
+import CardBody from "app/common/card/CardBody.jsx";
 import CustomInput from "app/common/input/CustomInput";
 import SelectInput from "app/common/input/SelectInput";
+import CustomTabs from "app/common/tabs/CustomTabs";
 import util from "app/utils/util";
 import classNames from "classnames";
-import Card from "lib/components/Card/Card.jsx";
-import CardBody from "lib/components/Card/CardBody.jsx";
 import React from "react";
 
 class CartOrderTab extends React.PureComponent {
@@ -118,7 +119,7 @@ class CartOrderTab extends React.PureComponent {
                         </Grid>
                         <h5>Доставка</h5>
                         <Grid container justify="center" spacing={8}>
-                            <Grid xs={12} sm item>
+                            <Grid xs={6} item>
                                 <SelectInput id="region"
                                              labelText="Регион"
                                              fakeItemText="Выберите регион"
@@ -127,9 +128,41 @@ class CartOrderTab extends React.PureComponent {
                                              value={this.state.region}
                                 />
                             </Grid>
-                            <Grid xs={12} sm item>
-
+                            <Grid xs={6} item/>
+                            <Grid xs={12} item>
+                                <CustomTabs
+                                    plainTabs
+                                    headerColor="dark"
+                                    tabs={[
+                                        {
+                                            tabName: "Home",
+                                            tabContent: (
+                                                <p className={classes.textCenter}>
+                                                    I think that’s a responsibility that I have, to push
+                                                </p>
+                                            )
+                                        },
+                                        {
+                                            tabName: "Updates",
+                                            tabContent: (
+                                                <p className={classes.textCenter}>
+                                                    I think that’s a responsibility that I have, to push
+                                                </p>
+                                            )
+                                        },
+                                        {
+                                            tabName: "History",
+                                            tabContent: (
+                                                <p className={classes.textCenter}>
+                                                    think that’s a responsibility that I have, to push
+                                                    possibilities, to show people, this is the level that
+                                                </p>
+                                            )
+                                        }
+                                    ]}
+                                />
                             </Grid>
+
                         </Grid>
                     </CardBody>
                 </Card>

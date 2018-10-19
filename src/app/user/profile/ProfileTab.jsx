@@ -5,9 +5,9 @@ import GridItem from "app/common/grid/GridItem.jsx";
 import CustomInput from "app/common/input/CustomInput.jsx";
 import {buttonColor} from "app/common/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import Card from "lib/components/Card/Card.jsx";
-import CardBody from "lib/components/Card/CardBody.jsx";
-import CardFooter from "lib/components/Card/CardFooter.jsx";
+import Card from "app/common/card/Card.jsx";
+import CardBody from "app/common/card/CardBody.jsx";
+import CardFooter from "app/common/card/CardFooter.jsx";
 import React from "react";
 
 class ProfileTab extends React.PureComponent {

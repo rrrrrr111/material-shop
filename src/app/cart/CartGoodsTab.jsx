@@ -2,6 +2,8 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
 import Button from "app/common/button/Button";
+import Card from "app/common/card/Card.jsx";
+import CardBody from "app/common/card/CardBody.jsx";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
@@ -11,8 +13,6 @@ import {iconButtonColor} from "app/common/styles";
 import Table from "app/common/table/CustomTable";
 import util from "app/utils/util"
 import classNames from "classnames";
-import Card from "lib/components/Card/Card.jsx";
-import CardBody from "lib/components/Card/CardBody.jsx";
 import toNumber from 'lodash/toNumber'
 import React from "react";
 import NumberFormat from 'react-number-format';
@@ -101,7 +101,7 @@ class CartGoodsTab extends React.PureComponent {
             return (
                 <Card className={classes.goodsTableContainer}>
                     <CardBody>
-                        <h2>Корзина пуста</h2>
+                        <h3>Корзина пуста</h3>
                     </CardBody>
                 </Card>
             )
@@ -111,6 +111,7 @@ class CartGoodsTab extends React.PureComponent {
         return (
             <Card className={classes.goodsTableContainer}>
                 <CardBody>
+                    <h3>Корзина</h3>
                     <Table tableShopping
                            tableHead={[
                                "", "Наименование", "Цена", "Количество", ""
@@ -175,7 +176,9 @@ class CartGoodsTab extends React.PureComponent {
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
                                            <h4 className={classes.nowrap}>
-                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)} на сумму:
+                                               В
+                                               корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)} на
+                                               сумму:
                                            </h4>
                                        </Grid>
                                    </GridItem>
