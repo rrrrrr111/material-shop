@@ -9,13 +9,12 @@ import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
+import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/styles";
 import Table from "app/common/table/CustomTable";
 import util from "app/utils/util"
-import classNames from "classnames";
 import toNumber from 'lodash/toNumber'
 import React from "react";
-import NumberFormat from 'react-number-format';
 import {withRouter} from "react-router";
 
 class CartGoodsTab extends React.PureComponent {
@@ -129,10 +128,7 @@ class CartGoodsTab extends React.PureComponent {
                                        {item.name}
                                    </LocalLink>
                                    ,
-                                   <span className={classNames(classes.price)}>
-                                       <NumberFormat value={item.price} displayType='text' thousandSeparator=' '/>
-                                       <AppIcon className={classes.rubSign} name="fas fa-ruble-sign"/>
-                                   </span>
+                                   <Price value={item.price}/>
                                    ,
                                    <span className={classes.nowrap}>
                                         <Button simple justIcon size="sm"
@@ -183,11 +179,10 @@ class CartGoodsTab extends React.PureComponent {
                                        </Grid>
                                    </GridItem>
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
-                                       <Grid item className={classes.priceTotal}>
-                                           <NumberFormat value={
+                                       <Grid item>
+                                           <Price big value={
                                                goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
-                                           } displayType='text' thousandSeparator=' '/>
-                                           <AppIcon className={classes.rubSignTotal} name="fas fa-ruble-sign"/>
+                                           }/>
                                        </Grid>
                                    </GridItem>
                                </GridContainer>

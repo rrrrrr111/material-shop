@@ -45,7 +45,8 @@ const headerParallaxFilterColor = ROSE_COLOR;
 const popupHeaderColor = ROSE_COLOR; // заголовок попапа
 const buttonColor = ROSE_COLOR;      // кнопки
 const iconButtonColor = BEHANCE_COLOR;  // кнопки иконки
-const navPillsColor = ROSE_COLOR;
+const navPillsColor = ROSE_COLOR;  // swipable табы (профиль пользователя)
+const tabHeaderColor = ROSE_COLOR;  // обычные табы (выбор вариантов доставки)
 
 const simpleStyles = theme => ({
     width100: {
@@ -142,6 +143,7 @@ export {
     buttonColor,
     iconButtonColor,
     navPillsColor,
+    tabHeaderColor,
 
     appStyles,
 };

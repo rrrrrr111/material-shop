@@ -49,29 +49,6 @@ const userCartStyle = theme => ({
     tableFooterContainer: {
         ...appStyles(theme).width100,
     },
-    price: {
-        ...appStyles(theme).nowrap,
-        color: title.color,
-        fontFamily: title.fontFamily,
-        fontSize: "1.0625rem",
-        fontWeight: title.fontWeight,
-    },
-    rubSign: {
-        marginLeft: 4,
-        fontSize: 13,
-    },
-    priceTotal: {
-        ...appStyles(theme).nowrap,
-        color: title.color,
-        fontFamily: title.fontFamily,
-        fontWeight: title.fontWeight,
-        fontSize: "1.5625rem",
-        margin: "20px 40px 20px 40px",
-    },
-    rubSignTotal: {
-        marginLeft: 5,
-        fontSize: 18,
-    },
     agreementCheckboxLabel: {
         fontSize: "10px",
         lineHeight: "12px",

@@ -1,11 +1,12 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import AppIcon from "app/common/icon/AppIcon";
-import navPillsStyle from "app/common/tabs/navPillsStyle.jsx";
-import classNames from "classnames";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
+import AppIcon from "app/common/icon/AppIcon";
+import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
+import navPillsStyle from "app/common/tabs/navPillsStyle.jsx";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
@@ -99,7 +100,7 @@ class NavPills extends React.PureComponent {
 
     static defaultProps = {
         activeTabIndex: 0,
-        color: "primary"
+        color: PRIMARY_COLOR
     };
 
     static propTypes = {
@@ -113,14 +114,7 @@ class NavPills extends React.PureComponent {
                 pillClasses: PropTypes.string,
             })
         ).isRequired,
-        color: PropTypes.oneOf([
-            "primary",
-            "warning",
-            "danger",
-            "success",
-            "info",
-            "rose"
-        ]),
+        color: PropTypes.oneOf(ALL_COLORS),
         direction: PropTypes.string,
         horizontal: PropTypes.shape({
             tabsGrid: PropTypes.object,

@@ -1,6 +1,5 @@
 const regionList = [
 
-
     {id: "77", name: "г. Москва"},
     {id: "50", name: "Московская область"},
     {id: "78", name: "г. Санкт-Петербург"},
@@ -89,9 +88,14 @@ const regionList = [
     {id: "76", name: "Ярославская область"},
 ];
 
+const deliveryTypeMap = {
+    0: {name: "Курьером", isActive: true, coast: 350},
+    1: {name: "Почтой России", isActive: false},
+};
 
 const dictionary = {
 
     regionList: regionList,
+    deliveryTypeMap: deliveryTypeMap,
 };
 export default dictionary;

@@ -8,7 +8,9 @@ import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";
 import CustomInput from "app/common/input/CustomInput";
 import SelectInput from "app/common/input/SelectInput";
-import CustomTabs from "app/common/tabs/CustomTabs";
+import Price from "app/common/misc/Price";
+import {navPillsColor} from "app/common/styles";
+import NavPills from "app/common/tabs/NavPills";
 import util from "app/utils/util";
 import classNames from "classnames";
 import React from "react";
@@ -18,26 +20,39 @@ class CartOrderTab extends React.PureComponent {
         super(props);
         this.state = {
             agreementChecked: true,
-            region: "77",
             regionList: util.dictionary.regionList,
+            delivery: {
+                type: 0,
+                region: "77",
+            }
         };
         this.handleToggle = this.handleToggle.bind(this);
         this.handleRegionChange = this.handleRegionChange.bind(this);
+        this.onDeliveryTypeChange = this.onDeliveryTypeChange.bind(this);
     }
 
     handleToggle(e) {
-        const state = this.state;
         this.setState({
-            ...state,
-            agreementChecked: !state.agreementChecked
+            ...this.state,
+            agreementChecked: !this.state.agreementChecked
         });
     }
 
     handleRegionChange(e) {
-        const state = this.state;
+        this.setDeliveryProp("region", e.target.value);
+    }
+
+    onDeliveryTypeChange = (event, activeTabIndex) => {
+        this.setDeliveryProp("type", activeTabIndex);
+    };
+
+    setDeliveryProp(name, value) {
         this.setState({
-            ...state,
-            region: e.target.value
+            ...this.state,
+            delivery: {
+                ...this.state.delivery,
+                [name]: value
+            }
         });
     }
 
@@ -125,44 +140,39 @@ class CartOrderTab extends React.PureComponent {
                                              fakeItemText="Выберите регион"
                                              onChange={this.handleRegionChange}
                                              options={this.state.regionList}
-                                             value={this.state.region}
+                                             value={this.state.delivery.region}
                                 />
                             </Grid>
                             <Grid xs={6} item/>
                             <Grid xs={12} item>
-                                <CustomTabs
-                                    plainTabs
-                                    headerColor="dark"
+                                <NavPills
+                                    color={navPillsColor}
+                                    activeTabIndex={this.state.delivery.type}
+                                    onChange={this.onDeliveryTypeChange}
                                     tabs={[
                                         {
-                                            tabName: "Home",
-                                            tabContent: (
-                                                <p className={classes.textCenter}>
-                                                    I think that’s a responsibility that I have, to push
-                                                </p>
+                                            pillText: util.dictionary.deliveryTypeMap[0].name,
+                                            content: (
+                                                <div>
+                                                    <h5>
+                                                        Курьерская доставка —{" "}
+                                                        <Price value={
+                                                            util.dictionary.deliveryTypeMap[0].coast
+                                                        }/>
+                                                    </h5>
+                                                </div>
                                             )
                                         },
                                         {
-                                            tabName: "Updates",
-                                            tabContent: (
-                                                <p className={classes.textCenter}>
-                                                    I think that’s a responsibility that I have, to push
-                                                </p>
-                                            )
-                                        },
-                                        {
-                                            tabName: "History",
-                                            tabContent: (
-                                                <p className={classes.textCenter}>
-                                                    think that’s a responsibility that I have, to push
-                                                    possibilities, to show people, this is the level that
-                                                </p>
+                                            pillText: util.dictionary.deliveryTypeMap[1].name,
+                                            content: (
+                                                <span>te empowered marke</span>
                                             )
                                         }
                                     ]}
                                 />
-                            </Grid>
 
+                            </Grid>
                         </Grid>
                     </CardBody>
                 </Card>
