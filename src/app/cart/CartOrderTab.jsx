@@ -17,7 +17,7 @@ class CartOrderTab extends React.PureComponent {
         super(props);
         this.state = {
             agreementChecked: true,
-            region: null,
+            region: "77",
             regionList: util.dictionary.regionList,
         };
         this.handleToggle = this.handleToggle.bind(this);
@@ -36,7 +36,7 @@ class CartOrderTab extends React.PureComponent {
         const state = this.state;
         this.setState({
             ...state,
-            region: !e.target.value
+            region: e.target.value
         });
     }
 

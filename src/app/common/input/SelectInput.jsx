@@ -3,7 +3,7 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
 import withStyles from "@material-ui/core/styles/withStyles";
-import inputStyle from "app/common/input/inputStyle";
+import customSelectStyle from "app/common/input/customSelectStyle";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -67,8 +67,8 @@ class SelectInput extends React.PureComponent {
         fakeItemText: PropTypes.string.isRequired,
         value: PropTypes.string,
         onChange: PropTypes.func.isRequired,
-        options: PropTypes.arrayOf(PropTypes.string).isRequired,
+        options: PropTypes.arrayOf(PropTypes.object).isRequired,
     };
 }
 
-export default withStyles(inputStyle)(SelectInput);
+export default withStyles(customSelectStyle)(SelectInput);
