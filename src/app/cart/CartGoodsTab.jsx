@@ -103,6 +103,7 @@ class CartGoodsTab extends React.PureComponent {
                 </Card>
             )
         }
+        const totalQuantity = goods.map(item => item.quantity).reduce((a, b) => a + b, 0);
 
         return (
             <Card className={classes.goodsTableContainer}>
@@ -169,7 +170,7 @@ class CartGoodsTab extends React.PureComponent {
                                <div className={classes.tableFooterContainer}>
                                    <div className={classes.left}>
                                        <h4 className={classes.nowrap}>
-                                           Всего {goods.length} товаров
+                                           В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}
                                        </h4>
                                    </div>
                                    <div className={classes.priceTotal}>
