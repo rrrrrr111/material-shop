@@ -23,7 +23,7 @@ class SettingsTab extends React.PureComponent {
 
     handleToggle(e) {
         this.setState({
-            checked: !this.state.checked
+            agreementChecked: !this.state.agreementChecked
         });
     }
 
@@ -34,20 +34,16 @@ class SettingsTab extends React.PureComponent {
                 <CardBody>
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={6}>
-                            <div
-                                className={
-                                    classes.checkboxAndRadio + " " + classes.checkboxAndRadioHorizontal
-                                }
-                            >
+                            <div className={classes.checkboxAndRadio + " " + classes.checkboxAndRadioHorizontal}>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
                                             tabIndex={-1}
                                             onClick={this.handleToggle}
-                                            checked={this.state.checked}
+                                            checked={this.state.agreementChecked}
                                             checkedIcon={<Check className={classes.checkedIcon}/>}
                                             icon={<Check className={classes.uncheckedIcon}/>}
-                                            classes={{checked: classes.checked}}
+                                            classes={{agreementChecked: classes.agreementChecked}}
                                         />
                                     }
                                     classes={{label: classes.label}}

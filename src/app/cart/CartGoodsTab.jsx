@@ -101,7 +101,7 @@ class CartGoodsTab extends React.PureComponent {
             return (
                 <Card className={classes.goodsTableContainer}>
                     <CardBody>
-                        <h2>Ваша корзина пуста</h2>
+                        <h2>Корзина пуста</h2>
                     </CardBody>
                 </Card>
             )
@@ -175,7 +175,7 @@ class CartGoodsTab extends React.PureComponent {
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
                                            <h4 className={classes.nowrap}>
-                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}
+                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)} на сумму:
                                            </h4>
                                        </Grid>
                                    </GridItem>

@@ -1,5 +1,5 @@
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "lib/assets/jss/material-kit-pro-react.jsx";
-import customCheckboxRadioSwitch from "lib/assets/jss/material-kit-pro-react/customCheckboxRadioSwitchStyle.jsx";
+import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
 
 import modalStyle from "lib/assets/jss/material-kit-pro-react/modalStyle.jsx";
 import popoverStyles from "lib/assets/jss/material-kit-pro-react/popoverStyles.jsx";

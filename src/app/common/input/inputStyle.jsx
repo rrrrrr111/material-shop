@@ -6,7 +6,7 @@ import {
     successColor,
 } from "lib/assets/jss/material-kit-pro-react.jsx";
 
-const customInputStyle = {
+const inputStyle = {
     formControl,
     labelRoot,
     disabled: {
@@ -79,4 +79,4 @@ const customInputStyle = {
     }
 };
 
-export default customInputStyle;
+export default inputStyle;

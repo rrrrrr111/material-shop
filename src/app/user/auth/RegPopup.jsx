@@ -162,7 +162,7 @@ class RegPopup extends React.PureComponent {
                                                                 onClick={this.handleAggrCheckboxToggle}
                                                                 checkedIcon={<Check className={classes.checkedIcon}/>}
                                                                 icon={<Check className={classes.uncheckedIcon}/>}
-                                                                classes={{checked: classes.checked}}/>
+                                                                classes={{agreementChecked: classes.agreementChecked}}/>
                                                   }
                                                   label={<span className={classes.termAndCondAgreementLabel}>
                                                             Я принимаю условия

@@ -1,8 +1,10 @@
+import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
 import {appStyles} from "app/common/styles";
 import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const userCartStyle = theme => ({
     ...appStyles(theme),
+    ...customCheckboxRadioSwitch,
     title,
 
     goodsContainer: {
@@ -11,7 +13,7 @@ const userCartStyle = theme => ({
     },
     orderContainer: {
         ...appStyles(theme).centeredContainer,
-        maxWidth: 1200,
+        maxWidth: 800,
     },
     paymentContainer: {
         ...appStyles(theme).centeredContainer,
@@ -69,6 +71,10 @@ const userCartStyle = theme => ({
     rubSignTotal: {
         marginLeft: 5,
         fontSize: 18,
+    },
+    agreementCheckboxLabel: {
+        fontSize: "10px",
+        lineHeight: "12px",
     },
 });
 

@@ -4,7 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
-import customInputStyle from "app/common/input/customInputStyle.jsx";
+import inputStyle from "app/common/input/inputStyle";
 import MaskedInputWrapper from "app/common/input/MaskedInputWrapper";
 import NumberInputWrapper from "app/common/input/NumberInputWrapper";
 import classNames from "classnames";
@@ -121,4 +121,4 @@ CustomInput.propTypes = {
     white: PropTypes.bool
 };
 
-export default withStyles(customInputStyle)(CustomInput);
+export default withStyles(inputStyle)(CustomInput);

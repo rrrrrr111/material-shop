@@ -104,7 +104,7 @@ class Menu extends React.PureComponent {
                         <AppIcon name="shopping_cart" className={classes.icons}/>
                         Корзина
                     </Button>
-                    <Notify text="Ваша корзина пуста"
+                    <Notify text="Корзина пуста"
                             isOpen={this.state.emptyCartNotification}
                             onClose={this.handleCloseEmptyCartNotification}
                     />
