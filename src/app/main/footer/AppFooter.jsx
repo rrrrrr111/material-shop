@@ -6,8 +6,8 @@ import LocalLink from "app/common/misc/LocalLink";
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";
 import Footer from "lib/components/Footer/Footer.jsx";
-import GridContainer from "lib/components/Grid/GridContainer";
-import GridItem from "lib/components/Grid/GridItem";
+import GridContainer from "app/common/grid/GridContainer";
+import GridItem from "app/common/grid/GridItem";
 import React from "react";
 
 class AppFooter extends React.PureComponent {

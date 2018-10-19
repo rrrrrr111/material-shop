@@ -60,7 +60,6 @@ const userCartStyle = theme => ({
     },
     priceTotal: {
         ...appStyles(theme).nowrap,
-        ...appStyles(theme).right,
         color: title.color,
         fontFamily: title.fontFamily,
         fontWeight: title.fontWeight,

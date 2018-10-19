@@ -1,6 +1,9 @@
+import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
 import Button from "app/common/button/Button";
+import GridContainer from "app/common/grid/GridContainer";
+import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
@@ -116,7 +119,8 @@ class CartGoodsTab extends React.PureComponent {
                                return [
                                    <div className={classes.imgCell}>
                                        <div className={classes.imgContainer}>
-                                           <img src={util.link.productImg(item.image)} alt="..." className={classes.img}/>
+                                           <img src={util.link.productImg(item.image)} alt="..."
+                                                className={classes.img}/>
                                        </div>
                                    </div>
                                    ,
@@ -167,19 +171,24 @@ class CartGoodsTab extends React.PureComponent {
                                ];
                            })}
                            tableFooter={
-                               <div className={classes.tableFooterContainer}>
-                                   <div className={classes.left}>
-                                       <h4 className={classes.nowrap}>
-                                           В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}
-                                       </h4>
-                                   </div>
-                                   <div className={classes.priceTotal}>
-                                       <NumberFormat value={
-                                           goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
-                                       } displayType='text' thousandSeparator=' '/>
-                                       <AppIcon className={classes.rubSignTotal} name="fas fa-ruble-sign"/>
-                                   </div>
-                               </div>}
+                               <GridContainer className={classes.tableFooterContainer}>
+                                   <GridItem container xs={12} sm zeroMinWidth justify="center">
+                                       <Grid item>
+                                           <h4 className={classes.nowrap}>
+                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}
+                                           </h4>
+                                       </Grid>
+                                   </GridItem>
+                                   <GridItem container xs={12} sm zeroMinWidth justify="center">
+                                       <Grid item className={classes.priceTotal}>
+                                           <NumberFormat value={
+                                               goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
+                                           } displayType='text' thousandSeparator=' '/>
+                                           <AppIcon className={classes.rubSignTotal} name="fas fa-ruble-sign"/>
+                                       </Grid>
+                                   </GridItem>
+                               </GridContainer>
+                           }
                            customCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
                            customClassesForCells={[0, 2, 3, 4]}
                            customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textRight, classes.textCenter]}
