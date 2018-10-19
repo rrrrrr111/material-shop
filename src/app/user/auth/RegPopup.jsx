@@ -32,7 +32,7 @@ class RegPopup extends React.PureComponent {
             aggrCheckboxChecked: false
         };
         this.handleClose = this.handleClose.bind(this);
-        this.handleSignin = this.handleSignin.bind(this);
+        this.handleSignup = this.handleSignup.bind(this);
         this.handleAggrCheckboxToggle = this.handleAggrCheckboxToggle.bind(this);
     }
 
@@ -40,7 +40,7 @@ class RegPopup extends React.PureComponent {
         e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.location, this.props.history);
     };
-    handleSignin = (e) => {
+    handleSignup = (e) => {
         e.stopPropagation();
         // todo ajax sign up
         this.handleClose(e);
@@ -110,7 +110,7 @@ class RegPopup extends React.PureComponent {
                                         ),
                                         autoComplete: "on",
                                         placeholder: "Имя...",
-                                        name: "Name",
+                                        name: "First name",
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -175,7 +175,8 @@ class RegPopup extends React.PureComponent {
                                                         </span>}
                                 />
                                 <div className={classes.textCenter}>
-                                    <Button color={buttonColor}>
+                                    <Button color={buttonColor} onClick={this.handleSignup}
+                                            disabled={!this.state.aggrCheckboxChecked}>
                                         Зарегистрироваться
                                     </Button>
                                 </div>

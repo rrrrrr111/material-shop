@@ -25,8 +25,9 @@ class PasswordTab extends React.PureComponent {
                                     fullWidth: true
                                 }}
                                 inputProps={{
-                                    autoComplete: "off",
+                                    autoComplete: "new-password",
                                     type: "password",
+                                    name: "old-password",
                                 }}
                                 otherProps={{
                                     maxLength: 100,
@@ -40,8 +41,9 @@ class PasswordTab extends React.PureComponent {
                                     fullWidth: true
                                 }}
                                 inputProps={{
-                                    autoComplete: "off",
+                                    autoComplete: "new-password",
                                     type: "password",
+                                    name: "new-password-1",
                                 }}
                                 otherProps={{
                                     maxLength: 100,
@@ -57,8 +59,9 @@ class PasswordTab extends React.PureComponent {
                                     fullWidth: true
                                 }}
                                 inputProps={{
-                                    autoComplete: "off",
+                                    autoComplete: "new-password",
                                     type: "password",
+                                    name: "new-password-2",
                                 }}
                                 otherProps={{
                                     maxLength: 100,
