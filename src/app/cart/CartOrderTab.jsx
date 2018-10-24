@@ -6,6 +6,7 @@ import Check from "@material-ui/icons/Check";
 import userCartStyle from "app/cart/userCartStyle";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";
+import GridContainer from "app/common/grid/GridContainer";
 import CustomInput from "app/common/input/CustomInput";
 import SelectInput from "app/common/input/SelectInput";
 import Price from "app/common/misc/Price";
@@ -63,8 +64,8 @@ class CartOrderTab extends React.PureComponent {
                 <Card>
                     <CardBody>
                         <h3>Оформление заказа</h3>
-                        <h5>Получатель</h5>
-                        <Grid container justify="center" spacing={8}>
+                        <h5 className={classes.title}>Получатель</h5>
+                        <Grid container justify="center" spacing={16}>
                             <Grid xs={12} sm item>
                                 <CustomInput
                                     labelText="Имя"
@@ -132,7 +133,7 @@ class CartOrderTab extends React.PureComponent {
                                 />
                             </Grid>
                         </Grid>
-                        <h5>Доставка</h5>
+                        <h5 className={classes.title}>Доставка</h5>
                         <Grid container justify="center" spacing={8}>
                             <Grid xs={6} item>
                                 <SelectInput id="region"
@@ -153,20 +154,147 @@ class CartOrderTab extends React.PureComponent {
                                         {
                                             pillText: util.dictionary.deliveryTypeMap[0].name,
                                             content: (
-                                                <div>
-                                                    <h5>
-                                                        Курьерская доставка —{" "}
-                                                        <Price value={
-                                                            util.dictionary.deliveryTypeMap[0].coast
-                                                        }/>
-                                                    </h5>
-                                                </div>
+                                                <GridContainer spacing={16}>
+                                                    <Grid item xs={12}>
+                                                        <h5>
+                                                            Курьерская доставка —{" "}
+                                                            <Price value={
+                                                                util.dictionary.deliveryTypeMap[0].coast
+                                                            }/>
+                                                        </h5>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <CustomInput
+                                                            labelText="Улица"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Street",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 200,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Дом"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "House",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Корпус"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Housing",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Строение"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Construction",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}/>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Квартира"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Apartment",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Подъезд"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Entrance",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <CustomInput
+                                                            labelText="Домофон"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                name: "Intercom",
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 10,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <CustomInput
+                                                            id="address-comment"
+                                                            labelText="Комментарий к доставке"
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                autoComplete: "on",
+                                                                multiline: true,
+                                                                rows: 3,
+                                                            }}
+                                                            otherProps={{
+                                                                maxLength: 1000,
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                </GridContainer>
                                             )
                                         },
                                         {
                                             pillText: util.dictionary.deliveryTypeMap[1].name,
                                             content: (
-                                                <span>te empowered marke</span>
+                                                <span>
+                                                    <h5>Сожалеем, доставка Почтой России временно не доступна.</h5>
+                                                </span>
                                             )
                                         }
                                     ]}

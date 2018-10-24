@@ -1,11 +1,10 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import CartGoodsTab from "app/cart/CartGoodsTab";
 import CartOrderTab from "app/cart/CartOrderTab";
-import CartPaymentTab from "app/cart/CartPaymentTab";
 import userCartStyle from "app/cart/userCartStyle";
+import Clearfix from "app/common/misc/Clearfix";
 import Wizard from "app/common/wizard/Wizard";
 import classNames from "classnames";
-import Clearfix from "app/common/misc/Clearfix";
 import React from "react";
 
 
@@ -27,14 +26,14 @@ class UserCart extends React.PureComponent {
                     key: "order", url: "/cart/order", content: <CartOrderTab/>,
                     containerClassName: classes.orderContainer,
                     prevButtonText: "Назад",
-                    nextButtonText: "К оплате",
+                    nextButtonText: "Подтвердить заказ",
                 },
-                {
-                    key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
-                    containerClassName: classes.paymentContainer,
-                    prevButtonText: "Назад",
-                    nextButtonText: "Закрыть",
-                },
+                // {
+                //     key: "payment", url: "/cart/payment", content: <CartPaymentTab/>,
+                //     containerClassName: classes.paymentContainer,
+                //     prevButtonText: "Назад",
+                //     nextButtonText: "Закрыть",
+                // },
             ],
             finalUrl: "/",
         };

@@ -7,7 +7,7 @@ import React from "react";
 class CartPaymentTab extends React.PureComponent {
 
     render() {
-        const {classes} = this.props;
+        //const {classes} = this.props;
         return (
             <Card>
                 <CardBody>

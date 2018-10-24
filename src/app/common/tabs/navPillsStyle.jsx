@@ -78,8 +78,7 @@ const navPillsStyle = theme => ({
     contentWrapper: {
         marginTop: "20px",
         "& .react-swipeable-view-container > div > div": {
-            paddingLeft: "15px",
-            paddingRight: "15px"
+            padding: "0 15px 15px 15px",
         }
     },
     primary: {

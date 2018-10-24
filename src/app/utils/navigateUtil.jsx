@@ -98,5 +98,6 @@ const navigate = {
 
     scrollUp: scrollUp,
     getCurrentYScroll: getCurrentYScroll,
+    smoothScrollTo: smoothScrollTo,
 };
 export default navigate;
