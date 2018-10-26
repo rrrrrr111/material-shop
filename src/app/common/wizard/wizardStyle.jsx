@@ -2,7 +2,7 @@
 // // // NavPills component style
 // #############################
 
-import {appStyles} from "app/common/styles";
+import {appStyles} from "app/common/style/styles";
 
 const wizardStyle = theme => ({
     ...appStyles(theme),

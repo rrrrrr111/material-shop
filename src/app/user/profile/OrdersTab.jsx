@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {iconButtonColor} from "app/common/styles";
+import {iconButtonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";

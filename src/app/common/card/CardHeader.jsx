@@ -2,7 +2,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 import cardHeaderStyle from "app/common/card/cardHeaderStyle.jsx";
-import {ALL_COLORS} from "app/common/styles";
+import {ALL_COLORS} from "app/common/style/styles";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";

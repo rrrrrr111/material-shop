@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 
 import snackbarStyle from "app/common/snackbar/notify/snackbarStyle.jsx";
-import {ALL_COLORS} from "../../styles";
+import {ALL_COLORS} from "../../style/styles";
 
 function Snackbar({...props}) {
     const {classes, message, color, close, icon, place, open} = props;

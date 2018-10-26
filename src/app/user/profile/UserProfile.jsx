@@ -1,5 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import {navPillsColor} from "app/common/styles";
+import {navPillsColor} from "app/common/style/styles";
 import OrdersTab from "app/user/profile/OrdersTab";
 import PasswordTab from "app/user/profile/PasswordTab";
 import ProfileTab from "app/user/profile/ProfileTab";

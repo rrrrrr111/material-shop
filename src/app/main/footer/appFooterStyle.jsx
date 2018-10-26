@@ -1,4 +1,4 @@
-import {appStyles} from "app/common/styles";
+import {appStyles} from "app/common/style/styles";
 import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 

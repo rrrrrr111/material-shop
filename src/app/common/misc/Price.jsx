@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {appStyles} from "app/common/styles";
+import {appStyles} from "app/common/style/styles";
 import {title} from "lib/assets/jss/material-kit-pro-react";
 import PropTypes from "prop-types";
 import React from "react";

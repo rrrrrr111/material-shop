@@ -4,7 +4,7 @@ import MenuBar from "app/main/header/MenuBar.jsx";
 import Menu from "app/main/header/menu/Menu.jsx";
 import Parallax from "lib/components/Parallax/Parallax.jsx";
 import headerStyle from "app/main/header/headerStyle.jsx";
-import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "app/common/styles";
+import {dropdownHoverColor, headerParallaxFilterColor, menuAfterScrollColor, menuInitialColor} from "app/common/style/styles";
 
 class Header extends React.PureComponent {
 

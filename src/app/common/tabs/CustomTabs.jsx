@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";
 import CardHeader from "app/common/card/CardHeader.jsx";
-import {ALL_COLORS} from "app/common/styles";
+import {ALL_COLORS} from "app/common/style/styles";
 import customTabsStyle from "app/common/tabs/customTabsStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";

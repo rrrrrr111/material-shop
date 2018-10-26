@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
-import {ALL_COLORS, PRIMARY_COLOR} from "app/common/styles";
+import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
 import navPillsStyle from "app/common/tabs/navPillsStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";

@@ -3,7 +3,7 @@ import Button from "app/common/button/Button.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import CustomInput from "app/common/input/CustomInput.jsx";
-import {buttonColor} from "app/common/styles";
+import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";

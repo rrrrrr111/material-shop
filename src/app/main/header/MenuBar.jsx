@@ -10,7 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import LocalLink from "app/common/misc/LocalLink";
-import {ALL_COLORS, WHITE_COLOR} from "app/common/styles";
+import {ALL_COLORS, WHITE_COLOR} from "app/common/style/styles";
 
 import menuBarStyle from "app/main/header/menuBarStyle.jsx";
 // nodejs library that concatenates classes

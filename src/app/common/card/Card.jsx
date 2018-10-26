@@ -2,7 +2,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 import cardStyle from "app/common/card/cardStyle.jsx";
-import {ALL_COLORS} from "app/common/styles";
+import {ALL_COLORS} from "app/common/style/styles";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 

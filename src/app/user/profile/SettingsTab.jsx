@@ -2,7 +2,7 @@ import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Check from "@material-ui/icons/Check";
-import {buttonColor} from "app/common/styles";
+import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";

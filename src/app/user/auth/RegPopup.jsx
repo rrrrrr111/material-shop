@@ -12,7 +12,7 @@ import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
-import {buttonColor} from "app/common/styles";
+import {buttonColor} from "app/common/style/styles";
 
 import util from "app/utils/util"
 import classNames from "classnames";

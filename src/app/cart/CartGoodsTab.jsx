@@ -10,7 +10,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
-import {iconButtonColor} from "app/common/styles";
+import {iconButtonColor} from "app/common/style/styles";
 import Table from "app/common/table/CustomTable";
 import util from "app/utils/util"
 import toNumber from 'lodash/toNumber'

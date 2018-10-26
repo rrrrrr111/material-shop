@@ -11,7 +11,7 @@ import Button from "app/common/button/Button";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
-import {buttonColor, popupHeaderColor} from "app/common/styles";
+import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 
 import util from "app/utils/util"
 import Card from "app/common/card/Card";
