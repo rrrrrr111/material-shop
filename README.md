@@ -1,6 +1,5 @@
 
 Структура
-
     public - папка с static ресурсами доступными через URL, не обрабатывается Webpack'ом при
         компиляции, не рекомендуется класть в нее ресурсы приложения, доступ к ней из приложения
         через %PUBLIC_URL% в html и process.env.PUBLIC_URL в JS
@@ -21,10 +20,13 @@ Troubleshooting
     - SCSS файлы преобразуются в CSS только при перезапуске npm run start, в онлайне при правках не подхватываются
 
 Используется
-    - React.js -
-    - react-router
-    - Redux -
-    - JSS
-    - Node.js
-    - Material UI -
-    - Creative Tim Material Kit https://demos.creative-tim.com/
+    - HTML, CSS, JavaScript http://htmlbook.ru/css/cat/text
+    - React.js https://reactjs.org/docs
+    - react-router https://reacttraining.com/react-router/web/guides/philosophy
+    - Redux https://redux.js.org/basics/store
+    - JSS (CSS in JS) http://cssinjs.org
+    - Node.js, npm
+    - Material UI https://material-ui.com/demos/app-bar/
+    - Creative Tim Material Kit https://demos.creative-tim.com/, https://demos.creative-tim.com/material-kit-pro/presentation.html
+    - react-number-format, react-text-mask
+    - Lodash https://lodash.com/docs/
