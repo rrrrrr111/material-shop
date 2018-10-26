@@ -1,4 +1,4 @@
-const tooltipsStyle = {
+const tooltipStyle = theme => ({
     tooltip: {
         padding: "10px 15px",
         minWidth: "130px",
@@ -23,7 +23,7 @@ const tooltipsStyle = {
         wordWrap: "normal",
         whiteSpace: "normal",
         lineBreak: "auto"
-    }
-};
+    },
+});
 
-export default tooltipsStyle;
+export default tooltipStyle;

@@ -1,18 +1,18 @@
-import {appStyles} from "app/common/style/styles";
-import {description, mlAuto, mrAuto} from "lib/assets/jss/material-kit-pro-react";
-import {cardTitle, container} from "lib/assets/jss/material-kit-pro-react.jsx";
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
-
 import customCheckboxRadioSwitchStyle from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/modalStyle";
-import popoverStyles from "lib/assets/jss/material-kit-pro-react/popoverStyles";
-import tooltipsStyle from "app/common/style/tooltipsStyle";
+import popoverStyles from "app/common/style/popoverStyles";
+import {appStyles} from "app/common/style/styles";
+import tooltipStyle from "app/common/style/tooltipStyle";
+import {description, mlAuto, mrAuto} from "lib/assets/jss/material-kit-pro-react";
+import {cardTitle, container} from "lib/assets/jss/material-kit-pro-react.jsx";
+
 
 const regPopupStyle = theme => ({
     description,
     mlAuto,
     mrAuto,
-    ...tooltipsStyle,
+    ...tooltipStyle(theme),
     ...popoverStyles,
     ...modalStyle(theme),
     ...customCheckboxRadioSwitch,

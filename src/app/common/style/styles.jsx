@@ -63,6 +63,11 @@ const simpleStyles = theme => ({
     left: {
         float: "left",
     },
+    justifyContentBetween: { // по вертикали
+        WebkitBoxPack: "justify !important",
+        justifyContent: "space-between !important",
+        MsFlexPack: "justify !important",
+    },
     // выравнивание для span или текста
     textCenter: {
         textAlign: "center"

@@ -30,7 +30,7 @@ class Feed extends React.PureComponent {
                 <GridContainer spacing={16}>
                     {this.state.products.map((product, index) => {
                         return (
-                            <Grid item xs={3} key={index}>
+                            <Grid item xs={2} key={index}>
                                 <ProductCard product={product}/>
                             </Grid>
                         );

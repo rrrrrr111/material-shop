@@ -1,12 +1,9 @@
-// ##############################
-// // // Menu styles
-// #############################
-
+import tooltipStyle from "app/common/style/tooltipStyle.jsx";
 import {mlAuto} from "lib/assets/jss/material-kit-pro-react.jsx";
 
-import tooltip from "app/common/style/tooltipsStyle.jsx";
-
 const menuStyle = theme => ({
+    ...tooltipStyle(theme),
+
     list: {
         /* для десктопа */
         [theme.breakpoints.up("md")]: {
@@ -202,7 +199,6 @@ const menuStyle = theme => ({
             },
         }
     },
-    ...tooltip,
     marginRight5: {
         marginRight: "5px"
     },

@@ -1,14 +1,18 @@
-import tooltipsStyle from "app/common/style/tooltipsStyle";
+import {appStyles} from "app/common/style/styles";
+import tooltipStyle from "app/common/style/tooltipStyle";
 import {cardTitle, main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
 
-const feedStyle = {
-    ...tooltipsStyle,
+
+const feedStyle = theme => ({
+    ...tooltipStyle(theme),
+    ...appStyles(theme),
     main: {
-        ...main
+        ...main,
         /*overflow: "hidden"*/
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     mainRaised,
-
 
     cardTitle: {
         ...cardTitle,
@@ -16,16 +20,9 @@ const feedStyle = {
         marginBottom: "0px !important"
     },
 
-    justifyContentBetween: {
-        WebkitBoxPack: "justify!important",
-        justifyContent: "space-between !important"
-    },
-
     priceContainer: {
         display: "inline-flex"
     },
-
-
-};
+});
 
 export default feedStyle;

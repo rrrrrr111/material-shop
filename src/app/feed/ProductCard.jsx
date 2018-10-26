@@ -1,5 +1,6 @@
+// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Tooltip from "@material-ui/core/Tooltip/Tooltip";
+import Tooltip from "@material-ui/core/Tooltip";
 import Button from "app/common/button/Button";
 import Card from "app/common/card/Card";
 import CardBody from "app/common/card/CardBody";
@@ -12,6 +13,7 @@ import {iconButtonColor} from "app/common/style/styles";
 import feedStyle from "app/feed/feedStyle";
 import util from "app/utils/util";
 import React from "react";
+
 
 class ProductCard extends React.PureComponent {
 
@@ -36,10 +38,11 @@ class ProductCard extends React.PureComponent {
                     <div className={classes.priceContainer}>
                         <Price value={product.price}/>
                     </div>
-                    <Tooltip id="tooltip-top"
-                        title="Добавить в корзину Add to wish list"
-                        placement="left"
-                        classes={{tooltip: classes.tooltip}}>
+                    <Tooltip id="add-to-cart-tooltip"
+                             title="Добавить в корзину Add to wish list"
+                             placement="left"
+                             classes={{tooltip: classes.tooltip}}
+                    >
                         <Button simple justIcon round color={iconButtonColor}>
                             <AppIcon name="add_shopping_cart"/>
                         </Button>
