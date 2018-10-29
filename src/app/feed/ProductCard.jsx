@@ -1,5 +1,4 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import Tooltip from "@material-ui/core/Tooltip";
 import Button from "app/common/button/Button";
 import Card from "app/common/card/Card";
 import CardBody from "app/common/card/CardBody";
@@ -9,8 +8,10 @@ import AppIcon from "app/common/icon/AppIcon";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
+import AppTooltip from "app/common/tooltip/AppTooltip";
 import feedStyle from "app/feed/feedStyle";
 import util from "app/utils/util";
+import classNames from "classnames";
 import React from "react";
 
 
@@ -37,15 +38,16 @@ class ProductCard extends React.PureComponent {
                     <div className={classes.priceContainer}>
                         <Price value={product.price}/>
                     </div>
-                    <Tooltip id="add-to-cart-tooltip"
-                             title="Добавить в корзину Add to wish list"
-                             placement="left"
-                             classes={{tooltip: classes.tooltip}}
-                    >
-                        <Button simple justIcon round color={iconButtonColor}>
-                            <AppIcon name="add_shopping_cart"/>
-                        </Button>
-                    </Tooltip>
+                    <div className={classNames(classes.stats, classes.mlAuto)}>
+                        <AppTooltip title="Добавить в корзину"
+                                    placement="left" arrow
+                        >
+                            <Button justIcon simple round
+                                    color={iconButtonColor}>
+                                <AppIcon name="add_shopping_cart"/>
+                            </Button>
+                        </AppTooltip>
+                    </div>
                 </CardFooter>
             </Card>
         );

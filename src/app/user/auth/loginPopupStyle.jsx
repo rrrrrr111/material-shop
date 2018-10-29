@@ -1,7 +1,7 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/modalStyle.jsx";
 import popoverStyles from "app/common/style/popoverStyles.jsx";
-import tooltipStyle from "app/common/style/tooltipStyle.jsx";
+import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 

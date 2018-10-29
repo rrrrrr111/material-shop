@@ -1,11 +1,10 @@
 import {appStyles} from "app/common/style/styles";
-import tooltipStyle from "app/common/style/tooltipStyle";
-import {cardTitle, main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
+import {cardTitle, main, mainRaised, mlAuto} from "lib/assets/jss/material-kit-pro-react";
 
 
 const feedStyle = theme => ({
-    ...tooltipStyle(theme),
     ...appStyles(theme),
+    mlAuto,
     main: {
         ...main,
         /*overflow: "hidden"*/
@@ -13,6 +12,10 @@ const feedStyle = theme => ({
         paddingRight: 30,
     },
     mainRaised,
+
+    stats: {
+        color: "#999"
+    },
 
     cardTitle: {
         ...cardTitle,

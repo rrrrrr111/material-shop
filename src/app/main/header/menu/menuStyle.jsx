@@ -1,4 +1,4 @@
-import tooltipStyle from "app/common/style/tooltipStyle.jsx";
+import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
 import {mlAuto} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const menuStyle = theme => ({
