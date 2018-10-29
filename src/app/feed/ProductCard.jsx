@@ -1,4 +1,3 @@
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "app/common/button/Button";

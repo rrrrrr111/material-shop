@@ -2,9 +2,9 @@ const tooltipStyle = theme => ({
     tooltip: {
         padding: "10px 15px",
         minWidth: "130px",
-        color: "#FFFFFF",
+        color: "#555555",
         lineHeight: "1.7em",
-        background: "rgba(85,85,85,0.9)",
+        background: "#FFFFFF",
         border: "none",
         borderRadius: "3px",
         boxShadow:

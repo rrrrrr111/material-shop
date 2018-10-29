@@ -4,7 +4,7 @@ import GridContainer from "app/common/grid/GridContainer";
 import feedStyle from "app/feed/feedStyle.jsx";
 import ProductCard from "app/feed/ProductCard";
 import util from "app/utils/util";
-import classNames from "classnames";
+import classNames from 'classnames';
 import fill from 'lodash/fill';
 import React from "react";
 
