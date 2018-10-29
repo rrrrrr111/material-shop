@@ -20,7 +20,7 @@ const tooltipStyle = theme => ({
             height: '1em',
             '&::before': {
                 borderWidth: '1em 1em 0 1em',
-                borderColor: `${theme.palette.grey[100]} transparent transparent transparent`,
+                borderColor: `${theme.palette.grey[700]} transparent transparent transparent`,
             },
         },
         '&[x-placement*="right"] $arrowArrow': {
