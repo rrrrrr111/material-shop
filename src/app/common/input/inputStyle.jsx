@@ -1,3 +1,4 @@
+import {font} from "app/common/style/styles";
 import {
     dangerColor,
     formControl,
@@ -62,7 +63,7 @@ const inputStyle = {
         color: "#495057",
         "&,&::placeholder": {
             fontSize: "14px",
-            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+            fontFamily: font,
             fontWeight: "400",
             lineHeight: "1.42857",
             opacity: "1"

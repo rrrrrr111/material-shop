@@ -1,3 +1,5 @@
+import {boldFont} from "app/common/style/styles";
+
 const drawerWidth = 260;
 
 const transition = {
@@ -149,7 +151,7 @@ const title = {
     marginTop: "30px",
     marginBottom: "25px",
     minHeight: "32px",
-    fontFamily: `"Roboto Slab", "Times New Roman", serif`
+    fontFamily: boldFont
 };
 
 const cardTitle = {

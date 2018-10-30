@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {appStyles} from "app/common/style/styles";
+import {appStyles, boldFont} from "app/common/style/styles";
 import classNames from "classnames";
 import {title} from "lib/assets/jss/material-kit-pro-react";
 import PropTypes from "prop-types";
@@ -12,7 +12,7 @@ const style = theme => ({
     price: {
         ...appStyles(theme).nowrap,
         color: title.color,
-        fontFamily: title.fontFamily,
+        fontFamily: boldFont,
         fontSize: "1.0625rem",
         fontWeight: title.fontWeight,
     },
@@ -23,7 +23,7 @@ const style = theme => ({
     priceBig: {
         ...appStyles(theme).nowrap,
         color: title.color,
-        fontFamily: title.fontFamily,
+        fontFamily: boldFont,
         fontWeight: title.fontWeight,
         fontSize: "1.5625rem",
         margin: "20px 40px 20px 40px",

@@ -1,3 +1,5 @@
+import {font} from "app/common/style/styles";
+
 const popoverStyles = {
   popover: {
     padding: "0",
@@ -9,7 +11,7 @@ const popoverStyles = {
     borderRadius: "3px",
     display: "block",
     maxWidth: "276px",
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: font,
     fontStyle: "normal",
     fontWeight: "400",
     textAlign: "start",

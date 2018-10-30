@@ -38,6 +38,9 @@ const ALL_PLACEMENTS = ["bottom", "top", "right", "left", "bottom-start", "botto
 const notificationColor = ROSE_COLOR;
 const notificationPlace = "bc";
 
+const font = '"Roboto", "Helvetica", "Arial", sans-serif';
+const boldFont = '"Roboto Slab", "Times New Roman", serif';
+
 const menuInitialColor = TRANSPARENT_COLOR;
 const menuAfterScrollColor = ROSE_COLOR;
 const dropdownHoverColor = menuAfterScrollColor;  // пункт меню при наведении
@@ -142,6 +145,9 @@ export {
 
     notificationColor,
     notificationPlace,
+
+    font,
+    boldFont,
 
     menuInitialColor,
     menuAfterScrollColor,

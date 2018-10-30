@@ -91,8 +91,7 @@ class SimpleProduct extends React.PureComponent {
                             </GridItem>
                             <GridItem md={6} sm={6}>
                                 <h2 className={classes.title}>{product.name}</h2>
-                                <Price big value={product.price}
-                                       className={classes.mainPrice}/>
+                                <Price className={classes.price} value={product.price}/>
                                 <Accordion className={classes.productAccordion}
                                            expandedPanelClassName={classes.productAccordionPanel}
                                            active={0}

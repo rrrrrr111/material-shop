@@ -1,3 +1,4 @@
+import {font} from "app/common/style/styles";
 import { title } from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const mediaStyle = {
@@ -41,7 +42,7 @@ const mediaStyle = {
     marginTop: "10px",
     marginBottom: "10px",
     "& small": {
-      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+      fontFamily: font
     }
   },
   mediaFooter: {
