@@ -31,6 +31,7 @@ const SOCIAL_COLORS = [TWITTER_COLOR, FACEBOOK_COLOR, GOOGLE_COLOR, LINKEDIN_COL
     TUMBLR_COLOR, GITHUB_COLOR, BEHANCE_COLOR, DRIBBBLE_COLOR, REDDIT_COLOR, INSTAGRAM_COLOR, VK_COLOR];
 
 const ALL_COLORS = MAIN_COLORS.concat(SOCIAL_COLORS);
+const ALL_PLACEMENTS = ["bottom", "top", "right", "left", "bottom-start", "bottom-end", "top-start", "top-end", "right-start", "right-end", "left-start", "left-end"];
 
 // стили приложения
 
@@ -135,6 +136,8 @@ export {
     ROSE_COLOR,
     DARK_COLOR,
     ALL_COLORS,
+
+    ALL_PLACEMENTS,
 
     notificationColor,
     notificationPlace,

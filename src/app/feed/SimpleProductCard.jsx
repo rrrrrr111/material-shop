@@ -16,6 +16,14 @@ import React from "react";
 
 
 class SimpleProductCard extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.handleAddToShoppingCart = this.handleAddToShoppingCart.bind(this);
+    }
+
+    handleAddToShoppingCart() {
+        util.notify.showNotify(this, "addToShoppingCart");
+    }
 
     render() {
         const {classes, product} = this.props;
@@ -38,7 +46,7 @@ class SimpleProductCard extends React.PureComponent {
                     <div className={classNames(classes.stats, classes.mlAuto)}>
                         <AppTooltip title="Добавить в корзину"
                                     placement="top" arrow>
-                            <Button justIcon simple round
+                            <Button justIcon simple round onClick={this.handleAddToShoppingCart}
                                     color={iconButtonColor}>
                                 <AppIcon name="add_shopping_cart"/>
                             </Button>

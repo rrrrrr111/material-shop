@@ -7,8 +7,9 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
-import classNames from "classnames";
 import dropdownStyle from "app/common/dropdown/dropdownStyle.jsx";
+import {ALL_COLORS, ALL_PLACEMENTS} from "app/common/style/styles";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -25,7 +26,7 @@ class MenuDropdown extends React.PureComponent {
     }
 
     handleClick() {
-        var x = (this.state.clicks + 1) % 2;
+        const x = (this.state.clicks + 1) % 2;
         this.setState({open: true, clicks: x});
     }
 
@@ -160,50 +161,29 @@ class MenuDropdown extends React.PureComponent {
             </div>
         );
     }
+
+    static defaultProps = {
+        caret: true,
+        dropup: false,
+        hoverColor: "primary"
+    };
+
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        hoverColor: PropTypes.oneOf(ALL_COLORS),
+        buttonText: PropTypes.node,
+        buttonIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+        dropdownList: PropTypes.array,
+        buttonProps: PropTypes.object,
+        dropup: PropTypes.bool,
+        dropdownHeader: PropTypes.node,
+        rtlActive: PropTypes.bool,
+        caret: PropTypes.bool,
+        dropPlacement: PropTypes.oneOf(ALL_PLACEMENTS),
+        noLiPadding: PropTypes.bool,
+        innerDropDown: PropTypes.bool,
+        navDropdown: PropTypes.bool
+    };
 }
-
-MenuDropdown.defaultProps = {
-    caret: true,
-    dropup: false,
-    hoverColor: "primary"
-};
-
-MenuDropdown.propTypes = {
-    classes: PropTypes.object.isRequired,
-    hoverColor: PropTypes.oneOf([
-        "dark",
-        "primary",
-        "info",
-        "success",
-        "warning",
-        "danger",
-        "rose"
-    ]),
-    buttonText: PropTypes.node,
-    buttonIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    dropdownList: PropTypes.array,
-    buttonProps: PropTypes.object,
-    dropup: PropTypes.bool,
-    dropdownHeader: PropTypes.node,
-    rtlActive: PropTypes.bool,
-    caret: PropTypes.bool,
-    dropPlacement: PropTypes.oneOf([
-        "bottom",
-        "top",
-        "right",
-        "left",
-        "bottom-start",
-        "bottom-end",
-        "top-start",
-        "top-end",
-        "right-start",
-        "right-end",
-        "left-start",
-        "left-end"
-    ]),
-    noLiPadding: PropTypes.bool,
-    innerDropDown: PropTypes.bool,
-    navDropdown: PropTypes.bool
-};
 
 export default withStyles(dropdownStyle)(MenuDropdown);
