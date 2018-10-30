@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import feedStyle from "app/feed/feedStyle.jsx";
-import ProductCard from "app/feed/ProductCard";
+import ProductCard from "app/feed/SimpleProductCard";
 import util from "app/utils/util";
 import classNames from 'classnames';
 import fill from 'lodash/fill';
@@ -16,7 +16,7 @@ class Feed extends React.PureComponent {
                 id: 1,
                 image: "000/000/product2.jpg",
                 link: "/p/spring_jacasdf_asdf_asdf_aket_p-1",
-                name: "Spring Jacket",
+                name: "Spring JackeSpring JackeSpring Jacket",
                 price: 1093232
             }, 0, 12)
         };
@@ -30,7 +30,7 @@ class Feed extends React.PureComponent {
                 <GridContainer spacing={16}>
                     {this.state.products.map((product, index) => {
                         return (
-                            <Grid item xs={2} key={index}>
+                            <Grid item xs={12} md={3} lg={2} key={index}>
                                 <ProductCard product={product}/>
                             </Grid>
                         );

@@ -15,24 +15,21 @@ import classNames from "classnames";
 import React from "react";
 
 
-class ProductCard extends React.PureComponent {
+class SimpleProductCard extends React.PureComponent {
 
     render() {
         const {classes, product} = this.props;
         return (
-            <Card plain product>
-                <CardHeader noShadow image>
+            <Card plain className={classes.productCard}>
+                <CardHeader noShadow image className={classes.productHeader}>
                     <LocalLink to={product.link}>
                         <img src={util.link.productImg(product.image)} alt="..."/>
                     </LocalLink>
                 </CardHeader>
-                <CardBody plain>
+                <CardBody className={classes.productBody}>
                     <LocalLink to={product.link}>
-                        <h4 className={classes.cardTitle}>{product.name}</h4>
+                        <h4 className={classes.productTitle}>{product.name}</h4>
                     </LocalLink>
-                    <p className={classes.description}>
-                        Impeccably tailored in Italy from lightweight navy wool.
-                    </p>
                 </CardBody>
                 <CardFooter plain className={classes.justifyContentBetween}>
                     <div className={classes.priceContainer}>
@@ -40,8 +37,7 @@ class ProductCard extends React.PureComponent {
                     </div>
                     <div className={classNames(classes.stats, classes.mlAuto)}>
                         <AppTooltip title="Добавить в корзину"
-                                    placement="left" arrow
-                        >
+                                    placement="top" arrow>
                             <Button justIcon simple round
                                     color={iconButtonColor}>
                                 <AppIcon name="add_shopping_cart"/>
@@ -54,4 +50,4 @@ class ProductCard extends React.PureComponent {
     }
 }
 
-export default withStyles(feedStyle)(ProductCard);
+export default withStyles(feedStyle)(SimpleProductCard);

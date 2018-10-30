@@ -17,15 +17,25 @@ const feedStyle = theme => ({
         color: "#999"
     },
 
-    cardTitle: {
+
+    productCard: {
+        margin: 0,
+    },
+    productHeader: {
+        marginTop: 0,
+    },
+    productTitle: {
         ...cardTitle,
         textAlign: "center",
-        marginBottom: "0px !important"
+        marginBottom: "0 !important",
+        fontSize: 15
     },
-
     priceContainer: {
         display: "inline-flex"
     },
+    productBody: {
+        padding: 5,
+    }
 });
 
 export default feedStyle;
