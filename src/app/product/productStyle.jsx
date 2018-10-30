@@ -1,4 +1,6 @@
 import customSelectStyle from "app/common/input/customSelectStyle";
+import imagesStyle from "app/common/style/imagesStyle.jsx";
+import {appStyles} from "app/common/style/styles";
 import tooltipStyle from "app/common/tooltip/tooltipStyle";
 import {
     cardTitle,
@@ -9,33 +11,38 @@ import {
     roseColor,
     title
 } from "lib/assets/jss/material-kit-pro-react.jsx";
-import imagesStyles from "lib/assets/jss/material-kit-pro-react/imagesStyles.jsx";
 
 
-const productStyle = {
+const productStyle = theme => ({
+    ...appStyles(theme),
+    ...tooltipStyle(theme),
+    ...imagesStyle,
+    ...customSelectStyle,
+
     mlAuto,
     main,
     mainRaised,
-    ...imagesStyles,
-    ...customSelectStyle,
-    ...tooltipStyle,
+
     container: {
         ...container,
-        zIndex: 2
+        zIndex: 2,
+        paddingBottom: 50,
     },
     title: {
         ...title,
         marginBottom: 0
     },
-    sectionGray: {
-        background: "#e5e5e5"
-    },
     mainPrice: {
-        margin: "10px 0px 25px"
+        margin: "15px 0 25px 0"
     },
-    textCenter: {
-        textAlign: "center!important"
+    productAccordion: {
+        height: 500,
     },
+    productAccordionPanel: {
+        maxHeight: 300,
+        overflowY: "auto",
+    },
+
     productPage: {
         backgroundColor: "#eee",
         "& $mainRaised": {
@@ -98,9 +105,7 @@ const productStyle = {
     pickSize: {
         marginTop: "50px"
     },
-    pullRight: {
-        float: "right"
-    },
+
     cardCategory: {
         textAlign: "center",
         marginTop: "10px"
@@ -175,6 +180,6 @@ const productStyle = {
         height: "18px",
         position: "relative"
     }
-};
+});
 
 export default productStyle;

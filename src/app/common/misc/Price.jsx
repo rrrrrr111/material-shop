@@ -1,6 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
 import {appStyles} from "app/common/style/styles";
+import classNames from "classnames";
 import {title} from "lib/assets/jss/material-kit-pro-react";
 import PropTypes from "prop-types";
 import React from "react";
@@ -34,9 +35,13 @@ const style = theme => ({
 });
 
 function Price({...props}) {
-    const {classes, value, big} = props;
+    const {classes, className, value, big} = props;
     return (
-        <span className={big ? classes.priceBig : classes.price}>
+        <span className={classNames({
+            [classes.priceBig]: big,
+            [classes.price]: !big,
+            [className]: className,
+        })}>
             <NumberFormat value={value} displayType='text' thousandSeparator=' '/>
             <AppIcon className={big ? classes.rubSignBig : classes.rubSign} name="fas fa-ruble-sign"/>
         </span>
@@ -46,6 +51,7 @@ function Price({...props}) {
 Price.propTypes = {
     value: PropTypes.number.isRequired,
     classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
     big: PropTypes.bool,
 };
 

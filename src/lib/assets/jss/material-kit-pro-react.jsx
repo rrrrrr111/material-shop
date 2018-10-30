@@ -1,23 +1,3 @@
-/*!
-
- =========================================================
- * Material Kit PRO React - v1.1.0 based on Material Kit PRO - v2.0.3
- =========================================================
-
- * Product Page: https://www.creative-tim.com/product/material-kit-pro-react
- * Copyright 2018 Creative Tim (https://www.creative-tim.com)
- * Licensed under MIT (https://github.com/creativetimofficial/ct-material-kit-pro-react/blob/master/LICENSE.md)
-
- =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
- */
-
-// ##############################
-// // // Variables - Styles that are used on more than one component
-// #############################
-
 const drawerWidth = 260;
 
 const transition = {
