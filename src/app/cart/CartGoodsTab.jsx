@@ -128,7 +128,7 @@ class CartGoodsTab extends React.PureComponent {
                                        {item.name}
                                    </LocalLink>
                                    ,
-                                   <Price value={item.price}/>
+                                   <Price bold value={item.price}/>
                                    ,
                                    <span className={classes.nowrap}>
                                         <Button simple justIcon size="sm"
@@ -180,7 +180,7 @@ class CartGoodsTab extends React.PureComponent {
                                    </GridItem>
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
-                                           <Price big value={
+                                           <Price bold big value={
                                                goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
                                            }/>
                                        </Grid>

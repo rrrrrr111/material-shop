@@ -1,5 +1,5 @@
 import customSelectStyle from "app/common/input/customSelectStyle";
-import {appStyles, font} from "app/common/style/styles";
+import {appStyles} from "app/common/style/styles";
 import tooltipStyle from "app/common/tooltip/tooltipStyle";
 import {container, main, mainRaised, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
@@ -65,9 +65,7 @@ const productStyle = theme => ({
     price: {
         margin: 0,
         lineHeight: 2,
-        fontWeight: 100,
         fontSize: "25px",
-        fontFamily: font
     },
     productAccordion: {
         height: 500,

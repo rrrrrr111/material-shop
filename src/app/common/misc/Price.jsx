@@ -1,7 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {appStyles, boldFont} from "app/common/style/styles";
-import classNames from "classnames";
+import {appStyles, boldFont, font} from "app/common/style/styles";
 import {title} from "lib/assets/jss/material-kit-pro-react";
 import PropTypes from "prop-types";
 import React from "react";
@@ -12,38 +11,41 @@ const style = theme => ({
     price: {
         ...appStyles(theme).nowrap,
         color: title.color,
-        fontFamily: boldFont,
+        fontFamily: font,
         fontSize: "1.0625rem",
-        fontWeight: title.fontWeight,
+        "&.big": {
+            fontSize: "1.5625rem",
+            margin: "20px 40px 20px 40px",
+        },
+        "&.bold": {
+            fontFamily: boldFont,
+            fontWeight: title.fontWeight,
+        }
     },
     rubSign: {
         marginLeft: 4,
-        fontSize: 13,
-    },
-    priceBig: {
-        ...appStyles(theme).nowrap,
-        color: title.color,
-        fontFamily: boldFont,
-        fontWeight: title.fontWeight,
-        fontSize: "1.5625rem",
-        margin: "20px 40px 20px 40px",
-    },
-    rubSignBig: {
-        marginLeft: 5,
-        fontSize: 18,
+        fontSize: 11,
+        "&.big": {
+            marginLeft: 5,
+            fontSize: 17,
+        }
     },
 });
 
 function Price({...props}) {
-    const {classes, className, value, big} = props;
+    const {classes, className, value, big, bold} = props;
+    let valueClass = classes.price;
+    valueClass = big ? valueClass + " big" : valueClass;
+    valueClass = bold ? valueClass + " bold" : valueClass;
+    valueClass = className ? valueClass + " " + className : valueClass;
+
+    let signClass = classes.rubSign;
+    signClass = big ? signClass + " big" : signClass;
+
     return (
-        <span className={classNames({
-            [classes.priceBig]: big,
-            [classes.price]: !big,
-            [className]: className,
-        })}>
+        <span className={valueClass}>
             <NumberFormat value={value} displayType='text' thousandSeparator=' '/>
-            <AppIcon className={big ? classes.rubSignBig : classes.rubSign} name="fas fa-ruble-sign"/>
+            <AppIcon className={signClass} name="fas fa-ruble-sign"/>
         </span>
     );
 }
@@ -53,6 +55,7 @@ Price.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     big: PropTypes.bool,
+    bold: PropTypes.bool,
 };
 
 export default withStyles(style)(Price);
