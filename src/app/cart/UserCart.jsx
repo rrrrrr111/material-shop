@@ -42,19 +42,21 @@ class UserCart extends React.PureComponent {
     render() {
         const {classes} = this.props;
 
-        return <div className={classNames(classes.main, classes.mainRaised)}>
-            <div className={classes.container}>
-                <Clearfix/>
-                <div className={classes.profileTabs}>
-                    <Wizard tabsConfig={this.state.tabsConfig.map((tab) => {
-                        return {...tab}
-                    })}
-                            finalUrl={this.state.finalUrl}
-                    />
+        return (
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div className={classes.container}>
+                    <Clearfix/>
+                    <div className={classes.cartContainer}>
+                        <Wizard tabsConfig={this.state.tabsConfig.map((tab) => {
+                            return {...tab}
+                        })}
+                                finalUrl={this.state.finalUrl}
+                        />
+                    </div>
+                    <Clearfix/>
                 </div>
-                <Clearfix/>
             </div>
-        </div>;
+        );
     }
 }
 

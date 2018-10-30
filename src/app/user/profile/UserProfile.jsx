@@ -1,5 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import Clearfix from "app/common/misc/Clearfix";
 import {navPillsColor} from "app/common/style/styles";
+import NavPills from "app/common/tabs/NavPills";
 import OrdersTab from "app/user/profile/OrdersTab";
 import PasswordTab from "app/user/profile/PasswordTab";
 import ProfileTab from "app/user/profile/ProfileTab";
@@ -7,8 +9,6 @@ import SettingsTab from "app/user/profile/SettingsTab";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
-import Clearfix from "app/common/misc/Clearfix";
-import NavPills from "app/common/tabs/NavPills";
 
 import React from "react";
 import {Redirect} from "react-router";
@@ -75,29 +75,30 @@ class UserProfile extends React.Component {
         if (tabIndex < 0) {
             return <Redirect to="/page-not-found"/>;
         }
-        return <div className={classNames(classes.main, classes.mainRaised)}>
-            <div className={classes.container}>
-                <Clearfix/>
-                <div className={classes.profileTabs}>
-                    <NavPills
-                        alignCenter
-                        activeTabIndex={tabIndex}
-                        onSwipe={this.handleSwipe}
-                        onChange={this.handleChange}
-                        color={navPillsColor}
-                        tabs={this.tabsConfig.map((tab) => {
-                            return {
-                                pillText: tab.name,
-                                pillClasses: classes.profileTabPill,
-                                pillIcon: tab.icon,
-                                content: tab.content
-                            }
-                        })}
-                    />
+        return (
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div className={classes.container}>
+                    <Clearfix/>
+                    <div className={classes.profileTabs}>
+                        <NavPills
+                            alignCenter
+                            activeTabIndex={tabIndex}
+                            onSwipe={this.handleSwipe}
+                            onChange={this.handleChange}
+                            color={navPillsColor}
+                            tabs={this.tabsConfig.map((tab) => {
+                                return {
+                                    pillText: tab.name,
+                                    pillClasses: classes.profileTabPill,
+                                    pillIcon: tab.icon,
+                                    content: tab.content
+                                }
+                            })}
+                        />
+                    </div>
                 </div>
-                <Clearfix/>
             </div>
-        </div>;
+        );
     }
 }
 

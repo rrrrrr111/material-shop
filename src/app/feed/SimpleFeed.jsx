@@ -1,14 +1,14 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
-import feedStyle from "app/feed/feedStyle.jsx";
+import simpleFeedStyle from "app/feed/simpleFeedStyle.jsx";
 import ProductCard from "app/feed/SimpleProductCard";
 import util from "app/utils/util";
 import classNames from 'classnames';
 import fill from 'lodash/fill';
 import React from "react";
 
-class Feed extends React.PureComponent {
+class SimpleFeed extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ class Feed extends React.PureComponent {
     }
 }
 
-export default withStyles(feedStyle)(Feed);
+export default withStyles(simpleFeedStyle)(SimpleFeed);

@@ -9,7 +9,7 @@ import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
 import AppTooltip from "app/common/tooltip/AppTooltip";
-import feedStyle from "app/feed/feedStyle";
+import simpleFeedStyle from "app/feed/simpleFeedStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
 import React from "react";
@@ -58,4 +58,4 @@ class SimpleProductCard extends React.PureComponent {
     }
 }
 
-export default withStyles(feedStyle)(SimpleProductCard);
+export default withStyles(simpleFeedStyle)(SimpleProductCard);

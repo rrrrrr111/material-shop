@@ -2,7 +2,7 @@ import {appStyles} from "app/common/style/styles";
 import {cardTitle, main, mainRaised, mlAuto} from "lib/assets/jss/material-kit-pro-react";
 
 
-const feedStyle = theme => ({
+const simpleFeedStyle = theme => ({
     ...appStyles(theme),
     mlAuto,
     main: {
@@ -38,4 +38,4 @@ const feedStyle = theme => ({
     }
 });
 
-export default feedStyle;
+export default simpleFeedStyle;

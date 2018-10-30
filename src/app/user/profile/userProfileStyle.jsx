@@ -9,21 +9,18 @@ const commonTabStyle = theme => ({
 });
 
 const userProfileStyle = theme => ({
-    ...customCheckboxRadioSwitch,
-    ...labelRoot,
-    ...formControl,
-    ...inputStyle,
-    ...container,
     ...appStyles(theme),
-    main: {
-        ...main
-    },
-    mainRaised: {
-        ...mainRaised
-    },
+    ...customCheckboxRadioSwitch,
+    ...inputStyle,
+
+    labelRoot,
+    formControl,
+    main,
+    mainRaised,
+    container,
+
     profileTabs: {
-        marginTop: "4.284rem",
-        marginBottom: "50px",
+        margin: "40px 0 50px 0",
     },
     profileTabPill: {
         width: 115,

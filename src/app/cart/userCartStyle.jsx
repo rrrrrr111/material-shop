@@ -1,11 +1,18 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
 import {appStyles} from "app/common/style/styles";
+import {container, main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
 import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const userCartStyle = theme => ({
     ...appStyles(theme),
     ...customCheckboxRadioSwitch,
     title,
+    main,
+    mainRaised,
+    container,
+    cartContainer: {
+        margin: "-35px 0 50px 0",
+    },
 
     goodsContainer: {
         ...appStyles(theme).centeredContainer,

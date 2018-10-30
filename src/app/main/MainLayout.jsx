@@ -1,8 +1,9 @@
 import UserCart from "app/cart/UserCart";
-import Feed from "app/feed/Feed";
+import Feed from "app/feed/SimpleFeed";
 
 import AppFooter from "app/main/footer/AppFooter";
 import Header from "app/main/header/Header";
+import SimpleProduct from "app/product/SimpleProduct";
 import LoginPopup from "app/user/auth/LoginPopup";
 import RegPopup from "app/user/auth/RegPopup";
 import SignoutComponent from "app/user/auth/SignoutComponent";
@@ -25,6 +26,7 @@ class MainLayout extends React.PureComponent {
                     {/* контент главного окна */}
                     <Route path={"/user/:activeTabKey"} component={UserProfile}/>
                     <Route path={"/cart/:activeTabKey"} component={UserCart}/>
+                    <Route path="/p/:productLink" component={SimpleProduct}/>
                     <Route path="/" component={Feed}/>
                 </Switch>
                 <Switch>
