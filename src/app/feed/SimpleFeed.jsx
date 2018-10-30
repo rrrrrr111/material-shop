@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import simpleFeedStyle from "app/feed/simpleFeedStyle.jsx";
-import ProductCard from "app/feed/SimpleProductCard";
+import SimpleProductCard from "app/feed/SimpleProductCard";
 import util from "app/utils/util";
 import classNames from 'classnames';
 import fill from 'lodash/fill';
@@ -30,8 +30,8 @@ class SimpleFeed extends React.PureComponent {
                 <GridContainer spacing={16}>
                     {this.state.products.map((product, index) => {
                         return (
-                            <Grid item xs={12} md={3} lg={2} key={index}>
-                                <ProductCard product={product}/>
+                            <Grid item xs={12} sm={6} md={3} lg={2} key={index}>
+                                <SimpleProductCard product={product}/>
                             </Grid>
                         );
                     })}
