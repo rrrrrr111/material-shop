@@ -7,7 +7,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import Clearfix from "app/common/misc/Clearfix";
 import Price from "app/common/misc/Price";
 import {accordionActiveColor, buttonColor} from "app/common/style/styles";
-import FancyFeed from "app/feed/FancyFeed";
+import FancyFeed from "app/feed/fancy/FancyFeed";
 import productStyle from "app/product/productStyle";
 import util from "app/utils/util";
 import classNames from "classnames";

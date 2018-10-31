@@ -12,5 +12,8 @@ const link = {
             }
         });
     },
+    beApi(url) {
+        return `http://localhost:${process.env.EXPRESS_SERVER_PORT}/api/${url}`
+    }
 };
 export default link;

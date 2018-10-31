@@ -9,13 +9,13 @@ import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
 import AppTooltip from "app/common/tooltip/AppTooltip";
-import simpleFeedStyle from "app/feed/simpleFeedStyle";
+import fancyFeedStyle from "app/feed/fancy/fancyFeedStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
 import React from "react";
 
 
-class SimpleProductCard extends React.PureComponent {
+class FancyProductCard extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleAddToShoppingCart = this.handleAddToShoppingCart.bind(this);
@@ -28,19 +28,28 @@ class SimpleProductCard extends React.PureComponent {
     render() {
         const {classes, product} = this.props;
         return (
-            <Card plain className={classes.productCard}>
-                <CardHeader noShadow image className={classes.productHeader}>
+            <Card product>
+                <CardHeader image>
                     <LocalLink to={product.link}>
                         <img src={util.link.productImg(product.image)} alt={product.name}/>
                     </LocalLink>
                 </CardHeader>
-                <CardBody className={classes.productBody}>
-                    <LocalLink to={product.link}>
-                        <h4 className={classes.productTitle}>{product.name}</h4>
-                    </LocalLink>
+                <CardBody>
+                    <h6
+                        className={classNames(
+                            classes.cardCategory,
+                            classes.textRose
+                        )}
+                    >
+                        В тренде
+                    </h6>
+                    <h4 className={classes.cardTitle}>{product.name}</h4>
+                    <div className={classes.cardDescription}>
+                        {product.description}
+                    </div>
                 </CardBody>
-                <CardFooter plain className={classes.justifyContentBetween}>
-                    <div className={classes.priceContainer}>
+                <CardFooter className={classes.justifyContentBetween}>
+                    <div className={classes.price}>
                         <Price value={product.price}/>
                     </div>
                     <div className={classNames(classes.stats, classes.right)}>
@@ -58,4 +67,4 @@ class SimpleProductCard extends React.PureComponent {
     }
 }
 
-export default withStyles(simpleFeedStyle)(SimpleProductCard);
+export default withStyles(fancyFeedStyle)(FancyProductCard);

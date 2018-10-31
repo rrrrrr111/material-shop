@@ -16,8 +16,6 @@ const simpleFeedStyle = theme => ({
     stats: {
         color: "#999"
     },
-
-
     productCard: {
         margin: 0,
     },

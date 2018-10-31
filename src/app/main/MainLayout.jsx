@@ -1,5 +1,5 @@
 import UserCart from "app/cart/UserCart";
-import Feed from "app/feed/SimpleFeed";
+import Feed from "app/feed/simple/SimpleFeed";
 
 import AppFooter from "app/main/footer/AppFooter";
 import Header from "app/main/header/Header";
