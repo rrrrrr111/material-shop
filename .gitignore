@@ -1,13 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/web/node_modules
 
 # testing
 /coverage
 
 # production
-/build
+build
 /.idea
 
 # misc
@@ -17,8 +17,7 @@
 .env.test.local
 .env.production.local
 
-/package-lock.json
-
+package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

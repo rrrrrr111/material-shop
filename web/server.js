@@ -21,4 +21,4 @@ app.get('/api/be/feed', function (req, res) {
     });
 });
 
-app.listen(process.env.REACT_APP_BACKEND_SERVER_PORT || 3015);
+app.listen(3011);
