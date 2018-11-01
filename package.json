@@ -76,7 +76,6 @@
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-transform-react-pure-class-to-function": "^1.0.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
-    "babel-preset-react-optimize": "^1.0.1",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
     "express": "^4.16.4",

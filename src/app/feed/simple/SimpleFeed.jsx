@@ -4,7 +4,7 @@ import GridContainer from "app/common/grid/GridContainer";
 import {RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
-import {action, toProps} from "app/utils/functionUtil";
+import {action} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import classNames from 'classnames';
 import React from "react";

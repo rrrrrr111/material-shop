@@ -9,8 +9,7 @@
         }
       }
     ],
-    "@babel/react",
-    "react-optimize"
+    "@babel/preset-react"
   ],
   "plugins": [
     "@babel/transform-react-constant-elements",
