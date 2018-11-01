@@ -36,8 +36,6 @@ class SimpleFeed extends React.PureComponent {
 
     render() {
         const {classes, data} = this.props;
-        console.log("Rendering feed ", this.props);
-
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <GridContainer spacing={16}>

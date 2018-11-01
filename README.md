@@ -7,9 +7,9 @@
 
 #Команды
     `npm i` - установка пакетов
-    `npm i webpack -g` - установка webpack
+    `npm i webpack -g` - установка webpack глобально
     `npm run start --verbose` - запуск в режиме разработки через react-scripts, см скрипты в package.json, открываем http://localhost:3000
-
+    `npm run start-wp --verbose` - запуск в режиме разработки через webpack, открываем http://localhost:3000
     `node server.js` - запуск серверной части (Бэкенд)
     `npm test` - запуск тестов
     `npm run build` - сборка для передачи на пром
@@ -19,11 +19,12 @@
     2. В идее установить папку /src как папку исходников, иначе импорты криво подсвечиваются
     3. в настрйоках IDEA включить прямые импорты для JavaScript
     4. npm i
-    5. npm i webpack -g
 
 #Troubleshooting
     - SCSS файлы преобразуются в CSS только при перезапуске npm run start, в онлайне при правках не подхватываются
         - аналогично с переменными из .env
+    - переустановить все пакеты, грохнуть %USERPROFILE%\AppData\Roaming\npm, npm-cache и в проекте \node_modules
+
 
 #Используется
     - HTML, CSS, JavaScript http://htmlbook.ru/css/cat/text
@@ -37,6 +38,6 @@
     - react-number-format, react-text-mask
     - Lodash https://lodash.com/docs/
     - immutability-helper https://github.com/kolodny/immutability-helper
-    - Webpack
+    - Webpack https://webpack.js.org/concepts/
     - Babel https://babeljs.io/docs/en/
 
