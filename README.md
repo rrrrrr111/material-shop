@@ -8,7 +8,7 @@
 #Команды
     `npm i` - установка пакетов
     `npm i webpack -g` - установка webpack
-    `npm run start` - запуск в режиме разработки через react-scripts, см скрипты в package.json, открываем http://localhost:3000
+    `npm run start --verbose` - запуск в режиме разработки через react-scripts, см скрипты в package.json, открываем http://localhost:3000
 
     `node server.js` - запуск серверной части (Бэкенд)
     `npm test` - запуск тестов
@@ -23,6 +23,7 @@
 
 #Troubleshooting
     - SCSS файлы преобразуются в CSS только при перезапуске npm run start, в онлайне при правках не подхватываются
+        - аналогично с переменными из .env
 
 #Используется
     - HTML, CSS, JavaScript http://htmlbook.ru/css/cat/text

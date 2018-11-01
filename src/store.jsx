@@ -1,4 +1,4 @@
-import {feedReducer, uiFeedReducer} from "app/feed/reducer";
+import {dataFeedReducer, uiFeedReducer} from "app/feed/reducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
 
@@ -10,10 +10,10 @@ const configureStore = function (initialState) {
     // это позволит нам сделать экшоны с RESTами
     return applyMiddleware(thunk)(createStore)(
         combineReducers({
-            feed: feedReducer,
-            ui: combineReducers({
-                feed: uiFeedReducer,
-            })
+            feed: combineReducers({
+                data: dataFeedReducer,
+                ui: uiFeedReducer,
+            }),
         }));
 };
 

@@ -24,7 +24,10 @@ class SimpleFeed extends React.PureComponent {
         dispatch(action(START_RELOAD_MAIN_FEED));
         fetch(util.link.beApi("feed"))
             .then(function (response) {
-                dispatch(action(RELOAD_MAIN_FEED, response.json().products));
+                return response.json();
+            })
+            .then(function (json) {
+                dispatch(action(RELOAD_MAIN_FEED, json.products));
             })
             .finally(function () {
                 dispatch(action(STOP_RELOAD_MAIN_FEED));
@@ -33,6 +36,8 @@ class SimpleFeed extends React.PureComponent {
 
     render() {
         const {classes, data} = this.props;
+        console.log("Rendering feed ", this.props);
+
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <GridContainer spacing={16}>
@@ -50,8 +55,7 @@ class SimpleFeed extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
-    return toProps(state.feed, state.ui.feed);
+    return state.feed;
 };
 
 export default connect(mapStateToProps)(withStyles(simpleFeedStyle)(SimpleFeed));

@@ -12,9 +12,5 @@ export const createReducer = (initialState, mappingObj) => {
     };
 };
 
-export const toProps = (data, uiData) => {
-    return {data: data, ui: uiData};
-};
-
 
 

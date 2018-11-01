@@ -1,15 +1,15 @@
-var express = require('express');
-var app = express();
-var fill = require('lodash/fill');
+const express = require('express');
+const app = express();
+const fill = require('lodash/fill');
 
 
-app.all('/', function (req, res, next) {
+app.all('/*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
-app.get('/api/feed', function (req, res) {
+app.get('/api/be/feed', function (req, res) {
     res.json({
         products: fill(Array(12), {
             id: 1,
@@ -21,4 +21,4 @@ app.get('/api/feed', function (req, res) {
     });
 });
 
-app.listen(process.env.EXPRESS_SERVER_PORT);
+app.listen(process.env.REACT_APP_BACKEND_SERVER_PORT || 3015);

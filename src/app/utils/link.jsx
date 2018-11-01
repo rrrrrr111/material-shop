@@ -13,7 +13,8 @@ const link = {
         });
     },
     beApi(url) {
-        return `http://localhost:${process.env.EXPRESS_SERVER_PORT}/api/${url}`
+        const server = process.env.REACT_APP_BACKEND_SERVER_HOST + ":" + process.env.REACT_APP_BACKEND_SERVER_PORT;
+        return `http://${server}/api/be/${url}`
     }
 };
 export default link;
