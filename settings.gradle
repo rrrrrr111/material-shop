@@ -1,0 +1,6 @@
+rootProject.name = 'matshop'
+
+include 'backend-webapi'
+
+
+project(":backend-webapi").projectDir = "$rootDir/backend/backend-webapi" as File

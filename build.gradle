@@ -1,0 +1,19 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+    }
+
+    group = 'ru.rich'
+    version = '0.28.1-SNAPSHOT'
+    sourceCompatibility = 1.11
+    targetCompatibility = 1.11
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+}
