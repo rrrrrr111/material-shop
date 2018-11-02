@@ -22,9 +22,8 @@ public class Start {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    public CommandLineRunner loggingCommandLineRunner(ApplicationContext ctx) {
         return args -> {
-
             if (false) logBeans(ctx);
             if (true) logBaseUrl();
         };
@@ -41,6 +40,6 @@ public class Start {
     }
 
     private void logBaseUrl() {
-        log.info("Tomcat started at http://127.0.0.1:8080");
+        log.trace("Tomcat started at http://127.0.0.1:8080");
     }
 }

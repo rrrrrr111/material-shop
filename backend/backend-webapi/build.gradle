@@ -6,12 +6,21 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
 
+configurations {
+    developmentOnly // одельная конфигурация для исключения зависимостей при сборке на пром
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
     testImplementation("'org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 
+    developmentOnly("org.springframework.boot:spring-boot-devtools:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     // https://mvnrepository.com/artifact/org.testng/testng
@@ -22,21 +31,24 @@ dependencies {
 
 mainClassName = 'ru.rich.matshop.webapi.Start'
 
-bootJar {
-    baseName = 'matshop-beckend-webapi'
+springBoot {
+    buildInfo() //
+}
 
+bootJar { // описание для сборки итогового jar-ника cо Spring Boot
+    baseName = 'matshop-beckend-webapi'
     manifest {
         attributes([
                 'Manifest-Version': '1.0',
-                'Application': "${rootProject.name} ${version}",
-                'Created-By': "Gradle " + LocalDateTime.now() 
-                        + ', Java ' + getProperty("java.version") + ' ' + getProperty("java.vendor") 
-                        + ', ' + getProperty("os.name") + ' ' + getProperty("os.version") 
+                'Application'     : "${rootProject.name} ${version}",
+                'Created-By'      : "Gradle " + LocalDateTime.now()
+                        + ', Java ' + getProperty("java.version") + ' ' + getProperty("java.vendor")
+                        + ', ' + getProperty("os.name") + ' ' + getProperty("os.version")
         ])
     }
 }
 
-buildscript {
+buildscript { // применяется только при запуске скрипта
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
     }

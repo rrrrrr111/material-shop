@@ -1,4 +1,4 @@
-subprojects {
+subprojects { // применяется ко всем дочерним проектам, к себе нет
     apply plugin: 'java'
     apply plugin: 'idea'
 
