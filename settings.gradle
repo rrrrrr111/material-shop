@@ -1,4 +1,4 @@
-rootProject.name = 'matshop'
+rootProject.name = 'material-shop'
 
 include 'backend-webapi'
 

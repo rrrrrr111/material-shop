@@ -16,4 +16,8 @@ subprojects {
             mavenCentral()
         }
     }
+
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
 }

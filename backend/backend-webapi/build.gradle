@@ -1,24 +1,44 @@
+import java.time.LocalDateTime
+
+import static java.lang.System.getProperty
+
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
+    testImplementation("'org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 
+    compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     // https://mvnrepository.com/artifact/org.testng/testng
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    runtime("org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion")
 }
+
+mainClassName = 'ru.rich.matshop.webapi.Start'
 
 bootJar {
     baseName = 'matshop-beckend-webapi'
+
+    manifest {
+        attributes([
+                'Manifest-Version': '1.0',
+                'Application': "${rootProject.name} ${version}",
+                'Created-By': "Gradle " + LocalDateTime.now() 
+                        + ', Java ' + getProperty("java.version") + ' ' + getProperty("java.vendor") 
+                        + ', ' + getProperty("os.name") + ' ' + getProperty("os.version") 
+        ])
+    }
 }
 
 buildscript {
-    ext {
-        springBootVersion = '2.1.0.RELEASE'
-    }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
     }
 }
 
