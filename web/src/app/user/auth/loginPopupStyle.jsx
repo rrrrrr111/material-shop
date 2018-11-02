@@ -1,6 +1,7 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/modalStyle.jsx";
 import popoverStyles from "app/common/style/popoverStyles.jsx";
+import {appStyles} from "app/common/style/styles";
 import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
@@ -11,6 +12,7 @@ const loginPopupStyle = theme => ({
     cardTitle,
     mlAuto,
     mrAuto,
+    ...appStyles(theme),
     ...tooltipStyle(theme),
     ...popoverStyles,
     ...modalStyle(theme),
@@ -77,9 +79,6 @@ const loginPopupStyle = theme => ({
         fontWeight: "400",
         paddingLeft: "0"
     },
-    textCenter: {
-        textAlign: "center"
-    },
     cardTitleWhite: {
         ...cardTitle,
         color: "#FFFFFF !important"
@@ -111,11 +110,6 @@ const loginPopupStyle = theme => ({
             paddingLeft: 0,
             paddingRight: 0,
         },
-    },
-    justifyContentCenter: {
-        WebkitBoxPack: "center !important",
-        MsFlexPack: "center !important",
-        justifyContent: "center !important"
     },
     infoArea: {
         padding: "0px 0px 20px !important"

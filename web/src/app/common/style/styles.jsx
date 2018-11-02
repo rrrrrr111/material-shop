@@ -1,3 +1,6 @@
+import {primaryColor} from "lib/assets/jss/material-kit-pro-react";
+import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
+
 // константы
 
 const PRIMARY_COLOR = "primary"; // имена соотв классов (classes["primary"])
@@ -52,11 +55,13 @@ const iconButtonColor = BEHANCE_COLOR;  // кнопки иконки
 const navPillsColor = ROSE_COLOR;  // swipable табы (профиль пользователя)
 const tabHeaderColor = ROSE_COLOR;  // обычные табы
 const accordionActiveColor = ROSE_COLOR; // выделенный элемент аккордиона
+const circularProgressColor = ROSE_COLOR; // круглый значек загрузки  // todo разделить на цвета и классы
 
 const simpleStyles = theme => ({
     width100: {
         width: "100%",
     },
+
     // выравнивание блока
     alignCenter: {
         marginLeft: "auto",
@@ -72,6 +77,11 @@ const simpleStyles = theme => ({
         WebkitBoxPack: "justify !important",
         justifyContent: "space-between !important",
         MsFlexPack: "justify !important",
+    },
+    justifyContentCenter: {
+        WebkitBoxPack: "center !important",
+        MsFlexPack: "center !important",
+        justifyContent: "center !important"
     },
     // выравнивание для span или текста
     textCenter: {
@@ -90,6 +100,7 @@ const simpleStyles = theme => ({
 // общие стили
 const appStyles = theme => ({
     ...simpleStyles(theme),
+    title,
 
     // растягивающийся контейнер по центру экрана, можно добавить maxWidth
     centeredContainer: {
@@ -160,6 +171,7 @@ export {
     navPillsColor,
     tabHeaderColor,
     accordionActiveColor,
+    circularProgressColor,
 
     appStyles,
 };

@@ -116,9 +116,6 @@ const regPopupStyle = theme => ({
             paddingRight: 0,
         },
     },
-    textCenter: {
-        textAlign: "center"
-    },
     inputAdornment: {
         marginRight: "18px",
         position: "relative"

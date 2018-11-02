@@ -5,13 +5,15 @@ import {cardTitle, main, mainRaised, mlAuto} from "lib/assets/jss/material-kit-p
 const simpleFeedStyle = theme => ({
     ...appStyles(theme),
     mlAuto,
-    main: {
+    simpleFeedContainer: {
         ...main,
-        /*overflow: "hidden"*/
+        ...mainRaised,
+        overflow: "hidden",
         paddingLeft: 30,
         paddingRight: 30,
+        minHeight: 600,
+
     },
-    mainRaised,
 
     stats: {
         color: "#999"

@@ -25,46 +25,46 @@ class AppFooter extends React.PureComponent {
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>О компании</h5>
-                                    <p><LocalLink navLink to="/info/mission"> Миссия </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/history"> История </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/advantage"> Преимущества </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/requisites"> Реквизиты </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/contacts"> Контакты </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/news"> Новости </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/"> Отзывы </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/blog"> Блог </LocalLink></p>
+                                    <p><LocalLink nav to="/info/mission"> Миссия </LocalLink></p>
+                                    <p><LocalLink nav to="/info/history"> История </LocalLink></p>
+                                    <p><LocalLink nav to="/info/advantage"> Преимущества </LocalLink></p>
+                                    <p><LocalLink nav to="/info/requisites"> Реквизиты </LocalLink></p>
+                                    <p><LocalLink nav to="/info/contacts"> Контакты </LocalLink></p>
+                                    <p><LocalLink nav to="/info/news"> Новости </LocalLink></p>
+                                    <p><LocalLink nav to="/info/"> Отзывы </LocalLink></p>
+                                    <p><LocalLink nav to="/info/blog"> Блог </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Вопросы и ответы</h5>
-                                    <p><LocalLink navLink to="/info/how-to#order"> Как сделать заказ </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/how-to#pay"> Как оплатить товар </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/gift-certificates"> Подарочные
+                                    <p><LocalLink nav to="/info/how-to#order"> Как сделать заказ </LocalLink></p>
+                                    <p><LocalLink nav to="/info/how-to#pay"> Как оплатить товар </LocalLink></p>
+                                    <p><LocalLink nav to="/info/gift-certificates"> Подарочные
                                         сертификаты </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/delivery"> Условия доставки </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/bonuses"> Система бонусов </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/returns"> Возврат товара </LocalLink></p>
+                                    <p><LocalLink nav to="/info/delivery"> Условия доставки </LocalLink></p>
+                                    <p><LocalLink nav to="/info/bonuses"> Система бонусов </LocalLink></p>
+                                    <p><LocalLink nav to="/info/returns"> Возврат товара </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
-                                        <LocalLink navLink to="/auth/signin"> Вход </LocalLink>
+                                        <LocalLink nav to="/auth/signin"> Вход </LocalLink>
                                         \
-                                        <LocalLink navLink to="/auth/signup"> Регистрация </LocalLink>
+                                        <LocalLink nav to="/auth/signup"> Регистрация </LocalLink>
                                     </p>
-                                    <p><LocalLink navLink to="/user/profile"> Профиль пользователя </LocalLink></p>
-                                    <p><LocalLink navLink to="/cart/goods"> Корзина </LocalLink></p>
-                                    <p><LocalLink navLink to="/user/orders"> История заказов </LocalLink></p>
-                                    <p><LocalLink navLink to="/user/settings"> Настройки </LocalLink></p>
-                                    <p><LocalLink navLink to="/user/password"> Смена пароля </LocalLink></p>
-                                    <p><LocalLink navLink to="/auth/signout"> Выход </LocalLink></p>
+                                    <p><LocalLink nav to="/user/profile"> Профиль пользователя </LocalLink></p>
+                                    <p><LocalLink nav to="/cart/goods"> Корзина </LocalLink></p>
+                                    <p><LocalLink nav to="/user/orders"> История заказов </LocalLink></p>
+                                    <p><LocalLink nav to="/user/settings"> Настройки </LocalLink></p>
+                                    <p><LocalLink nav to="/user/password"> Смена пароля </LocalLink></p>
+                                    <p><LocalLink nav to="/auth/signout"> Выход </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>
-                                    <p><LocalLink navLink to="/info/"> Напишите нам </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/"> Торговля оптом </LocalLink></p>
-                                    <p><LocalLink navLink to="/subscribe/sales-and-news"> Подписка на акции, скидки,
+                                    <p><LocalLink nav to="/info/"> Напишите нам </LocalLink></p>
+                                    <p><LocalLink nav to="/info/"> Торговля оптом </LocalLink></p>
+                                    <p><LocalLink nav to="/subscribe/sales-and-news"> Подписка на акции, скидки,
                                         распродажи и новости </LocalLink></p>
-                                    <p><LocalLink navLink to="/info/privacy-policy"> Политика
+                                    <p><LocalLink nav to="/info/privacy-policy"> Политика
                                         конфиденциальности </LocalLink></p>
                                 </GridItem>
                             </GridContainer>

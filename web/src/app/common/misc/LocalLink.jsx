@@ -4,7 +4,7 @@ import React from "react";
 import {Link, NavLink} from "react-router-dom";
 
 function LocalLink(props) {
-    const {to, navLink, children, ...others} = props;
+    const {to, nav, children, ...others} = props;
     const params = {
         pathname: to,
         state: {
@@ -14,7 +14,7 @@ function LocalLink(props) {
     };
 
     return (
-        navLink
+        nav
             ? <NavLink to={params} {...others}> {children} </NavLink>
             : <Link to={params} {...others}> {children} </Link>
 
@@ -22,7 +22,7 @@ function LocalLink(props) {
 }
 
 LocalLink.propTypes = {
-    navLink: PropTypes.bool,
+    nav: PropTypes.bool,
     ...NavLink.propTypes,
     ...Link.propTypes
 };
