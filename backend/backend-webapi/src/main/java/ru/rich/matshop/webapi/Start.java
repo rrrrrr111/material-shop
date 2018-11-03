@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.Arrays;
 
-@SpringBootApplication(scanBasePackageClasses = Start.class)
+@SpringBootApplication(scanBasePackageClasses = {Start.class})
 @Import(WebSecurityConfig.class)
 public class Start {
     private static Logger log = LoggerFactory.getLogger(Start.class);
