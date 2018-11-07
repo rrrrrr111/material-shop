@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.feed;
+package ru.rich.matshop.webapi.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class FeedController {
+public class GreetingWebController {
+
     @GetMapping("/web/greeting")
     public String greeting(
             @RequestParam(

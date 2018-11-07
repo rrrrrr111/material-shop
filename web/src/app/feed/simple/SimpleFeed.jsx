@@ -1,15 +1,12 @@
 import Grid from "@material-ui/core/Grid/Grid";
-import Grow from '@material-ui/core/Grow';
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItemMessage from "app/common/message/GridItemMessage";
-import CircularLoading from "app/common/misc/CircularLoading";
 import {RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
 import {action} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import classNames from "classnames";
 import React from "react";
 import {connect} from "react-redux";
 
@@ -39,30 +36,24 @@ class SimpleFeed extends React.PureComponent {
             });
     };
 
-    awaitMessage = (classes, isError) => (
-        <Grow in={true}>
-            <Grid item>
-                <CircularLoading/>
-                <h3 className={classNames(classes.title, classes.textCenter)}>
-                    {isError
-                        ? "Ошибка при обращении к серверу, попробуйте позже"
-                        : "Загрузка каталога товаров"
-                    }
-                </h3>
-            </Grid>
-        </Grow>
-    );
+    awaitMessage = (isLoading, isError, productsIsEmpty) => {
+        if (isLoading) {
+            return "Загрузка каталога товаров";
+        } else if (isError) {
+            return "Ошибка при обращении к серверу, попробуйте позже";
+        } else if (productsIsEmpty) {
+            return "Товар не найден";
+        }
+        return null;
+    };
 
     render() {
         const {classes, data, ui} = this.props;
+        const message = this.awaitMessage(ui.loading, ui.error, data.products.length === 0);
         return (
             <GridContainer spacing={16} className={classes.simpleFeedContainer} justify="center">
-                {(ui.loading || ui.error)
-                    ? (<GridItemMessage loading={ui.loading} text={
-                        ui.error
-                            ? "Ошибка при обращении к серверу, попробуйте позже"
-                            : "Загрузка каталога товаров"
-                    }/>)
+                {(message)
+                    ? <GridItemMessage loading={ui.loading} text={message}/>
                     : data.products.map((product, index) => {
                         return (
                             <Grid item xs={12} sm={6} md={3} lg={2} key={index}>

@@ -5,6 +5,7 @@
 /web/node_modules
 /build/
 /out/
+/logs/
 
 ### IntelliJ IDEA ###
 *.iws

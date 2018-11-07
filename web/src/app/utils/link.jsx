@@ -13,7 +13,8 @@ const link = {
         });
     },
     beApi(url) {
-        const server = process.env.REACT_APP_BACKEND_SERVER_HOST + ":" + process.env.REACT_APP_BACKEND_SERVER_PORT;
+        //const server = process.env.REACT_APP_BACKEND_SERVER_HOST + ":" + process.env.REACT_APP_BACKEND_SERVER_PORT;
+        const server = "127.0.0.1:8080";
         return `http://${server}/api/be/${url}`
     }
 };
