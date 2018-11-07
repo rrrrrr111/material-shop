@@ -35,7 +35,7 @@ public class Start {
 
         Arrays.sort(beanNames);
         Arrays.asList(beanNames).forEach(x -> {
-            log.info("   -> " + x);
+            log.info(" -> " + x);
         });
     }
 
