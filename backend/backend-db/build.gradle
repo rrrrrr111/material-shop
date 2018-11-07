@@ -1,0 +1,19 @@
+buildscript {
+    dependencies {
+        classpath 'org.postgresql:postgresql:9.3-1104-jdbc4'
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "5.2.1"
+}
+
+flyway {
+    url = 'jdbc:postgresql://192.168.30.130:5432/postgres'
+    user = 'matshop'
+    password = '1'
+    schemas = ['matshop']
+    placeholders = [
+            'otherplaceholder': 'value123'
+    ]
+}

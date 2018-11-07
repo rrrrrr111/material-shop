@@ -1,6 +1,10 @@
 rootProject.name = 'material-shop'
 
 include 'backend-webapi'
+include 'backend-db'
+include 'backend-db-model'
 
 
 project(":backend-webapi").projectDir = "$rootDir/backend/backend-webapi" as File
+project(":backend-db").projectDir = "$rootDir/backend/backend-db" as File
+project(":backend-db-model").projectDir = "$rootDir/backend/backend-db-model" as File
