@@ -16,6 +16,8 @@
     - Spring Boot Gradle Plugin https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/gradle-plugin/reference/html/
     - Spring Security https://spring.io/guides/gs/securing-web/
     - Thymeleaf https://www.thymeleaf.org/
-    - Flyway https://flywaydb.org
+    - Flyway https://flywaydb.org/documentation/database/postgresql
+    - PostgreSQL https://www.postgresql.org/
+
 
 
