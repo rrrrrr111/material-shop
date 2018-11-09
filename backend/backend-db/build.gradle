@@ -11,10 +11,10 @@ plugins {
 }
 
 flyway {
-    url = appProps['backend.db.url']
-    user = appProps['backend.db.user']
-    password = appProps['backend.db.password']
-    schemas = [appProps['backend.db.user']]
+    url = appProps['spring.datasource.url']
+    user = appProps['spring.datasource.username']
+    password = appProps['spring.datasource.password']
+    schemas = [appProps['spring.datasource.username']]
     placeholders = [
             'otherplaceholder': 'value123'
     ]
@@ -35,7 +35,6 @@ dependencies {
     compile("org.glassfish.jaxb:jaxb-runtime:2.2.11")
     compile group: 'javax.activation', name: 'activation', version: '1.1.1'
     compile("org.postgresql:postgresql:$postgreDriverVersion")
-
 }
 
 task jooqConfig(type: Copy) {
@@ -71,9 +70,6 @@ task jooqGenerate(type: JavaExec, dependsOn: [jooqConfig, "cleanJooqGenerate"]) 
     standardOutput = System.out
     errorOutput = System.err
 
-//    doFirst {
-//        tasks.cleanJooqGenerate.execute()
-//    }
     doLast {
         def eol = System.getProperty('line.separator')
         if (!eol.equals("\n")) {

@@ -2,7 +2,7 @@ apply from: "$rootDir/gradle/util.gradle"
 
 ext { // общие переменные
     confLocalDir = file("$rootDir/conf/local").path
-    appProps = readPropertyFile("$confLocalDir/app.properties")
+    appProps = readPropertyFile("$confLocalDir/application.properties")
     springBootVersion = '2.1.0.RELEASE'
     jooqVersion = '3.11.7'
     postgreDriverVersion = '42.2.2'

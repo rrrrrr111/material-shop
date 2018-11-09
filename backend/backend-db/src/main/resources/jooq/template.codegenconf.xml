@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.7.0.xsd">
     <jdbc>
-        <driver>@backend.db.driverClass@</driver>
-        <url>@backend.db.url@</url>
-        <schema>@backend.db.user@</schema>
-        <user>@backend.db.user@</user>
-        <password>@backend.db.password@</password>
+        <driver>@spring.datasource.driver-class-name@</driver>
+        <url>@spring.datasource.url@</url>
+        <schema>@spring.datasource.username@</schema>
+        <user>@spring.datasource.username@</user>
+        <password>@spring.datasource.password@</password>
     </jdbc>
     <generator>
         <database>
             <name>org.jooq.meta.postgres.PostgresDatabase</name>
-            <inputSchema>@backend.db.user@</inputSchema>
+            <inputSchema>@spring.datasource.username@</inputSchema>
             <!--
             Set outputSchema to the "default schema" (empty string).
             This will result in a generated org.jooq.Schema that omits rendering its schema name in generated SQL.
             Since jOOQ 3.0
             -->
-            <!--<outputSchema>@backend.db.url@</outputSchema>-->
+            <!--<outputSchema>@spring.datasource.url@</outputSchema>-->
 
             <includes>.*</includes>
             <excludes>
