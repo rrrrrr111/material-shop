@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.7.0.xsd">
+    <jdbc>
+        <driver>@backend.db.driverClass@</driver>
+        <url>@backend.db.url@</url>
+        <schema>@backend.db.user@</schema>
+        <user>@backend.db.user@</user>
+        <password>@backend.db.password@</password>
+    </jdbc>
+    <generator>
+        <database>
+            <name>org.jooq.meta.postgres.PostgresDatabase</name>
+            <inputSchema>@backend.db.user@</inputSchema>
+            <!--
+            Set outputSchema to the "default schema" (empty string).
+            This will result in a generated org.jooq.Schema that omits rendering its schema name in generated SQL.
+            Since jOOQ 3.0
+            -->
+            <!--<outputSchema>@backend.db.url@</outputSchema>-->
+
+            <includes>.*</includes>
+            <excludes>
+                "flyway_schema_history"
+                | PREFIX_.*
+            </excludes>
+
+            <!--<forcedTypes>-->
+                <!--<forcedType>-->
+                    <!--<name>java.lang.Boolean</name>-->
+                    <!--<types>NUMBER.(1.)</types>-->
+                <!--</forcedType>-->
+                <!--<forcedType>-->
+                    <!--<name>java.util.Date</name>-->
+                    <!--<types>TIMESTAMP.*</types>-->
+                <!--</forcedType>-->
+                <!--<forcedType>-->
+                    <!--<name>SqlDate</name>-->
+                    <!--<types>DATE</types>-->
+                <!--</forcedType>-->
+            <!--</forcedTypes>-->
+            <!--<customTypes>-->
+                <!--<customType>-->
+                    <!--<name>java.lang.Boolean</name>-->
+                    <!--<converter>ru.sbrf.dbofi.database.converters.OracleBooleanConverter</converter>-->
+                <!--</customType>-->
+                <!--<customType>-->
+                    <!--<name>java.util.Date</name>-->
+                    <!--<converter>ru.sbrf.dbofi.database.converters.TimestampConverter</converter>-->
+                <!--</customType>-->
+                <!--<customType>-->
+                    <!--<name>SqlDate</name>-->
+                    <!--<type>java.util.Date</type>-->
+                    <!--<converter>ru.sbrf.dbofi.database.converters.SqlDateConverter</converter>-->
+                <!--</customType>-->
+            <!--</customTypes>-->
+        </database>
+        <target>
+            <directory>@codeGeneratorModuleDir@</directory>
+            <packageName>@codeGeneratorPackage@</packageName>
+        </target>
+        <!--<strategy>-->
+            <!--<name>ru.sbrf.dbofi.db.DbofiGeneratorStrategy</name>-->
+        <!--</strategy>-->
+    </generator>
+</configuration>

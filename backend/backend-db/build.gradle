@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript {
     dependencies {
         classpath "org.postgresql:postgresql:$postgreDriverVersion"
@@ -16,4 +18,81 @@ flyway {
     placeholders = [
             'otherplaceholder': 'value123'
     ]
+}
+
+def srcConfigTemplate = "template.codegenconf.xml"
+def targetConfigDir = "$confLocalDir/generated/jooq"
+def targetConfigFile = "codegenconf.xml"
+def targetConfigFilePath = "$targetConfigDir/$targetConfigFile"
+def codeGeneratorModuleDir = "$rootDir/backend/backend-db-model/src/main/java"
+def codeGeneratorPackage = "ru.rich.matshop.db.model"
+def codeGeneratorDir = "$codeGeneratorModuleDir/${codeGeneratorPackage.replace('.', '/')}"
+
+dependencies {
+    compile("org.jooq:jooq:$jooqVersion")
+    compile("org.jooq:jooq-codegen:$jooqVersion")
+    compile("org.jooq:jooq-meta:$jooqVersion")
+    compile("org.glassfish.jaxb:jaxb-runtime:2.2.11")
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    compile("org.postgresql:postgresql:$postgreDriverVersion")
+
+}
+
+task jooqConfig(type: Copy) {
+
+    from("src/main/resources/jooq") {
+        include srcConfigTemplate
+        filter(ReplaceTokens, tokens: (
+                [
+                        codeGeneratorModuleDir: codeGeneratorModuleDir as String,
+                        codeGeneratorPackage  : codeGeneratorPackage as String
+                ] + appProps))
+        rename { targetConfigFile }
+    }
+    into targetConfigDir
+    includeEmptyDirs = false
+
+    doFirst {
+        println "Prepearin JOOQ generate config from $srcConfigTemplate to $targetConfigDir"
+        tasks.cleanJooqConfig.execute()
+    }
+    doLast {
+        println "File $targetConfigFilePath prepeared"
+    }
+}
+
+task jooqGenerate(type: JavaExec, dependsOn: [jooqConfig, "cleanJooqGenerate"]) {
+    // не указываем inputs чтобы всегда герерировать исходники (делаем up-to-date всегда равным FALSE)
+
+    outputs.dir codeGeneratorDir
+    classpath = configurations.compile
+    main = 'org.jooq.codegen.GenerationTool'
+    args = [file(targetConfigFilePath).path]
+    standardOutput = System.out
+    errorOutput = System.err
+
+//    doFirst {
+//        tasks.cleanJooqGenerate.execute()
+//    }
+    doLast {
+        def eol = System.getProperty('line.separator')
+        if (!eol.equals("\n")) {
+            fileTree(dir: codeGeneratorDir).each { file ->
+                def filtered = file.getText("UTF-8").replace("\n", eol)
+                file.withPrintWriter("UTF-8") {
+                    it.write(filtered)
+                }
+            }
+        }
+
+//        String sequencesJava = "${codeGeneratorDir}/Sequences.java"
+//        String result = file(sequencesJava).text
+//                .replace("java.math.BigInteger", "java.lang.Long")
+//                .replace("BigInteger", "Long")
+//                .replace(".DECIMAL_INTEGER.precision(38)", ".BIGINT")
+//
+//        file(sequencesJava).withPrintWriter("UTF-8") {
+//            it.write(result)
+//        }
+    }
 }
