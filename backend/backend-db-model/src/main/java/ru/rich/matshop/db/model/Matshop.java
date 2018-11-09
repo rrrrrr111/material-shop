@@ -16,7 +16,6 @@ import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
 import ru.rich.matshop.db.model.tables.Address;
-import ru.rich.matshop.db.model.tables.FlywaySchemaHistory;
 import ru.rich.matshop.db.model.tables.Person;
 import ru.rich.matshop.db.model.tables.Product;
 import ru.rich.matshop.db.model.tables.ProductCosmetic;
@@ -40,7 +39,7 @@ import ru.rich.matshop.db.model.tables.TechLog;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Matshop extends SchemaImpl {
 
-    private static final long serialVersionUID = -905199825;
+    private static final long serialVersionUID = 589318944;
 
     /**
      * The reference instance of <code>matshop</code>
@@ -51,11 +50,6 @@ public class Matshop extends SchemaImpl {
      * The table <code>matshop.address</code>.
      */
     public final Address ADDRESS = ru.rich.matshop.db.model.tables.Address.ADDRESS;
-
-    /**
-     * The table <code>matshop.flyway_schema_history</code>.
-     */
-    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = ru.rich.matshop.db.model.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>matshop.person</code>.
@@ -142,7 +136,6 @@ public class Matshop extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Address.ADDRESS,
-            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Person.PERSON,
             Product.PRODUCT,
             ProductCosmetic.PRODUCT_COSMETIC,

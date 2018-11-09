@@ -7,7 +7,6 @@ package ru.rich.matshop.db.model;
 import javax.annotation.Generated;
 
 import ru.rich.matshop.db.model.tables.Address;
-import ru.rich.matshop.db.model.tables.FlywaySchemaHistory;
 import ru.rich.matshop.db.model.tables.Person;
 import ru.rich.matshop.db.model.tables.Product;
 import ru.rich.matshop.db.model.tables.ProductCosmetic;
@@ -35,11 +34,6 @@ public class Tables {
      * The table <code>matshop.address</code>.
      */
     public static final Address ADDRESS = ru.rich.matshop.db.model.tables.Address.ADDRESS;
-
-    /**
-     * The table <code>matshop.flyway_schema_history</code>.
-     */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = ru.rich.matshop.db.model.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>matshop.person</code>.

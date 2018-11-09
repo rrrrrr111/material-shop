@@ -4,14 +4,10 @@
 package ru.rich.matshop.db.model;
 
 
-import javax.annotation.Generated;
-
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
-
 import ru.rich.matshop.db.model.tables.Address;
-import ru.rich.matshop.db.model.tables.FlywaySchemaHistory;
 import ru.rich.matshop.db.model.tables.Person;
 import ru.rich.matshop.db.model.tables.Product;
 import ru.rich.matshop.db.model.tables.ProductCosmetic;
@@ -20,6 +16,8 @@ import ru.rich.matshop.db.model.tables.ShopOrderGoods;
 import ru.rich.matshop.db.model.tables.ShopOrderHistory;
 import ru.rich.matshop.db.model.tables.Task;
 import ru.rich.matshop.db.model.tables.TechLog;
+
+import javax.annotation.Generated;
 
 
 /**
@@ -41,8 +39,6 @@ public class Indexes {
 
     public static final Index ADDRESS_PKEY = Indexes0.ADDRESS_PKEY;
     public static final Index IDX_ADR_PERSON_ID = Indexes0.IDX_ADR_PERSON_ID;
-    public static final Index FLYWAY_SCHEMA_HISTORY_PK = Indexes0.FLYWAY_SCHEMA_HISTORY_PK;
-    public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Indexes0.FLYWAY_SCHEMA_HISTORY_S_IDX;
     public static final Index IDX_PER_EMAIL = Indexes0.IDX_PER_EMAIL;
     public static final Index IDX_PER_PHONE = Indexes0.IDX_PER_PHONE;
     public static final Index PERSON_PKEY = Indexes0.PERSON_PKEY;
@@ -78,8 +74,6 @@ public class Indexes {
     private static class Indexes0 {
         public static Index ADDRESS_PKEY = Internal.createIndex("address_pkey", Address.ADDRESS, new OrderField[] { Address.ADDRESS.ID }, true);
         public static Index IDX_ADR_PERSON_ID = Internal.createIndex("idx_adr_person_id", Address.ADDRESS, new OrderField[] { Address.ADDRESS.PERSON_ID }, false);
-        public static Index FLYWAY_SCHEMA_HISTORY_PK = Internal.createIndex("flyway_schema_history_pk", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
-        public static Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex("flyway_schema_history_s_idx", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
         public static Index IDX_PER_EMAIL = Internal.createIndex("idx_per_email", Person.PERSON, new OrderField[] { Person.PERSON.EMAIL }, false);
         public static Index IDX_PER_PHONE = Internal.createIndex("idx_per_phone", Person.PERSON, new OrderField[] { Person.PERSON.PHONE }, false);
         public static Index PERSON_PKEY = Internal.createIndex("person_pkey", Person.PERSON, new OrderField[] { Person.PERSON.ID }, true);

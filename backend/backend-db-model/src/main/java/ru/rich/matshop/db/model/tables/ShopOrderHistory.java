@@ -42,7 +42,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderHistoryRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderHistory extends TableImpl<ShopOrderHistoryRecord> {
 
-    private static final long serialVersionUID = -1474654011;
+    private static final long serialVersionUID = 1142858089;
 
     /**
      * The reference instance of <code>matshop.shop_order_history</code>
@@ -173,6 +173,26 @@ public class ShopOrderHistory extends TableImpl<ShopOrderHistoryRecord> {
     @Override
     public List<UniqueKey<ShopOrderHistoryRecord>> getKeys() {
         return Arrays.<UniqueKey<ShopOrderHistoryRecord>>asList(Keys.SHOP_ORDER_HISTORY_PKEY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<ShopOrderHistoryRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<ShopOrderHistoryRecord, ?>>asList(Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_SHOP_ORDER_ID_FKEY, Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_OLD_ASSIGNED_PERSON_ID_FKEY, Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_NEW_ASSIGNED_PERSON_ID_FKEY);
+    }
+
+    public ShopOrder shopOrder() {
+        return new ShopOrder(this, Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_SHOP_ORDER_ID_FKEY);
+    }
+
+    public Person shopOrderHistory_ShopOrderHistoryOldAssignedPersonIdFkey() {
+        return new Person(this, Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_OLD_ASSIGNED_PERSON_ID_FKEY);
+    }
+
+    public Person shopOrderHistory_ShopOrderHistoryNewAssignedPersonIdFkey() {
+        return new Person(this, Keys.SHOP_ORDER_HISTORY__SHOP_ORDER_HISTORY_NEW_ASSIGNED_PERSON_ID_FKEY);
     }
 
     /**

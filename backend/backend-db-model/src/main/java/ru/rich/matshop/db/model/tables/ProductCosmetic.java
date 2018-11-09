@@ -40,7 +40,7 @@ import ru.rich.matshop.db.model.tables.records.ProductCosmeticRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductCosmetic extends TableImpl<ProductCosmeticRecord> {
 
-    private static final long serialVersionUID = 1307456369;
+    private static final long serialVersionUID = -1456518311;
 
     /**
      * The reference instance of <code>matshop.product_cosmetic</code>
@@ -143,6 +143,18 @@ public class ProductCosmetic extends TableImpl<ProductCosmeticRecord> {
     @Override
     public List<UniqueKey<ProductCosmeticRecord>> getKeys() {
         return Arrays.<UniqueKey<ProductCosmeticRecord>>asList(Keys.PRODUCT_COSMETIC_PKEY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<ProductCosmeticRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<ProductCosmeticRecord, ?>>asList(Keys.PRODUCT_COSMETIC__PRODUCT_COSMETIC_PRODUCT_ID_FKEY);
+    }
+
+    public Product product() {
+        return new Product(this, Keys.PRODUCT_COSMETIC__PRODUCT_COSMETIC_PRODUCT_ID_FKEY);
     }
 
     /**

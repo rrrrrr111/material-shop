@@ -41,7 +41,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderGoodsRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderGoods extends TableImpl<ShopOrderGoodsRecord> {
 
-    private static final long serialVersionUID = 294476615;
+    private static final long serialVersionUID = -1537374845;
 
     /**
      * The reference instance of <code>matshop.shop_order_goods</code>
@@ -152,6 +152,22 @@ public class ShopOrderGoods extends TableImpl<ShopOrderGoodsRecord> {
     @Override
     public List<UniqueKey<ShopOrderGoodsRecord>> getKeys() {
         return Arrays.<UniqueKey<ShopOrderGoodsRecord>>asList(Keys.SHOP_ORDER_GOODS_PKEY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<ShopOrderGoodsRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<ShopOrderGoodsRecord, ?>>asList(Keys.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_SHOP_ORDER_ID_FKEY, Keys.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_PRODUCT_ID_FKEY);
+    }
+
+    public ShopOrder shopOrder() {
+        return new ShopOrder(this, Keys.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_SHOP_ORDER_ID_FKEY);
+    }
+
+    public Product product() {
+        return new Product(this, Keys.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_PRODUCT_ID_FKEY);
     }
 
     /**

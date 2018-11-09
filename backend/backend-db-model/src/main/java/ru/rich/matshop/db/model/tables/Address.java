@@ -42,7 +42,7 @@ import ru.rich.matshop.db.model.tables.records.AddressRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Address extends TableImpl<AddressRecord> {
 
-    private static final long serialVersionUID = 537584407;
+    private static final long serialVersionUID = -999284135;
 
     /**
      * The reference instance of <code>matshop.address</code>
@@ -193,6 +193,18 @@ public class Address extends TableImpl<AddressRecord> {
     @Override
     public List<UniqueKey<AddressRecord>> getKeys() {
         return Arrays.<UniqueKey<AddressRecord>>asList(Keys.ADDRESS_PKEY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<AddressRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<AddressRecord, ?>>asList(Keys.ADDRESS__ADDRESS_PERSON_ID_FKEY);
+    }
+
+    public Person person() {
+        return new Person(this, Keys.ADDRESS__ADDRESS_PERSON_ID_FKEY);
     }
 
     /**
