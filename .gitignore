@@ -6,7 +6,7 @@
 /build/
 /out/
 /logs/
-/conf/
+/conf/local/
 
 ### IntelliJ IDEA ###
 *.iws

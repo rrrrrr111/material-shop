@@ -1,0 +1,8 @@
+ext.readPropertyFile = { filename ->
+
+    println "Reading propery file: $filename"
+
+    def props = new Properties()
+    file(filename).withInputStream { props.load(it) }
+    props
+}

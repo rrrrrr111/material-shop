@@ -2,7 +2,7 @@ package ru.rich.matshop.webapi.api.feed.model;
 
 import java.math.BigInteger;
 
-public class Product {
+public class FeedProduct {
 
     private Long id;
     private String image;

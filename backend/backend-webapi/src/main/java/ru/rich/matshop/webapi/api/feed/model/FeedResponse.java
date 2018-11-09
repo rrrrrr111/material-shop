@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class FeedResponse extends RestRequest {
 
-    private List<Product> products;
+    private List<FeedProduct> products;
 
-    public List<Product> getProducts() {
+    public List<FeedProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProducts(List<FeedProduct> feedProducts) {
+        this.products = feedProducts;
     }
 
     @Override

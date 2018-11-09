@@ -1,0 +1,10 @@
+buildscript {
+    dependencies {
+        classpath("org.jooq:jooq-codegen:$jooqVersion")
+    }
+}
+
+dependencies {
+    compile("org.jooq:jooq:$jooqVersion")
+    compile("org.jooq:jooq-meta:$jooqVersion")
+}

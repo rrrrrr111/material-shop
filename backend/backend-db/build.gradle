@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'org.postgresql:postgresql:9.3-1104-jdbc4'
+        classpath "org.postgresql:postgresql:$postgreDriverVersion"
     }
 }
 
@@ -9,10 +9,10 @@ plugins {
 }
 
 flyway {
-    url = 'jdbc:postgresql://192.168.30.130:5432/postgres'
-    user = 'matshop'
-    password = '1'
-    schemas = ['matshop']
+    url = appProps['backend.db.url']
+    user = appProps['backend.db.user']
+    password = appProps['backend.db.password']
+    schemas = [appProps['backend.db.user']]
     placeholders = [
             'otherplaceholder': 'value123'
     ]

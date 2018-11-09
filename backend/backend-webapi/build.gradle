@@ -14,19 +14,18 @@ configurations {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
-    testImplementation("'org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-
     developmentOnly("org.springframework.boot:spring-boot-devtools:$springBootVersion")
+    developmentOnly(files("$confLocalDir"))
+    compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
+    runtime("org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion")
     // https://mvnrepository.com/artifact/org.testng/testng
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    runtime("org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion")
 }
 
 mainClassName = 'ru.rich.matshop.webapi.Start'
@@ -48,7 +47,7 @@ bootJar { // описание для сборки итогового jar-ник�
     }
 }
 
-buildscript { // применяется только при запуске скрипта
+buildscript { 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
     }

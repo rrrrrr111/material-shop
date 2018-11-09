@@ -1,3 +1,6 @@
+
+apply from: "$rootDir/gradle/util.gradle"
+
 subprojects { // применяется ко всем дочерним проектам, к себе нет
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -11,13 +14,20 @@ subprojects { // применяется ко всем дочерним прое�
     sourceCompatibility = 1.11
     targetCompatibility = 1.11
 
-    buildscript {
+    ext { // общие переменные
+        confLocalDir = file("$rootDir/conf/local").path
+        appProps = readPropertyFile("$confLocalDir/app.properties")
+        springBootVersion = '2.1.0.RELEASE'
+        jooqVersion = '3.11.7'
+        postgreDriverVersion = '9.3-1104-jdbc4'
+    }
+
+    buildscript { // применяется только при запуске скрипта
         repositories {
             mavenCentral()
         }
-    }
-
-    ext {
-        springBootVersion = '2.1.0.RELEASE'
+        dependencies {
+            classpath files("$confLocalDir")
+        }
     }
 }
