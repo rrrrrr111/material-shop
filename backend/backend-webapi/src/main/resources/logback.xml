@@ -17,6 +17,7 @@
     <logger name="ru.rich.matshop.webapi" level="TRACE"/>
     <!-- SQL -->
     <logger name="org.springframework.jdbc" level="DEBUG"/>
+    <logger name="org.jooq" level="DEBUG"/>
     <!-- Web -->
     <logger name="org.springframework.web" level="DEBUG"/>
 

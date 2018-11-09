@@ -1,29 +1,24 @@
 package ru.rich.matshop.webapi.api.feed;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 class FeedService {
 
-    List<FeedProduct> getFeedList() {
+    private final ProductDao productDao;
 
-        var products = new ArrayList<FeedProduct>();
-        for (int i = 0; i < 10; i++) {
-            var p = new FeedProduct();
+    FeedService(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
-            p.setId(1L);
-            p.setImage("000/000/product2.jpg");
-            p.setLink("/p/spring_jacasdf_asdf_asdf_aket_p-1");
-            p.setName("This is Java Product");
-            p.setPrice(BigInteger.TEN);
+    @Transactional
+    public List<FeedProduct> getFeedList() {
 
-            products.add(p);
-        }
+        var products = productDao.getFeedList();
         return products;
     }
 }

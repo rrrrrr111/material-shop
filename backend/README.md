@@ -18,6 +18,7 @@
     - Thymeleaf https://www.thymeleaf.org/
     - Flyway https://flywaydb.org/documentation/database/postgresql
     - PostgreSQL https://www.postgresql.org/
+    - JOOQ https://www.jooq.org/doc/3.11/manual/
 
 
 
