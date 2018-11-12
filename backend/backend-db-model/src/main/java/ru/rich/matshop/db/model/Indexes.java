@@ -4,9 +4,12 @@
 package ru.rich.matshop.db.model;
 
 
+import javax.annotation.Generated;
+
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
+
 import ru.rich.matshop.db.model.tables.Address;
 import ru.rich.matshop.db.model.tables.Person;
 import ru.rich.matshop.db.model.tables.Product;
@@ -16,8 +19,6 @@ import ru.rich.matshop.db.model.tables.ShopOrderGoods;
 import ru.rich.matshop.db.model.tables.ShopOrderHistory;
 import ru.rich.matshop.db.model.tables.Task;
 import ru.rich.matshop.db.model.tables.TechLog;
-
-import javax.annotation.Generated;
 
 
 /**

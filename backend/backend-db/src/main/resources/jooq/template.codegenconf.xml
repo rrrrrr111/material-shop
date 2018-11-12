@@ -11,12 +11,7 @@
         <database>
             <name>org.jooq.meta.postgres.PostgresDatabase</name>
             <inputSchema>@spring.datasource.username@</inputSchema>
-            <!--
-            Set outputSchema to the "default schema" (empty string).
-            This will result in a generated org.jooq.Schema that omits rendering its schema name in generated SQL.
-            Since jOOQ 3.0
-            -->
-            <!--<outputSchema>@spring.datasource.url@</outputSchema>-->
+            <outputSchema>@spring.datasource.username@</outputSchema>
 
             <includes>.*</includes>
             <excludes>
@@ -25,33 +20,33 @@
             </excludes>
 
             <!--<forcedTypes>-->
-                <!--<forcedType>-->
-                    <!--<name>java.lang.Boolean</name>-->
-                    <!--<types>NUMBER.(1.)</types>-->
-                <!--</forcedType>-->
-                <!--<forcedType>-->
-                    <!--<name>java.util.Date</name>-->
-                    <!--<types>TIMESTAMP.*</types>-->
-                <!--</forcedType>-->
-                <!--<forcedType>-->
-                    <!--<name>SqlDate</name>-->
-                    <!--<types>DATE</types>-->
-                <!--</forcedType>-->
+            <!--<forcedType>-->
+            <!--<name>java.lang.Boolean</name>-->
+            <!--<types>NUMBER.(1.)</types>-->
+            <!--</forcedType>-->
+            <!--<forcedType>-->
+            <!--<name>java.util.Date</name>-->
+            <!--<types>TIMESTAMP.*</types>-->
+            <!--</forcedType>-->
+            <!--<forcedType>-->
+            <!--<name>SqlDate</name>-->
+            <!--<types>DATE</types>-->
+            <!--</forcedType>-->
             <!--</forcedTypes>-->
             <!--<customTypes>-->
-                <!--<customType>-->
-                    <!--<name>java.lang.Boolean</name>-->
-                    <!--<converter>ru.sbrf.dbofi.database.converters.OracleBooleanConverter</converter>-->
-                <!--</customType>-->
-                <!--<customType>-->
-                    <!--<name>java.util.Date</name>-->
-                    <!--<converter>ru.sbrf.dbofi.database.converters.TimestampConverter</converter>-->
-                <!--</customType>-->
-                <!--<customType>-->
-                    <!--<name>SqlDate</name>-->
-                    <!--<type>java.util.Date</type>-->
-                    <!--<converter>ru.sbrf.dbofi.database.converters.SqlDateConverter</converter>-->
-                <!--</customType>-->
+            <!--<customType>-->
+            <!--<name>java.lang.Boolean</name>-->
+            <!--<converter>ru.sbrf.dbofi.database.converters.OracleBooleanConverter</converter>-->
+            <!--</customType>-->
+            <!--<customType>-->
+            <!--<name>java.util.Date</name>-->
+            <!--<converter>ru.sbrf.dbofi.database.converters.TimestampConverter</converter>-->
+            <!--</customType>-->
+            <!--<customType>-->
+            <!--<name>SqlDate</name>-->
+            <!--<type>java.util.Date</type>-->
+            <!--<converter>ru.sbrf.dbofi.database.converters.SqlDateConverter</converter>-->
+            <!--</customType>-->
             <!--</customTypes>-->
         </database>
         <target>
@@ -59,7 +54,7 @@
             <packageName>@codeGeneratorPackage@</packageName>
         </target>
         <!--<strategy>-->
-            <!--<name>ru.sbrf.dbofi.db.DbofiGeneratorStrategy</name>-->
+        <!--<name>ru.sbrf.dbofi.db.DbofiGeneratorStrategy</name>-->
         <!--</strategy>-->
     </generator>
 </configuration>

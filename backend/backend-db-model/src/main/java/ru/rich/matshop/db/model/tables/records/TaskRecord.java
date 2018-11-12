@@ -4,17 +4,15 @@
 package ru.rich.matshop.db.model.tables.records;
 
 
-import java.sql.Timestamp;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record7;
 import org.jooq.Row7;
 import org.jooq.impl.UpdatableRecordImpl;
-
 import ru.rich.matshop.db.model.tables.Task;
+
+import javax.annotation.Generated;
+import java.sql.Timestamp;
 
 
 /**
