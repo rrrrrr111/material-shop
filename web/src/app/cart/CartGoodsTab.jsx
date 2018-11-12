@@ -24,7 +24,7 @@ class CartGoodsTab extends React.PureComponent {
             cartGoods: [
                 {
                     id: 1,
-                    image: "000/000/product3.jpg",
+                    image: "000/000[2:jpg, 3]",
                     link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
                     name: "Spring Jacket",
                     quantity: 1,
@@ -32,7 +32,7 @@ class CartGoodsTab extends React.PureComponent {
                 },
                 {
                     id: 2,
-                    image: "000/000/product2.jpg",
+                    image: "000/000[2:jpg, 3]",
                     link: "/goods/spring_jacket_p-2",
                     name: "Spring Jacket as dasd asdaSD;Asldj;skldfgj;sld ksdf;g jskdf;gkljs df;glksjdfg;l ksd;flkg sjdf;lgsjd;f lkjsdf;lkj ;sldkgj;slkdf",
                     quantity: 3,
@@ -40,7 +40,7 @@ class CartGoodsTab extends React.PureComponent {
                 },
                 {
                     id: 3,
-                    image: "000/000/product1.jpg",
+                    image: "000/000[2:jpg, 3]",
                     link: "/goods/spri__________SD_asd_ng_jacket_p-3",
                     name: "Spring Jacket",
                     quantity: 1,
@@ -48,7 +48,7 @@ class CartGoodsTab extends React.PureComponent {
                 },
                 {
                     id: 4,
-                    image: "000/000/product1.jpg",
+                    image: "000/000[2:jpg, 3]",
                     link: "/goods/spri__________SD_asd_ng_jacket_p-3",
                     name: "Spring Jacket",
                     quantity: 1,

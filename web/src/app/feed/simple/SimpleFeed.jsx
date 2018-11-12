@@ -22,7 +22,7 @@ class SimpleFeed extends React.PureComponent {
 
     reloadMainFeed = (dispatch) => {
         dispatch(action(START_RELOAD_MAIN_FEED));
-        fetchBe("feed", {})
+        util.ajax.fetchBe("feed", {})
             .then(function (json) {
                 dispatch(action(RELOAD_MAIN_FEED, json.products));
                 dispatch(action(STOP_RELOAD_MAIN_FEED, false));

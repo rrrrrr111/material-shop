@@ -22,32 +22,7 @@ class SimpleProduct extends React.PureComponent {
         this.state = {
             product: {
                 id: 1,
-                images: [
-                    {
-                        original: "000/000/product1.jpg",
-                        thumbnail: "000/000/product1.jpg"
-                    },
-                    {
-                        original: "000/000/product2.jpg",
-                        thumbnail: "000/000/product2.jpg"
-                    },
-                    {
-                        original: "000/000/product3.jpg",
-                        thumbnail: "000/000/product3.jpg"
-                    },
-                    {
-                        original: "000/000/product3.jpg",
-                        thumbnail: "000/000/product3.jpg"
-                    },
-                    {
-                        original: "000/000/product3.jpg",
-                        thumbnail: "000/000/product3.jpg"
-                    },
-                    {
-                        original: "000/000/product3.jpg",
-                        thumbnail: "000/000/product3.jpg"
-                    },
-                ],
+                image: "000/000[2:jpg, 3]",
                 link: "/p/spring_jacasdf_asdf_asdf_aket_p-1",
                 name: "Жакет JackeSpring ",
                 description: "Dolce & Gabbana's 'Greta' лакшери джакет лакшери джакет лакшери джакет лакшери джакет лакшери джакет лакшери джакет ",
@@ -86,7 +61,7 @@ class SimpleProduct extends React.PureComponent {
                                     showBullets={false}
                                     showThumbnails={true}
                                     infinite={true}
-                                    items={util.link.productImgs(product.images)}
+                                    items={util.link.productImgs(product.image)}
                                 />
                             </GridItem>
                             <GridItem md={6} sm={6}>

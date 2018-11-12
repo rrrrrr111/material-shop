@@ -16,8 +16,8 @@ class FancyFeed extends React.PureComponent {
         this.state = {
             products: fill(Array(4), {
                 id: 1,
-                image: "000/000/product2.jpg",
-                link: "/p/spring_jacasdf_asdf_asdf_aket_p-1",
+                image: "000/000[2:jpg, 3]",
+                link: "spring_jacasdf_asdf_asdf_aket_p-1",
                 name: "Spring JackeSpring JackeSpring Jacket",
                 price: 1093232
             }, 0, 4)

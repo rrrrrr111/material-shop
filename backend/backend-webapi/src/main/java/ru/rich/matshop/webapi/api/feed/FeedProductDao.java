@@ -4,7 +4,6 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 import org.springframework.stereotype.Repository;
-import ru.rich.matshop.db.model.tables.records.ProductRecord;
 import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
 
 import java.math.BigInteger;
@@ -24,21 +23,20 @@ class FeedProductDao {
 
     List<FeedProduct> getFeedList() {
 
-        var p = PRODUCT.as("p");
         var pc = PRODUCT_COSMETIC.as("pc");
+        var p = PRODUCT.as("p");
 
         return create.select()
-                .from(p.join(pc)
+                .from(pc.leftJoin(p)
                         .on(p.ID.eq(pc.PRODUCT_ID)))
                 .fetch(new RecordMapper<Record, FeedProduct>() {
                     @Override
-                    public FeedProduct map(Record record) {
+                    public FeedProduct map(Record r) {
 
-                        var r = (ProductRecord) record;
                         var p = new FeedProduct();
 
-                        p.setId(r.getId());
-                        p.setImage("000/000/000[3]");
+                        p.setId(r.get(PRODUCT.ID));
+                        p.setImage("000/000[3]");
                         p.setLink("spring_jacasdf_asdf_asdf_aket_p-1");
                         p.setName("This is Java Product");
                         p.setPrice(BigInteger.TEN);

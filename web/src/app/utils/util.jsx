@@ -1,11 +1,13 @@
+import link from "app/utils/link";
+import ajax from "./ajax";
 import declension from "./declensionUtil";
-import link from "./link";
+import dictionary from "./dictionaryUtil";
 import navigate from "./navigateUtil";
 import notify from "./notifyUtil";
-import dictionary from "./dictionaryUtil";
 
 
 const util = {
+    ajax,
     link,
     navigate,
     notify,
