@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ProductRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductTable extends TableImpl<ProductRecord> {
 
-    private static final long serialVersionUID = 2088058009;
+    private static final long serialVersionUID = -571309358;
 
     /**
      * The reference instance of <code>matshop.product</code>
@@ -60,7 +61,7 @@ public class ProductTable extends TableImpl<ProductRecord> {
     /**
      * The column <code>matshop.product.id</code>.
      */
-    public final TableField<ProductRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('product_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ProductRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('product_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.product.shop_id</code>.
@@ -75,7 +76,7 @@ public class ProductTable extends TableImpl<ProductRecord> {
     /**
      * The column <code>matshop.product.edit_date</code>.
      */
-    public final TableField<ProductRecord, Timestamp> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ProductRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * The column <code>matshop.product.state</code>.
@@ -140,7 +141,7 @@ public class ProductTable extends TableImpl<ProductRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<ProductRecord, Integer> getIdentity() {
+    public Identity<ProductRecord, Long> getIdentity() {
         return Keys.IDENTITY_PRODUCT;
     }
 

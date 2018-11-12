@@ -30,12 +30,12 @@ class SimpleProductCard extends React.PureComponent {
         return (
             <Card plain className={classes.productCard}>
                 <CardHeader noShadow image className={classes.productHeader}>
-                    <LocalLink to={product.link}>
+                    <LocalLink to={util.link.productLink(product.link)}>
                         <img src={util.link.productImg(product.image)} alt={product.name}/>
                     </LocalLink>
                 </CardHeader>
                 <CardBody className={classes.productBody}>
-                    <LocalLink to={product.link}>
+                    <LocalLink to={util.link.productLink(product.link)}>
                         <h4 className={classes.productTitle}>{product.name}</h4>
                     </LocalLink>
                 </CardBody>

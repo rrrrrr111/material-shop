@@ -4,6 +4,10 @@ const link = {
         return require("public/img/" + url);
     },
 
+    productLink(link) {
+        return `/p/${link}`;
+    },
+
     productImgs(images) {
         return images.map((image) => {
             return {

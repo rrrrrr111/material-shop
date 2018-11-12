@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = -1286604670;
+    private static final long serialVersionUID = 964152838;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -60,7 +61,7 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     /**
      * The column <code>matshop.shop_order.id</code>.
      */
-    public final TableField<ShopOrderRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ShopOrderRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.shop_order.shop_id</code>.
@@ -70,12 +71,12 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     /**
      * The column <code>matshop.shop_order.client_person_id</code>.
      */
-    public final TableField<ShopOrderRecord, Integer> CLIENT_PERSON_ID = createField("client_person_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ShopOrderRecord, Long> CLIENT_PERSON_ID = createField("client_person_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.shop_order.address_id</code>.
      */
-    public final TableField<ShopOrderRecord, Integer> ADDRESS_ID = createField("address_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ShopOrderRecord, Long> ADDRESS_ID = createField("address_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order.ammount</code>.
@@ -90,7 +91,7 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     /**
      * The column <code>matshop.shop_order.assigned_person_id</code>.
      */
-    public final TableField<ShopOrderRecord, Integer> ASSIGNED_PERSON_ID = createField("assigned_person_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ShopOrderRecord, Long> ASSIGNED_PERSON_ID = createField("assigned_person_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order.service_comment</code>.
@@ -100,7 +101,7 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     /**
      * The column <code>matshop.shop_order.edit_date</code>.
      */
-    public final TableField<ShopOrderRecord, Timestamp> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ShopOrderRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.shop_order</code> table reference
@@ -155,7 +156,7 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<ShopOrderRecord, Integer> getIdentity() {
+    public Identity<ShopOrderRecord, Long> getIdentity() {
         return Keys.IDENTITY_SHOP_ORDER;
     }
 

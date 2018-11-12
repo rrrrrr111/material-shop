@@ -49,14 +49,14 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
-    public static final Identity<AddressRecord, Integer> IDENTITY_ADDRESS = Identities0.IDENTITY_ADDRESS;
-    public static final Identity<PersonRecord, Integer> IDENTITY_PERSON = Identities0.IDENTITY_PERSON;
-    public static final Identity<ProductRecord, Integer> IDENTITY_PRODUCT = Identities0.IDENTITY_PRODUCT;
-    public static final Identity<ShopOrderRecord, Integer> IDENTITY_SHOP_ORDER = Identities0.IDENTITY_SHOP_ORDER;
-    public static final Identity<ShopOrderGoodsRecord, Integer> IDENTITY_SHOP_ORDER_GOODS = Identities0.IDENTITY_SHOP_ORDER_GOODS;
-    public static final Identity<ShopOrderHistoryRecord, Integer> IDENTITY_SHOP_ORDER_HISTORY = Identities0.IDENTITY_SHOP_ORDER_HISTORY;
-    public static final Identity<TaskRecord, Integer> IDENTITY_TASK = Identities0.IDENTITY_TASK;
-    public static final Identity<TechLogRecord, Integer> IDENTITY_TECH_LOG = Identities0.IDENTITY_TECH_LOG;
+    public static final Identity<AddressRecord, Long> IDENTITY_ADDRESS = Identities0.IDENTITY_ADDRESS;
+    public static final Identity<PersonRecord, Long> IDENTITY_PERSON = Identities0.IDENTITY_PERSON;
+    public static final Identity<ProductRecord, Long> IDENTITY_PRODUCT = Identities0.IDENTITY_PRODUCT;
+    public static final Identity<ShopOrderRecord, Long> IDENTITY_SHOP_ORDER = Identities0.IDENTITY_SHOP_ORDER;
+    public static final Identity<ShopOrderGoodsRecord, Long> IDENTITY_SHOP_ORDER_GOODS = Identities0.IDENTITY_SHOP_ORDER_GOODS;
+    public static final Identity<ShopOrderHistoryRecord, Long> IDENTITY_SHOP_ORDER_HISTORY = Identities0.IDENTITY_SHOP_ORDER_HISTORY;
+    public static final Identity<TaskRecord, Long> IDENTITY_TASK = Identities0.IDENTITY_TASK;
+    public static final Identity<TechLogRecord, Long> IDENTITY_TECH_LOG = Identities0.IDENTITY_TECH_LOG;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -92,14 +92,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
-        public static Identity<AddressRecord, Integer> IDENTITY_ADDRESS = Internal.createIdentity(AddressTable.ADDRESS, AddressTable.ADDRESS.ID);
-        public static Identity<PersonRecord, Integer> IDENTITY_PERSON = Internal.createIdentity(PersonTable.PERSON, PersonTable.PERSON.ID);
-        public static Identity<ProductRecord, Integer> IDENTITY_PRODUCT = Internal.createIdentity(ProductTable.PRODUCT, ProductTable.PRODUCT.ID);
-        public static Identity<ShopOrderRecord, Integer> IDENTITY_SHOP_ORDER = Internal.createIdentity(ShopOrderTable.SHOP_ORDER, ShopOrderTable.SHOP_ORDER.ID);
-        public static Identity<ShopOrderGoodsRecord, Integer> IDENTITY_SHOP_ORDER_GOODS = Internal.createIdentity(ShopOrderGoodsTable.SHOP_ORDER_GOODS, ShopOrderGoodsTable.SHOP_ORDER_GOODS.ID);
-        public static Identity<ShopOrderHistoryRecord, Integer> IDENTITY_SHOP_ORDER_HISTORY = Internal.createIdentity(ShopOrderHistoryTable.SHOP_ORDER_HISTORY, ShopOrderHistoryTable.SHOP_ORDER_HISTORY.ID);
-        public static Identity<TaskRecord, Integer> IDENTITY_TASK = Internal.createIdentity(TaskTable.TASK, TaskTable.TASK.ID);
-        public static Identity<TechLogRecord, Integer> IDENTITY_TECH_LOG = Internal.createIdentity(TechLogTable.TECH_LOG, TechLogTable.TECH_LOG.ID);
+        public static Identity<AddressRecord, Long> IDENTITY_ADDRESS = Internal.createIdentity(AddressTable.ADDRESS, AddressTable.ADDRESS.ID);
+        public static Identity<PersonRecord, Long> IDENTITY_PERSON = Internal.createIdentity(PersonTable.PERSON, PersonTable.PERSON.ID);
+        public static Identity<ProductRecord, Long> IDENTITY_PRODUCT = Internal.createIdentity(ProductTable.PRODUCT, ProductTable.PRODUCT.ID);
+        public static Identity<ShopOrderRecord, Long> IDENTITY_SHOP_ORDER = Internal.createIdentity(ShopOrderTable.SHOP_ORDER, ShopOrderTable.SHOP_ORDER.ID);
+        public static Identity<ShopOrderGoodsRecord, Long> IDENTITY_SHOP_ORDER_GOODS = Internal.createIdentity(ShopOrderGoodsTable.SHOP_ORDER_GOODS, ShopOrderGoodsTable.SHOP_ORDER_GOODS.ID);
+        public static Identity<ShopOrderHistoryRecord, Long> IDENTITY_SHOP_ORDER_HISTORY = Internal.createIdentity(ShopOrderHistoryTable.SHOP_ORDER_HISTORY, ShopOrderHistoryTable.SHOP_ORDER_HISTORY.ID);
+        public static Identity<TaskRecord, Long> IDENTITY_TASK = Internal.createIdentity(TaskTable.TASK, TaskTable.TASK.ID);
+        public static Identity<TechLogRecord, Long> IDENTITY_TECH_LOG = Internal.createIdentity(TechLogTable.TECH_LOG, TechLogTable.TECH_LOG.ID);
     }
 
     private static class UniqueKeys0 {

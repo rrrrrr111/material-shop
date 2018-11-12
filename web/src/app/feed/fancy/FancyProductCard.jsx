@@ -30,7 +30,7 @@ class FancyProductCard extends React.PureComponent {
         return (
             <Card product>
                 <CardHeader image>
-                    <LocalLink to={product.link}>
+                    <LocalLink to={util.link.productLink(product.link)}>
                         <img src={util.link.productImg(product.image)} alt={product.name}/>
                     </LocalLink>
                 </CardHeader>

@@ -41,7 +41,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderGoodsRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderGoodsTable extends TableImpl<ShopOrderGoodsRecord> {
 
-    private static final long serialVersionUID = 1745104395;
+    private static final long serialVersionUID = 834362305;
 
     /**
      * The reference instance of <code>matshop.shop_order_goods</code>
@@ -59,17 +59,17 @@ public class ShopOrderGoodsTable extends TableImpl<ShopOrderGoodsRecord> {
     /**
      * The column <code>matshop.shop_order_goods.id</code>.
      */
-    public final TableField<ShopOrderGoodsRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_goods_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ShopOrderGoodsRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_goods_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.shop_order_goods.shop_order_id</code>.
      */
-    public final TableField<ShopOrderGoodsRecord, Integer> SHOP_ORDER_ID = createField("shop_order_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ShopOrderGoodsRecord, Long> SHOP_ORDER_ID = createField("shop_order_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.shop_order_goods.product_id</code>.
      */
-    public final TableField<ShopOrderGoodsRecord, Integer> PRODUCT_ID = createField("product_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ShopOrderGoodsRecord, Long> PRODUCT_ID = createField("product_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.shop_order_goods.quantity</code>.
@@ -134,7 +134,7 @@ public class ShopOrderGoodsTable extends TableImpl<ShopOrderGoodsRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<ShopOrderGoodsRecord, Integer> getIdentity() {
+    public Identity<ShopOrderGoodsRecord, Long> getIdentity() {
         return Keys.IDENTITY_SHOP_ORDER_GOODS;
     }
 

@@ -26,40 +26,40 @@ public class Sequences {
     /**
      * The sequence <code>matshop.address_id_seq</code>
      */
-    public static final Sequence<Integer> ADDRESS_ID_SEQ = new SequenceImpl<Integer>("address_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> ADDRESS_ID_SEQ = new SequenceImpl<Long>("address_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.person_id_seq</code>
      */
-    public static final Sequence<Integer> PERSON_ID_SEQ = new SequenceImpl<Integer>("person_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> PERSON_ID_SEQ = new SequenceImpl<Long>("person_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.product_id_seq</code>
      */
-    public static final Sequence<Integer> PRODUCT_ID_SEQ = new SequenceImpl<Integer>("product_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> PRODUCT_ID_SEQ = new SequenceImpl<Long>("product_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.shop_order_goods_id_seq</code>
      */
-    public static final Sequence<Integer> SHOP_ORDER_GOODS_ID_SEQ = new SequenceImpl<Integer>("shop_order_goods_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> SHOP_ORDER_GOODS_ID_SEQ = new SequenceImpl<Long>("shop_order_goods_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.shop_order_history_id_seq</code>
      */
-    public static final Sequence<Integer> SHOP_ORDER_HISTORY_ID_SEQ = new SequenceImpl<Integer>("shop_order_history_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> SHOP_ORDER_HISTORY_ID_SEQ = new SequenceImpl<Long>("shop_order_history_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.shop_order_id_seq</code>
      */
-    public static final Sequence<Integer> SHOP_ORDER_ID_SEQ = new SequenceImpl<Integer>("shop_order_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> SHOP_ORDER_ID_SEQ = new SequenceImpl<Long>("shop_order_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.task_id_seq</code>
      */
-    public static final Sequence<Integer> TASK_ID_SEQ = new SequenceImpl<Integer>("task_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> TASK_ID_SEQ = new SequenceImpl<Long>("task_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.tech_log_id_seq</code>
      */
-    public static final Sequence<Integer> TECH_LOG_ID_SEQ = new SequenceImpl<Integer>("tech_log_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<Long> TECH_LOG_ID_SEQ = new SequenceImpl<Long>("tech_log_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 }

@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.TechLogRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TechLogTable extends TableImpl<TechLogRecord> {
 
-    private static final long serialVersionUID = -1131693220;
+    private static final long serialVersionUID = 1119078708;
 
     /**
      * The reference instance of <code>matshop.tech_log</code>
@@ -60,7 +61,7 @@ public class TechLogTable extends TableImpl<TechLogRecord> {
     /**
      * The column <code>matshop.tech_log.id</code>.
      */
-    public final TableField<TechLogRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('tech_log_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<TechLogRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('tech_log_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.tech_log.type</code>.
@@ -70,7 +71,7 @@ public class TechLogTable extends TableImpl<TechLogRecord> {
     /**
      * The column <code>matshop.tech_log.object_id</code>.
      */
-    public final TableField<TechLogRecord, Integer> OBJECT_ID = createField("object_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TechLogRecord, Long> OBJECT_ID = createField("object_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.tech_log.data</code>.
@@ -80,7 +81,7 @@ public class TechLogTable extends TableImpl<TechLogRecord> {
     /**
      * The column <code>matshop.tech_log.event_date</code>.
      */
-    public final TableField<TechLogRecord, Timestamp> EVENT_DATE = createField("event_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TechLogRecord, Date> EVENT_DATE = createField("event_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.tech_log</code> table reference
@@ -135,7 +136,7 @@ public class TechLogTable extends TableImpl<TechLogRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<TechLogRecord, Integer> getIdentity() {
+    public Identity<TechLogRecord, Long> getIdentity() {
         return Keys.IDENTITY_TECH_LOG;
     }
 

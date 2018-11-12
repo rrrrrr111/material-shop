@@ -40,7 +40,7 @@ import ru.rich.matshop.db.model.tables.records.ProductCosmeticRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductCosmeticTable extends TableImpl<ProductCosmeticRecord> {
 
-    private static final long serialVersionUID = 696690479;
+    private static final long serialVersionUID = 1941045941;
 
     /**
      * The reference instance of <code>matshop.product_cosmetic</code>
@@ -58,7 +58,7 @@ public class ProductCosmeticTable extends TableImpl<ProductCosmeticRecord> {
     /**
      * The column <code>matshop.product_cosmetic.product_id</code>.
      */
-    public final TableField<ProductCosmeticRecord, Integer> PRODUCT_ID = createField("product_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ProductCosmeticRecord, Long> PRODUCT_ID = createField("product_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.product_cosmetic.name</code>.
@@ -73,7 +73,7 @@ public class ProductCosmeticTable extends TableImpl<ProductCosmeticRecord> {
     /**
      * The column <code>matshop.product_cosmetic.category</code>.
      */
-    public final TableField<ProductCosmeticRecord, Integer> CATEGORY = createField("category", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ProductCosmeticRecord, Long> CATEGORY = createField("category", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.product_cosmetic.popularity</code>.

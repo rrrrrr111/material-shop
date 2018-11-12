@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.TaskRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TaskTable extends TableImpl<TaskRecord> {
 
-    private static final long serialVersionUID = -740530842;
+    private static final long serialVersionUID = 1864155123;
 
     /**
      * The reference instance of <code>matshop.task</code>
@@ -60,7 +61,7 @@ public class TaskTable extends TableImpl<TaskRecord> {
     /**
      * The column <code>matshop.task.id</code>.
      */
-    public final TableField<TaskRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('task_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<TaskRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('task_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.task.name</code>.
@@ -80,17 +81,17 @@ public class TaskTable extends TableImpl<TaskRecord> {
     /**
      * The column <code>matshop.task.last_data_date</code>.
      */
-    public final TableField<TaskRecord, Timestamp> LAST_DATA_DATE = createField("last_data_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<TaskRecord, Date> LAST_DATA_DATE = createField("last_data_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "", new TimestampConverter());
 
     /**
      * The column <code>matshop.task.last_data_id</code>.
      */
-    public final TableField<TaskRecord, Integer> LAST_DATA_ID = createField("last_data_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TaskRecord, Long> LAST_DATA_ID = createField("last_data_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.task.edit_date</code>.
      */
-    public final TableField<TaskRecord, Timestamp> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TaskRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.task</code> table reference
@@ -145,7 +146,7 @@ public class TaskTable extends TableImpl<TaskRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<TaskRecord, Integer> getIdentity() {
+    public Identity<TaskRecord, Long> getIdentity() {
         return Keys.IDENTITY_TASK;
     }
 

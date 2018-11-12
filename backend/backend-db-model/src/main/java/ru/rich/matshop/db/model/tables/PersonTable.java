@@ -4,13 +4,6 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
@@ -23,11 +16,17 @@ import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
-
+import ru.rich.matshop.db.converters.SqlDateConverter;
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
+
+import javax.annotation.Generated;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -43,7 +42,7 @@ import ru.rich.matshop.db.model.tables.records.PersonRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PersonTable extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -1384991191;
+    private static final long serialVersionUID = -243600993;
 
     /**
      * The reference instance of <code>matshop.person</code>
@@ -61,7 +60,7 @@ public class PersonTable extends TableImpl<PersonRecord> {
     /**
      * The column <code>matshop.person.id</code>.
      */
-    public final TableField<PersonRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('person_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<PersonRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('person_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.person.email</code>.
@@ -91,7 +90,7 @@ public class PersonTable extends TableImpl<PersonRecord> {
     /**
      * The column <code>matshop.person.date_of_birth</code>.
      */
-    public final TableField<PersonRecord, Date> DATE_OF_BIRTH = createField("date_of_birth", org.jooq.impl.SQLDataType.DATE, this, "");
+    public final TableField<PersonRecord, Date> DATE_OF_BIRTH = createField("date_of_birth", org.jooq.impl.SQLDataType.DATE, this, "", new SqlDateConverter());
 
     /**
      * The column <code>matshop.person.sex</code>.
@@ -106,7 +105,7 @@ public class PersonTable extends TableImpl<PersonRecord> {
     /**
      * The column <code>matshop.person.edit_date</code>.
      */
-    public final TableField<PersonRecord, Timestamp> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<PersonRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.person</code> table reference
@@ -161,7 +160,7 @@ public class PersonTable extends TableImpl<PersonRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<PersonRecord, Integer> getIdentity() {
+    public Identity<PersonRecord, Long> getIdentity() {
         return Keys.IDENTITY_PERSON;
     }
 

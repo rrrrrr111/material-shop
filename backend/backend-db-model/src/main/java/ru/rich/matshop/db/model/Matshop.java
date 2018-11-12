@@ -4,10 +4,17 @@
 package ru.rich.matshop.db.model;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Generated;
+
 import org.jooq.Catalog;
 import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
+
 import ru.rich.matshop.db.model.tables.AddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
@@ -17,11 +24,6 @@ import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
 import ru.rich.matshop.db.model.tables.ShopOrderTable;
 import ru.rich.matshop.db.model.tables.TaskTable;
 import ru.rich.matshop.db.model.tables.TechLogTable;
-
-import javax.annotation.Generated;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**

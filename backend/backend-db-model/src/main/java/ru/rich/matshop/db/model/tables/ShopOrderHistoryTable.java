@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderHistoryRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderHistoryTable extends TableImpl<ShopOrderHistoryRecord> {
 
-    private static final long serialVersionUID = 1551392075;
+    private static final long serialVersionUID = 1796637899;
 
     /**
      * The reference instance of <code>matshop.shop_order_history</code>
@@ -60,12 +61,12 @@ public class ShopOrderHistoryTable extends TableImpl<ShopOrderHistoryRecord> {
     /**
      * The column <code>matshop.shop_order_history.id</code>.
      */
-    public final TableField<ShopOrderHistoryRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_history_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ShopOrderHistoryRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_history_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.shop_order_history.shop_order_id</code>.
      */
-    public final TableField<ShopOrderHistoryRecord, Integer> SHOP_ORDER_ID = createField("shop_order_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ShopOrderHistoryRecord, Long> SHOP_ORDER_ID = createField("shop_order_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.shop_order_history.old_state</code>.
@@ -80,7 +81,7 @@ public class ShopOrderHistoryTable extends TableImpl<ShopOrderHistoryRecord> {
     /**
      * The column <code>matshop.shop_order_history.old_assigned_person_id</code>.
      */
-    public final TableField<ShopOrderHistoryRecord, Integer> OLD_ASSIGNED_PERSON_ID = createField("old_assigned_person_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ShopOrderHistoryRecord, Long> OLD_ASSIGNED_PERSON_ID = createField("old_assigned_person_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order_history.new_state</code>.
@@ -95,12 +96,12 @@ public class ShopOrderHistoryTable extends TableImpl<ShopOrderHistoryRecord> {
     /**
      * The column <code>matshop.shop_order_history.new_assigned_person_id</code>.
      */
-    public final TableField<ShopOrderHistoryRecord, Integer> NEW_ASSIGNED_PERSON_ID = createField("new_assigned_person_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ShopOrderHistoryRecord, Long> NEW_ASSIGNED_PERSON_ID = createField("new_assigned_person_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order_history.event_date</code>.
      */
-    public final TableField<ShopOrderHistoryRecord, Timestamp> EVENT_DATE = createField("event_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ShopOrderHistoryRecord, Date> EVENT_DATE = createField("event_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.shop_order_history</code> table reference
@@ -155,7 +156,7 @@ public class ShopOrderHistoryTable extends TableImpl<ShopOrderHistoryRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<ShopOrderHistoryRecord, Integer> getIdentity() {
+    public Identity<ShopOrderHistoryRecord, Long> getIdentity() {
         return Keys.IDENTITY_SHOP_ORDER_HISTORY;
     }
 

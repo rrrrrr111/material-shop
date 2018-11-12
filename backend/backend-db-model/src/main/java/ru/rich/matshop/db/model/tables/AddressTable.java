@@ -4,8 +4,8 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -23,6 +23,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
+import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
@@ -42,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.AddressRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AddressTable extends TableImpl<AddressRecord> {
 
-    private static final long serialVersionUID = 1100795589;
+    private static final long serialVersionUID = 207766151;
 
     /**
      * The reference instance of <code>matshop.address</code>
@@ -60,12 +61,12 @@ public class AddressTable extends TableImpl<AddressRecord> {
     /**
      * The column <code>matshop.address.id</code>.
      */
-    public final TableField<AddressRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('address_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<AddressRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('address_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>matshop.address.person_id</code>.
      */
-    public final TableField<AddressRecord, Integer> PERSON_ID = createField("person_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<AddressRecord, Long> PERSON_ID = createField("person_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>matshop.address.region</code>.
@@ -120,7 +121,7 @@ public class AddressTable extends TableImpl<AddressRecord> {
     /**
      * The column <code>matshop.address.edit_date</code>.
      */
-    public final TableField<AddressRecord, Timestamp> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<AddressRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * Create a <code>matshop.address</code> table reference
@@ -175,7 +176,7 @@ public class AddressTable extends TableImpl<AddressRecord> {
      * {@inheritDoc}
      */
     @Override
-    public Identity<AddressRecord, Integer> getIdentity() {
+    public Identity<AddressRecord, Long> getIdentity() {
         return Keys.IDENTITY_ADDRESS;
     }
 

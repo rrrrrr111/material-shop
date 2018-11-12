@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.7.0.xsd">
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd">
     <jdbc>
         <driver>@spring.datasource.driver-class-name@</driver>
         <url>@spring.datasource.url@</url>
@@ -19,39 +19,25 @@
                 | PREFIX_.*
             </excludes>
 
-            <!--<forcedTypes>-->
-            <!--<forcedType>-->
-            <!--<name>java.lang.Boolean</name>-->
-            <!--<types>NUMBER.(1.)</types>-->
-            <!--</forcedType>-->
-            <!--<forcedType>-->
-            <!--<name>java.util.Date</name>-->
-            <!--<types>TIMESTAMP.*</types>-->
-            <!--</forcedType>-->
-            <!--<forcedType>-->
-            <!--<name>SqlDate</name>-->
-            <!--<types>DATE</types>-->
-            <!--</forcedType>-->
-            <!--</forcedTypes>-->
-            <!--<customTypes>-->
-            <!--<customType>-->
-            <!--<name>java.lang.Boolean</name>-->
-            <!--<converter>ru.sbrf.dbofi.database.converters.OracleBooleanConverter</converter>-->
-            <!--</customType>-->
-            <!--<customType>-->
-            <!--<name>java.util.Date</name>-->
-            <!--<converter>ru.sbrf.dbofi.database.converters.TimestampConverter</converter>-->
-            <!--</customType>-->
-            <!--<customType>-->
-            <!--<name>SqlDate</name>-->
-            <!--<type>java.util.Date</type>-->
-            <!--<converter>ru.sbrf.dbofi.database.converters.SqlDateConverter</converter>-->
-            <!--</customType>-->
-            <!--</customTypes>-->
+            <forcedTypes>
+                <forcedType>
+                    <userType>java.util.Date</userType>
+                    <converter>ru.rich.matshop.db.converters.TimestampConverter</converter>
+                    <expression>.*</expression>
+                    <types>TIMESTAMP.*</types>
+                </forcedType>
+                <forcedType>
+                    <userType>java.util.Date</userType>
+                    <converter>ru.rich.matshop.db.converters.SqlDateConverter</converter>
+                    <expression>.*</expression>
+                    <types>DATE</types>
+                </forcedType>
+            </forcedTypes>
         </database>
         <target>
             <directory>@codeGeneratorModuleDir@</directory>
             <packageName>@codeGeneratorPackage@</packageName>
+            <encoding>UTF-8</encoding>
         </target>
         <strategy>
             <name>ru.rich.matshop.db.generator.GeneratorStrategy</name>
