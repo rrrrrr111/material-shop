@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
 import ru.rich.matshop.webapi.api.RestRequest;
+import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 
 import java.util.List;
 
@@ -9,7 +10,16 @@ import java.util.List;
  */
 public class FeedResponse extends RestRequest {
 
+    private PageResponse pageResponse;
     private List<FeedProduct> products;
+
+    public PageResponse getPageResponse() {
+        return pageResponse;
+    }
+
+    public void setPageResponse(PageResponse pageResponse) {
+        this.pageResponse = pageResponse;
+    }
 
     public List<FeedProduct> getProducts() {
         return products;
@@ -22,7 +32,8 @@ public class FeedResponse extends RestRequest {
     @Override
     public String toString() {
         return "FeedResponse{" +
-                "products=" + products +
+                "pageResponse=" + pageResponse +
+                ", products=" + products +
                 '}';
     }
 }

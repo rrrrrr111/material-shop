@@ -9,16 +9,16 @@ import java.util.List;
 @Service
 class FeedService {
 
-    private final ProductDao productDao;
+    private final FeedProductDao feedProductDao;
 
-    FeedService(ProductDao productDao) {
-        this.productDao = productDao;
+    FeedService(FeedProductDao feedProductDao) {
+        this.feedProductDao = feedProductDao;
     }
 
     @Transactional
     public List<FeedProduct> getFeedList() {
 
-        var products = productDao.getFeedList();
+        var products = feedProductDao.getFeedList();
         return products;
     }
 }

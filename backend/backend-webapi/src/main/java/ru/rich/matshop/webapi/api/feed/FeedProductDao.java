@@ -11,26 +11,31 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static ru.rich.matshop.db.model.Tables.PRODUCT;
+import static ru.rich.matshop.db.model.Tables.PRODUCT_COSMETIC;
 
 @Repository
-class ProductDao {
+class FeedProductDao {
 
     private final DSLContext create;
 
-    ProductDao(DSLContext create) {
+    FeedProductDao(DSLContext create) {
         this.create = create;
     }
 
-    public List<FeedProduct> getFeedList() {
+    List<FeedProduct> getFeedList() {
+
+        var p = PRODUCT.as("p");
+        var pc = PRODUCT_COSMETIC.as("pc");
 
         return create.select()
-                .from(PRODUCT.as("p"))
+                .from(p.join(pc)
+                        .on(p.ID.eq(pc.PRODUCT_ID)))
                 .fetch(new RecordMapper<Record, FeedProduct>() {
                     @Override
                     public FeedProduct map(Record record) {
 
-                        ProductRecord r = (ProductRecord) record;
-                        FeedProduct p = new FeedProduct();
+                        var r = (ProductRecord) record;
+                        var p = new FeedProduct();
 
                         p.setId(r.getId());
                         p.setImage("000/000/000[3]");

@@ -9,6 +9,7 @@ import ru.rich.matshop.webapi.api.common.paging.PageRequest;
 public class FeedRequest extends RestRequest {
 
     private PageRequest pageRequest;
+    private FeedProductFilter feedProductFilter;
 
     public PageRequest getPageRequest() {
         return pageRequest;
@@ -16,5 +17,21 @@ public class FeedRequest extends RestRequest {
 
     public void setPageRequest(PageRequest pageRequest) {
         this.pageRequest = pageRequest;
+    }
+
+    public FeedProductFilter getFeedProductFilter() {
+        return feedProductFilter;
+    }
+
+    public void setFeedProductFilter(FeedProductFilter feedProductFilter) {
+        this.feedProductFilter = feedProductFilter;
+    }
+
+    @Override
+    public String toString() {
+        return "FeedRequest{" +
+                "pageRequest=" + pageRequest +
+                ", feedProductFilter=" + feedProductFilter +
+                '}';
     }
 }
