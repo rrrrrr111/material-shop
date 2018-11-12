@@ -36,7 +36,7 @@ class FeedProductDao {
                         var p = new FeedProduct();
 
                         p.setId(r.get(PRODUCT.ID));
-                        p.setImage("000/000[3]");
+                        p.setImage("000/000/000[3]");
                         p.setLink("spring_jacasdf_asdf_asdf_aket_p-1");
                         p.setName("This is Java Product");
                         p.setPrice(BigInteger.TEN);

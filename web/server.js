@@ -13,7 +13,7 @@ app.get('/api/be/feed', function (req, res) {
     res.json({
         products: fill(Array(12), {
             id: 1,
-            image: "000/000[2:jpg, 3]",
+            image: "000/000/000[2:jpg, 3]",
             link: "/p/spring_jacasdf_asdf_asdf_aket_p-1",
             name: "Spring JackeSpring JackeSpring Jacket",
             price: 1093232

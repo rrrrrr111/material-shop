@@ -24,11 +24,12 @@ const subPart = function (str, fromSymbol, toSymbol) {
     return str.substring(fromIndex, toIndex);
 };
 
+const DEFAULT_EXTENSION = "jpg";
 const partToExtension = function (imgNumDef) {
     imgNumDef = imgNumDef.trim();
     let semIndex = imgNumDef.indexOf(':');
     if (semIndex === -1) {
-        return "jpg";
+        return DEFAULT_EXTENSION;
     } else {
         return imgNumDef.substring(semIndex + 1);
     }
@@ -47,7 +48,7 @@ const partToNumber = function (imgNumDef) {
 const toImgExtensions = function (imgNumDefs) {
     const parts = imgNumDefs.split(',');
     const arrSize = partToNumber(parts[parts.length - 1]);
-    const arr = fill(Array(arrSize), "jpg");
+    const arr = fill(Array(arrSize), DEFAULT_EXTENSION);
 
     for (let i = 0; i < parts.length; i++) {
         const number = partToNumber(parts[i]);

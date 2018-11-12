@@ -22,8 +22,8 @@ class SimpleProduct extends React.PureComponent {
         this.state = {
             product: {
                 id: 1,
-                image: "000/000[2:jpg, 3]",
-                link: "/p/spring_jacasdf_asdf_asdf_aket_p-1",
+                image: "000/000/000[3]",
+                link: "spring_jacasdf_asdf_asdf_aket_p-1",
                 name: "Жакет JackeSpring ",
                 description: "Dolce & Gabbana's 'Greta' лакшери джакет лакшери джакет лакшери джакет лакшери джакет лакшери джакет лакшери джакет ",
                 price: 10932

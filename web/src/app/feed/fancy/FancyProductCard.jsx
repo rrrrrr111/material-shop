@@ -43,7 +43,9 @@ class FancyProductCard extends React.PureComponent {
                     >
                         В тренде
                     </h6>
-                    <h4 className={classes.cardTitle}>{product.name}</h4>
+                    <LocalLink to={util.link.productLink(product.link)}>
+                        <h4 className={classes.cardTitle}>{product.name}</h4>
+                    </LocalLink>
                     <div className={classes.cardDescription}>
                         {product.description}
                     </div>
