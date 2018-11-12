@@ -28,6 +28,12 @@ def codeGeneratorModuleDir = "$rootDir/backend/backend-db-model/src/main/java"
 def codeGeneratorPackage = "ru.rich.matshop.db.model"
 def codeGeneratorDir = "$codeGeneratorModuleDir/${codeGeneratorPackage.replace('.', '/')}"
 
+configurations {
+    jooqGenerateClasspath {  // отдельный Classpath для таски генерации артефактов JOOQ
+        extendsFrom compile
+    }
+}
+
 dependencies {
     compile("org.jooq:jooq:$jooqVersion")
     compile("org.jooq:jooq-codegen:$jooqVersion")
@@ -35,6 +41,8 @@ dependencies {
     compile("org.glassfish.jaxb:jaxb-runtime:2.2.11")
     compile group: 'javax.activation', name: 'activation', version: '1.1.1'
     compile("org.postgresql:postgresql:$postgreDriverVersion")
+
+    jooqGenerateClasspath project(":backend-db")
 }
 
 task jooqConfig(type: Copy) {
@@ -64,7 +72,7 @@ task jooqGenerate(type: JavaExec, dependsOn: [jooqConfig, "cleanJooqGenerate"]) 
     // не указываем inputs чтобы всегда герерировать исходники (делаем up-to-date всегда равным FALSE)
 
     outputs.dir codeGeneratorDir
-    classpath = configurations.compile
+    classpath = configurations.jooqGenerateClasspath
     main = 'org.jooq.codegen.GenerationTool'
     args = [file(targetConfigFilePath).path]
     standardOutput = System.out

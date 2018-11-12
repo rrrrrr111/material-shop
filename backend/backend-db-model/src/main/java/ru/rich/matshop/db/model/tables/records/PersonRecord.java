@@ -15,7 +15,7 @@ import org.jooq.Record10;
 import org.jooq.Row10;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.Person;
+import ru.rich.matshop.db.model.tables.PersonTable;
 
 
 /**
@@ -31,7 +31,7 @@ import ru.rich.matshop.db.model.tables.Person;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements Record10<Integer, String, String, String, String, String, Date, String, Boolean, Timestamp> {
 
-    private static final long serialVersionUID = 702202990;
+    private static final long serialVersionUID = -1491430744;
 
     /**
      * Setter for <code>matshop.person.id</code>.
@@ -210,7 +210,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<Integer> field1() {
-        return Person.PERSON.ID;
+        return PersonTable.PERSON.ID;
     }
 
     /**
@@ -218,7 +218,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field2() {
-        return Person.PERSON.EMAIL;
+        return PersonTable.PERSON.EMAIL;
     }
 
     /**
@@ -226,7 +226,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field3() {
-        return Person.PERSON.PASSWORD;
+        return PersonTable.PERSON.PASSWORD;
     }
 
     /**
@@ -234,7 +234,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field4() {
-        return Person.PERSON.PHONE;
+        return PersonTable.PERSON.PHONE;
     }
 
     /**
@@ -242,7 +242,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field5() {
-        return Person.PERSON.FIRST_NAME;
+        return PersonTable.PERSON.FIRST_NAME;
     }
 
     /**
@@ -250,7 +250,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field6() {
-        return Person.PERSON.LAST_NAME;
+        return PersonTable.PERSON.LAST_NAME;
     }
 
     /**
@@ -258,7 +258,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<Date> field7() {
-        return Person.PERSON.DATE_OF_BIRTH;
+        return PersonTable.PERSON.DATE_OF_BIRTH;
     }
 
     /**
@@ -266,7 +266,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<String> field8() {
-        return Person.PERSON.SEX;
+        return PersonTable.PERSON.SEX;
     }
 
     /**
@@ -274,7 +274,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<Boolean> field9() {
-        return Person.PERSON.AGREEMENT_CHECKED;
+        return PersonTable.PERSON.AGREEMENT_CHECKED;
     }
 
     /**
@@ -282,7 +282,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      */
     @Override
     public Field<Timestamp> field10() {
-        return Person.PERSON.EDIT_DATE;
+        return PersonTable.PERSON.EDIT_DATE;
     }
 
     /**
@@ -561,14 +561,14 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
      * Create a detached PersonRecord
      */
     public PersonRecord() {
-        super(Person.PERSON);
+        super(PersonTable.PERSON);
     }
 
     /**
      * Create a detached, initialised PersonRecord
      */
     public PersonRecord(Integer id, String email, String password, String phone, String firstName, String lastName, Date dateOfBirth, String sex, Boolean agreementChecked, Timestamp editDate) {
-        super(Person.PERSON);
+        super(PersonTable.PERSON);
 
         set(0, id);
         set(1, email);

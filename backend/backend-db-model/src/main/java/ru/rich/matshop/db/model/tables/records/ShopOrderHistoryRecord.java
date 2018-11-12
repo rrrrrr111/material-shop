@@ -14,7 +14,7 @@ import org.jooq.Record9;
 import org.jooq.Row9;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.ShopOrderHistory;
+import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
 
 
 /**
@@ -30,7 +30,7 @@ import ru.rich.matshop.db.model.tables.ShopOrderHistory;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistoryRecord> implements Record9<Integer, Integer, String, String, Integer, String, String, Integer, Timestamp> {
 
-    private static final long serialVersionUID = -1214587017;
+    private static final long serialVersionUID = -1107992025;
 
     /**
      * Setter for <code>matshop.shop_order_history.id</code>.
@@ -195,7 +195,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<Integer> field1() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.ID;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.ID;
     }
 
     /**
@@ -203,7 +203,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<Integer> field2() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.SHOP_ORDER_ID;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.SHOP_ORDER_ID;
     }
 
     /**
@@ -211,7 +211,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<String> field3() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.OLD_STATE;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.OLD_STATE;
     }
 
     /**
@@ -219,7 +219,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<String> field4() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.OLD_SERVICE_COMMENT;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.OLD_SERVICE_COMMENT;
     }
 
     /**
@@ -227,7 +227,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<Integer> field5() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.OLD_ASSIGNED_PERSON_ID;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.OLD_ASSIGNED_PERSON_ID;
     }
 
     /**
@@ -235,7 +235,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<String> field6() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.NEW_STATE;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.NEW_STATE;
     }
 
     /**
@@ -243,7 +243,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<String> field7() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.NEW_SERVICE_COMMENT;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.NEW_SERVICE_COMMENT;
     }
 
     /**
@@ -251,7 +251,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<Integer> field8() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.NEW_ASSIGNED_PERSON_ID;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.NEW_ASSIGNED_PERSON_ID;
     }
 
     /**
@@ -259,7 +259,7 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      */
     @Override
     public Field<Timestamp> field9() {
-        return ShopOrderHistory.SHOP_ORDER_HISTORY.EVENT_DATE;
+        return ShopOrderHistoryTable.SHOP_ORDER_HISTORY.EVENT_DATE;
     }
 
     /**
@@ -512,14 +512,14 @@ public class ShopOrderHistoryRecord extends UpdatableRecordImpl<ShopOrderHistory
      * Create a detached ShopOrderHistoryRecord
      */
     public ShopOrderHistoryRecord() {
-        super(ShopOrderHistory.SHOP_ORDER_HISTORY);
+        super(ShopOrderHistoryTable.SHOP_ORDER_HISTORY);
     }
 
     /**
      * Create a detached, initialised ShopOrderHistoryRecord
      */
     public ShopOrderHistoryRecord(Integer id, Integer shopOrderId, String oldState, String oldServiceComment, Integer oldAssignedPersonId, String newState, String newServiceComment, Integer newAssignedPersonId, Timestamp eventDate) {
-        super(ShopOrderHistory.SHOP_ORDER_HISTORY);
+        super(ShopOrderHistoryTable.SHOP_ORDER_HISTORY);
 
         set(0, id);
         set(1, shopOrderId);

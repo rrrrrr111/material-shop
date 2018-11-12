@@ -12,7 +12,7 @@ import org.jooq.Record5;
 import org.jooq.Row5;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.ShopOrderGoods;
+import ru.rich.matshop.db.model.tables.ShopOrderGoodsTable;
 
 
 /**
@@ -28,7 +28,7 @@ import ru.rich.matshop.db.model.tables.ShopOrderGoods;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsRecord> implements Record5<Integer, Integer, Integer, Integer, Long> {
 
-    private static final long serialVersionUID = 1140193445;
+    private static final long serialVersionUID = -1978468871;
 
     /**
      * Setter for <code>matshop.shop_order_goods.id</code>.
@@ -137,7 +137,7 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      */
     @Override
     public Field<Integer> field1() {
-        return ShopOrderGoods.SHOP_ORDER_GOODS.ID;
+        return ShopOrderGoodsTable.SHOP_ORDER_GOODS.ID;
     }
 
     /**
@@ -145,7 +145,7 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      */
     @Override
     public Field<Integer> field2() {
-        return ShopOrderGoods.SHOP_ORDER_GOODS.SHOP_ORDER_ID;
+        return ShopOrderGoodsTable.SHOP_ORDER_GOODS.SHOP_ORDER_ID;
     }
 
     /**
@@ -153,7 +153,7 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      */
     @Override
     public Field<Integer> field3() {
-        return ShopOrderGoods.SHOP_ORDER_GOODS.PRODUCT_ID;
+        return ShopOrderGoodsTable.SHOP_ORDER_GOODS.PRODUCT_ID;
     }
 
     /**
@@ -161,7 +161,7 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      */
     @Override
     public Field<Integer> field4() {
-        return ShopOrderGoods.SHOP_ORDER_GOODS.QUANTITY;
+        return ShopOrderGoodsTable.SHOP_ORDER_GOODS.QUANTITY;
     }
 
     /**
@@ -169,7 +169,7 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      */
     @Override
     public Field<Long> field5() {
-        return ShopOrderGoods.SHOP_ORDER_GOODS.PRICE;
+        return ShopOrderGoodsTable.SHOP_ORDER_GOODS.PRICE;
     }
 
     /**
@@ -318,14 +318,14 @@ public class ShopOrderGoodsRecord extends UpdatableRecordImpl<ShopOrderGoodsReco
      * Create a detached ShopOrderGoodsRecord
      */
     public ShopOrderGoodsRecord() {
-        super(ShopOrderGoods.SHOP_ORDER_GOODS);
+        super(ShopOrderGoodsTable.SHOP_ORDER_GOODS);
     }
 
     /**
      * Create a detached, initialised ShopOrderGoodsRecord
      */
     public ShopOrderGoodsRecord(Integer id, Integer shopOrderId, Integer productId, Integer quantity, Long price) {
-        super(ShopOrderGoods.SHOP_ORDER_GOODS);
+        super(ShopOrderGoodsTable.SHOP_ORDER_GOODS);
 
         set(0, id);
         set(1, shopOrderId);

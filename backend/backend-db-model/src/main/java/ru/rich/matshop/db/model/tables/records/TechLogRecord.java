@@ -14,7 +14,7 @@ import org.jooq.Record5;
 import org.jooq.Row5;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.TechLog;
+import ru.rich.matshop.db.model.tables.TechLogTable;
 
 
 /**
@@ -30,7 +30,7 @@ import ru.rich.matshop.db.model.tables.TechLog;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements Record5<Integer, String, Integer, String, Timestamp> {
 
-    private static final long serialVersionUID = -1251064269;
+    private static final long serialVersionUID = -213829661;
 
     /**
      * Setter for <code>matshop.tech_log.id</code>.
@@ -139,7 +139,7 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      */
     @Override
     public Field<Integer> field1() {
-        return TechLog.TECH_LOG.ID;
+        return TechLogTable.TECH_LOG.ID;
     }
 
     /**
@@ -147,7 +147,7 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      */
     @Override
     public Field<String> field2() {
-        return TechLog.TECH_LOG.TYPE;
+        return TechLogTable.TECH_LOG.TYPE;
     }
 
     /**
@@ -155,7 +155,7 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      */
     @Override
     public Field<Integer> field3() {
-        return TechLog.TECH_LOG.OBJECT_ID;
+        return TechLogTable.TECH_LOG.OBJECT_ID;
     }
 
     /**
@@ -163,7 +163,7 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      */
     @Override
     public Field<String> field4() {
-        return TechLog.TECH_LOG.DATA;
+        return TechLogTable.TECH_LOG.DATA;
     }
 
     /**
@@ -171,7 +171,7 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      */
     @Override
     public Field<Timestamp> field5() {
-        return TechLog.TECH_LOG.EVENT_DATE;
+        return TechLogTable.TECH_LOG.EVENT_DATE;
     }
 
     /**
@@ -320,14 +320,14 @@ public class TechLogRecord extends UpdatableRecordImpl<TechLogRecord> implements
      * Create a detached TechLogRecord
      */
     public TechLogRecord() {
-        super(TechLog.TECH_LOG);
+        super(TechLogTable.TECH_LOG);
     }
 
     /**
      * Create a detached, initialised TechLogRecord
      */
     public TechLogRecord(Integer id, String type, Integer objectId, String data, Timestamp eventDate) {
-        super(TechLog.TECH_LOG);
+        super(TechLogTable.TECH_LOG);
 
         set(0, id);
         set(1, type);

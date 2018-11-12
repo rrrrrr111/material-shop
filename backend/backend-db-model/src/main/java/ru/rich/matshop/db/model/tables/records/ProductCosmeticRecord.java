@@ -12,7 +12,7 @@ import org.jooq.Record5;
 import org.jooq.Row5;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.ProductCosmetic;
+import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
 
 
 /**
@@ -28,7 +28,7 @@ import ru.rich.matshop.db.model.tables.ProductCosmetic;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRecord> implements Record5<Integer, String, Long, Integer, Long> {
 
-    private static final long serialVersionUID = -1171989834;
+    private static final long serialVersionUID = 1123281318;
 
     /**
      * Setter for <code>matshop.product_cosmetic.product_id</code>.
@@ -137,7 +137,7 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      */
     @Override
     public Field<Integer> field1() {
-        return ProductCosmetic.PRODUCT_COSMETIC.PRODUCT_ID;
+        return ProductCosmeticTable.PRODUCT_COSMETIC.PRODUCT_ID;
     }
 
     /**
@@ -145,7 +145,7 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      */
     @Override
     public Field<String> field2() {
-        return ProductCosmetic.PRODUCT_COSMETIC.NAME;
+        return ProductCosmeticTable.PRODUCT_COSMETIC.NAME;
     }
 
     /**
@@ -153,7 +153,7 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      */
     @Override
     public Field<Long> field3() {
-        return ProductCosmetic.PRODUCT_COSMETIC.PRICE;
+        return ProductCosmeticTable.PRODUCT_COSMETIC.PRICE;
     }
 
     /**
@@ -161,7 +161,7 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      */
     @Override
     public Field<Integer> field4() {
-        return ProductCosmetic.PRODUCT_COSMETIC.CATEGORY;
+        return ProductCosmeticTable.PRODUCT_COSMETIC.CATEGORY;
     }
 
     /**
@@ -169,7 +169,7 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      */
     @Override
     public Field<Long> field5() {
-        return ProductCosmetic.PRODUCT_COSMETIC.POPULARITY;
+        return ProductCosmeticTable.PRODUCT_COSMETIC.POPULARITY;
     }
 
     /**
@@ -318,14 +318,14 @@ public class ProductCosmeticRecord extends UpdatableRecordImpl<ProductCosmeticRe
      * Create a detached ProductCosmeticRecord
      */
     public ProductCosmeticRecord() {
-        super(ProductCosmetic.PRODUCT_COSMETIC);
+        super(ProductCosmeticTable.PRODUCT_COSMETIC);
     }
 
     /**
      * Create a detached, initialised ProductCosmeticRecord
      */
     public ProductCosmeticRecord(Integer productId, String name, Long price, Integer category, Long popularity) {
-        super(ProductCosmetic.PRODUCT_COSMETIC);
+        super(ProductCosmeticTable.PRODUCT_COSMETIC);
 
         set(0, productId);
         set(1, name);

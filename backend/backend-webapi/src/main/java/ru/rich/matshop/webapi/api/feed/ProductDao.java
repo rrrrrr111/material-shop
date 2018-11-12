@@ -4,10 +4,11 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 import org.springframework.stereotype.Repository;
-import ru.rich.matshop.db.model.Tables;
 import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
 
 import java.util.List;
+
+import static ru.rich.matshop.db.model.Tables.PRODUCT;
 
 @Repository
 class ProductDao {
@@ -21,7 +22,7 @@ class ProductDao {
     public List<FeedProduct> getFeedList() {
 
         return create.select()
-                .from(Tables.PRODUCT)
+                .from(PRODUCT.as("p"))
                 .fetch(new RecordMapper<Record, FeedProduct>() {
                     @Override
                     public FeedProduct map(Record record) {

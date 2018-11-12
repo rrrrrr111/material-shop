@@ -4,15 +4,17 @@
 package ru.rich.matshop.db.model.tables.records;
 
 
+import java.sql.Timestamp;
+
+import javax.annotation.Generated;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record7;
 import org.jooq.Row7;
 import org.jooq.impl.UpdatableRecordImpl;
-import ru.rich.matshop.db.model.tables.Task;
 
-import javax.annotation.Generated;
-import java.sql.Timestamp;
+import ru.rich.matshop.db.model.tables.TaskTable;
 
 
 /**
@@ -28,7 +30,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Record7<Integer, String, String, String, Timestamp, Integer, Timestamp> {
 
-    private static final long serialVersionUID = -400093782;
+    private static final long serialVersionUID = 1675831272;
 
     /**
      * Setter for <code>matshop.task.id</code>.
@@ -165,7 +167,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<Integer> field1() {
-        return Task.TASK.ID;
+        return TaskTable.TASK.ID;
     }
 
     /**
@@ -173,7 +175,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<String> field2() {
-        return Task.TASK.NAME;
+        return TaskTable.TASK.NAME;
     }
 
     /**
@@ -181,7 +183,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<String> field3() {
-        return Task.TASK.TYPE;
+        return TaskTable.TASK.TYPE;
     }
 
     /**
@@ -189,7 +191,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<String> field4() {
-        return Task.TASK.STATE;
+        return TaskTable.TASK.STATE;
     }
 
     /**
@@ -197,7 +199,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<Timestamp> field5() {
-        return Task.TASK.LAST_DATA_DATE;
+        return TaskTable.TASK.LAST_DATA_DATE;
     }
 
     /**
@@ -205,7 +207,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<Integer> field6() {
-        return Task.TASK.LAST_DATA_ID;
+        return TaskTable.TASK.LAST_DATA_ID;
     }
 
     /**
@@ -213,7 +215,7 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      */
     @Override
     public Field<Timestamp> field7() {
-        return Task.TASK.EDIT_DATE;
+        return TaskTable.TASK.EDIT_DATE;
     }
 
     /**
@@ -414,14 +416,14 @@ public class TaskRecord extends UpdatableRecordImpl<TaskRecord> implements Recor
      * Create a detached TaskRecord
      */
     public TaskRecord() {
-        super(Task.TASK);
+        super(TaskTable.TASK);
     }
 
     /**
      * Create a detached, initialised TaskRecord
      */
     public TaskRecord(Integer id, String name, String type, String state, Timestamp lastDataDate, Integer lastDataId, Timestamp editDate) {
-        super(Task.TASK);
+        super(TaskTable.TASK);
 
         set(0, id);
         set(1, name);

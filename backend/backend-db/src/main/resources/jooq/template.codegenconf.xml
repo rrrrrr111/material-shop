@@ -53,8 +53,8 @@
             <directory>@codeGeneratorModuleDir@</directory>
             <packageName>@codeGeneratorPackage@</packageName>
         </target>
-        <!--<strategy>-->
-        <!--<name>ru.sbrf.dbofi.db.DbofiGeneratorStrategy</name>-->
-        <!--</strategy>-->
+        <strategy>
+            <name>ru.rich.matshop.db.generator.GeneratorStrategy</name>
+        </strategy>
     </generator>
 </configuration>

@@ -14,7 +14,7 @@ import org.jooq.Record9;
 import org.jooq.Row9;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.ShopOrder;
+import ru.rich.matshop.db.model.tables.ShopOrderTable;
 
 
 /**
@@ -30,7 +30,7 @@ import ru.rich.matshop.db.model.tables.ShopOrder;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implements Record9<Integer, Integer, Integer, Integer, Long, String, Integer, String, Timestamp> {
 
-    private static final long serialVersionUID = 1030205559;
+    private static final long serialVersionUID = -1492285627;
 
     /**
      * Setter for <code>matshop.shop_order.id</code>.
@@ -195,7 +195,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Integer> field1() {
-        return ShopOrder.SHOP_ORDER.ID;
+        return ShopOrderTable.SHOP_ORDER.ID;
     }
 
     /**
@@ -203,7 +203,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Integer> field2() {
-        return ShopOrder.SHOP_ORDER.SHOP_ID;
+        return ShopOrderTable.SHOP_ORDER.SHOP_ID;
     }
 
     /**
@@ -211,7 +211,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Integer> field3() {
-        return ShopOrder.SHOP_ORDER.CLIENT_PERSON_ID;
+        return ShopOrderTable.SHOP_ORDER.CLIENT_PERSON_ID;
     }
 
     /**
@@ -219,7 +219,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Integer> field4() {
-        return ShopOrder.SHOP_ORDER.ADDRESS_ID;
+        return ShopOrderTable.SHOP_ORDER.ADDRESS_ID;
     }
 
     /**
@@ -227,7 +227,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Long> field5() {
-        return ShopOrder.SHOP_ORDER.AMMOUNT;
+        return ShopOrderTable.SHOP_ORDER.AMMOUNT;
     }
 
     /**
@@ -235,7 +235,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<String> field6() {
-        return ShopOrder.SHOP_ORDER.STATE;
+        return ShopOrderTable.SHOP_ORDER.STATE;
     }
 
     /**
@@ -243,7 +243,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Integer> field7() {
-        return ShopOrder.SHOP_ORDER.ASSIGNED_PERSON_ID;
+        return ShopOrderTable.SHOP_ORDER.ASSIGNED_PERSON_ID;
     }
 
     /**
@@ -251,7 +251,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<String> field8() {
-        return ShopOrder.SHOP_ORDER.SERVICE_COMMENT;
+        return ShopOrderTable.SHOP_ORDER.SERVICE_COMMENT;
     }
 
     /**
@@ -259,7 +259,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Timestamp> field9() {
-        return ShopOrder.SHOP_ORDER.EDIT_DATE;
+        return ShopOrderTable.SHOP_ORDER.EDIT_DATE;
     }
 
     /**
@@ -512,14 +512,14 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      * Create a detached ShopOrderRecord
      */
     public ShopOrderRecord() {
-        super(ShopOrder.SHOP_ORDER);
+        super(ShopOrderTable.SHOP_ORDER);
     }
 
     /**
      * Create a detached, initialised ShopOrderRecord
      */
     public ShopOrderRecord(Integer id, Integer shopId, Integer clientPersonId, Integer addressId, Long ammount, String state, Integer assignedPersonId, String serviceComment, Timestamp editDate) {
-        super(ShopOrder.SHOP_ORDER);
+        super(ShopOrderTable.SHOP_ORDER);
 
         set(0, id);
         set(1, shopId);

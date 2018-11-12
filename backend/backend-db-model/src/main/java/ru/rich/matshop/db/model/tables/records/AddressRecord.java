@@ -4,15 +4,17 @@
 package ru.rich.matshop.db.model.tables.records;
 
 
+import java.sql.Timestamp;
+
+import javax.annotation.Generated;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record13;
 import org.jooq.Row13;
 import org.jooq.impl.UpdatableRecordImpl;
-import ru.rich.matshop.db.model.tables.Address;
 
-import javax.annotation.Generated;
-import java.sql.Timestamp;
+import ru.rich.matshop.db.model.tables.AddressTable;
 
 
 /**
@@ -28,7 +30,7 @@ import java.sql.Timestamp;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements Record13<Integer, Integer, String, String, String, String, String, String, String, String, String, String, Timestamp> {
 
-    private static final long serialVersionUID = -1423915606;
+    private static final long serialVersionUID = -421536328;
 
     /**
      * Setter for <code>matshop.address.id</code>.
@@ -249,7 +251,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<Integer> field1() {
-        return Address.ADDRESS.ID;
+        return AddressTable.ADDRESS.ID;
     }
 
     /**
@@ -257,7 +259,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<Integer> field2() {
-        return Address.ADDRESS.PERSON_ID;
+        return AddressTable.ADDRESS.PERSON_ID;
     }
 
     /**
@@ -265,7 +267,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field3() {
-        return Address.ADDRESS.REGION;
+        return AddressTable.ADDRESS.REGION;
     }
 
     /**
@@ -273,7 +275,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field4() {
-        return Address.ADDRESS.TOWN;
+        return AddressTable.ADDRESS.TOWN;
     }
 
     /**
@@ -281,7 +283,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field5() {
-        return Address.ADDRESS.STREET;
+        return AddressTable.ADDRESS.STREET;
     }
 
     /**
@@ -289,7 +291,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field6() {
-        return Address.ADDRESS.HOUSE;
+        return AddressTable.ADDRESS.HOUSE;
     }
 
     /**
@@ -297,7 +299,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field7() {
-        return Address.ADDRESS.HOUSING;
+        return AddressTable.ADDRESS.HOUSING;
     }
 
     /**
@@ -305,7 +307,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field8() {
-        return Address.ADDRESS.CONSTRUCTION;
+        return AddressTable.ADDRESS.CONSTRUCTION;
     }
 
     /**
@@ -313,7 +315,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field9() {
-        return Address.ADDRESS.APARTMENT;
+        return AddressTable.ADDRESS.APARTMENT;
     }
 
     /**
@@ -321,7 +323,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field10() {
-        return Address.ADDRESS.ENTRANCE;
+        return AddressTable.ADDRESS.ENTRANCE;
     }
 
     /**
@@ -329,7 +331,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field11() {
-        return Address.ADDRESS.INTERCOM;
+        return AddressTable.ADDRESS.INTERCOM;
     }
 
     /**
@@ -337,7 +339,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<String> field12() {
-        return Address.ADDRESS.ADDRESS_COMMENT;
+        return AddressTable.ADDRESS.ADDRESS_COMMENT;
     }
 
     /**
@@ -345,7 +347,7 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      */
     @Override
     public Field<Timestamp> field13() {
-        return Address.ADDRESS.EDIT_DATE;
+        return AddressTable.ADDRESS.EDIT_DATE;
     }
 
     /**
@@ -702,14 +704,14 @@ public class AddressRecord extends UpdatableRecordImpl<AddressRecord> implements
      * Create a detached AddressRecord
      */
     public AddressRecord() {
-        super(Address.ADDRESS);
+        super(AddressTable.ADDRESS);
     }
 
     /**
      * Create a detached, initialised AddressRecord
      */
     public AddressRecord(Integer id, Integer personId, String region, String town, String street, String house, String housing, String construction, String apartment, String entrance, String intercom, String addressComment, Timestamp editDate) {
-        super(Address.ADDRESS);
+        super(AddressTable.ADDRESS);
 
         set(0, id);
         set(1, personId);

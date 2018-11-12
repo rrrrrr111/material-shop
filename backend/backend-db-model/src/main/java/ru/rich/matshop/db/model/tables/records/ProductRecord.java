@@ -14,7 +14,7 @@ import org.jooq.Record6;
 import org.jooq.Row6;
 import org.jooq.impl.UpdatableRecordImpl;
 
-import ru.rich.matshop.db.model.tables.Product;
+import ru.rich.matshop.db.model.tables.ProductTable;
 
 
 /**
@@ -30,7 +30,7 @@ import ru.rich.matshop.db.model.tables.Product;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements Record6<Integer, Integer, String, Timestamp, String, String> {
 
-    private static final long serialVersionUID = 617227850;
+    private static final long serialVersionUID = 1865754696;
 
     /**
      * Setter for <code>matshop.product.id</code>.
@@ -153,7 +153,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<Integer> field1() {
-        return Product.PRODUCT.ID;
+        return ProductTable.PRODUCT.ID;
     }
 
     /**
@@ -161,7 +161,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<Integer> field2() {
-        return Product.PRODUCT.SHOP_ID;
+        return ProductTable.PRODUCT.SHOP_ID;
     }
 
     /**
@@ -169,7 +169,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<String> field3() {
-        return Product.PRODUCT.DATA;
+        return ProductTable.PRODUCT.DATA;
     }
 
     /**
@@ -177,7 +177,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<Timestamp> field4() {
-        return Product.PRODUCT.EDIT_DATE;
+        return ProductTable.PRODUCT.EDIT_DATE;
     }
 
     /**
@@ -185,7 +185,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<String> field5() {
-        return Product.PRODUCT.STATE;
+        return ProductTable.PRODUCT.STATE;
     }
 
     /**
@@ -193,7 +193,7 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      */
     @Override
     public Field<String> field6() {
-        return Product.PRODUCT.FORMAT_VERSION;
+        return ProductTable.PRODUCT.FORMAT_VERSION;
     }
 
     /**
@@ -368,14 +368,14 @@ public class ProductRecord extends UpdatableRecordImpl<ProductRecord> implements
      * Create a detached ProductRecord
      */
     public ProductRecord() {
-        super(Product.PRODUCT);
+        super(ProductTable.PRODUCT);
     }
 
     /**
      * Create a detached, initialised ProductRecord
      */
     public ProductRecord(Integer id, Integer shopId, String data, Timestamp editDate, String state, String formatVersion) {
-        super(Product.PRODUCT);
+        super(ProductTable.PRODUCT);
 
         set(0, id);
         set(1, shopId);

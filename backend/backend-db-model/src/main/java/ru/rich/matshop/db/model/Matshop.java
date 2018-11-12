@@ -4,26 +4,24 @@
 package ru.rich.matshop.db.model;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Generated;
-
 import org.jooq.Catalog;
 import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
+import ru.rich.matshop.db.model.tables.AddressTable;
+import ru.rich.matshop.db.model.tables.PersonTable;
+import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
+import ru.rich.matshop.db.model.tables.ProductTable;
+import ru.rich.matshop.db.model.tables.ShopOrderGoodsTable;
+import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
+import ru.rich.matshop.db.model.tables.ShopOrderTable;
+import ru.rich.matshop.db.model.tables.TaskTable;
+import ru.rich.matshop.db.model.tables.TechLogTable;
 
-import ru.rich.matshop.db.model.tables.Address;
-import ru.rich.matshop.db.model.tables.Person;
-import ru.rich.matshop.db.model.tables.Product;
-import ru.rich.matshop.db.model.tables.ProductCosmetic;
-import ru.rich.matshop.db.model.tables.ShopOrder;
-import ru.rich.matshop.db.model.tables.ShopOrderGoods;
-import ru.rich.matshop.db.model.tables.ShopOrderHistory;
-import ru.rich.matshop.db.model.tables.Task;
-import ru.rich.matshop.db.model.tables.TechLog;
+import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -39,7 +37,7 @@ import ru.rich.matshop.db.model.tables.TechLog;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Matshop extends SchemaImpl {
 
-    private static final long serialVersionUID = 589318944;
+    private static final long serialVersionUID = -1546052032;
 
     /**
      * The reference instance of <code>matshop</code>
@@ -49,47 +47,47 @@ public class Matshop extends SchemaImpl {
     /**
      * The table <code>matshop.address</code>.
      */
-    public final Address ADDRESS = ru.rich.matshop.db.model.tables.Address.ADDRESS;
+    public final AddressTable ADDRESS = ru.rich.matshop.db.model.tables.AddressTable.ADDRESS;
 
     /**
      * The table <code>matshop.person</code>.
      */
-    public final Person PERSON = ru.rich.matshop.db.model.tables.Person.PERSON;
+    public final PersonTable PERSON = ru.rich.matshop.db.model.tables.PersonTable.PERSON;
 
     /**
      * The table <code>matshop.product</code>.
      */
-    public final Product PRODUCT = ru.rich.matshop.db.model.tables.Product.PRODUCT;
+    public final ProductTable PRODUCT = ru.rich.matshop.db.model.tables.ProductTable.PRODUCT;
 
     /**
      * The table <code>matshop.product_cosmetic</code>.
      */
-    public final ProductCosmetic PRODUCT_COSMETIC = ru.rich.matshop.db.model.tables.ProductCosmetic.PRODUCT_COSMETIC;
+    public final ProductCosmeticTable PRODUCT_COSMETIC = ru.rich.matshop.db.model.tables.ProductCosmeticTable.PRODUCT_COSMETIC;
 
     /**
      * The table <code>matshop.shop_order</code>.
      */
-    public final ShopOrder SHOP_ORDER = ru.rich.matshop.db.model.tables.ShopOrder.SHOP_ORDER;
+    public final ShopOrderTable SHOP_ORDER = ru.rich.matshop.db.model.tables.ShopOrderTable.SHOP_ORDER;
 
     /**
      * The table <code>matshop.shop_order_goods</code>.
      */
-    public final ShopOrderGoods SHOP_ORDER_GOODS = ru.rich.matshop.db.model.tables.ShopOrderGoods.SHOP_ORDER_GOODS;
+    public final ShopOrderGoodsTable SHOP_ORDER_GOODS = ru.rich.matshop.db.model.tables.ShopOrderGoodsTable.SHOP_ORDER_GOODS;
 
     /**
      * The table <code>matshop.shop_order_history</code>.
      */
-    public final ShopOrderHistory SHOP_ORDER_HISTORY = ru.rich.matshop.db.model.tables.ShopOrderHistory.SHOP_ORDER_HISTORY;
+    public final ShopOrderHistoryTable SHOP_ORDER_HISTORY = ru.rich.matshop.db.model.tables.ShopOrderHistoryTable.SHOP_ORDER_HISTORY;
 
     /**
      * The table <code>matshop.task</code>.
      */
-    public final Task TASK = ru.rich.matshop.db.model.tables.Task.TASK;
+    public final TaskTable TASK = ru.rich.matshop.db.model.tables.TaskTable.TASK;
 
     /**
      * The table <code>matshop.tech_log</code>.
      */
-    public final TechLog TECH_LOG = ru.rich.matshop.db.model.tables.TechLog.TECH_LOG;
+    public final TechLogTable TECH_LOG = ru.rich.matshop.db.model.tables.TechLogTable.TECH_LOG;
 
     /**
      * No further instances allowed
@@ -135,14 +133,14 @@ public class Matshop extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Address.ADDRESS,
-            Person.PERSON,
-            Product.PRODUCT,
-            ProductCosmetic.PRODUCT_COSMETIC,
-            ShopOrder.SHOP_ORDER,
-            ShopOrderGoods.SHOP_ORDER_GOODS,
-            ShopOrderHistory.SHOP_ORDER_HISTORY,
-            Task.TASK,
-            TechLog.TECH_LOG);
+            AddressTable.ADDRESS,
+            PersonTable.PERSON,
+            ProductTable.PRODUCT,
+            ProductCosmeticTable.PRODUCT_COSMETIC,
+            ShopOrderTable.SHOP_ORDER,
+            ShopOrderGoodsTable.SHOP_ORDER_GOODS,
+            ShopOrderHistoryTable.SHOP_ORDER_HISTORY,
+            TaskTable.TASK,
+            TechLogTable.TECH_LOG);
     }
 }
