@@ -152,14 +152,14 @@ class CartOrderTab extends React.PureComponent {
                                     onChange={this.onDeliveryTypeChange}
                                     tabs={[
                                         {
-                                            pillText: util.dictionary.deliveryTypeMap[0].name,
+                                            pillText: util.dictionary.deliveryTypeMap.courier.name,
                                             content: (
                                                 <GridContainer spacing={16}>
                                                     <Grid item xs={12}>
                                                         <h5>
                                                             Курьерская доставка —{" "}
                                                             <Price value={
-                                                                util.dictionary.deliveryTypeMap[0].coast
+                                                                util.dictionary.deliveryTypeMap.courier.coast
                                                             }/>
                                                         </h5>
                                                     </Grid>
@@ -290,7 +290,7 @@ class CartOrderTab extends React.PureComponent {
                                             )
                                         },
                                         {
-                                            pillText: util.dictionary.deliveryTypeMap[1].name,
+                                            pillText: util.dictionary.deliveryTypeMap.russianPost.name,
                                             content: (
                                                 <span>
                                                     <h5>Сожалеем, доставка Почтой России временно не доступна.</h5>

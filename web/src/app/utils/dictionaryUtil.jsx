@@ -89,8 +89,8 @@ const regionList = [
 ];
 
 const deliveryTypeMap = {
-    0: {name: "Курьером", isActive: true, coast: 350},
-    1: {name: "Почтой России", isActive: false},
+    courier: {name: "Курьером", isActive: true, coast: 350},
+    russianPost: {name: "Почтой России", isActive: false},
 };
 
 const dictionary = {
