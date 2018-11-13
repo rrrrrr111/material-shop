@@ -1,4 +1,5 @@
 import util from "app/utils/util";
+import axios from "axios";
 
 const checkError = (ajaxResponse) => {
     if (ajaxResponse.status && ajaxResponse.status !== '200') {
@@ -7,21 +8,36 @@ const checkError = (ajaxResponse) => {
     }
 };
 
-const fetchBe = (urlTail, request) => {
+const normalizeUrl = function (url) {
+    if (url.charAt(url.length - 1) !== '/') {
+        url += '/';
+    }
+    return url;
+};
 
-    return util.link.backendApiUrl(urlTail)
-        .then((url) => {
-            return fetch(url, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-csrf-token': 0
-                },
-                method: "POST",
-                body: JSON.stringify(request)
+let backendAxios;
+const getBackendAxios = () => {
+    if (!backendAxios) {
+        return util.global.getSiteConfig()
+            .then((siteConfig) => {
+                const ax = axios.create({
+                    baseURL: siteConfig.backendApiUrl,
+                    xsrfCookieName: 'XSRF-TOKEN',
+                    xsrfHeaderName: 'X-XSRF-TOKEN',
+                });
+                backendAxios = Promise.resolve(ax);
+                return ax;
             });
+    }
+    return backendAxios;
+};
+
+const fetchBe = (urlTail, request) => {
+    return getBackendAxios()
+        .then((backendAxios) => {
+            return backendAxios.post(urlTail, request);
         }).then(function (response) {
-            return response.json();
+            return response.data;
         }).then(function (json) {
             checkError(json);
             return json;
@@ -29,8 +45,8 @@ const fetchBe = (urlTail, request) => {
 };
 
 const fetchSiteConfig = () => {
-    return fetch("/configurable/site-config.json")
-        .then(response => response.json())
+    return axios.get("/configurable/site-config.json")
+        .then(response => response.data)
 };
 const ajax = {
     fetchBe: fetchBe,

@@ -6,15 +6,21 @@ const getSiteConfig = () => {
         return util.ajax.fetchSiteConfig()
             .then(json => {
                 siteConfig = json;
-                console.log("fetch used ");
-                return siteConfig;
+                return json;
             });
     }
-    console.log("cash used ");
-    return Promise.resolve(siteConfig)
+    return Promise.resolve(siteConfig);
+};
+
+const getSiteConfigSync = () => {
+    if (!siteConfig) {
+        throw "Site config not loaded yet"
+    }
+    return siteConfig;
 };
 
 const global = {
     getSiteConfig: getSiteConfig,
+    getSiteConfigSync: getSiteConfigSync,
 };
 export default global;

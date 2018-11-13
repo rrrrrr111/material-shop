@@ -1,24 +1,32 @@
+#### Первичная настройка
+1. Устанавливаем Gradle 4.10+ и JDK 11+
+2. IntelliJ IDEA 2018.2+ или др IDE для работы с Java
+3. в IntelliJ IDEA в Code Style -> Java убрать схловывание импортов к звездочке
 
-#Команды
-    `build` - Сборка бэкенда
-    `Ctrl + F9` - При запущеном приложении со spring-boot-devtools, сборка в IDEA выполняет перехапуск либо hot swap
+#### Команды
+* Для запуска приложения бэкенда делаем конфигурацию запуска класса `ru.rich.matshop.webapi.Start`,
+       передаем параметры
 
-#Первичная настройка
-    1. IntelliJ IDEA или др. IDE для работы с Java
-    1. в IntelliJ IDEA в Code Style -> Java убрать схловывание импортов к звездочке
+            --spring.config.location=file:///C:/.. ../material-shop/conf/local/application.properties
 
-#Troubleshooting
+* `Ctrl + F9` - При запущеном приложении со spring-boot-devtools, сборка в IDEA выполняет перезапуск приложения
+* `gradle -i --stacktrace clean build` - Сборка бэкенда
+* `gradle -i --stacktrace flywayClean` - Очистка схемы БД
+* `gradle -i --stacktrace flywayMigrate` - Накат\докат SQL скрптов на БД
+* `gradle -i --stacktrace jooqGenerate` - Генерация классов JOOQ
 
-#Используется
-    - Java https://www.oracle.com/technetwork/java/javase/downloads/index.html
-    - Gradle https://docs.gradle.org/current/userguide
-    - Spring Boot https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle
-    - Spring Boot Gradle Plugin https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/gradle-plugin/reference/html/
-    - Spring Security https://spring.io/guides/gs/securing-web/
-    - Thymeleaf https://www.thymeleaf.org/
-    - Flyway https://flywaydb.org/documentation/database/postgresql
-    - PostgreSQL https://www.postgresql.org/
-    - JOOQ https://www.jooq.org/doc/3.11/manual/
+#### Troubleshooting
+
+#### Используется
+* [Java](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Gradle](https://docs.gradle.org/current/userguide)
+* [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle)
+* [Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/gradle-plugin/reference/html/)
+* [Spring Security](https://spring.io/guides/gs/securing-web/)
+* [Thymeleaf](https://www.thymeleaf.org/)
+* [Flyway](https://flywaydb.org/documentation/database/postgresql)
+* [PostgreSQL](https://www.postgresql.org/)
+* [JOOQ](https://www.jooq.org/doc/3.11/manual/)
 
 
 

@@ -49,4 +49,15 @@ public class FeedProduct {
     public void setPrice(BigInteger price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "FeedProduct{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", link='" + link + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -13,6 +13,7 @@ import {Switch} from "react-router";
 import Route from "react-router/es/Route";
 
 class MainLayout extends React.PureComponent {
+
     componentDidMount() {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;

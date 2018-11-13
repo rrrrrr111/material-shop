@@ -26,7 +26,6 @@ const subPart = function (str, fromSymbol, toSymbol) {
 };
 
 const DEFAULT_IMAGE_EXTENSION = "jpg";
-const IMAGE_URL_PREFIX = "/img";
 const partToExtension = function (imgNumDef) {
     const semIndex = imgNumDef.indexOf(':');
     if (semIndex === -1) {
@@ -57,26 +56,6 @@ const toImgExtensions = function (imgNumDefs) {
     return arr;
 };
 
-
-const normalizeUrl = function (url) {
-    if (url.charAt(url.length - 1) !== '/') {
-        url += '/';
-    }
-    return url;
-};
-
-let backendApiUrl;
-const getBackendApiUrl = () => {
-    if (!backendApiUrl) {
-        return util.global.getSiteConfig()
-            .then((siteConfig) => {
-                backendApiUrl = normalizeUrl(siteConfig.backendApiUrl)
-                return backendApiUrl
-            });
-    }
-    return Promise.resolve(backendApiUrl)
-};
-
 const link = {
 
     /**
@@ -90,9 +69,10 @@ const link = {
         const urlPart = subPart(imgDef, undefined, '[');
         const imgPart = subPart(imgDef, '[', ']');
         const imgExtensions = toImgExtensions(imgPart);
+        const imageUrlPrefix = util.global.getSiteConfigSync().imageUrlPrefix;
 
         return imgExtensions.map((ext, index) => {
-            const url = `${IMAGE_URL_PREFIX}/${urlPart}/p${index + 1}.${ext}`;
+            const url = `${imageUrlPrefix}/${urlPart}/p${index + 1}.${ext}`;
             return {original: url, thumbnail: url}
         });
     },
@@ -104,18 +84,13 @@ const link = {
         const urlPart = subPart(imgDef, undefined, '[');
         const imgPart = subPart(imgDef, '[', ']');
         const imgExtensions = toImgExtensions(imgPart);
-        return `${IMAGE_URL_PREFIX}/${urlPart}/p1.${imgExtensions[0]}`;
+        const imageUrlPrefix = util.global.getSiteConfigSync().imageUrlPrefix;
+
+        return `${imageUrlPrefix}/${urlPart}/p1.${imgExtensions[0]}`;
     },
 
     productLink(link) {
         return `/p/${link}`;
     },
-
-    backendApiUrl(url) {
-        return getBackendApiUrl()
-            .then((apiUrl) => {
-                return `${apiUrl}${url}`
-            });
-    }
 };
 export default link;
