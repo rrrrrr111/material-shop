@@ -8,22 +8,32 @@ const checkError = (ajaxResponse) => {
 };
 
 const fetchBe = (urlTail, request) => {
-    return fetch(util.link.beApi(urlTail), {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'x-csrf-token': 0
-        },
-        method: "POST",
-        body: JSON.stringify(request)
-    }).then(function (response) {
-        return response.json();
-    }).then(function (json) {
-        checkError(json);
-        return json;
-    })
+
+    return util.link.backendApiUrl(urlTail)
+        .then((url) => {
+            return fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': 0
+                },
+                method: "POST",
+                body: JSON.stringify(request)
+            });
+        }).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            checkError(json);
+            return json;
+        });
+};
+
+const fetchSiteConfig = () => {
+    return fetch("/configurable/site-config.json")
+        .then(response => response.json())
 };
 const ajax = {
     fetchBe: fetchBe,
+    fetchSiteConfig: fetchSiteConfig,
 };
 export default ajax;

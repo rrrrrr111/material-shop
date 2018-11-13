@@ -1,9 +1,10 @@
+import ajax from "app/utils/ajax";
+import declension from "app/utils/declensionUtil";
+import dictionary from "app/utils/dictionaryUtil";
+import global from "app/utils/global";
 import link from "app/utils/link";
-import ajax from "./ajax";
-import declension from "./declensionUtil";
-import dictionary from "./dictionaryUtil";
-import navigate from "./navigateUtil";
-import notify from "./notifyUtil";
+import navigate from "app/utils/navigateUtil";
+import notify from "app/utils/notifyUtil";
 
 
 const util = {
@@ -13,6 +14,7 @@ const util = {
     notify,
     declension,
     dictionary,
+    global,
 };
 
 export default util;

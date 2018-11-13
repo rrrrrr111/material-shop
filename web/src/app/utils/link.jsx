@@ -1,7 +1,8 @@
+import util from "app/utils/util";
 import fill from "lodash/fill"
 import toNumber from "lodash/toNumber"
 
-let indexOf = function (str, symbol) {
+const indexOf = function (str, symbol) {
     const index = str.indexOf(symbol);
     if (index === -1) {
         throw `Symbol ${symbol} not found in ${str}`;
@@ -24,31 +25,30 @@ const subPart = function (str, fromSymbol, toSymbol) {
     return str.substring(fromIndex, toIndex);
 };
 
-const DEFAULT_EXTENSION = "jpg";
+const DEFAULT_IMAGE_EXTENSION = "jpg";
+const IMAGE_URL_PREFIX = "/img";
 const partToExtension = function (imgNumDef) {
-    imgNumDef = imgNumDef.trim();
-    let semIndex = imgNumDef.indexOf(':');
+    const semIndex = imgNumDef.indexOf(':');
     if (semIndex === -1) {
-        return DEFAULT_EXTENSION;
+        return DEFAULT_IMAGE_EXTENSION;
     } else {
-        return imgNumDef.substring(semIndex + 1);
+        return imgNumDef.substring(semIndex + 1).trim();
     }
 };
 
 const partToNumber = function (imgNumDef) {
-    imgNumDef = imgNumDef.trim();
-    let semIndex = imgNumDef.indexOf(':');
+    const semIndex = imgNumDef.indexOf(':');
     if (semIndex === -1) {
-        return toNumber(imgNumDef);
+        return toNumber(imgNumDef.trim());
     } else {
-        return toNumber(imgNumDef.substring(0, semIndex));
+        return toNumber(imgNumDef.substring(0, semIndex).trim());
     }
 };
 
 const toImgExtensions = function (imgNumDefs) {
     const parts = imgNumDefs.split(',');
     const arrSize = partToNumber(parts[parts.length - 1]);
-    const arr = fill(Array(arrSize), DEFAULT_EXTENSION);
+    const arr = fill(Array(arrSize), DEFAULT_IMAGE_EXTENSION);
 
     for (let i = 0; i < parts.length; i++) {
         const number = partToNumber(parts[i]);
@@ -58,37 +58,64 @@ const toImgExtensions = function (imgNumDefs) {
 };
 
 
+const normalizeUrl = function (url) {
+    if (url.charAt(url.length - 1) !== '/') {
+        url += '/';
+    }
+    return url;
+};
+
+let backendApiUrl;
+const getBackendApiUrl = () => {
+    if (!backendApiUrl) {
+        return util.global.getSiteConfig()
+            .then((siteConfig) => {
+                backendApiUrl = normalizeUrl(siteConfig.backendApiUrl)
+                return backendApiUrl
+            });
+    }
+    return Promise.resolve(backendApiUrl)
+};
+
 const link = {
 
     /**
-     * Например /some-url[1,2,5:gif,7]
+     * Строит полные URL из сокращения,
+     * например сокращение /some-url[2:png,4]
+     * преобразуется в набор URL картинок:
+     * /img/some-url/p1.jpg  /img/some-url/p2.png
+     * /img/some-url/p3.jpg  /img/some-url/p4.jpg
      */
-    productImg(imgDef) {
-        const urlPart = subPart(imgDef, undefined, '[');
-        const imgPart = subPart(imgDef, '[', ']');
-        const imgExtensions = toImgExtensions(imgPart);
-
-        return `/img/${urlPart}/p1.${imgExtensions[0]}`;
-    },
-
-    productLink(link) {
-        return `/p/${link}`;
-    },
-
     productImgs(imgDef) {
         const urlPart = subPart(imgDef, undefined, '[');
         const imgPart = subPart(imgDef, '[', ']');
         const imgExtensions = toImgExtensions(imgPart);
 
         return imgExtensions.map((ext, index) => {
-            const url = `/img/${urlPart}/p${index + 1}.${ext}`;
+            const url = `${IMAGE_URL_PREFIX}/${urlPart}/p${index + 1}.${ext}`;
             return {original: url, thumbnail: url}
         });
     },
-    beApi(url) {
-        //const server = process.env.REACT_APP_BACKEND_SERVER_HOST + ":" + process.env.REACT_APP_BACKEND_SERVER_PORT;
-        const server = "127.0.0.1:8080";
-        return `http://${server}/api/be/${url}`
+
+    /**
+     * Строит полный URL первой картинки
+     */
+    productImg(imgDef) {
+        const urlPart = subPart(imgDef, undefined, '[');
+        const imgPart = subPart(imgDef, '[', ']');
+        const imgExtensions = toImgExtensions(imgPart);
+        return `${IMAGE_URL_PREFIX}/${urlPart}/p1.${imgExtensions[0]}`;
+    },
+
+    productLink(link) {
+        return `/p/${link}`;
+    },
+
+    backendApiUrl(url) {
+        return getBackendApiUrl()
+            .then((apiUrl) => {
+                return `${apiUrl}${url}`
+            });
     }
 };
 export default link;
