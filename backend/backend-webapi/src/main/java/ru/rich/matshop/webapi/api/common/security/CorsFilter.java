@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.api.common.cors;
+package ru.rich.matshop.webapi.api.common.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

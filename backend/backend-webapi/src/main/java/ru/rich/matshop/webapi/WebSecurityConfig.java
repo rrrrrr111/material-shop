@@ -21,33 +21,28 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String HEADER_X_XSRF_TOKEN = "X-XSRF-TOKEN";
+    private static final String REQUEST_HEADER_X_XSRF_TOKEN = "X-CSRF-TOKEN";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()
                 .authorizeRequests()
                 .antMatchers(POST,
                         "/api/be/**", // backend
                         "/web/**")// web
                 .permitAll()
                 .anyRequest().authenticated().and()
+                .cors().and()
                 .csrf().disable()
-                //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        //.and()
-        //.formLogin()
-        //.loginPage("/login")
-        //.permitAll()
-        //.and()
-        //.logout()
-        //.permitAll()
+        //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
+        //.formLogin().loginPage("/login").permitAll()
+        //.and().logout().permitAll()
         ;
     }
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+        auth.inMemoryAuthentication().withUser("torgmister").password("s00pErs3creT").roles("USER");
     }
 
     @Bean
@@ -55,15 +50,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Accept", "Content-Type", HEADER_X_XSRF_TOKEN));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Accept", "Content-Type", REQUEST_HEADER_X_XSRF_TOKEN));
+        configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/be/**", configuration);
         return source;
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName(HEADER_X_XSRF_TOKEN);
+        //var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        var repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
         return repository;
     }
 }

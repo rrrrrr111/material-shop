@@ -8,13 +8,6 @@ const checkError = (ajaxResponse) => {
     }
 };
 
-const normalizeUrl = function (url) {
-    if (url.charAt(url.length - 1) !== '/') {
-        url += '/';
-    }
-    return url;
-};
-
 let backendAxios;
 const getBackendAxios = () => {
     if (!backendAxios) {
@@ -23,7 +16,7 @@ const getBackendAxios = () => {
                 const ax = axios.create({
                     baseURL: siteConfig.backendApiUrl,
                     xsrfCookieName: 'XSRF-TOKEN',
-                    xsrfHeaderName: 'X-XSRF-TOKEN',
+                    xsrfHeaderName: 'X-CSRF-TOKEN',
                 });
                 backendAxios = Promise.resolve(ax);
                 return ax;
