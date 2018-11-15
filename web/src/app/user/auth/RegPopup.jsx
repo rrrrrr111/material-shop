@@ -9,6 +9,8 @@ import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Check, Email, Face} from "@material-ui/icons";
 import Button from "app/common/button/Button";
+import Card from "app/common/card/Card";
+import CardBody from "app/common/card/CardBody";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
@@ -16,8 +18,6 @@ import {buttonColor} from "app/common/style/styles";
 
 import util from "app/utils/util"
 import classNames from "classnames";
-import Card from "app/common/card/Card";
-import CardBody from "app/common/card/CardBody";
 import React from "react";
 import regPopupStyle from "./regPopupStyle";
 
@@ -29,31 +29,90 @@ class RegPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            aggrCheckboxChecked: false
+            email: "",
+            firstName: "",
+            password: "",
+            aggrChecked: false,
+
+            emailValid: true,
+            firstNameValid: true,
+            passwordValid: true,
+            enterButtonActive: true,
         };
         this.handleClose = this.handleClose.bind(this);
         this.handleSignup = this.handleSignup.bind(this);
-        this.handleAggrCheckboxToggle = this.handleAggrCheckboxToggle.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleAggrToggle = this.handleAggrToggle.bind(this);
     }
+
+    handleEmailChange = (e) => {
+        const email = e.target.value;
+        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
+        if (!emailValid) {
+            emailValid = util.validate.checkEmail(email);
+        }
+        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
+        this.setState({...this.state, email, emailValid, enterButtonActive})
+    };
+
+    handleFirstNameChange = (e) => {
+        const firstName = e.target.value;
+        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
+        if (!firstNameValid) {
+            firstNameValid = util.validate.isNotBlank(firstName);
+        }
+        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
+        this.setState({...this.state, firstName, firstNameValid, enterButtonActive})
+    };
+
+    handlePasswordChange = (e) => {
+        const password = e.target.value;
+        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
+        if (!passwordValid) {
+            passwordValid = util.validate.isNotBlank(password);
+        }
+        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
+        this.setState({...this.state, password, passwordValid, enterButtonActive})
+    };
+
+    handleAggrToggle(e) {
+        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
+        aggrChecked = !aggrChecked;
+        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
+        this.setState({...this.state, aggrChecked, enterButtonActive})
+    }
+
+    checkIsFormValid = (state) => {
+        const {firstName, password, email, aggrChecked} = state;
+        const emailValid = util.validate.checkEmail(email);
+        const firstNameValid = util.validate.isNotBlank(firstName);
+        const passwordValid = util.validate.isNotBlank(password);
+        const formValid = emailValid && passwordValid && firstNameValid && aggrChecked;
+        this.setState({...this.state, emailValid, passwordValid, firstNameValid, enterButtonActive: formValid})
+        return formValid;
+    };
 
     handleClose = (e) => {
         e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
     };
+
     handleSignup = (e) => {
         e.stopPropagation();
-        // todo ajax sign up
+        if (!this.checkIsFormValid(this.state)) {
+            return;
+        }
         this.handleClose(e);
     };
 
-    handleAggrCheckboxToggle(e) {
-        this.setState({
-            aggrCheckboxChecked: !this.state.aggrCheckboxChecked
-        });
-    }
-
     render() {
         const {classes} = this.props;
+        const {
+            email, password, firstName, aggrChecked,
+            emailValid, passwordValid, firstNameValid, enterButtonActive
+        } = this.state;
         return (
             <Dialog
                 classes={{root: classes.modalRoot, paper: classes.modal + " " + classes.modalSignup}}
@@ -111,6 +170,9 @@ class RegPopup extends React.PureComponent {
                                         autoComplete: "on",
                                         placeholder: "Имя...",
                                         name: "First name",
+                                        value: firstName,
+                                        onChange: this.handleFirstNameChange,
+                                        error: !firstNameValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -131,6 +193,9 @@ class RegPopup extends React.PureComponent {
                                         autoComplete: "on",
                                         placeholder: "Email...",
                                         name: "Email",
+                                        value: email,
+                                        onChange: this.handleEmailChange,
+                                        error: !emailValid
                                     }}
                                     otherProps={{
                                         maxLength: 200,
@@ -150,6 +215,9 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Пароль...",
                                         type: "password",
                                         name: "password",
+                                        value: password,
+                                        onChange: this.handlePasswordChange,
+                                        error: !passwordValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -159,7 +227,8 @@ class RegPopup extends React.PureComponent {
                                                   classes={{label: classes.label}}
                                                   control={
                                                       <Checkbox tabIndex={-1}
-                                                                onClick={this.handleAggrCheckboxToggle}
+                                                                onClick={this.handleAggrToggle}
+                                                                checked={aggrChecked}
                                                                 checkedIcon={<Check className={classes.checkedIcon}/>}
                                                                 icon={<Check className={classes.uncheckedIcon}/>}
                                                                 classes={{agreementChecked: classes.agreementChecked}}/>
@@ -176,7 +245,7 @@ class RegPopup extends React.PureComponent {
                                 />
                                 <div className={classes.textCenter}>
                                     <Button color={buttonColor} onClick={this.handleSignup}
-                                            disabled={!this.state.aggrCheckboxChecked}>
+                                            disabled={!enterButtonActive}>
                                         Зарегистрироваться
                                     </Button>
                                 </div>

@@ -25,14 +25,11 @@ class MainLayout extends React.PureComponent {
 
     static getDerivedStateFromProps(props, state) {
         const newLocation = props.location;
+        //console.log("msl updated", state.mainSwitchLocation, newLocation, MainLayout.isModal(newLocation), props.history.action);
 
         if (state.mainSwitchLocation.pathname !== newLocation.pathname
             && (!MainLayout.isModal(newLocation))) {
-
-            console.log("msl updated", state.mainSwitchLocation, newLocation, MainLayout.isModal(newLocation), props.history.action);
             return {mainSwitchLocation: newLocation};
-        } else {
-            console.log("msl not updated", state.mainSwitchLocation, newLocation, MainLayout.isModal(newLocation), props.history.action);
         }
         return null; // Return null to indicate no change to state.
     }

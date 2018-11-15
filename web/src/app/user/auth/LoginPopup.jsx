@@ -42,19 +42,18 @@ class LoginPopup extends React.PureComponent {
     }
 
     handleEmailChange = (e) => {
-        let email = e.target.value;
-        let emailValid = this.state.emailValid;
-        let passwordValid = this.state.passwordValid;
+        const email = e.target.value;
+        let {passwordValid, emailValid} = this.state;
         if (!emailValid) {
             emailValid = util.validate.checkEmail(email);
         }
         const enterButtonActive = emailValid && passwordValid;
         this.setState({...this.state, email, emailValid, enterButtonActive})
     };
+
     handlePasswordChange = (e) => {
-        let password = e.target.value;
-        let emailValid = this.state.emailValid;
-        let passwordValid = this.state.passwordValid;
+        const password = e.target.value;
+        let {passwordValid, emailValid} = this.state;
         if (!passwordValid) {
             passwordValid = util.validate.isNotBlank(password);
         }
@@ -69,28 +68,23 @@ class LoginPopup extends React.PureComponent {
         return formValid;
     };
     handleClose = (e) => {
-        if (!e) e = window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
-
+        e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
     };
     handleSignin = (e) => {
-        if (!e) e = window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
-
+        e.stopPropagation();
         if (!this.checkIsFormValid(this.state)) {
             return;
         }
-
         this.handleClose(e);
     };
 
     render() {
         const {classes} = this.props;
-        const {email, password,
-            emailValid, passwordValid, enterButtonActive} = this.state;
+        const {
+            email, password,
+            emailValid, passwordValid, enterButtonActive
+        } = this.state;
 
         return (
             <Dialog
