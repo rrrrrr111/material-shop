@@ -17,6 +17,7 @@ import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 
 import util from "app/utils/util"
+import {checkEmail, isNotBlank} from "app/utils/validateUtil";
 import React from "react";
 
 import loginPopupStyle from "./loginPopupStyle";
@@ -29,12 +30,24 @@ class LoginPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            password: "",
-            emailValid: true,
-            passwordValid: true,
-            enterButtonActive: true,
+            data: {
+                email: "",
+                password: "",
+            },
+            ui: {
+                emailValid: true,
+                passwordValid: true,
+                enterButtonActive: true,
+            },
         };
+        this.validator = util.validate.createValidator(this, {
+                fieldsToCheckers: {
+                    email: checkEmail,
+                    password: isNotBlank,
+                },
+                formValidField: 'enterButtonActive',
+            }
+        );
         this.handleClose = this.handleClose.bind(this);
         this.handleSignin = this.handleSignin.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -42,38 +55,21 @@ class LoginPopup extends React.PureComponent {
     }
 
     handleEmailChange = (e) => {
-        const email = e.target.value;
-        let {passwordValid, emailValid} = this.state;
-        if (!emailValid) {
-            emailValid = util.validate.checkEmail(email);
-        }
-        const enterButtonActive = emailValid && passwordValid;
-        this.setState({...this.state, email, emailValid, enterButtonActive})
+        this.validator.handleChange('email', e.target.value);
     };
 
     handlePasswordChange = (e) => {
-        const password = e.target.value;
-        let {passwordValid, emailValid} = this.state;
-        if (!passwordValid) {
-            passwordValid = util.validate.isNotBlank(password);
-        }
-        const enterButtonActive = emailValid && passwordValid;
-        this.setState({...this.state, password, passwordValid, enterButtonActive})
+        this.validator.handleChange('password', e.target.value);
     };
-    checkIsFormValid = (state) => {
-        const emailValid = util.validate.checkEmail(state.email);
-        const passwordValid = util.validate.isNotBlank(state.password);
-        const formValid = emailValid && passwordValid;
-        this.setState({...this.state, emailValid, passwordValid, enterButtonActive: formValid})
-        return formValid;
-    };
+
     handleClose = (e) => {
         e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
     };
+
     handleSignin = (e) => {
         e.stopPropagation();
-        if (!this.checkIsFormValid(this.state)) {
+        if (!this.validator.isFormValid()) {
             return;
         }
         this.handleClose(e);
@@ -82,9 +78,11 @@ class LoginPopup extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
-            email, password,
+            email, password
+        } = this.state.data;
+        const {
             emailValid, passwordValid, enterButtonActive
-        } = this.state;
+        } = this.state.ui;
 
         return (
             <Dialog
