@@ -1,13 +1,13 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button";
+import GridContainer from "app/common/grid/GridContainer";
+import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
 import LocalLink from "app/common/misc/LocalLink";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";
 import Footer from "lib/components/Footer/Footer.jsx";
-import GridContainer from "app/common/grid/GridContainer";
-import GridItem from "app/common/grid/GridItem";
 import React from "react";
 
 class AppFooter extends React.PureComponent {
@@ -47,16 +47,16 @@ class AppFooter extends React.PureComponent {
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Личный кабинет</h5>
                                     <p>
-                                        <LocalLink nav to="/auth/signin"> Вход </LocalLink>
+                                        <LocalLink nav to="/auth/signin" modal> Вход </LocalLink>
                                         \
-                                        <LocalLink nav to="/auth/signup"> Регистрация </LocalLink>
+                                        <LocalLink nav to="/auth/signup" modal> Регистрация </LocalLink>
                                     </p>
                                     <p><LocalLink nav to="/user/profile"> Профиль пользователя </LocalLink></p>
                                     <p><LocalLink nav to="/cart/goods"> Корзина </LocalLink></p>
                                     <p><LocalLink nav to="/user/orders"> История заказов </LocalLink></p>
                                     <p><LocalLink nav to="/user/settings"> Настройки </LocalLink></p>
                                     <p><LocalLink nav to="/user/password"> Смена пароля </LocalLink></p>
-                                    <p><LocalLink nav to="/auth/signout"> Выход </LocalLink></p>
+                                    <p><LocalLink nav to="/auth/signout" modal> Выход </LocalLink></p>
                                 </GridItem>
                                 <GridItem xs={6} sm={3} md={2}>
                                     <h5>Сервис</h5>

@@ -24,7 +24,7 @@ class SignoutComponent extends React.PureComponent {
         // todo ajax signout
 
         this.handleShowSignOutNotify();
-        util.navigate.goToPreviousUrl(this.props.location, this.props.history);
+        util.navigate.goToPreviousUrl(this.props.history);
     }
 
     render() {

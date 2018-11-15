@@ -14,7 +14,7 @@ const getSiteConfig = () => {
 
 const getSiteConfigSync = () => {
     if (!siteConfig) {
-        throw "Site config not loaded yet"
+        throw new Error("Site config not loaded yet");
     }
     return siteConfig;
 };

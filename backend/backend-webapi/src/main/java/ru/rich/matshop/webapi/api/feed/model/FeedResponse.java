@@ -1,6 +1,6 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
-import ru.rich.matshop.webapi.api.RestRequest;
+import ru.rich.matshop.webapi.api.common.rest.RestResponse;
 import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  *
  */
-public class FeedResponse extends RestRequest {
+public class FeedResponse extends RestResponse {
 
     private PageResponse pageResponse;
     private List<FeedProduct> products;

@@ -38,7 +38,7 @@ class RegPopup extends React.PureComponent {
 
     handleClose = (e) => {
         e.stopPropagation();
-        util.navigate.goToPreviousUrl(this.props.location, this.props.history);
+        util.navigate.goToPreviousUrl(this.props.history);
     };
     handleSignup = (e) => {
         e.stopPropagation();
@@ -183,7 +183,7 @@ class RegPopup extends React.PureComponent {
                             </CardBody>
                         </DialogContent>
                         <div className={classes.textCenter}>
-                            <LocalLink to="/auth/signin"> Войти </LocalLink>
+                            <LocalLink to="/auth/signin" modal replace>Войти</LocalLink>
                         </div>
                     </form>
                 </Card>

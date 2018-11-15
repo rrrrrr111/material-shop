@@ -14,7 +14,7 @@ class FeedController {
         this.feedService = feedService;
     }
 
-    @PostMapping("/api/be/feed")
+    @PostMapping("/api/be/feed/list")
     public FeedResponse getFeedList(FeedRequest request) {
 
         var response = new FeedResponse();

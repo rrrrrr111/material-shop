@@ -29,7 +29,7 @@ class SimpleProduct extends React.PureComponent {
                 price: 10932
             }
         };
-        util.navigate.scrollUp(150);
+        util.navigate.scrollUp();
         this.handleAddToShoppingCart = this.handleAddToShoppingCart.bind(this);
     }
 

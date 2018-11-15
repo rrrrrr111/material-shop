@@ -8,15 +8,15 @@ import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Mail from "@material-ui/icons/Mail";
 import Button from "app/common/button/Button";
+import Card from "app/common/card/Card";
+import CardBody from "app/common/card/CardBody";
+import CardHeader from "app/common/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 
 import util from "app/utils/util"
-import Card from "app/common/card/Card";
-import CardBody from "app/common/card/CardBody";
-import CardHeader from "app/common/card/CardHeader";
 import React from "react";
 
 import loginPopupStyle from "./loginPopupStyle";
@@ -28,22 +28,69 @@ function Transition(props) {
 class LoginPopup extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.state = {
+            email: "",
+            password: "",
+            emailValid: true,
+            passwordValid: true,
+            enterButtonActive: true,
+        };
         this.handleClose = this.handleClose.bind(this);
         this.handleSignin = this.handleSignin.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
+    handleEmailChange = (e) => {
+        let email = e.target.value;
+        let emailValid = this.state.emailValid;
+        let passwordValid = this.state.passwordValid;
+        if (!emailValid) {
+            emailValid = util.validate.checkEmail(email);
+        }
+        const enterButtonActive = emailValid && passwordValid;
+        this.setState({...this.state, email, emailValid, enterButtonActive})
+    };
+    handlePasswordChange = (e) => {
+        let password = e.target.value;
+        let emailValid = this.state.emailValid;
+        let passwordValid = this.state.passwordValid;
+        if (!passwordValid) {
+            passwordValid = util.validate.isNotBlank(password);
+        }
+        const enterButtonActive = emailValid && passwordValid;
+        this.setState({...this.state, password, passwordValid, enterButtonActive})
+    };
+    checkIsFormValid = (state) => {
+        const emailValid = util.validate.checkEmail(state.email);
+        const passwordValid = util.validate.isNotBlank(state.password);
+        const formValid = emailValid && passwordValid;
+        this.setState({...this.state, emailValid, passwordValid, enterButtonActive: formValid})
+        return formValid;
+    };
     handleClose = (e) => {
-        e.stopPropagation();
-        util.navigate.goToPreviousUrl(this.props.location, this.props.history);
+        if (!e) e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+
+        util.navigate.goToPreviousUrl(this.props.history);
     };
     handleSignin = (e) => {
-        e.stopPropagation();
-        // todo ajax sign in
+        if (!e) e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+
+        if (!this.checkIsFormValid(this.state)) {
+            return;
+        }
+
         this.handleClose(e);
     };
 
     render() {
         const {classes} = this.props;
+        const {email, password,
+            emailValid, passwordValid, enterButtonActive} = this.state;
 
         return (
             <Dialog
@@ -112,6 +159,9 @@ class LoginPopup extends React.PureComponent {
                                         autoComplete: "on",
                                         placeholder: "Email...",
                                         name: "Email",
+                                        value: email,
+                                        onChange: this.handleEmailChange,
+                                        error: !emailValid
                                     }}
                                     otherProps={{
                                         maxLength: 200,
@@ -134,6 +184,9 @@ class LoginPopup extends React.PureComponent {
                                         placeholder: "Пароль...",
                                         type: "password",
                                         name: "password",
+                                        value: password,
+                                        onChange: this.handlePasswordChange,
+                                        error: !passwordValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -142,12 +195,13 @@ class LoginPopup extends React.PureComponent {
                             </CardBody>
                         </DialogContent>
                         <DialogActions className={`${classes.modalFooter} ${classes.justifyContentCenter}`}>
-                            <Button color={buttonColor} onClick={this.handleSignin}>
+                            <Button color={buttonColor} onClick={this.handleSignin}
+                                    disabled={!enterButtonActive}>
                                 Войти
                             </Button>
                         </DialogActions>
                         <div className={classes.textCenter}>
-                            <LocalLink to="/auth/signup"> Зарегистрироваться </LocalLink>
+                            <LocalLink to="/auth/signup" modal replace>Зарегистрироваться</LocalLink>
                         </div>
                     </form>
                 </Card>

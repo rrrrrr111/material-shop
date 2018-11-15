@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSwipe = this.handleSwipe.bind(this);
-        util.navigate.scrollUp(150);
+        util.navigate.scrollUp();
     }
 
     handleChange = (event, activeTabIndex) => {
@@ -53,7 +53,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        util.navigate.scrollUp(150);
+        util.navigate.scrollUp();
     }
 
     getTabIndex = (props) => {

@@ -16,13 +16,13 @@ class SimpleFeed extends React.PureComponent {
     }
 
     componentDidMount() {
-        util.navigate.scrollUp(150);
+        util.navigate.scrollUp();
         this.props.dispatch(this.reloadMainFeed);
     }
 
     reloadMainFeed = (dispatch) => {
         dispatch(action(START_RELOAD_MAIN_FEED));
-        util.ajax.fetchBe("feed", {})
+        util.ajax.fetchBe("feed/list", {})
             .then(function (json) {
                 dispatch(action(RELOAD_MAIN_FEED, json.products));
                 dispatch(action(STOP_RELOAD_MAIN_FEED, false));

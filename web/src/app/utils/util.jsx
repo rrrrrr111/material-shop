@@ -5,6 +5,7 @@ import global from "app/utils/global";
 import link from "app/utils/link";
 import navigate from "app/utils/navigateUtil";
 import notify from "app/utils/notifyUtil";
+import validate from "app/utils/validateUtil";
 
 
 const util = {
@@ -15,6 +16,7 @@ const util = {
     declension,
     dictionary,
     global,
+    validate,
 };
 
 export default util;

@@ -3,12 +3,16 @@ package ru.rich.matshop.webapi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,21 +27,76 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String REQUEST_HEADER_X_XSRF_TOKEN = "X-CSRF-TOKEN";
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(POST,
-                        "/api/be/**", // backend
-                        "/web/**")// web
-                .permitAll()
-                .anyRequest().authenticated().and()
-                .cors().and()
-                .csrf().disable()
-        //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
-        //.formLogin().loginPage("/login").permitAll()
-        //.and().logout().permitAll()
-        ;
+    /**
+     * Безопасность API бэкенда
+     */
+    @Configuration
+    @Order(1)
+    public static class WebApiSecurityConfig extends WebSecurityConfigurerAdapter {
+        @Autowired
+        private RequestCache requestCache;
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .antMatcher("/api/be/**").authorizeRequests()
+                    .antMatchers(POST, "/api/be/user/**", "/api/be/order/list").authenticated()
+                    .antMatchers(POST, "/api/be/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and().headers().xssProtection()
+                    .and()
+                    .and().formLogin().loginProcessingUrl("/api/be/auth/login-processing").loginPage("/api/be/auth/login").failureUrl("/api/be/auth/failure").defaultSuccessUrl("/api/be/auth/success", false)
+                    .and().logout().logoutUrl("/api/be/auth/logout")
+                    .and().requestCache().requestCache(requestCache)
+                    .and().httpBasic()
+                    .and().cors()
+                    .and().csrf().disable()
+            //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
+            //.formLogin().loginPage("/login").permitAll()
+            //.and().logout().permitAll()
+            ;
+        }
+
+        private CsrfTokenRepository csrfTokenRepository() {
+            //var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+            var repository = new HttpSessionCsrfTokenRepository();
+            repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
+            return repository;
+        }
+
+        @Bean
+        CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.setAllowedOrigins(Arrays.asList("*"));
+            configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+            configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Accept", "Content-Type", REQUEST_HEADER_X_XSRF_TOKEN));
+            configuration.setMaxAge(3600L);
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/api/be/**", configuration);
+            return source;
+        }
+    }
+
+    /**
+     * Безопасность Web старниц и остальных URL
+     */
+    @Configuration
+    @Order(2)
+    public static class WebPagesSecurityConfig extends WebSecurityConfigurerAdapter {
+        @Autowired
+        private RequestCache requestCache;
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/web/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and().formLogin().loginProcessingUrl("/web/auth/login-check").loginPage("/web/auth/login").failureUrl("/web/auth/login?login_error=t")
+                    .and().logout().logoutUrl("/web/auth/logout")
+                    .and().requestCache().requestCache(requestCache)
+                    .and().httpBasic();
+        }
     }
 
     @Autowired
@@ -46,21 +105,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Accept", "Content-Type", REQUEST_HEADER_X_XSRF_TOKEN));
-        configuration.setMaxAge(3600L);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/be/**", configuration);
-        return source;
+    RequestCache requestCache() {
+        return new HttpSessionRequestCache();
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
-        //var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        var repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
-        return repository;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/web/sitemap.xml*");
     }
 }

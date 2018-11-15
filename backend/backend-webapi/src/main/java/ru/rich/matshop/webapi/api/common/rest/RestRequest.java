@@ -1,7 +1,7 @@
-package ru.rich.matshop.webapi.api;
+package ru.rich.matshop.webapi.api.common.rest;
 
 /**
- *
+ * Общие данные REST запросов
  */
 public abstract class RestRequest {
 

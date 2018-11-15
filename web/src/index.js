@@ -1,22 +1,23 @@
 import "app/common/style/styles.css";
 import MainLayout from "app/main/MainLayout";
-import {createBrowserHistory} from "history";
+import util from "app/utils/util";
 import "lib/assets/scss/material-kit-pro-react.css?v=1.1.0";
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import {Route, Router, Switch} from "react-router";
+import {Route, Switch} from "react-router";
+import {BrowserRouter} from 'react-router-dom';
 import {configureStore} from "store";
 
 
 ReactDOM.render(
     // приложение на Redux должно быть обёрнуто в Redux Provider, чтобы Redux управлял child-ами
     <Provider store={configureStore()}>
-        <Router history={createBrowserHistory()}>
+        <BrowserRouter basename={util.global.routerBasename}>
             <Switch>
-                <Route path="/" component={MainLayout}/>
+                <Route component={MainLayout}/>
             </Switch>
-        </Router>
+        </BrowserRouter>
     </Provider>,
     document.getElementById("root")
 );

@@ -26,18 +26,20 @@
 
 
 #### Используется
-    - HTML, CSS, JavaScript http://htmlbook.ru/css/cat/text
-    - React.js https://reactjs.org/docs
-    - react-router https://reacttraining.com/react-router/web/guides/philosophy
-    - Redux https://redux.js.org/basics/store
-    - JSS (CSS in JS) http://cssinjs.org
-    - Node.js, npm
-    - Material UI https://material-ui.com/demos/app-bar/
-    - Creative Tim Material Kit Examples https://demos.creative-tim.com/, https://demos.creative-tim.com/material-kit-pro/presentation.html
-    - react-number-format, react-text-mask
-    - Lodash https://lodash.com/docs/
-    - Axios https://github.com/axios/axios
-    - immutability-helper https://github.com/kolodny/immutability-helper
-    - Webpack https://webpack.js.org/concepts/
-    - Babel https://babeljs.io/docs/en/
+ [HTML, CSS, JavaScript](http://htmlbook.ru/css/cat/text)
+ [React.js](https://reactjs.org/docs)
+ [react-router](https://reacttraining.com/react-router/web/guides/philosophy)
+ [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v1.7.0)
+ [Redux](https://redux.js.org/basics/store)
+ [JSS (CSS in JS)](http://cssinjs.org)
+ Node.js, npm
+ Material UI https://material-ui.com/demos/app-bar/
+ Creative Tim Material Kit Examples https://demos.creative-tim.com/, https://demos.creative-tim.com/material-kit-pro/presentation.html
+ react-number-format https://github.com/s-yadav/react-number-format
+ react-text-mask https://github.com/text-mask/text-mask
+ Lodash https://lodash.com/docs/
+ Axios https://github.com/axios/axios
+ immutability-helper https://github.com/kolodny/immutability-helper
+ Webpack https://webpack.js.org/concepts/
+ Babel https://babeljs.io/docs/en/
 

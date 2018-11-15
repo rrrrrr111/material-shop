@@ -15,7 +15,6 @@ export const dataUserReducer = createReducer(
         sex: null,
         agreementChecked: true,
         editDate: null,
-        orders: []
     }, {
         [RELOAD_USER_DATA]: (state, value) => {
             return value;

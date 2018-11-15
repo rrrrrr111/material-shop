@@ -39,29 +39,27 @@ const getCurrentYScroll = () => {
  * хак для корректной работы на предыдущем переходе из Link
  * нужно в state передать флаг modal
  */
-const goToPreviousUrl = (location, history) => {
-    const state = location.state;
+const goToPreviousUrl = (history) => {
+    const state = history.location.state;
 
     if (state && state.local) {
         history.goBack();
-        scrollY(state.yScroll);
+        //scrollY(state.prevYScroll);
     } else {
         goToUrl("/", history);
-        scrollY(0);
+        scrollUp();
     }
 };
 
 /**
  * Переход на URL
  */
-const goToUrl = (url, history) => {
-    history.push({
-        pathname: url,
-        state: {
-            local: true,
-            yScroll: getCurrentYScroll()
-        }
-    });
+const goToUrl = (url, history,
+                 state = {
+                     local: true,
+                     yScroll: getCurrentYScroll()
+                 }) => {
+    history.push({pathname: url, state});
 };
 
 /**
@@ -85,7 +83,7 @@ const smoothScrollTo = (e, targetId) => {
 /**
  * Прокрутка к заголовку страницы, если открутка от заголовка больше указанной
  */
-const scrollUp = (offsetEdge) => {
+const scrollUp = (offsetEdge = 150) => {
     if (getCurrentYScroll() > offsetEdge) { // не скролим если не далеко от верхушки
         scrollY(0);
     }

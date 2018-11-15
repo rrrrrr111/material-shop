@@ -1,6 +1,6 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
-import ru.rich.matshop.webapi.api.RestRequest;
+import ru.rich.matshop.webapi.api.common.rest.RestRequest;
 import ru.rich.matshop.webapi.api.common.paging.PageRequest;
 
 /**

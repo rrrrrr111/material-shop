@@ -39,10 +39,10 @@ class OrdersTab extends React.PureComponent {
 
     asGoodsList = (item) => {
         return (<ul>{
-            item.goods.map((item) => {
+            item.goods.map((item, index) => {
                 return item.quantity > 1
-                    ? <li>{item.quantity} x {item.name} ({item.price}p)</li>
-                    : <li>{item.name} ({item.price}p)</li>
+                    ? <li key={index}>{item.quantity} x {item.name} ({item.price}p)</li>
+                    : <li key={index}>{item.name} ({item.price}p)</li>
             })}
             <li>Доставка {util.dictionary.deliveryTypeMap[item.deliveryType].name} ({item.deliveryAmount}p)</li>
         </ul>);
