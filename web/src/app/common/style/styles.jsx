@@ -1,4 +1,3 @@
-import {primaryColor} from "lib/assets/jss/material-kit-pro-react";
 import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 // константы

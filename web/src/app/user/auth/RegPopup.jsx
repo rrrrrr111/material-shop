@@ -15,8 +15,8 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
-
 import util from "app/utils/util"
+import {checkEmail, isNotBlank, isTrue} from "app/utils/validateUtil";
 import classNames from "classnames";
 import React from "react";
 import regPopupStyle from "./regPopupStyle";
@@ -29,16 +29,30 @@ class RegPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            firstName: "",
-            password: "",
-            aggrChecked: false,
-
-            emailValid: true,
-            firstNameValid: true,
-            passwordValid: true,
-            enterButtonActive: true,
+            data: {
+                email: "",
+                firstName: "",
+                password: "",
+                aggrChecked: false,
+            },
+            ui: {
+                emailValid: true,
+                firstNameValid: true,
+                passwordValid: true,
+                aggrCheckedValid: true,
+                enterButtonActive: true,
+            },
         };
+        this.validator = util.validate.createValidator(this, {
+                fieldsToCheckers: {
+                    email: checkEmail,
+                    firstName: isNotBlank,
+                    password: isNotBlank,
+                    aggrChecked: isTrue
+                },
+                formValidField: 'enterButtonActive',
+            }
+        );
         this.handleClose = this.handleClose.bind(this);
         this.handleSignup = this.handleSignup.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -48,51 +62,20 @@ class RegPopup extends React.PureComponent {
     }
 
     handleEmailChange = (e) => {
-        const email = e.target.value;
-        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
-        if (!emailValid) {
-            emailValid = util.validate.checkEmail(email);
-        }
-        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
-        this.setState({...this.state, email, emailValid, enterButtonActive})
+        this.validator.handleChange('email', e.target.value);
     };
 
     handleFirstNameChange = (e) => {
-        const firstName = e.target.value;
-        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
-        if (!firstNameValid) {
-            firstNameValid = util.validate.isNotBlank(firstName);
-        }
-        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
-        this.setState({...this.state, firstName, firstNameValid, enterButtonActive})
+        this.validator.handleChange('firstName', e.target.value);
     };
 
     handlePasswordChange = (e) => {
-        const password = e.target.value;
-        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
-        if (!passwordValid) {
-            passwordValid = util.validate.isNotBlank(password);
-        }
-        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
-        this.setState({...this.state, password, passwordValid, enterButtonActive})
+        this.validator.handleChange('password', e.target.value);
     };
 
     handleAggrToggle(e) {
-        let {firstNameValid, passwordValid, emailValid, aggrChecked} = this.state;
-        aggrChecked = !aggrChecked;
-        const enterButtonActive = emailValid && passwordValid && firstNameValid && aggrChecked;
-        this.setState({...this.state, aggrChecked, enterButtonActive})
+        this.validator.handleChange('aggrChecked', !this.state.data.aggrChecked);
     }
-
-    checkIsFormValid = (state) => {
-        const {firstName, password, email, aggrChecked} = state;
-        const emailValid = util.validate.checkEmail(email);
-        const firstNameValid = util.validate.isNotBlank(firstName);
-        const passwordValid = util.validate.isNotBlank(password);
-        const formValid = emailValid && passwordValid && firstNameValid && aggrChecked;
-        this.setState({...this.state, emailValid, passwordValid, firstNameValid, enterButtonActive: formValid})
-        return formValid;
-    };
 
     handleClose = (e) => {
         e.stopPropagation();
@@ -101,7 +84,7 @@ class RegPopup extends React.PureComponent {
 
     handleSignup = (e) => {
         e.stopPropagation();
-        if (!this.checkIsFormValid(this.state)) {
+        if (!this.validator.isFormValid()) {
             return;
         }
         this.handleClose(e);
@@ -110,9 +93,11 @@ class RegPopup extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
-            email, password, firstName, aggrChecked,
-            emailValid, passwordValid, firstNameValid, enterButtonActive
-        } = this.state;
+            email, password, firstName, aggrChecked
+        } = this.state.data;
+        const {
+            emailValid, passwordValid, firstNameValid, aggrCheckedValid, enterButtonActive
+        } = this.state.ui;
         return (
             <Dialog
                 classes={{root: classes.modalRoot, paper: classes.modal + " " + classes.modalSignup}}
@@ -230,7 +215,12 @@ class RegPopup extends React.PureComponent {
                                                                 onClick={this.handleAggrToggle}
                                                                 checked={aggrChecked}
                                                                 checkedIcon={<Check className={classes.checkedIcon}/>}
-                                                                icon={<Check className={classes.uncheckedIcon}/>}
+                                                                icon={<Check
+                                                                    className={
+                                                                        classNames({
+                                                                            [classes.uncheckedIcon]: true,
+                                                                            "redShadow": !aggrCheckedValid
+                                                                        })}/>}
                                                                 classes={{agreementChecked: classes.agreementChecked}}/>
                                                   }
                                                   label={<span className={classes.termAndCondAgreementLabel}>

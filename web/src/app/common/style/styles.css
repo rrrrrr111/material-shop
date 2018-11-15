@@ -12,3 +12,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px white inset !important;
   -webkit-text-fill-color: #495057 !important; }
+
+.redShadow {
+  box-shadow: 0 0 3pt 2pt red; }
