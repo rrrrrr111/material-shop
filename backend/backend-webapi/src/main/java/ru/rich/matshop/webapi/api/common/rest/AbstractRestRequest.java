@@ -3,7 +3,7 @@ package ru.rich.matshop.webapi.api.common.rest;
 /**
  * Общие данные REST запросов
  */
-public abstract class RestRequest {
+public abstract class AbstractRestRequest {
 
     private String shopId;
     private String clientToken;

@@ -2,6 +2,7 @@ package ru.rich.matshop.webapi.api.user;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.user.password.ChangePasswordRequest;
 import ru.rich.matshop.webapi.api.user.password.ChangePasswordResponse;
 import ru.rich.matshop.webapi.api.user.save.UserSaveRequest;
@@ -10,13 +11,11 @@ import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsRequest;
 import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
 import ru.rich.matshop.webapi.api.user.signout.SignoutRequest;
 import ru.rich.matshop.webapi.api.user.signout.SignoutResponse;
-import ru.rich.matshop.webapi.api.user.signup.SignupRequest;
-import ru.rich.matshop.webapi.api.user.signup.SignupResponse;
 
 import javax.validation.Valid;
 
 @RestController
-class UserController {
+class UserController extends AbstractRestController {
 
     private final UserService userService;
 
@@ -24,38 +23,31 @@ class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/api/be/user/signup")
-    public SignupResponse getFeedList(@Valid SignupRequest request) {
+    @PostMapping("/api/be/user/save")
+    public UserSaveResponse save(@Valid UserSaveRequest request) {
 
-        var response = new SignupResponse();
-        return response;
+        var resp = prepareResponse(new UserSaveResponse());
+        return resp;
     }
 
     @PostMapping("/api/be/user/signout")
-    public SignoutResponse getFeedList(SignoutRequest request) {
+    public SignoutResponse signout(@Valid SignoutRequest request) {
 
-        var response = new SignoutResponse();
-        return response;
-    }
-
-    @PostMapping("/api/be/user/save")
-    public UserSaveResponse getFeedList(UserSaveRequest request) {
-
-        var response = new UserSaveResponse();
-        return response;
+        var resp = prepareResponse(new SignoutResponse());
+        return resp;
     }
 
     @PostMapping("/api/be/user/save-settings")
-    public UserSaveSettingsResponse getFeedList(UserSaveSettingsRequest request) {
+    public UserSaveSettingsResponse saveSettings(@Valid UserSaveSettingsRequest request) {
 
-        var response = new UserSaveSettingsResponse();
-        return response;
+        var resp = prepareResponse(new UserSaveSettingsResponse());
+        return resp;
     }
 
     @PostMapping("/api/be/user/change-password")
-    public ChangePasswordResponse getFeedList(ChangePasswordRequest request) {
+    public ChangePasswordResponse changePassword(@Valid ChangePasswordRequest request) {
 
-        var response = new ChangePasswordResponse();
-        return response;
+        var resp = prepareResponse(new ChangePasswordResponse());
+        return resp;
     }
 }

@@ -1,4 +1,5 @@
 {
+  "shopId": 1,
   "backendApiUrl": "http://127.0.0.1:8080/api/be",
   "imageUrlPrefix": "/img",
   "routerBasename": ""

@@ -1,12 +1,12 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
-import ru.rich.matshop.webapi.api.common.rest.RestRequest;
+import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.common.paging.PageRequest;
 
 /**
  *
  */
-public class FeedRequest extends RestRequest {
+public class FeedRequest extends AbstractRestRequest {
 
     private PageRequest pageRequest;
     private FeedProductFilter feedProductFilter;

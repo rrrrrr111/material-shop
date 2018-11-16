@@ -3,11 +3,12 @@ import update from 'immutability-helper';
 
 
 export const RELOAD_MAIN_FEED = 'RELOAD_MAIN_FEED';
+let initialState = {
+    products: [],
+};
 export const dataFeedReducer = createReducer(
-    {
-        products: [],
-    }, {
-        [RELOAD_MAIN_FEED]: (state, value) => {
+    initialState, {
+        [RELOAD_MAIN_FEED]: (state, value = initialState.products) => {
             return update(state, {products: {$set: value}});
         }
     });

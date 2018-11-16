@@ -15,10 +15,13 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
+import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
+import {action} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {checkEmail, isNotBlank, isTrue} from "app/utils/validateUtil";
 import classNames from "classnames";
 import React from "react";
+import {connect} from "react-redux";
 import regPopupStyle from "./regPopupStyle";
 
 function Transition(props) {
@@ -51,6 +54,7 @@ class RegPopup extends React.PureComponent {
                     aggrChecked: isTrue
                 },
                 formValidField: 'enterButtonActive',
+                disabled: true,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -62,11 +66,11 @@ class RegPopup extends React.PureComponent {
     }
 
     handleEmailChange = (e) => {
-        this.validator.handleChange('email', e.target.value);
+        this.validator.handleChange('email', e.target.value.trim());
     };
 
     handleFirstNameChange = (e) => {
-        this.validator.handleChange('firstName', e.target.value);
+        this.validator.handleChange('firstName', e.target.value.trim());
     };
 
     handlePasswordChange = (e) => {
@@ -87,7 +91,17 @@ class RegPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.handleClose(e);
+        this.props.dispatch(this.signup);
+    };
+
+    signup = (dispatch) => {
+        dispatch(action(START_RELOAD_USER_DATA));
+        util.ajax.backendPost("auth/signup", {person: this.state.data})
+            .then(function (response) {
+                dispatch(action(RELOAD_USER_DATA, response.person));
+                dispatch(action(STOP_RELOAD_USER_DATA, response.message));
+                //this.handleClose(e);
+            });
     };
 
     render() {
@@ -251,4 +265,8 @@ class RegPopup extends React.PureComponent {
     }
 }
 
-export default withStyles(regPopupStyle)(RegPopup);
+const mapStateToProps = (state) => {
+    return state.user;
+};
+
+export default connect(mapStateToProps)(withStyles(regPopupStyle)(RegPopup));

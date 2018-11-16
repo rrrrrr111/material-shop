@@ -15,10 +15,13 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
+import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
+import {action} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
 import {checkEmail, isNotBlank} from "app/utils/validateUtil";
 import React from "react";
+import {connect} from "react-redux";
 
 import loginPopupStyle from "./loginPopupStyle";
 
@@ -55,7 +58,7 @@ class LoginPopup extends React.PureComponent {
     }
 
     handleEmailChange = (e) => {
-        this.validator.handleChange('email', e.target.value);
+        this.validator.handleChange('email', e.target.value.trim());
     };
 
     handlePasswordChange = (e) => {
@@ -72,9 +75,15 @@ class LoginPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
+        this.props.dispatch(this.signin);
+    };
+
+    signin = (dispatch) => {
+        dispatch(action(START_RELOAD_USER_DATA));
         util.ajax.backendLogin(this.state.data)
-            .then(function (message) {
-                console.log(">>> Login callback", message);
+            .then(function (response) {
+                dispatch(action(RELOAD_USER_DATA, response.person));
+                dispatch(action(STOP_RELOAD_USER_DATA, response.message));
                 //this.handleClose(e);
             });
     };
@@ -206,4 +215,8 @@ class LoginPopup extends React.PureComponent {
     }
 }
 
-export default withStyles(loginPopupStyle)(LoginPopup);
+const mapStateToProps = (state) => {
+    return state.user;
+};
+
+export default connect(mapStateToProps)(withStyles(loginPopupStyle)(LoginPopup));

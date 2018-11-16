@@ -1,18 +1,25 @@
-package ru.rich.matshop.webapi.api.user.auth.model;
+package ru.rich.matshop.webapi.api.user.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class Person {
 
     private Long id;
+    @NotEmpty
+    @Pattern(regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
+    @NotEmpty
     private String password;
     private String phone;
+    @NotEmpty
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
     private Sex sex;
     private boolean agreementChecked;
+    private Date editDate;
 
     public Long getId() {
         return id;
@@ -84,6 +91,14 @@ public class Person {
 
     public void setAgreementChecked(boolean agreementChecked) {
         this.agreementChecked = agreementChecked;
+    }
+
+    public Date getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(Date editDate) {
+        this.editDate = editDate;
     }
 
     @Override

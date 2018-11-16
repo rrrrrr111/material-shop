@@ -5,9 +5,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
-import ru.rich.matshop.webapi.api.user.auth.model.Role;
-import ru.rich.matshop.webapi.api.user.auth.model.Sex;
-import ru.rich.matshop.webapi.api.user.auth.model.UserInfo;
+import ru.rich.matshop.webapi.api.user.model.Role;
+import ru.rich.matshop.webapi.api.user.model.Sex;
+import ru.rich.matshop.webapi.api.user.model.UserInfo;
+
+import static java.lang.String.format;
 
 @Service
 public class PersonDetailsService implements UserDetailsService {
@@ -21,6 +23,10 @@ public class PersonDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         PersonRecord r = authPersonDao.getByEmail(username);
+        if (r == null) {
+            throw new UsernameNotFoundException(
+                    format("User with login %s not found", username));
+        }
         UserInfo userInfo = new UserInfo();
 
         userInfo.setId(r.getId());

@@ -43,6 +43,9 @@ class Validator {
     };
 
     isFieldValid = (fieldName, value) => {
+        if (this.conf.disabled) {
+            return true;
+        }
         let valid = this.objRef.state.ui[fieldName + "Valid"];
         if (!valid) {
             valid = this.conf.fieldsToCheckers[fieldName](value);
@@ -62,6 +65,9 @@ class Validator {
     };
 
     isFormValid = () => {
+        if (this.conf.disabled) {
+            return true;
+        }
         const checkers = this.conf.fieldsToCheckers;
         const objRef = this.objRef;
         const uiObj = {...objRef.state.ui};

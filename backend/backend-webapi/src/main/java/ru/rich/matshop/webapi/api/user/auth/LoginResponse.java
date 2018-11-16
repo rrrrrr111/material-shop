@@ -1,30 +1,24 @@
 package ru.rich.matshop.webapi.api.user.auth;
 
-import ru.rich.matshop.webapi.api.common.rest.RestResponse;
+import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
+import ru.rich.matshop.webapi.api.user.model.Person;
 
-public class LoginResponse extends RestResponse {
+public class LoginResponse extends AbstractRestResponse {
 
-    private String message;
+    private Person person;
 
-    public LoginResponse() {
+    public Person getPerson() {
+        return person;
     }
 
-    LoginResponse(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override
     public String toString() {
         return "LoginResponse{" +
-                "message='" + message + '\'' +
+                "person=" + person +
                 '}';
     }
 }

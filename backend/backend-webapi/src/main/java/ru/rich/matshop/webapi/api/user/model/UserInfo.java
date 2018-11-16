@@ -1,16 +1,14 @@
-package ru.rich.matshop.webapi.api.user.auth.model;
+package ru.rich.matshop.webapi.api.user.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 
 public class UserInfo extends Person implements UserDetails {
 
     private boolean locked;
     private Role role;
-    private Date editDate;
 
     public boolean isLocked() {
         return locked;
@@ -28,17 +26,9 @@ public class UserInfo extends Person implements UserDetails {
         this.role = role;
     }
 
-    public Date getEditDate() {
-        return editDate;
-    }
-
-    public void setEditDate(Date editDate) {
-        this.editDate = editDate;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return role.getAbilities();
     }
 
     @Override
@@ -80,7 +70,7 @@ public class UserInfo extends Person implements UserDetails {
                 ", agreementChecked=" + isAgreementChecked() +
                 ", locked=" + locked +
                 ", role=" + role +
-                ", editDate=" + editDate +
+                ", editDate=" + getEditDate() +
                 '}';
     }
 }

@@ -1,6 +1,6 @@
 package ru.rich.matshop.webapi.api.user.signout;
 
-import ru.rich.matshop.webapi.api.common.rest.RestResponse;
+import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
 
-public class SignoutResponse extends RestResponse {
+public class SignoutResponse extends AbstractRestResponse {
 }
