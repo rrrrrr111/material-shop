@@ -13,6 +13,7 @@ import CardBody from "app/common/card/CardBody";
 import CardHeader from "app/common/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
+import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
@@ -33,10 +34,10 @@ class LoginPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: {
+            data: props.ui.authorized ? {
                 email: "",
                 password: "",
-            },
+            } : props.data,
             ui: {
                 emailValid: true,
                 passwordValid: true,
@@ -49,6 +50,7 @@ class LoginPopup extends React.PureComponent {
                     password: isNotBlank,
                 },
                 formValidField: 'enterButtonActive',
+                disabled: true,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -80,16 +82,29 @@ class LoginPopup extends React.PureComponent {
 
     signin = (dispatch) => {
         dispatch(action(START_RELOAD_USER_DATA));
+
+        const propsPerson = this.props.data;
+        const statePerson = this.state.data;
         util.ajax.backendLogin(this.state.data)
             .then(function (response) {
-                dispatch(action(RELOAD_USER_DATA, response.person));
-                dispatch(action(STOP_RELOAD_USER_DATA, response.message));
-                //this.handleClose(e);
+                const authorized = !(response.message);
+                let person = response.person;
+                if (!authorized) {
+                    person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, что было уже введено на форме регистрации
+                }
+                dispatch(action(RELOAD_USER_DATA, person));
+                dispatch(action(STOP_RELOAD_USER_DATA, {
+                    message: response.message,
+                    authorized,
+                }));
+                if (authorized) {
+                    //this.handleClose(e);
+                }
             });
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, ui} = this.props;
         const {
             email, password
         } = this.state.data;
@@ -205,6 +220,7 @@ class LoginPopup extends React.PureComponent {
                                 Войти
                             </Button>
                         </DialogActions>
+                        <ErrorMessageBox text={ui.error}/>
                         <div className={classes.textCenter}>
                             <LocalLink to="/auth/signup" modal replace>Зарегистрироваться</LocalLink>
                         </div>

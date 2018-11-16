@@ -13,6 +13,7 @@ import Card from "app/common/card/Card";
 import CardBody from "app/common/card/CardBody";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
+import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
 import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
@@ -32,12 +33,12 @@ class RegPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: {
+            data: props.ui.authorized ? {
                 email: "",
                 firstName: "",
                 password: "",
                 aggrChecked: false,
-            },
+            } : props.data,
             ui: {
                 emailValid: true,
                 firstNameValid: true,
@@ -96,16 +97,29 @@ class RegPopup extends React.PureComponent {
 
     signup = (dispatch) => {
         dispatch(action(START_RELOAD_USER_DATA));
+
+        const propsPerson = this.props.data;
+        const statePerson = this.state.data;
         util.ajax.backendPost("auth/signup", {person: this.state.data})
             .then(function (response) {
-                dispatch(action(RELOAD_USER_DATA, response.person));
-                dispatch(action(STOP_RELOAD_USER_DATA, response.message));
-                //this.handleClose(e);
+                const authorized = !(response.message);
+                let person = response.person;
+                if (!authorized) {
+                    person = {...propsPerson, ...statePerson}
+                }
+                dispatch(action(RELOAD_USER_DATA, person));
+                dispatch(action(STOP_RELOAD_USER_DATA, {
+                    message: response.message,
+                    authorized,
+                }));
+                if (authorized) {
+                    //this.handleClose(e);
+                }
             });
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, ui} = this.props;
         const {
             email, password, firstName, aggrChecked
         } = this.state.data;
@@ -253,6 +267,7 @@ class RegPopup extends React.PureComponent {
                                         Зарегистрироваться
                                     </Button>
                                 </div>
+                                <ErrorMessageBox text={ui.error}/>
                             </CardBody>
                         </DialogContent>
                         <div className={classes.textCenter}>

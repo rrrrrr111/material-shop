@@ -2,7 +2,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Snack from "@material-ui/core/SnackbarContent";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Close from "@material-ui/icons/Close";
-import snackbarStyle from "app/common/snackbar/notify/snackbarStyle.jsx";
+import snackbarStyle from "app/common/message/notify/snackbarStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";

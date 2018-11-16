@@ -1,5 +1,7 @@
 package ru.rich.matshop.webapi.api.user.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -10,6 +12,7 @@ public class Person {
     @NotEmpty
     @Pattern(regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty
     private String password;
     private String phone;

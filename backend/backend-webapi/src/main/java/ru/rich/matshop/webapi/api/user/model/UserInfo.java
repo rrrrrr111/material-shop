@@ -1,5 +1,6 @@
 package ru.rich.matshop.webapi.api.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,7 @@ public class UserInfo extends Person implements UserDetails {
     private boolean locked;
     private Role role;
 
+    @JsonIgnore
     public boolean isLocked() {
         return locked;
     }
@@ -18,6 +20,7 @@ public class UserInfo extends Person implements UserDetails {
         this.locked = locked;
     }
 
+    @JsonIgnore
     public Role getRole() {
         return role;
     }
@@ -27,31 +30,37 @@ public class UserInfo extends Person implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAbilities();
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return getEmail();
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return !locked;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

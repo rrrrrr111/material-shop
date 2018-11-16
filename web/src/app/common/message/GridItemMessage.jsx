@@ -14,7 +14,7 @@ const style = theme => ({
     },
 });
 
-function GridItemMessage({...props}) {
+function GridItemMessage(props) {
     const {classes, loading, text} = props;
     return (
         <Grow in={true}>
