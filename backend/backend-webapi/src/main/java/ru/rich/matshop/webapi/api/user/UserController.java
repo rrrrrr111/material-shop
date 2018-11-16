@@ -8,8 +8,6 @@ import ru.rich.matshop.webapi.api.user.save.UserSaveRequest;
 import ru.rich.matshop.webapi.api.user.save.UserSaveResponse;
 import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsRequest;
 import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
-import ru.rich.matshop.webapi.api.user.signin.SigninRequest;
-import ru.rich.matshop.webapi.api.user.signin.SigninResponse;
 import ru.rich.matshop.webapi.api.user.signout.SignoutRequest;
 import ru.rich.matshop.webapi.api.user.signout.SignoutResponse;
 import ru.rich.matshop.webapi.api.user.signup.SignupRequest;
@@ -24,13 +22,6 @@ class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @PostMapping("/api/be/user/signin")
-    public SigninResponse getFeedList(SigninRequest request) {
-
-        var response = new SigninResponse();
-        return response;
     }
 
     @PostMapping("/api/be/user/signup")

@@ -72,7 +72,11 @@ class LoginPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.handleClose(e);
+        util.ajax.backendLogin(this.state.data)
+            .then(function (message) {
+                console.log(">>> Login callback", message);
+                //this.handleClose(e);
+            });
     };
 
     render() {

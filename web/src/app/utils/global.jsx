@@ -3,7 +3,7 @@ import util from "app/utils/util";
 let siteConfig;
 const getSiteConfig = () => {
     if (!siteConfig) {
-        return util.ajax.fetchSiteConfig()
+        return util.ajax.localGet("/configurable/site-config.json")
             .then(json => {
                 siteConfig = json;
                 return json;

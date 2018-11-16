@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -20,6 +21,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.POST;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_FAILURE;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_LOGOUT;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_PROCESSING;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_SUCCESS;
 
 @Configuration
 @EnableWebSecurity
@@ -41,12 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http
                     .antMatcher("/api/be/**").authorizeRequests()
                     .antMatchers(POST, "/api/be/user/**", "/api/be/order/list").authenticated()
-                    .antMatchers(POST, "/api/be/**").permitAll()
+                    .antMatchers("/api/be/**").permitAll()
                     .anyRequest().authenticated()
                     .and().headers().xssProtection()
                     .and()
-                    .and().formLogin().loginProcessingUrl("/api/be/auth/login-processing").loginPage("/api/be/auth/login").failureUrl("/api/be/auth/failure").defaultSuccessUrl("/api/be/auth/success", false)
-                    .and().logout().logoutUrl("/api/be/auth/logout")
+                    .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
+                    .and().logout().logoutUrl(URL_LOGIN_LOGOUT).permitAll()
+                    .and().exceptionHandling().accessDeniedPage("/api/be/error/access-denied")
                     .and().requestCache().requestCache(requestCache)
                     .and().httpBasic()
                     .and().cors()
@@ -68,9 +75,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList("*"));
-            configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-            configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Accept", "Content-Type", REQUEST_HEADER_X_XSRF_TOKEN));
+            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+            configuration.setAllowCredentials(true);
+            configuration.setAllowedHeaders(Arrays.asList(
+                    "Origin",
+                    "Authorization",
+                    "X-Requested-With",
+                    "Accept",
+                    "Content-Type",
+                    REQUEST_HEADER_X_XSRF_TOKEN));
             configuration.setMaxAge(3600L);
+
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/api/be/**", configuration);
             return source;
@@ -101,7 +116,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("torgmister").password("s00pErs3creT").roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser(
+                        User.withDefaultPasswordEncoder().username("torgmister").password("s00pErs3creT").roles("USER").build()
+                )
+                .withUser(
+                        User.withDefaultPasswordEncoder().username("curdes@gmail.com").password("1").roles("USER").build()
+                );
     }
 
     @Bean
@@ -113,6 +134,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/web/sitemap.xml*");
+                .antMatchers("/web/sitemap.xml*")
+                .antMatchers("/error");
     }
 }

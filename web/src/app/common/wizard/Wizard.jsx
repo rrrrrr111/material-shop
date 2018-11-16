@@ -1,12 +1,12 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button";
+import GridContainer from "app/common/grid/GridContainer.jsx";
+import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
-import GridContainer from "app/common/grid/GridContainer.jsx";
-import GridItem from "app/common/grid/GridItem.jsx";
 import debounce from 'lodash/debounce'
 import PropTypes from "prop-types";
 import React from "react";
@@ -16,7 +16,6 @@ import SwipeableViews from "react-swipeable-views";
 class Wizard extends React.Component {
     constructor(props) {
         super(props);
-
         let tabIndex = this.getTabIndex(this.props);
         tabIndex = tabIndex >= 0 ? tabIndex : 0; // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
         this.state = {
@@ -53,7 +52,7 @@ class Wizard extends React.Component {
         function (e, step, props) {
             const tabIndex = this.state.activeTabIndex + step;
             if (tabIndex === -1) {
-                 // todo учитывать возврат с других шагов
+                // todo учитывать возврат с других шагов
                 util.navigate.goToPreviousUrl(props.history);
                 return
             }
@@ -76,6 +75,7 @@ class Wizard extends React.Component {
             return;
         }
         this.setState({
+            ...this.state,
             activeTabIndex: tabIndex,
             activeTabKey: this.props.tabsConfig[tabIndex].key
         });
@@ -192,4 +192,4 @@ class Wizard extends React.Component {
     };
 }
 
-export default withStyles(wizardStyle)(withRouter(Wizard));
+export default withRouter(withStyles(wizardStyle)(Wizard));

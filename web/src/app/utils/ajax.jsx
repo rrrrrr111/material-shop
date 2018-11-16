@@ -1,10 +1,9 @@
 import util from "app/utils/util";
 import axios from "axios";
 
-const checkError = (ajaxResponse) => {
-    if (ajaxResponse.status && ajaxResponse.status !== '200') {
-        console.log(ajaxResponse);
-        throw "Exception on server side";
+const checkError = (response) => {
+    if (response.status && response.status !== 200) {
+        throw new Error("Exception on server side");
     }
 };
 
@@ -25,24 +24,53 @@ const getBackendAxios = () => {
     return backendAxios;
 };
 
-const fetchBe = (urlTail, request) => {
+const backendPost = (urlTail, request) => {
     return getBackendAxios()
         .then((backendAxios) => {
             return backendAxios.post(urlTail, request);
         }).then(function (response) {
+            checkError(response);
             return response.data;
-        }).then(function (json) {
-            checkError(json);
-            return json;
         });
 };
 
-const fetchSiteConfig = () => {
-    return axios.get("/configurable/site-config.json")
-        .then(response => response.data)
+export const UNKNOWN_SERVER_CONNECTION_ERROR = "Unknown error";
+const backendLogin = (loginData) => {
+    return util.global.getSiteConfig()
+        .then((siteConfig) => {
+            return axios({
+                url: "auth/login-processing",
+                baseURL: siteConfig.backendApiUrl,
+                method: 'get',
+                auth: {
+                    username: loginData.email,
+                    password: loginData.password
+                }
+            });
+        }).then(
+            function (response) {
+                checkError(response);
+                return response.data.message;
+            },
+            function (error) {
+                if (error && error.response
+                    && error.response.data && error.response.data.message) {
+                    return error.response.data.message;
+                }
+                return UNKNOWN_SERVER_CONNECTION_ERROR;
+            });
+};
+
+const localGet = (url, config) => {
+    return axios.get(url, config)
+        .then(response => {
+            checkError(response);
+            return response.data;
+        })
 };
 const ajax = {
-    fetchBe: fetchBe,
-    fetchSiteConfig: fetchSiteConfig,
+    backendPost: backendPost,
+    backendLogin: backendLogin,
+    localGet: localGet,
 };
 export default ajax;

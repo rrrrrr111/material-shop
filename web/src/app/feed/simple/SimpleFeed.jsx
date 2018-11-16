@@ -5,7 +5,7 @@ import GridItemMessage from "app/common/message/GridItemMessage";
 import {RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
-import {action, fetchBe} from "app/utils/functionUtil";
+import {action} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import React from "react";
 import {connect} from "react-redux";
@@ -22,7 +22,7 @@ class SimpleFeed extends React.PureComponent {
 
     reloadMainFeed = (dispatch) => {
         dispatch(action(START_RELOAD_MAIN_FEED));
-        util.ajax.fetchBe("feed/list", {})
+        util.ajax.backendPost("feed/list", {})
             .then(function (json) {
                 dispatch(action(RELOAD_MAIN_FEED, json.products));
                 dispatch(action(STOP_RELOAD_MAIN_FEED, false));
