@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = 964152838;
+    private static final long serialVersionUID = 437861970;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -79,9 +79,19 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     public final TableField<ShopOrderRecord, Long> ADDRESS_ID = createField("address_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>matshop.shop_order.ammount</code>.
+     * The column <code>matshop.shop_order.amount</code>.
      */
-    public final TableField<ShopOrderRecord, Long> AMMOUNT = createField("ammount", org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<ShopOrderRecord, Long> AMOUNT = createField("amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>matshop.shop_order.delivery_amount</code>.
+     */
+    public final TableField<ShopOrderRecord, Long> DELIVERY_AMOUNT = createField("delivery_amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>matshop.shop_order.delivery_type</code>.
+     */
+    public final TableField<ShopOrderRecord, String> DELIVERY_TYPE = createField("delivery_type", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>matshop.shop_order.state</code>.
@@ -97,6 +107,11 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
      * The column <code>matshop.shop_order.service_comment</code>.
      */
     public final TableField<ShopOrderRecord, String> SERVICE_COMMENT = createField("service_comment", org.jooq.impl.SQLDataType.VARCHAR(10000), this, "");
+
+    /**
+     * The column <code>matshop.shop_order.create_date</code>.
+     */
+    public final TableField<ShopOrderRecord, Date> CREATE_DATE = createField("create_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * The column <code>matshop.shop_order.edit_date</code>.

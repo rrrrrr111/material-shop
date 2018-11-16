@@ -44,7 +44,7 @@ import ru.rich.matshop.db.model.tables.records.PersonRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PersonTable extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -243600993;
+    private static final long serialVersionUID = -41720424;
 
     /**
      * The reference instance of <code>matshop.person</code>
@@ -77,7 +77,7 @@ public class PersonTable extends TableImpl<PersonRecord> {
     /**
      * The column <code>matshop.person.phone</code>.
      */
-    public final TableField<PersonRecord, String> PHONE = createField("phone", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<PersonRecord, String> PHONE = createField("phone", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>matshop.person.first_name</code>.
@@ -103,6 +103,16 @@ public class PersonTable extends TableImpl<PersonRecord> {
      * The column <code>matshop.person.agreement_checked</code>.
      */
     public final TableField<PersonRecord, Boolean> AGREEMENT_CHECKED = createField("agreement_checked", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
+
+    /**
+     * The column <code>matshop.person.locked</code>.
+     */
+    public final TableField<PersonRecord, Boolean> LOCKED = createField("locked", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false).defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>matshop.person.role</code>.
+     */
+    public final TableField<PersonRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>matshop.person.edit_date</code>.

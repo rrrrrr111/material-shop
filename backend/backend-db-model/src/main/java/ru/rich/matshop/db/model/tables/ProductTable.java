@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ProductRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProductTable extends TableImpl<ProductRecord> {
 
-    private static final long serialVersionUID = -571309358;
+    private static final long serialVersionUID = -1843755290;
 
     /**
      * The reference instance of <code>matshop.product</code>
@@ -69,11 +69,6 @@ public class ProductTable extends TableImpl<ProductRecord> {
     public final TableField<ProductRecord, Integer> SHOP_ID = createField("shop_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>matshop.product.data</code>.
-     */
-    public final TableField<ProductRecord, String> DATA = createField("data", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
-
-    /**
      * The column <code>matshop.product.edit_date</code>.
      */
     public final TableField<ProductRecord, Date> EDIT_DATE = createField("edit_date", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
@@ -82,6 +77,21 @@ public class ProductTable extends TableImpl<ProductRecord> {
      * The column <code>matshop.product.state</code>.
      */
     public final TableField<ProductRecord, String> STATE = createField("state", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+
+    /**
+     * The column <code>matshop.product.data</code>.
+     */
+    public final TableField<ProductRecord, String> DATA = createField("data", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+
+    /**
+     * The column <code>matshop.product.pricing</code>.
+     */
+    public final TableField<ProductRecord, String> PRICING = createField("pricing", org.jooq.impl.SQLDataType.VARCHAR(1000), this, "");
+
+    /**
+     * The column <code>matshop.product.base_price</code>.
+     */
+    public final TableField<ProductRecord, Long> BASE_PRICE = createField("base_price", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.product.format_version</code>.
