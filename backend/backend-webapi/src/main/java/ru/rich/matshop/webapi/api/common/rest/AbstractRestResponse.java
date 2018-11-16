@@ -14,6 +14,13 @@ public abstract class AbstractRestResponse {
      */
     private String message;
 
+    public AbstractRestResponse(String message) {
+        this.message = message;
+    }
+
+    public AbstractRestResponse() {
+    }
+
     public Integer getServerId() {
         return serverId;
     }

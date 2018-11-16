@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.user;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.user.password.ChangePasswordRequest;
@@ -24,28 +25,28 @@ class UserController extends AbstractRestController {
     }
 
     @PostMapping("/api/be/user/save")
-    public UserSaveResponse save(@Valid UserSaveRequest request) {
+    public UserSaveResponse save(@RequestBody @Valid UserSaveRequest req) {
 
         var resp = prepareResponse(new UserSaveResponse());
         return resp;
     }
 
     @PostMapping("/api/be/user/signout")
-    public SignoutResponse signout(@Valid SignoutRequest request) {
+    public SignoutResponse signout(@RequestBody @Valid SignoutRequest req) {
 
         var resp = prepareResponse(new SignoutResponse());
         return resp;
     }
 
     @PostMapping("/api/be/user/save-settings")
-    public UserSaveSettingsResponse saveSettings(@Valid UserSaveSettingsRequest request) {
+    public UserSaveSettingsResponse saveSettings(@RequestBody @Valid UserSaveSettingsRequest req) {
 
         var resp = prepareResponse(new UserSaveSettingsResponse());
         return resp;
     }
 
     @PostMapping("/api/be/user/change-password")
-    public ChangePasswordResponse changePassword(@Valid ChangePasswordRequest request) {
+    public ChangePasswordResponse changePassword(@RequestBody @Valid ChangePasswordRequest req) {
 
         var resp = prepareResponse(new ChangePasswordResponse());
         return resp;

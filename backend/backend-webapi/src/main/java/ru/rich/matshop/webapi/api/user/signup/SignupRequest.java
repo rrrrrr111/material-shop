@@ -3,8 +3,13 @@ package ru.rich.matshop.webapi.api.user.signup;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.user.model.Person;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class SignupRequest extends AbstractRestRequest {
 
+    @NotNull
+    @Valid
     private Person person;
 
     public Person getPerson() {

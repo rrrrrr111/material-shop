@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
@@ -11,8 +12,6 @@ import ru.rich.matshop.webapi.api.user.UserService;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.signup.SignupRequest;
 import ru.rich.matshop.webapi.api.user.signup.SignupResponse;
-
-import javax.validation.Valid;
 
 @RestController
 public class AuthController extends AbstractRestController {
@@ -46,7 +45,10 @@ public class AuthController extends AbstractRestController {
 
     @PostMapping("/api/be/auth/signup")
     @Transactional
-    public SignupResponse signup(@Valid SignupRequest request) {
+    public SignupResponse signup(
+            @RequestBody
+            //@Valid
+                    SignupRequest request) {
 
         Person person = userService.signup(request.getPerson());
         var resp = prepareResponse(new SignupResponse());
