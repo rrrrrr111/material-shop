@@ -12,9 +12,8 @@
 
 #### Команды
     `npm i` - установка пакетов
-    `npm i webpack -g` - установка webpack глобально
     `npm run start --verbose` - запуск в режиме разработки через react-scripts, см скрипты в package.json, открываем http://localhost:3000
-    `npm run start-wp --verbose` - запуск в режиме разработки через webpack, открываем http://localhost:3000
+    `npm run start-wp --verbose` - (не актуально) запуск в режиме разработки через webpack, открываем http://localhost:3000
     `node server.js` - запуск серверной части (Бэкенд)
     `npm test` - запуск тестов
     `npm run build` - сборка для передачи на пром
@@ -34,13 +33,13 @@
  [Redux](https://redux.js.org/basics/store)
  [JSS (CSS in JS)](http://cssinjs.org)
  Node.js, npm
- Material UI https://material-ui.com/demos/app-bar/
- Creative Tim Material Kit Examples https://demos.creative-tim.com/, https://demos.creative-tim.com/material-kit-pro/presentation.html
- react-number-format https://github.com/s-yadav/react-number-format
- react-text-mask https://github.com/text-mask/text-mask
- Lodash https://lodash.com/docs/
- Axios https://github.com/axios/axios
- immutability-helper https://github.com/kolodny/immutability-helper
- Webpack https://webpack.js.org/concepts/
- Babel https://babeljs.io/docs/en/
+ [Material UI](https://material-ui.com/demos/app-bar/)
+ [Creative Tim Material Kit Examples](https://demos.creative-tim.com/), https://demos.creative-tim.com/material-kit-pro/presentation.html
+ [react-number-format](https://github.com/s-yadav/react-number-format)
+ [react-text-mask](https://github.com/text-mask/text-mask)
+ [Lodash](https://lodash.com/docs/)
+ [Axios](https://github.com/axios/axios)
+ [immutability-helper](https://github.com/kolodny/immutability-helper)
+ [Webpack](https://webpack.js.org/concepts/)
+ [Babel](https://babeljs.io/docs/en/)
 

@@ -171,7 +171,7 @@ class CartGoodsTab extends React.PureComponent {
                                <GridContainer className={classes.tableFooterContainer}>
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
-                                           <h4 className={classes.nowrap}>
+                                           <h4>
                                                В
                                                корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)} на
                                                сумму:
