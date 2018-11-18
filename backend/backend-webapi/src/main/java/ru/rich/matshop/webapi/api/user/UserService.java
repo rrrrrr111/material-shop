@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.user;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.common.rest.UserException;
 import ru.rich.matshop.webapi.api.user.model.Person;
@@ -25,7 +26,8 @@ public class UserService {
                     String.format("User with id=%s already exists, email=%s",
                             personId, person.getEmail()));
         }
-        personId = personDao.save(person);
+        Assert.isTrue(person.getId() == null, "Person id must be null");
+        personId = personDao.insert(person);
         PersonRecord record = personDao.getById(personId);
 
         return fillPerson(record, new Person());

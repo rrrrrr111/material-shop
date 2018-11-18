@@ -16,11 +16,12 @@ import ru.rich.matshop.webapi.api.user.signup.SignupResponse;
 @RestController
 public class AuthController extends AbstractRestController {
 
-    public static final String URL_LOGIN = "/api/be/auth/login";
-    public static final String URL_LOGIN_PROCESSING = "/api/be/auth/login-processing";
-    public static final String URL_LOGIN_SUCCESS = "/api/be/auth/success";
-    public static final String URL_LOGIN_FAILURE = "/api/be/auth/failure";
-    public static final String URL_LOGIN_LOGOUT = "/api/be/auth/logout";
+    public static final String AUTH_URL_PREFIX = "/api/be/auth";
+    public static final String URL_LOGIN = AUTH_URL_PREFIX + "/login";
+    public static final String URL_LOGIN_PROCESSING = AUTH_URL_PREFIX + "/login-processing";
+    public static final String URL_LOGIN_SUCCESS = AUTH_URL_PREFIX + "/success";
+    public static final String URL_LOGIN_FAILURE = AUTH_URL_PREFIX + "/failure";
+    public static final String URL_LOGIN_LOGOUT = AUTH_URL_PREFIX + "/logout";
 
     private final UserService userService;
 
@@ -43,7 +44,7 @@ public class AuthController extends AbstractRestController {
         return resp;
     }
 
-    @PostMapping("/api/be/auth/signup")
+    @PostMapping(AUTH_URL_PREFIX + "/signup")
     @Transactional
     public SignupResponse signup(
             @RequestBody

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ru.rich.matshop.webapi.api.user.auth.PersonAuthEntryPoint;
 import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 
 import java.util.Arrays;
@@ -44,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static class WebApiSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         private RequestCache requestCache;
+        @Autowired
+        private PersonAuthEntryPoint personAuthEntryPoint;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -56,9 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
                     .and().logout().logoutUrl(URL_LOGIN_LOGOUT).permitAll()
-                    .and().exceptionHandling().accessDeniedPage("/api/be/error/access-denied")
                     .and().requestCache().requestCache(requestCache)
-                    .and().httpBasic()
+                    .and().httpBasic().authenticationEntryPoint(personAuthEntryPoint)
                     .and().cors()
                     .and().csrf().disable()
             //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
@@ -119,8 +122,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(personDetailsService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(personDetailsService);
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setHideUserNotFoundExceptions(false);
+        //provider.setUserDetailsPasswordService(passwordManager); // todo смена пароля
+        provider.afterPropertiesSet();
+
+        auth.authenticationProvider(provider);
     }
 
     @Bean

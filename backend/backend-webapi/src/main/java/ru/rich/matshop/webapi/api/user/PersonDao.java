@@ -2,6 +2,7 @@ package ru.rich.matshop.webapi.api.user;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.user.model.Person;
@@ -44,16 +45,14 @@ class PersonDao {
 
     public Long save(Person p) {
         if (p.getId() == null) {
-            return create.insertInto(PERSON)
-                    .set(create.newRecord(PERSON, p))
-                    .set(PERSON.EDIT_DATE, new Date())
-                    .set(PERSON.LOCKED, false)
-                    .set(PERSON.ROLE, Role.USER.toString())
-                    .returning(PERSON.ID)
-                    .fetchOne()
-                    .getId();
+            return insert(p);
         }
-        create.update(PERSON)
+        update(p);
+        return p.getId();
+    }
+
+    public void update(Person p) {
+        int res = create.update(PERSON)
                 .set(create.newRecord(PERSON, p))
                 .set(PERSON.EDIT_DATE, new Date())
                 .where(
@@ -61,6 +60,17 @@ class PersonDao {
                                 .and(PERSON.EDIT_DATE.eq(p.getEditDate()))
                 )
                 .execute();
-        return p.getId();
+        Assert.isTrue(res == 1, "Result must be 1, but got " + res);
+    }
+
+    public Long insert(Person p) {
+        return create.insertInto(PERSON)
+                .set(create.newRecord(PERSON, p))
+                .set(PERSON.EDIT_DATE, new Date())
+                .set(PERSON.LOCKED, false)
+                .set(PERSON.ROLE, Role.USER.toString())
+                .returning(PERSON.ID)
+                .fetchOne()
+                .getId();
     }
 }

@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.api.user.auth;
+package ru.rich.matshop.webapi.api.common.security;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,18 +25,18 @@ public class SecurityContext {
 
     public static Authentication getAuthenticationToken() {
 
-        Authentication localAuthToken = SecurityContextHolder.getContext().getAuthentication();
-        if (localAuthToken == null || localAuthToken instanceof AnonymousAuthenticationToken) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             throw new IllegalStateException("Пользователь не авторизован!");
         }
-        return localAuthToken;
+        return auth;
     }
 
     /**
      * @return true - пользователь авторизован, иначе false
      */
     public static boolean isAuthenticated() {
-        Authentication localAuthToken = SecurityContextHolder.getContext().getAuthentication();
-        return localAuthToken != null && !(localAuthToken instanceof AnonymousAuthenticationToken);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth != null && !(auth instanceof AnonymousAuthenticationToken);
     }
 }
