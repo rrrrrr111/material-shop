@@ -11,6 +11,7 @@ const prepareBackend = () => {
                     baseURL: siteConfig.backendApiUrl,
                     xsrfCookieName: 'XSRF-TOKEN',
                     xsrfHeaderName: 'X-CSRF-TOKEN',
+                    withCredentials: true,
                 });
                 backend = Promise.resolve({axiosInstance, siteConfig});
                 return {axiosInstance, siteConfig};
@@ -47,7 +48,7 @@ const backendPost = (urlTail, request) => {
         }).then(handleResponse, handleError);
 };
 
-const backendLogin = (loginData) => {
+const backendSignin = (loginData) => {
     return util.global.getSiteConfig()
         .then((siteConfig) => {
             return axios({
@@ -65,6 +66,20 @@ const backendLogin = (loginData) => {
         }).then(handleResponse, handleError);
 };
 
+const backendSignout = () => {
+    return util.global.getSiteConfig()
+        .then((siteConfig) => {
+            return axios({
+                url: "auth/signout",
+                baseURL: siteConfig.backendApiUrl,
+                params: {
+                    shopId: siteConfig.shopId
+                },
+                method: 'get'
+            });
+        }).then(handleResponse, handleError);
+};
+
 const localGet = (url, config) => {
     return axios.get(url, config)
         .then(handleResponse, handleError)
@@ -72,7 +87,8 @@ const localGet = (url, config) => {
 
 const ajax = {
     backendPost: backendPost,
-    backendLogin: backendLogin,
+    backendSignin: backendSignin,
+    backendSignout: backendSignout,
     localGet: localGet,
 };
 export default ajax;

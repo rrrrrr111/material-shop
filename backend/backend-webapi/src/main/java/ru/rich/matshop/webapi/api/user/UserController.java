@@ -10,8 +10,6 @@ import ru.rich.matshop.webapi.api.user.save.UserSaveRequest;
 import ru.rich.matshop.webapi.api.user.save.UserSaveResponse;
 import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsRequest;
 import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
-import ru.rich.matshop.webapi.api.user.signout.SignoutRequest;
-import ru.rich.matshop.webapi.api.user.signout.SignoutResponse;
 
 import javax.validation.Valid;
 
@@ -25,16 +23,10 @@ class UserController extends AbstractRestController {
     }
 
     @PostMapping("/api/be/user/save")
-    public UserSaveResponse save(@RequestBody @Valid UserSaveRequest req) {
-
+    public UserSaveResponse save(@RequestBody
+                                 @Valid
+                                         UserSaveRequest req) {
         var resp = prepareResponse(new UserSaveResponse());
-        return resp;
-    }
-
-    @PostMapping("/api/be/user/signout")
-    public SignoutResponse signout(@RequestBody @Valid SignoutRequest req) {
-
-        var resp = prepareResponse(new SignoutResponse());
         return resp;
     }
 

@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.api.user.signup;
+package ru.rich.matshop.webapi.api.user.auth.signup;
 
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
 import ru.rich.matshop.webapi.api.user.model.Person;

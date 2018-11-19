@@ -16,7 +16,7 @@ import CustomInput from "app/common/input/CustomInput";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
-import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
+import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
 import {action} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
@@ -67,6 +67,17 @@ class LoginPopup extends React.PureComponent {
         this.validator.handleChange('password', e.target.value);
     };
 
+    componentDidMount() {
+        this.props.dispatch(this.signout);
+    }
+
+    signout = (dispatch) => {
+        util.ajax.backendSignout()
+            .then(function () {
+                dispatch(action(USER_LOGGED_OUT));
+            });
+    };
+
     handleClose = (e) => {
         e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
@@ -85,7 +96,7 @@ class LoginPopup extends React.PureComponent {
 
         const propsPerson = this.props.data;
         const statePerson = this.state.data;
-        util.ajax.backendLogin(this.state.data)
+        util.ajax.backendSignin(this.state.data)
             .then(function (response) {
                 const authorized = !(response.message);
                 let person = response.person;

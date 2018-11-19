@@ -26,7 +26,7 @@ class SimpleFeed extends React.PureComponent {
         util.ajax.backendPost("feed/list", {})
             .then(function (response) {
                 dispatch(action(RELOAD_MAIN_FEED, response.products));
-                dispatch(action(STOP_RELOAD_MAIN_FEED, !response.message));
+                dispatch(action(STOP_RELOAD_MAIN_FEED, !!response.message));
             });
     };
 

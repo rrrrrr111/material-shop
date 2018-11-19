@@ -4,21 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.rich.matshop.webapi.api.common.rest.UserExceptionMessageService;
+import ru.rich.matshop.webapi.api.user.auth.PersonAuthenticationFilter;
 import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 
 import java.util.Arrays;
@@ -26,9 +30,9 @@ import java.util.Arrays;
 import static org.springframework.http.HttpMethod.POST;
 import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN;
 import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_FAILURE;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_LOGOUT;
 import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_PROCESSING;
 import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_SUCCESS;
+import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_SIGNOUT;
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         private RequestCache requestCache;
         @Autowired
         private UserExceptionMessageService userExceptionMessageService;
+        @Autowired
+        private PersonAuthenticationFilter personAuthenticationFilter;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -59,20 +65,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and().headers().xssProtection()
                     .and()
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
-                    .and().logout().logoutUrl(URL_LOGIN_LOGOUT).permitAll()
+                    .and().logout().logoutUrl(URL_SIGNOUT).clearAuthentication(true).permitAll()
                     .and().requestCache().requestCache(requestCache)
-                    .and().httpBasic().authenticationEntryPoint(userExceptionMessageService)
+                    .and().addFilterBefore(personAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(userExceptionMessageService)
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and().cors()
                     .and().csrf().disable()
-            //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
+            //.and().csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_URL_PREFIX + "/**")
             //.formLogin().loginPage("/login").permitAll()
             //.and().logout().permitAll()
             ;
         }
 
         private CsrfTokenRepository csrfTokenRepository() {
-            //var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-            var repository = new HttpSessionCsrfTokenRepository();
+            var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+            //var repository = new HttpSessionCsrfTokenRepository();
             repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
             return repository;
         }
@@ -81,7 +88,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList("*"));
-            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+            configuration.setAllowedMethods(Arrays.asList(
+                    HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.OPTIONS.name()
+            ));
             configuration.setAllowCredentials(true);
             configuration.setAllowedHeaders(Arrays.asList(
                     "Origin",

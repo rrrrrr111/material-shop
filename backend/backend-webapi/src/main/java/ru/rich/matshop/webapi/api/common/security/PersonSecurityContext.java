@@ -8,12 +8,16 @@ import ru.rich.matshop.webapi.api.user.model.UserInfo;
 /**
  *
  */
-public class SecurityContext {
+public class PersonSecurityContext {
     /**
      * @return Получение информации о текущем пользователе.
      */
     public static UserInfo getCurrentUser() {
-        return (UserInfo) getAuthenticationToken().getPrincipal();
+        Authentication auth = getAuthentication();
+        if (!isAuthenticated(auth)) {
+            throw new IllegalStateException("User not authenticated");
+        }
+        return (UserInfo) auth.getPrincipal();
     }
 
     /**
@@ -23,20 +27,22 @@ public class SecurityContext {
         return getCurrentUser().getId();
     }
 
-    public static Authentication getAuthenticationToken() {
+    public static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            throw new IllegalStateException("Пользователь не авторизован!");
-        }
-        return auth;
+    public static void setAuthentication(Authentication authentication) {
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     /**
      * @return true - пользователь авторизован, иначе false
      */
     public static boolean isAuthenticated() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return isAuthenticated(getAuthentication());
+    }
+
+    private static boolean isAuthenticated(Authentication auth) {
         return auth != null && !(auth instanceof AnonymousAuthenticationToken);
     }
 }

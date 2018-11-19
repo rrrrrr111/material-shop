@@ -19,11 +19,15 @@ export const dataUserReducer = createReducer(
     initialState, {
         [RELOAD_USER_DATA]: (state, value = initialState) => {
             return value;
-        }
+        },
+        [USER_LOGGED_OUT]: () => {
+            return initialState;
+        },
     });
 
 export const START_RELOAD_USER_DATA = 'START_RELOAD_USER_DATA';
 export const STOP_RELOAD_USER_DATA = 'STOP_RELOAD_USER_DATA';
+export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const uiUserReducer = createReducer({
     loading: false,
     error: null,
@@ -39,5 +43,8 @@ export const uiUserReducer = createReducer({
                 authorized: {$set: value.authorized}
             }
         );
-    }
+    },
+    [USER_LOGGED_OUT]: (state) => {
+        return update(state, {authorized: {$set: false}});
+    },
 });
