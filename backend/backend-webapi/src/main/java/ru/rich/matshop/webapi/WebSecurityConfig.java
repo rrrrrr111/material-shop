@@ -18,7 +18,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.rich.matshop.webapi.api.user.auth.PersonAuthEntryPoint;
+import ru.rich.matshop.webapi.api.common.rest.UserExceptionMessageService;
 import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 
 import java.util.Arrays;
@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         private RequestCache requestCache;
         @Autowired
-        private PersonAuthEntryPoint personAuthEntryPoint;
+        private UserExceptionMessageService userExceptionMessageService;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
                     .and().logout().logoutUrl(URL_LOGIN_LOGOUT).permitAll()
                     .and().requestCache().requestCache(requestCache)
-                    .and().httpBasic().authenticationEntryPoint(personAuthEntryPoint)
+                    .and().httpBasic().authenticationEntryPoint(userExceptionMessageService)
                     .and().cors()
                     .and().csrf().disable()
             //.csrf().csrfTokenRepository(csrfTokenRepository()).and()

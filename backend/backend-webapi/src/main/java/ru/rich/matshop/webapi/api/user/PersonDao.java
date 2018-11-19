@@ -43,14 +43,6 @@ class PersonDao {
                 .fetchOneInto(Long.class);
     }
 
-    public Long save(Person p) {
-        if (p.getId() == null) {
-            return insert(p);
-        }
-        update(p);
-        return p.getId();
-    }
-
     public void update(Person p) {
         int res = create.update(PERSON)
                 .set(create.newRecord(PERSON, p))
