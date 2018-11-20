@@ -77,10 +77,8 @@ const snackbarStyle = {
         display: "block",
         left: "15px",
         position: "absolute",
-        top: "50%",
-        marginTop: "-15px",
-        width: "30px",
-        height: "30px"
+        marginTop: "-4px",
+        fontSize: 25
     },
     infoIcon: {
         color: "#00d3ee"
