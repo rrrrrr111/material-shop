@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 @Service
-public class PersonTokenService {
+public class AuthenticationCache {
 
     private Cache<String, Authentication> tokenCache;
     @Value("${matshop.webapi.tokenCacheMaximumSize:1000}")

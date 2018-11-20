@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.api.common.security;
+package ru.rich.matshop.webapi.api.common.security.csrf;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.csrf.CsrfToken;

@@ -1,9 +1,9 @@
-package ru.rich.matshop.webapi.api.user.auth;
+package ru.rich.matshop.webapi.api.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.rich.matshop.webapi.api.common.security.PersonSecurityContext;
+import ru.rich.matshop.webapi.api.user.auth.AuthenticationCache;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.HEADER_X_AUTH_TOKEN;
-
+/**
+ * Фильтр для аутэнтификации через JSON Web Token (JWT)
+ */
 @Component
-public class PersonAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    public static final String HEADER_X_AUTH_TOKEN = "X-AUTH-TOKEN";
     @Autowired
-    private PersonTokenService personTokenService;
+    private AuthenticationCache authenticationCache;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -27,10 +29,10 @@ public class PersonAuthenticationFilter extends OncePerRequestFilter {
         final var tokenId = request.getHeader(HEADER_X_AUTH_TOKEN);
         if (tokenId != null) {
 
-            final var authentication = personTokenService.getToken(tokenId);
+            final var authentication = authenticationCache.getToken(tokenId);
             if (authentication != null) {
 
-                PersonSecurityContext.setAuthentication(authentication);
+                AuthContext.setAuthentication(authentication);
             }
         }
         chain.doFilter(request, response);

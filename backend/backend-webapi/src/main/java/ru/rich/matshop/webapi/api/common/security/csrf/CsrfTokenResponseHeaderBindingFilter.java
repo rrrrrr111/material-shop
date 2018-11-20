@@ -1,9 +1,10 @@
-package ru.rich.matshop.webapi.api.common.security;
+package ru.rich.matshop.webapi.api.common.security.csrf;
 
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +22,10 @@ public class CsrfTokenResponseHeaderBindingFilter extends OncePerRequestFilter {
     private static final String RESPONSE_TOKEN_NAME = "X-CSRF-TOKEN";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, javax.servlet.FilterChain filterChain) throws ServletException, IOException {
-        CsrfToken token = (CsrfToken) request.getAttribute(REQUEST_ATTRIBUTE_NAME);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
+        CsrfToken token = (CsrfToken) request.getAttribute(REQUEST_ATTRIBUTE_NAME);
         if (token != null) {
             response.setHeader(RESPONSE_HEADER_NAME, token.getHeaderName());
             response.setHeader(RESPONSE_PARAM_NAME, token.getParameterName());

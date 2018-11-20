@@ -13,8 +13,11 @@ import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
 
 import javax.validation.Valid;
 
+import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
+
 @RestController
 class UserController extends AbstractRestController {
+    private static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
 
     private final UserService userService;
 
@@ -22,7 +25,7 @@ class UserController extends AbstractRestController {
         this.userService = userService;
     }
 
-    @PostMapping("/api/be/user/save")
+    @PostMapping(USER_URL_PREFIX + "/save")
     public UserSaveResponse save(@RequestBody
                                  @Valid
                                          UserSaveRequest req) {
@@ -30,15 +33,19 @@ class UserController extends AbstractRestController {
         return resp;
     }
 
-    @PostMapping("/api/be/user/save-settings")
-    public UserSaveSettingsResponse saveSettings(@RequestBody @Valid UserSaveSettingsRequest req) {
+    @PostMapping(USER_URL_PREFIX + "/save-settings")
+    public UserSaveSettingsResponse saveSettings(@RequestBody
+                                                 @Valid
+                                                         UserSaveSettingsRequest req) {
 
         var resp = prepareResponse(new UserSaveSettingsResponse());
         return resp;
     }
 
-    @PostMapping("/api/be/user/change-password")
-    public ChangePasswordResponse changePassword(@RequestBody @Valid ChangePasswordRequest req) {
+    @PostMapping(USER_URL_PREFIX + "/change-password")
+    public ChangePasswordResponse changePassword(@RequestBody
+                                                 @Valid
+                                                         ChangePasswordRequest req) {
 
         var resp = prepareResponse(new ChangePasswordResponse());
         return resp;

@@ -22,22 +22,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.rich.matshop.webapi.api.common.rest.UserExceptionMessageService;
-import ru.rich.matshop.webapi.api.user.auth.PersonAuthenticationFilter;
+import ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter;
 import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 
 import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.POST;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_FAILURE;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_PROCESSING;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_LOGIN_SUCCESS;
-import static ru.rich.matshop.webapi.api.user.auth.AuthController.URL_SIGNOUT;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String REQUEST_HEADER_X_XSRF_TOKEN = "X-CSRF-TOKEN";
 
     @Autowired
     private PersonDetailsService personDetailsService;
@@ -48,40 +42,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Configuration
     @Order(1)
     public static class WebApiSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        public static final String API_URL_PREFIX = "/api/be";
+        public static final String AUTH_URL_PREFIX = API_URL_PREFIX + "/auth";
+        public static final String URL_LOGIN = AUTH_URL_PREFIX + "/login";
+        public static final String URL_LOGIN_PROCESSING = AUTH_URL_PREFIX + "/login-processing";
+        public static final String URL_LOGIN_SUCCESS = AUTH_URL_PREFIX + "/success";
+        public static final String URL_LOGIN_FAILURE = AUTH_URL_PREFIX + "/failure";
+        public static final String URL_SIGNOUT = AUTH_URL_PREFIX + "/signout";
+        private static final String REQUEST_HEADER_X_XSRF_TOKEN = "X-CSRF-TOKEN";
+
         @Autowired
         private RequestCache requestCache;
         @Autowired
         private UserExceptionMessageService userExceptionMessageService;
         @Autowired
-        private PersonAuthenticationFilter personAuthenticationFilter;
+        private JwtAuthenticationFilter jwtAuthenticationFilter;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-                    .antMatcher("/api/be/**").authorizeRequests()
-                    .antMatchers(POST, "/api/be/user/**", "/api/be/order/list").authenticated()
-                    .antMatchers("/api/be/**").permitAll()
+                    .antMatcher(API_URL_PREFIX + "/**").authorizeRequests()
+                    .antMatchers(POST, API_URL_PREFIX + "/user/**", API_URL_PREFIX + "/order/list").authenticated()
+                    .antMatchers(API_URL_PREFIX + "/**").permitAll()
                     .anyRequest().authenticated()
                     .and().headers().xssProtection()
                     .and()
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
                     .and().logout().logoutUrl(URL_SIGNOUT).clearAuthentication(true).permitAll()
                     .and().requestCache().requestCache(requestCache)
-                    .and().addFilterBefore(personAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(userExceptionMessageService)
+                    .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(userExceptionMessageService)
                     .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and().cors()
                     .and().csrf().disable()
             //.and().csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_URL_PREFIX + "/**")
-            //.formLogin().loginPage("/login").permitAll()
-            //.and().logout().permitAll()
             ;
-        }
-
-        private CsrfTokenRepository csrfTokenRepository() {
-            var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-            //var repository = new HttpSessionCsrfTokenRepository();
-            repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
-            return repository;
         }
 
         @Bean
@@ -102,8 +97,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             configuration.setMaxAge(3600L);
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            source.registerCorsConfiguration("/api/be/**", configuration);
+            source.registerCorsConfiguration(API_URL_PREFIX + "/**", configuration);
             return source;
+        }
+
+        private CsrfTokenRepository csrfTokenRepository() {
+            var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+            //var repository = new HttpSessionCsrfTokenRepository();
+            repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
+            return repository;
         }
     }
 

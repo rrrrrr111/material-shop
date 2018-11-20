@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.rich.matshop.webapi.WebSecurityConfig;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.user.UserService;
 import ru.rich.matshop.webapi.api.user.auth.signin.LoginResponse;
@@ -18,23 +19,19 @@ import ru.rich.matshop.webapi.api.user.model.Person;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.AUTH_URL_PREFIX;
+import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_LOGIN_PROCESSING;
+import static ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter.HEADER_X_AUTH_TOKEN;
+
 @RestController
 public class AuthController extends AbstractRestController {
 
-    public static final String AUTH_URL_PREFIX = "/api/be/auth";
-    public static final String URL_LOGIN = AUTH_URL_PREFIX + "/login";
-    public static final String URL_LOGIN_PROCESSING = AUTH_URL_PREFIX + "/login-processing";
-    public static final String URL_LOGIN_SUCCESS = AUTH_URL_PREFIX + "/success";
-    public static final String URL_LOGIN_FAILURE = AUTH_URL_PREFIX + "/failure";
-    public static final String URL_SIGNOUT = AUTH_URL_PREFIX + "/signout";
-    public static final String HEADER_X_AUTH_TOKEN = "X-AUTH-TOKEN";
-
     private final UserService userService;
-    private final PersonTokenService personTokenService;
+    private final AuthenticationCache authenticationCache;
 
-    public AuthController(UserService userService, PersonTokenService personTokenService) {
+    public AuthController(UserService userService, AuthenticationCache authenticationCache) {
         this.userService = userService;
-        this.personTokenService = personTokenService;
+        this.authenticationCache = authenticationCache;
     }
 
     /**
@@ -42,14 +39,15 @@ public class AuthController extends AbstractRestController {
      */
     @GetMapping(URL_LOGIN_PROCESSING)
     public @ResponseBody
-    LoginResponse loginProcessing(
+    LoginResponse afterLoginSuccess(
             HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) {
+
+        String tokenId = authenticationCache.putToken(authentication);
+        response.addHeader(HEADER_X_AUTH_TOKEN, tokenId);
+
         var resp = prepareResponse(new LoginResponse());
         resp.setPerson((Person) authentication.getPrincipal());
-
-        String tokenId = personTokenService.putToken(authentication);
-        response.addHeader(HEADER_X_AUTH_TOKEN, tokenId);
         return resp;
     }
 
@@ -65,7 +63,7 @@ public class AuthController extends AbstractRestController {
         return resp;
     }
 
-    @GetMapping(URL_SIGNOUT)
+    @GetMapping(WebSecurityConfig.WebApiSecurityConfig.URL_SIGNOUT)
     public SignoutResponse signout(Authentication authentication) {
 
 

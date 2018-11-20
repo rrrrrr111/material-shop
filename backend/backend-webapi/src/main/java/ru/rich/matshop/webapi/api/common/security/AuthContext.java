@@ -8,7 +8,7 @@ import ru.rich.matshop.webapi.api.user.model.UserInfo;
 /**
  *
  */
-public class PersonSecurityContext {
+public class AuthContext {
     /**
      * @return Получение информации о текущем пользователе.
      */
