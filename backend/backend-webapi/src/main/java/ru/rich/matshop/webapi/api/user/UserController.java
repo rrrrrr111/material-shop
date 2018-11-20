@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
+import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.password.ChangePasswordRequest;
 import ru.rich.matshop.webapi.api.user.password.ChangePasswordResponse;
 import ru.rich.matshop.webapi.api.user.save.UserSaveRequest;
@@ -13,9 +14,11 @@ import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
 
 import javax.validation.Valid;
 
+import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 
 @RestController
+public
 class UserController extends AbstractRestController {
     private static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
 
@@ -49,5 +52,15 @@ class UserController extends AbstractRestController {
 
         var resp = prepareResponse(new ChangePasswordResponse());
         return resp;
+    }
+
+    public static Person fromUi(Person person) {
+
+        person.setPhone(defaultIfEmpty(person.getPhone(), ""));
+        person.setEmail(defaultIfEmpty(person.getEmail(), ""));
+        person.setFirstName(defaultIfEmpty(person.getFirstName(), ""));
+        person.setLastName(defaultIfEmpty(person.getLastName(), ""));
+        person.setPassword(defaultIfEmpty(person.getPassword(), ""));
+        return person;
     }
 }

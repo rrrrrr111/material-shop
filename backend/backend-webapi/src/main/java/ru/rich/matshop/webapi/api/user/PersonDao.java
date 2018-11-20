@@ -56,9 +56,11 @@ class PersonDao {
     }
 
     public Long insert(Person p) {
+        final var now = new Date();
         return create.insertInto(PERSON)
                 .set(create.newRecord(PERSON, p))
-                .set(PERSON.EDIT_DATE, new Date())
+                .set(PERSON.EDIT_DATE, now)
+                .set(PERSON.LAST_VISIT, now)
                 .set(PERSON.LOCKED, false)
                 .set(PERSON.ROLE, Role.USER.toString())
                 .returning(PERSON.ID)

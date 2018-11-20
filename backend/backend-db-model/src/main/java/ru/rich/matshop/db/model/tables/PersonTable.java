@@ -4,12 +4,6 @@
 package ru.rich.matshop.db.model.tables;
 
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
@@ -22,13 +16,17 @@ import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
-
 import ru.rich.matshop.db.converters.SqlDateConverter;
 import ru.rich.matshop.db.converters.TimestampConverter;
 import ru.rich.matshop.db.model.Indexes;
 import ru.rich.matshop.db.model.Keys;
 import ru.rich.matshop.db.model.Matshop;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
+
+import javax.annotation.Generated;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -44,7 +42,7 @@ import ru.rich.matshop.db.model.tables.records.PersonRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PersonTable extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -41720424;
+    private static final long serialVersionUID = -76292916;
 
     /**
      * The reference instance of <code>matshop.person</code>
@@ -113,6 +111,11 @@ public class PersonTable extends TableImpl<PersonRecord> {
      * The column <code>matshop.person.role</code>.
      */
     public final TableField<PersonRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+
+    /**
+     * The column <code>matshop.person.last_visit</code>.
+     */
+    public final TableField<PersonRecord, Date> LAST_VISIT = createField("last_visit", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "", new TimestampConverter());
 
     /**
      * The column <code>matshop.person.edit_date</code>.

@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <logger name="ru.rich.matshop.webapi" level="TRACE"/>
+    <logger name="ru.rich.matshop" level="TRACE"/>
     <!-- SQL -->
     <logger name="org.springframework.jdbc" level="DEBUG"/>
     <logger name="org.jooq" level="DEBUG"/>

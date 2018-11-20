@@ -2,6 +2,9 @@ import {determineUserMessage, SERVER_SIDE_ERROR} from "app/utils/messageUtil";
 import util from "app/utils/util";
 import axios from "axios";
 
+
+const KEY_JWT = 'JWT';
+const HEADER_JWT = 'x-auth-token';
 let backend;
 const prepareBackend = () => {
     if (!backend) {
@@ -9,9 +12,9 @@ const prepareBackend = () => {
             .then((siteConfig) => {
                 const axiosInstance = axios.create({
                     baseURL: siteConfig.backendApiUrl,
-                    xsrfCookieName: 'XSRF-TOKEN',
-                    xsrfHeaderName: 'X-CSRF-TOKEN',
-                    withCredentials: true,
+                    headers: {
+                        [HEADER_JWT]: localStorage.getItem(KEY_JWT)
+                    }
                 });
                 backend = Promise.resolve({axiosInstance, siteConfig});
                 return {axiosInstance, siteConfig};
@@ -20,9 +23,23 @@ const prepareBackend = () => {
     return backend;
 };
 
-const handleResponse = (response) => {
+const checkStatus = function (response) {
     if (response.status && response.status !== 200) {
         throw new Error("Exception on server side");
+    }
+};
+const renewToken = function (newJwt) {
+    const oldJwt = localStorage.getItem(KEY_JWT);
+    if (oldJwt !== newJwt) {
+        localStorage.setItem(KEY_JWT, newJwt);
+        backend = null;
+    }
+};
+const handleResponse = (response) => {
+    checkStatus(response);
+    const jwt = response.headers[HEADER_JWT];
+    if (jwt) {
+        renewToken(jwt);
     }
     return {
         ...response.data,
@@ -61,7 +78,10 @@ const backendSignin = (loginData) => {
                 auth: {
                     username: loginData.email,
                     password: loginData.password
-                }
+                },
+                headers: {
+                    [HEADER_JWT]: localStorage.getItem(KEY_JWT)
+                },
             });
         }).then(handleResponse, handleError);
 };
@@ -75,9 +95,19 @@ const backendSignout = () => {
                 params: {
                     shopId: siteConfig.shopId
                 },
-                method: 'get'
+                method: 'get',
+                headers: {
+                    [HEADER_JWT]: localStorage.getItem(KEY_JWT)
+                },
             });
-        }).then(handleResponse, handleError);
+        }).then((response) => {
+            checkStatus(response);
+            renewToken(null);
+            return {
+                ...response.data,
+                message: determineUserMessage(response.data.message),
+            };
+        }, handleError);
 };
 
 const localGet = (url, config) => {

@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -28,6 +32,7 @@ import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.POST;
+import static ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter.HEADER_JWT;
 
 @Configuration
 @EnableWebSecurity
@@ -49,8 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         public static final String URL_LOGIN_PROCESSING = AUTH_URL_PREFIX + "/login-processing";
         public static final String URL_LOGIN_SUCCESS = AUTH_URL_PREFIX + "/success";
         public static final String URL_LOGIN_FAILURE = AUTH_URL_PREFIX + "/failure";
+        public static final String URL_SIGNUP = AUTH_URL_PREFIX + "/signup";
         public static final String URL_SIGNOUT = AUTH_URL_PREFIX + "/signout";
-        private static final String REQUEST_HEADER_X_XSRF_TOKEN = "X-CSRF-TOKEN";
+        private static final String REQUEST_XSRF = "X-CSRF-TOKEN";
 
         @Autowired
         private RequestCache requestCache;
@@ -69,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and().headers().xssProtection()
                     .and()
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
-                    .and().logout().logoutUrl(URL_SIGNOUT).clearAuthentication(true).permitAll()
+                    .and().logout().logoutUrl(URL_SIGNOUT).logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll()
                     .and().requestCache().requestCache(requestCache)
                     .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(userExceptionMessageService)
                     .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -93,7 +99,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "X-Requested-With",
                     "Accept",
                     "Content-Type",
-                    REQUEST_HEADER_X_XSRF_TOKEN));
+                    HEADER_JWT,
+                    REQUEST_XSRF
+            ));
+            configuration.setExposedHeaders(Arrays.asList(
+                    HEADER_JWT
+            ));
             configuration.setMaxAge(3600L);
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -104,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         private CsrfTokenRepository csrfTokenRepository() {
             var repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
             //var repository = new HttpSessionCsrfTokenRepository();
-            repository.setHeaderName(REQUEST_HEADER_X_XSRF_TOKEN);
+            repository.setHeaderName(REQUEST_XSRF);
             return repository;
         }
     }
@@ -146,6 +157,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     RequestCache requestCache() {
         return new HttpSessionRequestCache();
+    }
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override

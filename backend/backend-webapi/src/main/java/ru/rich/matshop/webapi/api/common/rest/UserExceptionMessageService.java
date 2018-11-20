@@ -37,19 +37,33 @@ public class UserExceptionMessageService extends AbstractRestController implemen
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public UserExceptionResponse handle(UserException ex) {
-        log.warn("Exception on request processing: {} user exception: '{}'", ex.toString(), ex.getUserMessage());
+        log.warn("Exception on request processing: {} user exception: '{}'", ex.getMessage(), ex.getUserMessage());
 
         return prepareResponse(new UserExceptionResponse(ex.getUserMessage()));
     }
 
     /**
-     * Подготовка сообщения об ошибке на UI при авторизации ({@link AuthenticationException})
+     * Подготовка сообщения об ошибке на UI при авторизации ({@link AuthenticationException}),
+     * используется из под Spring Security
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
+                         AuthenticationException ex) throws IOException, ServletException {
 
-        response.sendError(UNAUTHORIZED.value(), findMessage(authException));
+        response.sendError(UNAUTHORIZED.value(), findMessage(ex));
+    }
+
+    /**
+     * Подготовка сообщения об ошибке на UI при авторизации ({@link AuthenticationException}),
+     * используется при выбросе ошибки из контролеров
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(UNAUTHORIZED)
+    @ResponseBody
+    public UserExceptionResponse handle(AuthenticationException ex) {
+        log.warn("Exception on authentication", ex.getMessage());
+
+        return prepareResponse(new UserExceptionResponse(findMessage(ex)));
     }
 
     private String findMessage(AuthenticationException e) {
