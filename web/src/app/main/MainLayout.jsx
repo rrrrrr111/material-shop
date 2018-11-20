@@ -7,7 +7,7 @@ import Header from "app/main/header/Header";
 import SimpleProduct from "app/product/SimpleProduct";
 import LoginPopup from "app/user/auth/LoginPopup";
 import RegPopup from "app/user/auth/RegPopup";
-import SignoutComponent from "app/user/auth/SignoutComponent";
+import SignoutComponent from "app/user/auth/SignoutComp";
 import UserProfile from "app/user/profile/UserProfile";
 import util from "app/utils/util";
 import React from "react";

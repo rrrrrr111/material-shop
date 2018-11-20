@@ -28,7 +28,7 @@ import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_SIGNOUT;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_SIGNUP;
 import static ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter.HEADER_JWT;
-import static ru.rich.matshop.webapi.api.user.UserController.fromUi;
+import static ru.rich.matshop.webapi.api.user.profile.UserController.fromUi;
 
 @RestController
 public class AuthController extends AbstractRestController {

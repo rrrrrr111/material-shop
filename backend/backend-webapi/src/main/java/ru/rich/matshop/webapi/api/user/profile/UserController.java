@@ -1,16 +1,17 @@
-package ru.rich.matshop.webapi.api.user;
+package ru.rich.matshop.webapi.api.user.profile;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
+import ru.rich.matshop.webapi.api.user.UserService;
 import ru.rich.matshop.webapi.api.user.model.Person;
-import ru.rich.matshop.webapi.api.user.password.ChangePasswordRequest;
-import ru.rich.matshop.webapi.api.user.password.ChangePasswordResponse;
-import ru.rich.matshop.webapi.api.user.save.UserSaveRequest;
-import ru.rich.matshop.webapi.api.user.save.UserSaveResponse;
-import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsRequest;
-import ru.rich.matshop.webapi.api.user.settings.UserSaveSettingsResponse;
+import ru.rich.matshop.webapi.api.user.profile.password.ChangePasswordRequest;
+import ru.rich.matshop.webapi.api.user.profile.password.ChangePasswordResponse;
+import ru.rich.matshop.webapi.api.user.profile.save.UserSaveRequest;
+import ru.rich.matshop.webapi.api.user.profile.save.UserSaveResponse;
+import ru.rich.matshop.webapi.api.user.profile.settings.UserSaveSettingsRequest;
+import ru.rich.matshop.webapi.api.user.profile.settings.UserSaveSettingsResponse;
 
 import javax.validation.Valid;
 
@@ -18,8 +19,7 @@ import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 
 @RestController
-public
-class UserController extends AbstractRestController {
+public class UserController extends AbstractRestController {
     private static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
 
     private final UserService userService;

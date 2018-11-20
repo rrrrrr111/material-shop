@@ -17,7 +17,8 @@ import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
-import {USER_AUTH_RESULT, USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
+import SignoutComp from "app/user/auth/SignoutComp";
+import {USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
 import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {checkEmail, isNotBlank, isTrue} from "app/utils/validateUtil";
@@ -25,6 +26,7 @@ import classNames from "classnames";
 import debounce from 'lodash/debounce'
 import React from "react";
 import {connect} from "react-redux";
+import {store} from "store";
 import regPopupStyle from "./regPopupStyle";
 
 function Transition(props) {
@@ -88,17 +90,9 @@ class RegPopup extends React.PureComponent {
 
     componentDidMount() {
         if (this.props.ui.authorized) {
-            this.props.dispatch(this.signout);
+            SignoutComp.signout(false);
         }
     }
-
-    signout = (dispatch) => {
-        util.ajax.backendSignout()
-            .then(function () {
-                dispatch(action(USER_LOGGED_OUT));
-                util.notify.signOut();
-            });
-    };
 
     handleClose = (e) => {
         if (e) e.stopPropagation();
@@ -110,11 +104,11 @@ class RegPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.props.dispatch(this._debouncedSignup);
+        this._debouncedSignup();
     };
 
     _debouncedSignup = debounce( // для избежания двойного клика
-        (dispatch) => {
+        () => {
             const compRef = this;
             update2UiFields(compRef, "loading", true, "message", "");
 
@@ -127,8 +121,8 @@ class RegPopup extends React.PureComponent {
                     if (!authorized) {
                         person = {...propsPerson, ...statePerson}
                     }
-                    dispatch(action(USER_DATA, person));
-                    dispatch(action(USER_AUTH_RESULT, authorized));
+                    store.dispatch(action(USER_DATA, person));
+                    store.dispatch(action(USER_AUTH_RESULT, authorized));
                     update2UiFields(compRef, "loading", false, "message", response.message);
                     if (authorized) {
                         compRef.handleClose();

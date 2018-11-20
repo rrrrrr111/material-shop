@@ -9,6 +9,8 @@ import ru.rich.matshop.webapi.api.feed.model.FeedResponse;
 
 import javax.validation.Valid;
 
+import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
+
 @RestController
 class FeedController extends AbstractRestController {
 
@@ -18,7 +20,7 @@ class FeedController extends AbstractRestController {
         this.feedService = feedService;
     }
 
-    @PostMapping("/api/be/feed/list")
+    @PostMapping(API_URL_PREFIX + "/feed/list")
     public FeedResponse getFeedList(@RequestBody @Valid FeedRequest request) {
 
         var resp = prepareResponse(new FeedResponse());

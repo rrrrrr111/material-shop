@@ -22,5 +22,8 @@ const notify = {
     addToCart() {
         showNotify("Товар добавлен к корзину");
     },
+    dataSaved() {
+        showNotify("Данные сохранены");
+    },
 };
 export default notify;

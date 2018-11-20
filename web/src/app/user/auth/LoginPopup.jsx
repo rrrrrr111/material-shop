@@ -17,7 +17,8 @@ import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
-import {USER_AUTH_RESULT, USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
+import SignoutComp from "app/user/auth/SignoutComp";
+import {USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
 import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
@@ -25,6 +26,7 @@ import {checkEmail, isNotBlank} from "app/utils/validateUtil";
 import debounce from 'lodash/debounce'
 import React from "react";
 import {connect} from "react-redux";
+import {store} from "store";
 
 import loginPopupStyle from "./loginPopupStyle";
 
@@ -73,17 +75,9 @@ class LoginPopup extends React.PureComponent {
 
     componentDidMount() {
         if (this.props.ui.authorized) {
-            this.props.dispatch(this.signout);
+            SignoutComp.signout(false);
         }
     }
-
-    signout = (dispatch) => {
-        util.ajax.backendSignout()
-            .then(function () {
-                dispatch(action(USER_LOGGED_OUT));
-                util.notify.signOut();
-            });
-    };
 
     handleClose = (e) => {
         if (e) e.stopPropagation();
@@ -95,11 +89,11 @@ class LoginPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.props.dispatch(this._debouncedSignin);
+        this._debouncedSignin();
     };
 
     _debouncedSignin = debounce( // для избежания двойного клика
-        (dispatch) => {
+        () => {
             const compRef = this;
             update2UiFields(compRef, "loading", true, "message", "");
 
@@ -112,8 +106,8 @@ class LoginPopup extends React.PureComponent {
                     if (!authorized) {
                         person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, что было уже введено на форме регистрации
                     }
-                    dispatch(action(USER_DATA, person));
-                    dispatch(action(USER_AUTH_RESULT, authorized));
+                    store.dispatch(action(USER_DATA, person));
+                    store.dispatch(action(USER_AUTH_RESULT, authorized));
                     update2UiFields(compRef, "loading", false, "message", response.message);
                     if (authorized) {
                         compRef.handleClose();

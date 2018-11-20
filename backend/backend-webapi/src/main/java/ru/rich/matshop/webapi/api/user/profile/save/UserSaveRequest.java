@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.api.user.save;
+package ru.rich.matshop.webapi.api.user.profile.save;
 
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.user.model.Person;
