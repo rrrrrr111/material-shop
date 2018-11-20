@@ -12,10 +12,10 @@ const util = {
     ajax,
     link,
     navigate,
-    notify,
     declension,
     dictionary,
     global,
+    notify,
     validate,
 };
 

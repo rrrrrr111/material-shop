@@ -1,4 +1,5 @@
 import UserCart from "app/cart/UserCart";
+import Notify from "app/common/message/notify/Notify";
 import Feed from "app/feed/simple/SimpleFeed";
 
 import AppFooter from "app/main/footer/AppFooter";
@@ -73,6 +74,8 @@ class MainLayout extends React.PureComponent {
                         })}
                     </Switch>
                     : null}
+
+                <Notify/>
             </div>
         );
     }

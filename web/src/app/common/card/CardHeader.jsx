@@ -7,7 +7,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-function CardHeader({...props}) {
+function CardHeader(props) {
     const {
         classes,
         className,

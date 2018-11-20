@@ -15,11 +15,11 @@ const style = theme => ({
 });
 
 // todo используется цвет темы Matireal UI, вынести настройки темы
-function CircularLoading({...props}) {
-    const {classes} = props;
+function CircularLoading(props) {
+    const {classes, ...rest} = props;
     return (
         <div className={classes.container}>
-            <CircularProgress className={classes.circular} thickness={5}/>
+            <CircularProgress className={classes.circular} thickness={5} {...rest}/>
         </div>
     );
 }

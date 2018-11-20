@@ -26,11 +26,11 @@ class Menu extends React.PureComponent {
     handleShowEmptyCartNotification() {
 
         util.navigate.goToUrl("/cart/goods", this.props.history);
-        util.notify.showNotify(this, "emptyCartNotification");
+        util.notify.cartEmpty();
     }
 
     handleCloseEmptyCartNotification() {
-        util.notify.closeNotify(this, "emptyCartNotification");
+        util.notify.cartEmpty();
     }
 
     catalogMenuMap = [

@@ -7,12 +7,12 @@ import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {Route, Switch} from "react-router";
 import {BrowserRouter} from 'react-router-dom';
-import {configureStore} from "store";
+import {store} from "store";
 
 
 ReactDOM.render(
     // приложение на Redux должно быть обёрнуто в Redux Provider, чтобы Redux управлял child-ами
-    <Provider store={configureStore()}>
+    <Provider store={store}>
         <BrowserRouter basename={util.global.routerBasename}>
             <Switch>
                 <Route component={MainLayout}/>

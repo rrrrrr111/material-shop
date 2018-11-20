@@ -14,19 +14,21 @@ import CardBody from "app/common/card/CardBody";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
-import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA} from "app/user/reducer";
-import {action} from "app/utils/functionUtil";
+import {USER_AUTH_RESULT, USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
+import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {checkEmail, isNotBlank, isTrue} from "app/utils/validateUtil";
 import classNames from "classnames";
+import debounce from 'lodash/debounce'
 import React from "react";
 import {connect} from "react-redux";
 import regPopupStyle from "./regPopupStyle";
 
 function Transition(props) {
-    return <Slide direction="down" {...props} />;
+    return <Slide direction="down" {...props}/>;
 }
 
 class RegPopup extends React.PureComponent {
@@ -45,6 +47,8 @@ class RegPopup extends React.PureComponent {
                 passwordValid: true,
                 aggrCheckedValid: true,
                 enterButtonActive: true,
+                loading: false,
+                message: "",
             },
         };
         this.validator = util.validate.createValidator(this, {
@@ -55,7 +59,7 @@ class RegPopup extends React.PureComponent {
                     aggrChecked: isTrue
                 },
                 formValidField: 'enterButtonActive',
-                disabled: true,
+                disabled: false,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -82,8 +86,22 @@ class RegPopup extends React.PureComponent {
         this.validator.handleChange('aggrChecked', !this.state.data.aggrChecked);
     }
 
+    componentDidMount() {
+        if (this.props.ui.authorized) {
+            this.props.dispatch(this.signout);
+        }
+    }
+
+    signout = (dispatch) => {
+        util.ajax.backendSignout()
+            .then(function () {
+                dispatch(action(USER_LOGGED_OUT));
+                util.notify.signOut();
+            });
+    };
+
     handleClose = (e) => {
-        e.stopPropagation();
+        if (e) e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
     };
 
@@ -92,31 +110,32 @@ class RegPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.props.dispatch(this.signup);
+        this.props.dispatch(this._debouncedSignup);
     };
 
-    signup = (dispatch) => {
-        dispatch(action(START_RELOAD_USER_DATA));
+    _debouncedSignup = debounce( // для избежания двойного клика
+        (dispatch) => {
+            const compRef = this;
+            update2UiFields(compRef, "loading", true, "message", "");
 
-        const propsPerson = this.props.data;
-        const statePerson = this.state.data;
-        util.ajax.backendPost("auth/signup", {person: this.state.data})
-            .then(function (response) {
-                const authorized = !(response.message);
-                let person = response.person;
-                if (!authorized) {
-                    person = {...propsPerson, ...statePerson}
-                }
-                dispatch(action(RELOAD_USER_DATA, person));
-                dispatch(action(STOP_RELOAD_USER_DATA, {
-                    message: response.message,
-                    authorized,
-                }));
-                if (authorized) {
-                    //this.handleClose(e);
-                }
-            });
-    };
+            const propsPerson = compRef.props.data;
+            const statePerson = compRef.state.data;
+            util.ajax.backendPost("auth/signup", {person: compRef.state.data})
+                .then(function (response) {
+                    const authorized = !(response.message);
+                    let person = response.person;
+                    if (!authorized) {
+                        person = {...propsPerson, ...statePerson}
+                    }
+                    dispatch(action(USER_DATA, person));
+                    dispatch(action(USER_AUTH_RESULT, authorized));
+                    update2UiFields(compRef, "loading", false, "message", response.message);
+                    if (authorized) {
+                        compRef.handleClose();
+                        util.notify.signIn();
+                    }
+                });
+        }, 500, buttonDebounceRule);
 
     render() {
         const {classes, ui} = this.props;
@@ -124,7 +143,7 @@ class RegPopup extends React.PureComponent {
             email, password, firstName, aggrChecked
         } = this.state.data;
         const {
-            emailValid, passwordValid, firstNameValid, aggrCheckedValid, enterButtonActive
+            emailValid, passwordValid, firstNameValid, aggrCheckedValid, enterButtonActive, message, loading
         } = this.state.ui;
         return (
             <Dialog
@@ -262,12 +281,15 @@ class RegPopup extends React.PureComponent {
                                                         </span>}
                                 />
                                 <div className={classes.textCenter}>
-                                    <Button color={buttonColor} onClick={this.handleSignup}
-                                            disabled={!enterButtonActive}>
-                                        Зарегистрироваться
-                                    </Button>
+                                    {loading
+                                        ? <CircularLoading/>
+                                        : <Button color={buttonColor} onClick={this.handleSignup}
+                                                  disabled={!enterButtonActive}>
+                                            Зарегистрироваться
+                                        </Button>
+                                    }
                                 </div>
-                                <ErrorMessageBox text={ui.error}/>
+                                <ErrorMessageBox text={message}/>
                             </CardBody>
                         </DialogContent>
                         <div className={classes.textCenter}>

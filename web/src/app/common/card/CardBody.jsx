@@ -4,7 +4,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-function CardBody({...props}) {
+function CardBody(props) {
     const {
         classes,
         className,

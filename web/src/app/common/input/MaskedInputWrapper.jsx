@@ -8,7 +8,7 @@ function MaskedInputWrapper(props) {
     return (
         <MaskedInput
             ref={props.inputRef}
-            {...props}
+            props
         />
     );
 }

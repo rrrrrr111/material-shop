@@ -22,7 +22,7 @@ class SimpleProductCard extends React.PureComponent {
     }
 
     handleAddToShoppingCart() {
-        util.notify.showNotify(this, "addToShoppingCart");
+        util.notify.addToCart();
     }
 
     render() {

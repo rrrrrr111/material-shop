@@ -14,20 +14,22 @@ import CardHeader from "app/common/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
-import {RELOAD_USER_DATA, START_RELOAD_USER_DATA, STOP_RELOAD_USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
-import {action} from "app/utils/functionUtil";
+import {USER_AUTH_RESULT, USER_DATA, USER_LOGGED_OUT} from "app/user/reducer";
+import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
 import {checkEmail, isNotBlank} from "app/utils/validateUtil";
+import debounce from 'lodash/debounce'
 import React from "react";
 import {connect} from "react-redux";
 
 import loginPopupStyle from "./loginPopupStyle";
 
 function Transition(props) {
-    return <Slide direction="down" {...props} />;
+    return <Slide direction="down" {...props}/>;
 }
 
 class LoginPopup extends React.PureComponent {
@@ -42,6 +44,8 @@ class LoginPopup extends React.PureComponent {
                 emailValid: true,
                 passwordValid: true,
                 enterButtonActive: true,
+                loading: false,
+                message: "",
             },
         };
         this.validator = util.validate.createValidator(this, {
@@ -50,7 +54,7 @@ class LoginPopup extends React.PureComponent {
                     password: isNotBlank,
                 },
                 formValidField: 'enterButtonActive',
-                disabled: true,
+                disabled: false,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -68,18 +72,21 @@ class LoginPopup extends React.PureComponent {
     };
 
     componentDidMount() {
-        this.props.dispatch(this.signout);
+        if (this.props.ui.authorized) {
+            this.props.dispatch(this.signout);
+        }
     }
 
     signout = (dispatch) => {
         util.ajax.backendSignout()
             .then(function () {
                 dispatch(action(USER_LOGGED_OUT));
+                util.notify.signOut();
             });
     };
 
     handleClose = (e) => {
-        e.stopPropagation();
+        if (e) e.stopPropagation();
         util.navigate.goToPreviousUrl(this.props.history);
     };
 
@@ -88,31 +95,32 @@ class LoginPopup extends React.PureComponent {
         if (!this.validator.isFormValid()) {
             return;
         }
-        this.props.dispatch(this.signin);
+        this.props.dispatch(this._debouncedSignin);
     };
 
-    signin = (dispatch) => {
-        dispatch(action(START_RELOAD_USER_DATA));
+    _debouncedSignin = debounce( // для избежания двойного клика
+        (dispatch) => {
+            const compRef = this;
+            update2UiFields(compRef, "loading", true, "message", "");
 
-        const propsPerson = this.props.data;
-        const statePerson = this.state.data;
-        util.ajax.backendSignin(this.state.data)
-            .then(function (response) {
-                const authorized = !(response.message);
-                let person = response.person;
-                if (!authorized) {
-                    person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, что было уже введено на форме регистрации
-                }
-                dispatch(action(RELOAD_USER_DATA, person));
-                dispatch(action(STOP_RELOAD_USER_DATA, {
-                    message: response.message,
-                    authorized,
-                }));
-                if (authorized) {
-                    //this.handleClose(e);
-                }
-            });
-    };
+            const propsPerson = compRef.props.data;
+            const statePerson = compRef.state.data;
+            util.ajax.backendSignin(compRef.state.data)
+                .then(function (response) {
+                    const authorized = !(response.message);
+                    let person = response.person;
+                    if (!authorized) {
+                        person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, что было уже введено на форме регистрации
+                    }
+                    dispatch(action(USER_DATA, person));
+                    dispatch(action(USER_AUTH_RESULT, authorized));
+                    update2UiFields(compRef, "loading", false, "message", response.message);
+                    if (authorized) {
+                        compRef.handleClose();
+                        util.notify.signIn();
+                    }
+                });
+        }, 500, buttonDebounceRule);
 
     render() {
         const {classes, ui} = this.props;
@@ -120,7 +128,7 @@ class LoginPopup extends React.PureComponent {
             email, password
         } = this.state.data;
         const {
-            emailValid, passwordValid, enterButtonActive
+            emailValid, passwordValid, enterButtonActive, message, loading
         } = this.state.ui;
 
         return (
@@ -226,12 +234,15 @@ class LoginPopup extends React.PureComponent {
                             </CardBody>
                         </DialogContent>
                         <DialogActions className={`${classes.modalFooter} ${classes.justifyContentCenter}`}>
-                            <Button color={buttonColor} onClick={this.handleSignin}
-                                    disabled={!enterButtonActive}>
-                                Войти
-                            </Button>
+                            {loading
+                                ? <CircularLoading/>
+                                : <Button color={buttonColor} onClick={this.handleSignin}
+                                          disabled={!enterButtonActive}>
+                                    Войти
+                                </Button>
+                            }
                         </DialogActions>
-                        <ErrorMessageBox text={ui.error}/>
+                        <ErrorMessageBox text={message}/>
                         <div className={classes.textCenter}>
                             <LocalLink to="/auth/signup" modal replace>Зарегистрироваться</LocalLink>
                         </div>

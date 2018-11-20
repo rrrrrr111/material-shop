@@ -9,7 +9,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-function Card({...props}) {
+function Card(props) {
     const {
         classes,
         className,

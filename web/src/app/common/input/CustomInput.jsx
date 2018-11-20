@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 
-function CustomInput({...props}) {
+function CustomInput(props) {
     const {
         classes,
         formControlProps,

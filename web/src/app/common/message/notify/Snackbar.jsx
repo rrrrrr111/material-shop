@@ -1,17 +1,17 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import IconButton from "@material-ui/core/IconButton";
+import Snack from "@material-ui/core/Snackbar";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import Snack from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
 
 import Close from "@material-ui/icons/Close";
 
 import snackbarStyle from "app/common/message/notify/snackbarStyle.jsx";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 import {ALL_COLORS} from "../../style/styles";
 
-function Snackbar({...props}) {
+function Snackbar(props) {
     const {classes, message, color, close, icon, place, open} = props;
     let action = [];
     const messageClasses = classNames({
@@ -42,7 +42,7 @@ function Snackbar({...props}) {
             open={open}
             message={
                 <div>
-                    {icon !== undefined ? <props.icon className={classes.icon}/> : null}
+                    {icon !== undefined ? icon : null}
                     <span className={messageClasses}>{message}</span>
                 </div>
             }
@@ -62,7 +62,8 @@ Snackbar.propTypes = {
     message: PropTypes.node.isRequired,
     color: PropTypes.oneOf(ALL_COLORS),
     close: PropTypes.bool,
-    icon: PropTypes.func,
+    icon: PropTypes.node,
+    onClose: PropTypes.func,
     place: PropTypes.oneOf(["tl", "tr", "tc", "br", "bl", "bc"]),
     open: PropTypes.bool
 };

@@ -14,7 +14,7 @@ const style = {
     }
 };
 
-function GridItem({...props}) {
+function GridItem(props) {
     const {classes, children, className, ...rest} = props;
     const c = className ? classes.grid + " " + className : classes.grid;
 

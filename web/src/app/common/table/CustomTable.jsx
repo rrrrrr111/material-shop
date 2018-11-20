@@ -10,7 +10,7 @@ import cx from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-function CustomTable({...props}) {
+function CustomTable(props) {
     const {
         classes,
         tableHead,

@@ -32,7 +32,7 @@ const style = theme => ({
     },
 });
 
-function Price({...props}) {
+function Price(props) {
     const {classes, className, value, big, bold} = props;
     let valueClass = classes.price;
     valueClass = big ? valueClass + " big" : valueClass;

@@ -13,11 +13,11 @@ class SignoutComponent extends React.PureComponent {
     }
 
     handleShowSignOutNotify() {
-        util.notify.showNotify(this, "signOutNotify");
+        util.notify.signOut();
     }
 
     handleCloseSignOutNotify() {
-        util.notify.closeNotify(this, "signOutNotify");
+        util.notify.signOut();
     }
 
     componentDidMount() {

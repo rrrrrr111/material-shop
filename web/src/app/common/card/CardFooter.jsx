@@ -6,7 +6,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-function CardFooter({...props}) {
+function CardFooter(props) {
     const {
         classes,
         className,

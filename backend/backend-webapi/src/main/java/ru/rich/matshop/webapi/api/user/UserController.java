@@ -56,11 +56,11 @@ class UserController extends AbstractRestController {
 
     public static Person fromUi(Person person) {
 
-        person.setPhone(defaultIfEmpty(person.getPhone(), ""));
-        person.setEmail(defaultIfEmpty(person.getEmail(), ""));
-        person.setFirstName(defaultIfEmpty(person.getFirstName(), ""));
-        person.setLastName(defaultIfEmpty(person.getLastName(), ""));
-        person.setPassword(defaultIfEmpty(person.getPassword(), ""));
+        person.setPhone(defaultIfEmpty(person.getPhone(), null));
+        person.setEmail(defaultIfEmpty(person.getEmail(), null));
+        person.setFirstName(defaultIfEmpty(person.getFirstName(), null));
+        person.setLastName(defaultIfEmpty(person.getLastName(), null));
+        person.setPassword(defaultIfEmpty(person.getPassword(), null));
         return person;
     }
 }
