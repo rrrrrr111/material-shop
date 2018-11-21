@@ -48,7 +48,10 @@ class ProfileTab extends React.PureComponent {
     }
 
     static getDerivedStateFromProps(props, state) {
-        return {...state, data: props.data};
+        if (state.data.editDate !== props.data.editDate) {
+            return {...state, data: props.data};
+        }
+        return null;
     }
 
     handleSave = (e) => {
