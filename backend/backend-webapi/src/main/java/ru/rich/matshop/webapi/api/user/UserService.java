@@ -8,10 +8,14 @@ import ru.rich.matshop.webapi.api.common.rest.UserException;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.Sex;
 
+import java.util.Set;
+
+import static java.util.Collections.emptySet;
+
 @Service
 public class UserService {
-    private static final String USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован, " +
-            "Вам необходимо войти либо восстановить пароль";
+    private static final String EMAIL_EXISTS_USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован";
+    private static final String PHONE_EXISTS_USER_MESSAGE = "Пользователь с указанным телефоном уже зарегистрирован";
 
     private final PersonDao personDao;
 
@@ -20,23 +24,23 @@ public class UserService {
     }
 
     public Person signup(Person person) {
-
-        Long personId = personDao.getIdByEmail(person.getEmail());
-        if (personId != null) {
-            throw new UserException(USER_MESSAGE, 
-                    String.format("User with id=%s already exists, email=%s",
-                            personId, person.getEmail()));
-        }
         Assert.isNull(person.getId(), "Person id must be null");
-        personId = personDao.insert(person);
+
+        checkEmailNotExists(person.getEmail(), emptySet());
+        checkPhoneNotExists(person.getPhone(), emptySet());
+
+        Long personId = personDao.insert(person);
         PersonRecord record = personDao.getById(personId);
 
         return fillPerson(record, new Person());
     }
 
     public Person updateProfile(Person person) {
-
         Preconditions.checkNotNull(person.getId(), "Person id must not be null");
+
+        checkEmailNotExists(person.getEmail(), Set.of(person.getId()));
+        checkPhoneNotExists(person.getPhone(), Set.of(person.getId()));
+
         return personDao.updateProfile(person);
     }
 
@@ -52,5 +56,29 @@ public class UserService {
         p.setAgreementChecked(rec.getAgreementChecked());
         p.setEditDate(rec.getEditDate());
         return p;
+    }
+
+    private void checkEmailNotExists(String email, Set<Long> exceptIds) {
+        if (email == null) {
+            return;
+        }
+        Long personId = personDao.getIdByEmail(email, exceptIds);
+        if (personId != null) {
+            throw new UserException(EMAIL_EXISTS_USER_MESSAGE,
+                    String.format("User with id=%s already exists, email=%s",
+                            personId, email));
+        }
+    }
+
+    private void checkPhoneNotExists(String phone, Set<Long> exceptIds) {
+        if (phone == null) {
+            return;
+        }
+        Long personId = personDao.getIdByPhone(phone, exceptIds);
+        if (personId != null) {
+            throw new UserException(PHONE_EXISTS_USER_MESSAGE,
+                    String.format("User with id=%s already exists, phone=%s",
+                            personId, phone));
+        }
     }
 }

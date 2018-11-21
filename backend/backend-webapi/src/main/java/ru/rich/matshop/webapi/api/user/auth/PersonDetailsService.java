@@ -11,6 +11,7 @@ import ru.rich.matshop.webapi.api.user.model.Role;
 import ru.rich.matshop.webapi.api.user.model.UserInfo;
 
 import static java.lang.String.format;
+import static java.util.Collections.emptySet;
 
 @Service
 public class PersonDetailsService implements UserDetailsService {
@@ -25,7 +26,7 @@ public class PersonDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Long personId = personDao.getIdByEmail(username);
+        Long personId = personDao.getIdByEmail(username, emptySet());
         if (personId == null) {
             throw new UsernameNotFoundException(
                     format("User with login %s not found", username));

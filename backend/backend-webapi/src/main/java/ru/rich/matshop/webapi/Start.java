@@ -15,7 +15,7 @@ import java.util.Arrays;
 @SpringBootApplication(scanBasePackageClasses = {Start.class})
 @EnableCaching
 public class Start {
-    private static Logger log = LoggerFactory.getLogger(Start.class);
+    private static final Logger log = LoggerFactory.getLogger(Start.class);
 
     public static void main(String[] args) {
         SpringApplication.run(Start.class, args);

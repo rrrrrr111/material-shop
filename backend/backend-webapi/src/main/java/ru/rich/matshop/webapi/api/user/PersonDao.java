@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.user;
 
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -11,13 +12,13 @@ import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.Role;
 
 import java.util.Date;
+import java.util.Set;
 
 import static ru.rich.matshop.db.model.Tables.PERSON;
 import static ru.rich.matshop.webapi.util.DaoUtil.isOne;
 
 @Repository
-public
-class PersonDao {
+public class PersonDao {
 
     private final DSLContext create;
 
@@ -34,18 +35,20 @@ class PersonDao {
     }
 
     @Cacheable("personIdByEmail")
-    public Long getIdByEmail(String email) {
+    public Long getIdByEmail(String email, Set<Long> exceptIds) {
         return create.select(PERSON.ID)
                 .from(PERSON)
-                .where(PERSON.EMAIL.eq(email))
+                .where(PERSON.EMAIL.eq(email)
+                        .and(exceptIds.isEmpty() ? DSL.trueCondition() : PERSON.ID.notIn(exceptIds)))
                 .fetchOneInto(Long.class);
     }
 
     @Cacheable("personIdByPhone")
-    public Long getIdByPhone(String phone) {
+    public Long getIdByPhone(String phone, Set<Long> exceptIds) {
         return create.select(PERSON.ID)
                 .from(PERSON)
-                .where(PERSON.PHONE.eq(phone))
+                .where(PERSON.PHONE.eq(phone)
+                        .and(exceptIds.isEmpty() ? DSL.trueCondition() : PERSON.ID.notIn(exceptIds)))
                 .fetchOneInto(Long.class);
     }
 

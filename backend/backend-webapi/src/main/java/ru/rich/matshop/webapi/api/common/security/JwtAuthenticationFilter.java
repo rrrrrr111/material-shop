@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    protected final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     public static final String HEADER_JWT = "x-auth-token";
     @Autowired

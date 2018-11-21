@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 public class AuthenticationCacheService {
-    protected final Logger log = LoggerFactory.getLogger(AuthenticationCacheService.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationCacheService.class);
 
     private Cache<String, Authentication> authCache;
     @Value("${matshop.webapi.authCacheMaximumSize:1000}")
