@@ -22,13 +22,13 @@ import ru.rich.matshop.webapi.api.user.model.Person;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_LOGIN_PROCESSING;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_SIGNOUT;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_SIGNUP;
 import static ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter.HEADER_JWT;
 import static ru.rich.matshop.webapi.api.user.profile.UserController.fromUi;
+import static ru.rich.matshop.webapi.api.user.profile.UserController.toUi;
 
 @RestController
 public class AuthController extends AbstractRestController {
@@ -61,7 +61,7 @@ public class AuthController extends AbstractRestController {
         response.addHeader(HEADER_JWT, newToken);
 
         var resp = prepareResponse(new LoginResponse());
-        resp.setPerson((Person) auth.getPrincipal());
+        resp.setPerson(toUi((Person) auth.getPrincipal()));
         return resp;
     }
 
@@ -71,7 +71,7 @@ public class AuthController extends AbstractRestController {
             @RequestHeader(HEADER_JWT) String oldToken,
             HttpServletRequest request, HttpServletResponse response,
             @RequestBody
-            @Valid
+                    //@Validated({WithPassword.class, WithAgreementChecked.class})
                     SignupRequest req) {
 
         Person person = userService.signup(fromUi(req.getPerson()));
@@ -83,7 +83,7 @@ public class AuthController extends AbstractRestController {
         response.addHeader(HEADER_JWT, newToken);
 
         var resp = prepareResponse(new SignupResponse());
-        resp.setPerson(person);
+        resp.setPerson(toUi(person));
         return resp;
     }
 

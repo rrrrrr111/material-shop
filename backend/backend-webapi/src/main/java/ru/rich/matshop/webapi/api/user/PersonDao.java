@@ -1,8 +1,10 @@
 package ru.rich.matshop.webapi.api.user;
 
 import org.jooq.DSLContext;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.user.model.Person;
@@ -11,6 +13,7 @@ import ru.rich.matshop.webapi.api.user.model.Role;
 import java.util.Date;
 
 import static ru.rich.matshop.db.model.Tables.PERSON;
+import static ru.rich.matshop.webapi.util.DaoUtil.isOne;
 
 @Repository
 public
@@ -22,6 +25,7 @@ class PersonDao {
         this.create = create;
     }
 
+    @Cacheable("personById")
     public PersonRecord getById(Long id) {
         PersonTable p = PERSON.as("p");
         return create.selectFrom(p)
@@ -29,6 +33,7 @@ class PersonDao {
                 .fetchOne();
     }
 
+    @Cacheable("personIdByEmail")
     public Long getIdByEmail(String email) {
         return create.select(PERSON.ID)
                 .from(PERSON)
@@ -36,6 +41,7 @@ class PersonDao {
                 .fetchOneInto(Long.class);
     }
 
+    @Cacheable("personIdByPhone")
     public Long getIdByPhone(String phone) {
         return create.select(PERSON.ID)
                 .from(PERSON)
@@ -43,18 +49,34 @@ class PersonDao {
                 .fetchOneInto(Long.class);
     }
 
-    public void update(Person p) {
+    @Caching(evict = {
+            @CacheEvict(value = {"personById"}, key = "#p.id"),
+            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
+            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+    })
+    public Person updateProfile(Person p) {
+        Date now = new Date();
         int res = create.update(PERSON)
-                .set(create.newRecord(PERSON, p))
-                .set(PERSON.EDIT_DATE, new Date())
+                .set(PERSON.FIRST_NAME, p.getFirstName())
+                .set(PERSON.LAST_NAME, p.getLastName())
+                .set(PERSON.EMAIL, p.getEmail())
+                .set(PERSON.PHONE, p.getPhone())
+                .set(PERSON.EDIT_DATE, now)
                 .where(
                         PERSON.ID.eq(p.getId())
                                 .and(PERSON.EDIT_DATE.eq(p.getEditDate()))
                 )
                 .execute();
-        Assert.isTrue(res == 1, "Result must be 1, but got " + res);
+        isOne(res);
+
+        p.setEditDate(now);
+        return p;
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
+            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+    })
     public Long insert(Person p) {
         final var now = new Date();
         return create.insertInto(PERSON)

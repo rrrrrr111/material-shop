@@ -37,7 +37,7 @@ class UserProfile extends React.Component {
     };
 
     pushToTab(activeTabIndex) {
-        util.navigate.goToUrl('/user/' + this.tabsConfig[activeTabIndex].key, this.history);
+        util.navigate.goToUrl('/user/' + this.tabsConfig[activeTabIndex].key);
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {

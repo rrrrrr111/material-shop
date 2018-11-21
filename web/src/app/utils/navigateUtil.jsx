@@ -1,3 +1,5 @@
+import {routerHistory} from "app/utils/functionUtil";
+
 const scrollGo = (element, to, duration) => {
     let start = element.scrollTop,
         change = to - start,
@@ -39,14 +41,14 @@ const getCurrentYScroll = () => {
  * хак для корректной работы на предыдущем переходе из Link
  * нужно в state передать флаг modal
  */
-const goToPreviousUrl = (history) => {
-    const state = history.location.state;
+const goToPreviousUrl = () => {
+    const state = routerHistory.location.state;
 
     if (state && state.local) {
-        history.goBack();
+        routerHistory.goBack();
         //scrollY(state.prevYScroll);
     } else {
-        goToUrl("/", history);
+        goToUrl("/");
         scrollUp();
     }
 };
@@ -54,12 +56,15 @@ const goToPreviousUrl = (history) => {
 /**
  * Переход на URL
  */
-const goToUrl = (url, history,
-                 state = {
-                     local: true,
-                     yScroll: getCurrentYScroll()
-                 }) => {
-    history.push({pathname: url, state});
+const goToUrl = (url, state) => {
+
+    routerHistory.push({
+        pathname: url, state: {
+            ...state,
+            local: true,
+            yScroll: getCurrentYScroll()
+        }
+    });
 };
 
 /**

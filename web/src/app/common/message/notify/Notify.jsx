@@ -14,7 +14,7 @@ class Notify extends React.PureComponent {
         this.closeNotify = this.closeNotify.bind(this);
     }
 
-    static timeout = 300000;
+    static timeout = 3000;
 
     clearCloseTimer = () => {
         if (this.closeTimerRef) {

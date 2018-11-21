@@ -25,7 +25,7 @@ class Menu extends React.PureComponent {
 
     handleShowEmptyCartNotification() {
 
-        util.navigate.goToUrl("/cart/goods", this.props.history);
+        util.navigate.goToUrl("/cart/goods");
         util.notify.cartEmpty();
     }
 

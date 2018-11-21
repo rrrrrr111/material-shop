@@ -41,10 +41,14 @@ class ProfileTab extends React.PureComponent {
                     phone: isNotBlank,
                 },
                 formValidField: 'enterButtonActive',
-                disabled: false,
+                disabled: true,
             }
         );
         this.handleSave = this.handleSave.bind(this);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {...state, data: props.data};
     }
 
     handleSave = (e) => {

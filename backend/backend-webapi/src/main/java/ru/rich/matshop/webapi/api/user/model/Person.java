@@ -1,27 +1,39 @@
 package ru.rich.matshop.webapi.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithAgreementChecked;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithId;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithLastName;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithPassword;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithPhone;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
+
 public class Person {
 
+    @NotNull(groups = {WithId.class})
     private Long id;
     @NotEmpty
     @Pattern(regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotEmpty
+    @NotEmpty(groups = {WithPassword.class})
     private String password;
+    @NotEmpty(groups = {WithPhone.class})
     private String phone;
     @NotEmpty
     private String firstName;
+    @NotEmpty(groups = {WithLastName.class})
     private String lastName;
     private Date dateOfBirth;
     private Sex sex;
-    private boolean agreementChecked;
+    @NotNull
+    @NotEmpty(groups = {WithAgreementChecked.class})
+    private Boolean agreementChecked;
     private Date editDate;
 
     public Long getId() {

@@ -34,7 +34,7 @@ class Wizard extends React.Component {
     };
 
     pushToTab(activeTabIndex) {
-        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url, this.props.history);
+        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url);
     }
 
     handleClickPrev = (e) => {
@@ -54,7 +54,7 @@ class Wizard extends React.Component {
             const tabIndex = this.state.activeTabIndex + step;
             if (tabIndex === -1) {
                 // todo учитывать возврат с других шагов
-                util.navigate.goToPreviousUrl(props.history);
+                util.navigate.goToPreviousUrl();
                 return
             }
             let url;
@@ -63,7 +63,7 @@ class Wizard extends React.Component {
             } else {
                 url = this.props.tabsConfig[tabIndex].url;
             }
-            util.navigate.goToUrl(url, props.history);
+            util.navigate.goToUrl(url);
         }, 500, buttonDebounceRule);
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {

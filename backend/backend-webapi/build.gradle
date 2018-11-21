@@ -24,6 +24,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-jooq:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-cache:$springBootVersion")
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     // https://mvnrepository.com/artifact/com.google.guava/guava

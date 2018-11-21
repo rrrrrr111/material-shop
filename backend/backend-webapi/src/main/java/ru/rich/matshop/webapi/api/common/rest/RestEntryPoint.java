@@ -1,6 +1,8 @@
 package ru.rich.matshop.webapi.api.common.rest;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,18 +18,37 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.apache.commons.lang3.tuple.Pair.of;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static ru.rich.matshop.webapi.util.ExceptionUtil.findExceptionOfType;
 
 @ControllerAdvice
-public class UserExceptionMessageService extends AbstractRestController implements AuthenticationEntryPoint {
+public class RestEntryPoint extends AbstractRestController implements AuthenticationEntryPoint {
 
-    private static final Map<Class<? extends AuthenticationException>, String> EXCEPTION_TO_MESSAGE_MAP =
+    private static final Pair<String, Integer> DEFAULT_RESPONSE_STATUS = of(
+            UNAUTHORIZED.getReasonPhrase(),
+            UNAUTHORIZED.value()
+    );
+    private static final Map<Class<? extends AuthenticationException>, Pair<String, Integer>> EXCEPTION_TO_RESPONSE_STATUS_MAP =
             Map.of(
-                    BadCredentialsException.class, "Логин или пароль пользователя введен не верно",
-                    UsernameNotFoundException.class, "Пользователь с указанным Email не найден, Вам необходимо зарегистрироваться",
-                    LockedException.class, "Учетная запись пользователя заблокирована"
+                    BadCredentialsException.class, of(
+                            "Логин или пароль пользователя введен не верно",
+                            UNAUTHORIZED.value()
+                    ),
+                    UsernameNotFoundException.class, of(
+                            "Пользователь с указанным Email не найден, Вам необходимо зарегистрироваться",
+                            UNAUTHORIZED.value()
+                    ),
+                    LockedException.class, of(
+                            "Учетная запись пользователя заблокирована",
+                            UNAUTHORIZED.value()
+                    ),
+                    InsufficientAuthenticationException.class, of(
+                            FORBIDDEN.getReasonPhrase(),
+                            FORBIDDEN.value()
+                    )
             );
 
     /**
@@ -50,7 +71,8 @@ public class UserExceptionMessageService extends AbstractRestController implemen
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException ex) throws IOException, ServletException {
 
-        response.sendError(UNAUTHORIZED.value(), findMessage(ex));
+        Pair<String, Integer> status = resolveResponseStatus(ex);
+        response.sendError(status.getRight(), status.getLeft());
     }
 
     /**
@@ -58,20 +80,22 @@ public class UserExceptionMessageService extends AbstractRestController implemen
      * используется при выбросе ошибки из контролеров
      */
     @ExceptionHandler(AuthenticationException.class)
-    @ResponseStatus(UNAUTHORIZED)
     @ResponseBody
-    public UserExceptionResponse handle(AuthenticationException ex) {
+    public UserExceptionResponse handle(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException ex) throws IOException {
         log.warn("Exception on authentication", ex.getMessage());
 
-        return prepareResponse(new UserExceptionResponse(findMessage(ex)));
+        Pair<String, Integer> status = resolveResponseStatus(ex);
+        response.setStatus(status.getRight());
+        return prepareResponse(new UserExceptionResponse(status.getLeft()));
     }
 
-    private String findMessage(AuthenticationException e) {
-        for (var entry : EXCEPTION_TO_MESSAGE_MAP.entrySet()) {
+    private Pair<String, Integer> resolveResponseStatus(AuthenticationException e) {
+        for (var entry : EXCEPTION_TO_RESPONSE_STATUS_MAP.entrySet()) {
             if (findExceptionOfType(e, entry.getKey()) != null) {
                 return entry.getValue();
             }
         }
-        return UNAUTHORIZED.getReasonPhrase();
+        return DEFAULT_RESPONSE_STATUS;
     }
 }

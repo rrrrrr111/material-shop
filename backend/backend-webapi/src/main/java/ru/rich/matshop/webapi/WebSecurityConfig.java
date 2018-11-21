@@ -25,7 +25,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.rich.matshop.webapi.api.common.rest.UserExceptionMessageService;
+import ru.rich.matshop.webapi.api.common.rest.RestEntryPoint;
 import ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter;
 import ru.rich.matshop.webapi.api.user.auth.PersonDetailsService;
 
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         private RequestCache requestCache;
         @Autowired
-        private UserExceptionMessageService userExceptionMessageService;
+        private RestEntryPoint restEntryPoint;
         @Autowired
         private JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -77,8 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and().formLogin().loginProcessingUrl(URL_LOGIN_PROCESSING).loginPage(URL_LOGIN).failureUrl(URL_LOGIN_FAILURE).defaultSuccessUrl(URL_LOGIN_SUCCESS, false).permitAll()
                     .and().logout().logoutUrl(URL_SIGNOUT).logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll()
                     .and().requestCache().requestCache(requestCache)
-                    .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(userExceptionMessageService)
-                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and().addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class).httpBasic().authenticationEntryPoint(restEntryPoint)
+                    .and().exceptionHandling().authenticationEntryPoint(restEntryPoint)
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
                     .and().cors()
                     .and().csrf().disable()
             //.and().csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_URL_PREFIX + "/**")

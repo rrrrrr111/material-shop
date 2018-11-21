@@ -1,4 +1,5 @@
-import {determineUserMessage, SERVER_SIDE_ERROR} from "app/utils/messageUtil";
+import LoginPopup from "app/user/auth/LoginPopup";
+import {determineUserMessage, SERVER_SIDE_ERROR} from "app/utils/notifyUtil";
 import util from "app/utils/util";
 import axios from "axios";
 
@@ -48,11 +49,18 @@ const handleResponse = (response) => {
 };
 
 const handleError = (error) => {
+    let message;
     if (error && error.response
+        && error.response.status === 403) {
+        LoginPopup.show();
+        message = null;
+    } else if (error && error.response
         && error.response.data && error.response.data.message) {
-        return {message: determineUserMessage(error.response.data.message)};
+        message = determineUserMessage(error.response.data.message);
+    } else {
+        message = SERVER_SIDE_ERROR;
     }
-    return {message: SERVER_SIDE_ERROR};
+    return {message};
 };
 
 const backendPost = (urlTail, request) => {

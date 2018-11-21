@@ -1,7 +1,10 @@
+import {createBrowserHistory} from 'history'
 import update from 'immutability-helper';
 import {connect as reduxConnect} from "react-redux";
 
+
 export const connect = reduxConnect; // для удобства, автоматический импорт
+export const routerHistory = createBrowserHistory({});
 
 export const action = (type, value) => {
     return {type: type, value: value};

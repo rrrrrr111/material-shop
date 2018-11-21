@@ -55,7 +55,7 @@ class LoginPopup extends React.PureComponent {
                     password: isNotBlank,
                 },
                 formValidField: 'enterButtonActive',
-                disabled: false,
+                disabled: true,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -70,7 +70,7 @@ class LoginPopup extends React.PureComponent {
 
     handleClose = (e) => {
         if (e) e.stopPropagation();
-        util.navigate.goToPreviousUrl(this.props.history);
+        util.navigate.goToPreviousUrl();
     };
 
     handleSignin = (e) => {
@@ -104,6 +104,10 @@ class LoginPopup extends React.PureComponent {
                     }
                 });
         }, 500, buttonDebounceRule);
+
+    static show = () => {
+        util.navigate.goToUrl("/auth/signin", {modal: true});
+    };
 
     render() {
         const {classes, ui} = this.props;

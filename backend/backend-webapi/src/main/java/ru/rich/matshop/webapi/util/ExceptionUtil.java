@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * Утилитыне методы для работы с исключениями
- * <p/>
  */
 public final class ExceptionUtil {
 

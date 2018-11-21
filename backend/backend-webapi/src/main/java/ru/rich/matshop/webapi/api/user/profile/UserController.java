@@ -1,5 +1,6 @@
 package ru.rich.matshop.webapi.api.user.profile;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,14 +30,18 @@ public class UserController extends AbstractRestController {
     }
 
     @PostMapping(USER_URL_PREFIX + "/save")
+    @Transactional
     public UserSaveResponse save(@RequestBody
-                                 @Valid
+                                         //@Validated({WithId.class, WithLastName.class, WithPhone.class})
                                          UserSaveRequest req) {
         var resp = prepareResponse(new UserSaveResponse());
+        Person reqPerson = fromUi(req.getPerson());
+        resp.setPerson(toUi(userService.updateProfile(reqPerson)));
         return resp;
     }
 
     @PostMapping(USER_URL_PREFIX + "/save-settings")
+    @Transactional
     public UserSaveSettingsResponse saveSettings(@RequestBody
                                                  @Valid
                                                          UserSaveSettingsRequest req) {
@@ -46,6 +51,7 @@ public class UserController extends AbstractRestController {
     }
 
     @PostMapping(USER_URL_PREFIX + "/change-password")
+    @Transactional
     public ChangePasswordResponse changePassword(@RequestBody
                                                  @Valid
                                                          ChangePasswordRequest req) {
@@ -54,13 +60,23 @@ public class UserController extends AbstractRestController {
         return resp;
     }
 
-    public static Person fromUi(Person person) {
+    public static Person fromUi(Person p) {
 
-        person.setPhone(defaultIfEmpty(person.getPhone(), null));
-        person.setEmail(defaultIfEmpty(person.getEmail(), null));
-        person.setFirstName(defaultIfEmpty(person.getFirstName(), null));
-        person.setLastName(defaultIfEmpty(person.getLastName(), null));
-        person.setPassword(defaultIfEmpty(person.getPassword(), null));
-        return person;
+        p.setPhone(defaultIfEmpty(p.getPhone(), null));
+        p.setEmail(defaultIfEmpty(p.getEmail(), null));
+        p.setFirstName(defaultIfEmpty(p.getFirstName(), null));
+        p.setLastName(defaultIfEmpty(p.getLastName(), null));
+        p.setPassword(defaultIfEmpty(p.getPassword(), null));
+        return p;
+    }
+
+    public static Person toUi(Person p) {
+
+        p.setPhone(defaultIfEmpty(p.getPhone(), ""));
+        p.setEmail(defaultIfEmpty(p.getEmail(), ""));
+        p.setFirstName(defaultIfEmpty(p.getFirstName(), ""));
+        p.setLastName(defaultIfEmpty(p.getLastName(), ""));
+        p.setPassword(defaultIfEmpty(p.getPassword(), ""));
+        return p;
     }
 }

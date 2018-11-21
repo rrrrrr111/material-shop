@@ -6,7 +6,7 @@ import {mapFeedToProps, RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MA
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
 import {action} from "app/utils/functionUtil";
-import {SERVER_SIDE_ERROR} from "app/utils/messageUtil";
+import {SERVER_SIDE_ERROR} from "app/utils/notifyUtil";
 import util from "app/utils/util";
 import React from "react";
 import {connect} from "react-redux";

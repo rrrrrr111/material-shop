@@ -33,6 +33,10 @@ public class UserService {
         return fillPerson(record, new Person());
     }
 
+    public Person updateProfile(Person person) {
+        return personDao.updateProfile(person);
+    }
+
     public Person fillPerson(PersonRecord rec, Person p) {
         p.setId(rec.getId());
         p.setEmail(rec.getEmail());

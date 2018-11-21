@@ -9,11 +9,10 @@ class SignoutComp extends React.PureComponent {
 
     componentDidMount() {
 
-        const history = this.props.history;
         if (this.props.ui.authorized) {
-            SignoutComp.signout(true, history);
+            SignoutComp.signout(true);
         } else {
-            SignoutComp.afterSignOut(true, history);
+            SignoutComp.afterSignOut(true);
         }
     }
 
@@ -21,19 +20,19 @@ class SignoutComp extends React.PureComponent {
         return null;
     }
 
-    static signout = (goToPreviousUrl, history) => {
+    static signout = (backToPreviousUrl) => {
         util.ajax.backendSignout()
             .then(function () {
 
                 store.dispatch(action(USER_LOGGED_OUT));
-                SignoutComp.afterSignOut(goToPreviousUrl, history);
+                SignoutComp.afterSignOut(backToPreviousUrl);
             });
     };
 
-    static afterSignOut(goToPreviousUrl, history) {
+    static afterSignOut(goToPreviousUrl) {
         util.notify.signOut();
         if (goToPreviousUrl) {
-            util.navigate.goToPreviousUrl(history);
+            util.navigate.goToPreviousUrl();
         }
     }
 }

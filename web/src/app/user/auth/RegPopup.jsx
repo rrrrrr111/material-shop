@@ -68,7 +68,7 @@ class RegPopup extends React.PureComponent {
                     aggrChecked: isTrue
                 },
                 formValidField: 'enterButtonActive',
-                disabled: false,
+                disabled: true,
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -83,7 +83,7 @@ class RegPopup extends React.PureComponent {
 
     handleClose = (e) => {
         if (e) e.stopPropagation();
-        util.navigate.goToPreviousUrl(this.props.history);
+        util.navigate.goToPreviousUrl();
     };
 
     handleSignup = (e) => {
