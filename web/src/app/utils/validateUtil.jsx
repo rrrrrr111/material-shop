@@ -19,6 +19,7 @@ export const checkEmail = (email) => {
 };
 
 const createValidator = (compRef, conf) => {
+    conf.disabled = true; // выключение валидации на полях
     return new Validator(compRef, conf);
 };
 

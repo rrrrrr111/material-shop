@@ -55,7 +55,7 @@ class RegPopup extends React.PureComponent {
                 firstNameValid: true,
                 passwordValid: true,
                 aggrCheckedValid: true,
-                enterButtonActive: true,
+                formValid: true,
                 loading: false,
                 message: "",
             },
@@ -67,8 +67,7 @@ class RegPopup extends React.PureComponent {
                     password: isNotBlank,
                     aggrChecked: isTrue
                 },
-                formValidField: 'enterButtonActive',
-                disabled: true,
+                formValidField: 'formValid',
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -103,15 +102,15 @@ class RegPopup extends React.PureComponent {
             const statePerson = compRef.state.data;
             util.ajax.backendPost("auth/signup", {person: compRef.state.data})
                 .then(function (response) {
-                    const authorized = !(response.message);
+                    const success = response.success;
                     let person = response.person;
-                    if (!authorized) {
+                    if (!success) {
                         person = {...propsPerson, ...statePerson}
                     }
                     store.dispatch(action(USER_DATA, person));
-                    store.dispatch(action(USER_AUTH_RESULT, authorized));
+                    store.dispatch(action(USER_AUTH_RESULT, success));
                     update2UiFields(compRef, "loading", false, "message", response.message);
-                    if (authorized) {
+                    if (success) {
                         compRef.handleClose();
                         util.notify.signIn();
                     }
@@ -124,7 +123,7 @@ class RegPopup extends React.PureComponent {
             email, password, firstName, aggrChecked
         } = this.state.data;
         const {
-            emailValid, passwordValid, firstNameValid, aggrCheckedValid, enterButtonActive, message, loading
+            emailValid, passwordValid, firstNameValid, aggrCheckedValid, formValid, message, loading
         } = this.state.ui;
         return (
             <Dialog
@@ -190,6 +189,7 @@ class RegPopup extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={loading}
                                 />
                                 <CustomInput
                                     formControlProps={{
@@ -213,6 +213,7 @@ class RegPopup extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 200,
                                     }}
+                                    disabled={loading}
                                 />
                                 <CustomInput
                                     formControlProps={{fullWidth: true,}}
@@ -235,6 +236,7 @@ class RegPopup extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={loading}
                                 />
                                 <FormControlLabel className={classes.termAndCondAgreementBox}
                                                   classes={{label: classes.label}}
@@ -249,7 +251,8 @@ class RegPopup extends React.PureComponent {
                                                                             [classes.uncheckedIcon]: true,
                                                                             "redShadow": !aggrCheckedValid
                                                                         })}/>}
-                                                                classes={{agreementChecked: classes.agreementChecked}}/>
+                                                                classes={{agreementChecked: classes.agreementChecked}}
+                                                                disabled={loading}/>
                                                   }
                                                   label={<span className={classes.termAndCondAgreementLabel}>
                                                             Я принимаю условия
@@ -265,7 +268,7 @@ class RegPopup extends React.PureComponent {
                                     {loading
                                         ? <CircularLoading/>
                                         : <Button color={buttonColor} onClick={this.handleSignup}
-                                                  disabled={!enterButtonActive}>
+                                                  disabled={!formValid || loading}>
                                             Зарегистрироваться
                                         </Button>
                                     }

@@ -1,5 +1,6 @@
 package ru.rich.matshop.webapi.api.user;
 
+import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
@@ -22,11 +23,11 @@ public class UserService {
 
         Long personId = personDao.getIdByEmail(person.getEmail());
         if (personId != null) {
-            throw new UserException(USER_MESSAGE,
+            throw new UserException(USER_MESSAGE, 
                     String.format("User with id=%s already exists, email=%s",
                             personId, person.getEmail()));
         }
-        Assert.isTrue(person.getId() == null, "Person id must be null");
+        Assert.isNull(person.getId(), "Person id must be null");
         personId = personDao.insert(person);
         PersonRecord record = personDao.getById(personId);
 
@@ -34,6 +35,8 @@ public class UserService {
     }
 
     public Person updateProfile(Person person) {
+
+        Preconditions.checkNotNull(person.getId(), "Person id must not be null");
         return personDao.updateProfile(person);
     }
 

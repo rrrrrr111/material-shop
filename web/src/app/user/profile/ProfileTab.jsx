@@ -28,7 +28,7 @@ class ProfileTab extends React.PureComponent {
                 lastNameValid: true,
                 phoneValid: true,
                 emailValid: true,
-                enterButtonActive: true,
+                formValid: true,
                 loading: false,
                 message: "",
             },
@@ -40,8 +40,7 @@ class ProfileTab extends React.PureComponent {
                     email: checkEmail,
                     phone: isNotBlank,
                 },
-                formValidField: 'enterButtonActive',
-                disabled: true,
+                formValidField: 'formValid',
             }
         );
         this.handleSave = this.handleSave.bind(this);
@@ -70,9 +69,8 @@ class ProfileTab extends React.PureComponent {
             util.ajax.backendPost("user/save", {person: compRef.state.data})
                 .then(function (response) {
                     update2UiFields(compRef, "loading", false, "message", response.message);
-                    const isError = !!(response.message);
-
-                    if (!isError) {
+                    const success = response.success;
+                    if (success) {
                         store.dispatch(action(USER_DATA, response.person));
                         util.notify.dataSaved();
                     }
@@ -85,7 +83,7 @@ class ProfileTab extends React.PureComponent {
             firstName, lastName, email, phone
         } = this.state.data;
         const {
-            firstNameValid, lastNameValid, emailValid, phoneValid, enterButtonActive, message, loading
+            firstNameValid, lastNameValid, emailValid, phoneValid, formValid, message, loading
         } = this.state.ui;
         return (
             <form>
@@ -108,6 +106,7 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={loading}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -126,6 +125,7 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={loading}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -145,6 +145,7 @@ class ProfileTab extends React.PureComponent {
                                         format: "+7 (###) ###-####",
                                         mask: "_",
                                     }}
+                                    disabled={loading}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -163,6 +164,7 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 200,
                                     }}
+                                    disabled={loading}
                                 />
                             </GridItem>
                         </GridContainer>
@@ -172,7 +174,8 @@ class ProfileTab extends React.PureComponent {
                             {loading
                                 ? <CircularLoading/>
                                 : <Button color={buttonColor} className={classes.cardFooterButton}
-                                          disabled={!enterButtonActive} onClick={this.handleSave}>
+                                          onClick={this.handleSave}
+                                          disabled={!formValid || loading}>
                                     Обновить профиль
                                 </Button>
                             }

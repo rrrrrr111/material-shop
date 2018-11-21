@@ -1,6 +1,6 @@
 package ru.rich.matshop.webapi.util;
 
-import org.springframework.util.Assert;
+import ru.rich.matshop.webapi.api.common.rest.UserException;
 
 /**
  * Утилитыне методы для DAO
@@ -8,6 +8,11 @@ import org.springframework.util.Assert;
 public class DaoUtil {
 
     public static void isOne(int res) {
-        Assert.isTrue(res == 1, "Result must be 1, but got " + res);
+        if (res != 1) {
+            throw new UserException(
+                    "Данные были изменены другим пользователем, обновите страницу и попробуйте еще раз",
+                    String.format(
+                            "Concurrent modification exception, expected 1 record to update but got: %s", res));
+        }
     }
 }

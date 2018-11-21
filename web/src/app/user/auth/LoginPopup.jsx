@@ -44,7 +44,7 @@ class LoginPopup extends React.PureComponent {
             ui: {
                 emailValid: true,
                 passwordValid: true,
-                enterButtonActive: true,
+                formValid: true,
                 loading: false,
                 message: "",
             },
@@ -54,8 +54,7 @@ class LoginPopup extends React.PureComponent {
                     email: checkEmail,
                     password: isNotBlank,
                 },
-                formValidField: 'enterButtonActive',
-                disabled: true,
+                formValidField: 'formValid',
             }
         );
         this.handleClose = this.handleClose.bind(this);
@@ -90,15 +89,15 @@ class LoginPopup extends React.PureComponent {
             const statePerson = compRef.state.data;
             util.ajax.backendSignin(compRef.state.data)
                 .then(function (response) {
-                    const authorized = !(response.message);
+                    const success = response.success;
                     let person = response.person;
-                    if (!authorized) {
+                    if (!success) {
                         person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, что было уже введено на форме регистрации
                     }
                     store.dispatch(action(USER_DATA, person));
-                    store.dispatch(action(USER_AUTH_RESULT, authorized));
+                    store.dispatch(action(USER_AUTH_RESULT, success));
                     update2UiFields(compRef, "loading", false, "message", response.message);
-                    if (authorized) {
+                    if (success) {
                         compRef.handleClose();
                         util.notify.signIn();
                     }
@@ -115,7 +114,7 @@ class LoginPopup extends React.PureComponent {
             email, password
         } = this.state.data;
         const {
-            emailValid, passwordValid, enterButtonActive, message, loading
+            emailValid, passwordValid, formValid, message, loading
         } = this.state.ui;
 
         return (
@@ -192,6 +191,7 @@ class LoginPopup extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 200,
                                     }}
+                                    disabled={loading}
                                 />
                                 <CustomInput
                                     id="login-modal-pass"
@@ -217,6 +217,7 @@ class LoginPopup extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={loading}
                                 />
                             </CardBody>
                         </DialogContent>
@@ -224,7 +225,7 @@ class LoginPopup extends React.PureComponent {
                             {loading
                                 ? <CircularLoading/>
                                 : <Button color={buttonColor} onClick={this.handleSignin}
-                                          disabled={!enterButtonActive}>
+                                          disabled={!formValid || loading}>
                                     Войти
                                 </Button>
                             }

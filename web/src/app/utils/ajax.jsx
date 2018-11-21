@@ -42,9 +42,11 @@ const handleResponse = (response) => {
     if (jwt) {
         renewToken(jwt);
     }
+    const message = determineUserMessage(response.data.message);
     return {
         ...response.data,
-        message: determineUserMessage(response.data.message),
+        message: message,
+        success: !message
     };
 };
 
@@ -60,7 +62,7 @@ const handleError = (error) => {
     } else {
         message = SERVER_SIDE_ERROR;
     }
-    return {message};
+    return {message, success: false};
 };
 
 const backendPost = (urlTail, request) => {

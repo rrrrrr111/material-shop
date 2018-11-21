@@ -28,6 +28,7 @@ function CustomInput(props) {
         inputRootCustomClasses,
         success,
         inputClasses,
+        disabled,
     } = props;
 
     const labelClasses = classNames({
@@ -80,16 +81,17 @@ function CustomInput(props) {
                     )
                     : maskProps
             }
+            disabled={disabled}
         />
     );
 
     return (
         <FormControl {...formControlProps} className={formControlClasses}>
             {labelText !== undefined ? (
-                <InputLabel
-                    className={classes.labelRoot + " " + labelClasses}
-                    htmlFor={id}
-                    {...labelProps}
+                <InputLabel disabled={disabled}
+                            className={classes.labelRoot + " " + labelClasses}
+                            htmlFor={id}
+                            {...labelProps}
                 >
                     {labelText}
                 </InputLabel>
