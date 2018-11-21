@@ -1,39 +1,40 @@
 package ru.rich.matshop.webapi.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithAgreementChecked;
-import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithId;
-import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithLastName;
-import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithPassword;
-import ru.rich.matshop.webapi.api.user.model.PersonValidation.WithPhone;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 
 public class Person {
 
-    @NotNull(groups = {WithId.class})
+
+    @Null(groups = {OnSignup.class})
+    @NotNull(groups = {OnSave.class})
     private Long id;
-    @NotEmpty
-    @Pattern(regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
+    @NotBlank(groups = {OnSignup.class, OnSave.class})
+    @Pattern(groups = {OnSignup.class, OnSave.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotEmpty(groups = {WithPassword.class})
+    @NotBlank(groups = {OnSignup.class})
     private String password;
-    @NotEmpty(groups = {WithPhone.class})
+    @NotBlank(groups = {OnSave.class})
     private String phone;
-    @NotEmpty
+    @NotBlank(groups = {OnSignup.class, OnSave.class})
     private String firstName;
-    @NotEmpty(groups = {WithLastName.class})
+    @NotBlank(groups = {OnSave.class})
     private String lastName;
     private Date dateOfBirth;
     private Sex sex;
-    @NotNull
-    @NotEmpty(groups = {WithAgreementChecked.class})
+    @NotNull(groups = {OnSignup.class})
     private Boolean agreementChecked;
+    @Null(groups = {OnSignup.class})
+    @NotNull(groups = {OnSave.class})
     private Date editDate;
 
     public Long getId() {
@@ -121,7 +122,7 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", password=[SECURED]" +
+                ", password=[HIDDEN]" +
                 ", phone='" + phone + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

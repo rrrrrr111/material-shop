@@ -10,6 +10,7 @@ import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.Role;
+import ru.rich.matshop.webapi.api.user.profile.password.PasswordChange;
 
 import java.util.Date;
 import java.util.Set;
@@ -53,6 +54,23 @@ public class PersonDao {
     }
 
     @Caching(evict = {
+            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
+            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+    })
+    public Long insert(Person p) {
+        final var now = new Date();
+        return create.insertInto(PERSON)
+                .set(create.newRecord(PERSON, p))
+                .set(PERSON.EDIT_DATE, now)
+                .set(PERSON.LAST_VISIT, now)
+                .set(PERSON.LOCKED, false)
+                .set(PERSON.ROLE, Role.USER.toString())
+                .returning(PERSON.ID)
+                .fetchOne()
+                .getId();
+    }
+
+    @Caching(evict = {
             @CacheEvict(value = {"personById"}, key = "#p.id"),
             @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
             @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
@@ -77,19 +95,20 @@ public class PersonDao {
     }
 
     @Caching(evict = {
-            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
-            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+            @CacheEvict(value = {"personById"}, key = "#pc.personId")
     })
-    public Long insert(Person p) {
-        final var now = new Date();
-        return create.insertInto(PERSON)
-                .set(create.newRecord(PERSON, p))
+    public Date updatePassword(PasswordChange pc) {
+        Date now = new Date();
+        int res = create.update(PERSON)
+                .set(PERSON.PASSWORD, pc.getNewPassword())
                 .set(PERSON.EDIT_DATE, now)
-                .set(PERSON.LAST_VISIT, now)
-                .set(PERSON.LOCKED, false)
-                .set(PERSON.ROLE, Role.USER.toString())
-                .returning(PERSON.ID)
-                .fetchOne()
-                .getId();
+                .where(
+                        PERSON.ID.eq(pc.getPersonId())
+                                .and(PERSON.EDIT_DATE.eq(pc.getPersonEditDate()))
+                                .and(PERSON.PASSWORD.eq(pc.getOldPassword()))
+                )
+                .execute();
+        isOne(res);
+        return now;
     }
 }

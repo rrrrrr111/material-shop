@@ -5,19 +5,11 @@ package ru.rich.matshop.webapi.api.user.model;
  */
 public interface PersonValidation {
 
-    interface WithId {
+    interface OnSignup {
     }
 
-    interface WithPassword {
+    interface OnSave {
     }
 
-    interface WithPhone {
-    }
-
-    interface WithLastName {
-    }
-
-    interface WithAgreementChecked {
-    }
 
 }

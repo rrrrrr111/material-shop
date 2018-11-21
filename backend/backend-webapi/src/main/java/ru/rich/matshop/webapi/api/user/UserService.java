@@ -7,7 +7,9 @@ import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.common.rest.UserException;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.Sex;
+import ru.rich.matshop.webapi.api.user.profile.password.PasswordChange;
 
+import java.util.Date;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
@@ -16,6 +18,7 @@ import static java.util.Collections.emptySet;
 public class UserService {
     private static final String EMAIL_EXISTS_USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован";
     private static final String PHONE_EXISTS_USER_MESSAGE = "Пользователь с указанным телефоном уже зарегистрирован";
+    private static final String INCORRECT_OLD_PASSWORD_MESSAGE = "Старый пароль указан не верно";
 
     private final PersonDao personDao;
 
@@ -42,6 +45,18 @@ public class UserService {
         checkPhoneNotExists(person.getPhone(), Set.of(person.getId()));
 
         return personDao.updateProfile(person);
+    }
+
+    public Date changePassword(PasswordChange pc) {
+        Long personId = pc.getPersonId();
+        Preconditions.checkNotNull(personId, "Person id must not be null");
+
+        PersonRecord record = personDao.getById(personId);
+        if (!record.getPassword().equals(pc.getOldPassword())) {
+            throw new UserException(INCORRECT_OLD_PASSWORD_MESSAGE,
+                    String.format("Incorrect old password specified, user id=%s", personId));
+        }
+        return personDao.updatePassword(pc);
     }
 
     public Person fillPerson(PersonRecord rec, Person p) {

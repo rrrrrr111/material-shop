@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.rich.matshop.webapi.api.common.security.InsufficientAccessException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,10 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
                             UNAUTHORIZED.value()
                     ),
                     InsufficientAuthenticationException.class, of(
+                            FORBIDDEN.getReasonPhrase(),
+                            FORBIDDEN.value()
+                    ),
+                    InsufficientAccessException.class, of(
                             FORBIDDEN.getReasonPhrase(),
                             FORBIDDEN.value()
                     )

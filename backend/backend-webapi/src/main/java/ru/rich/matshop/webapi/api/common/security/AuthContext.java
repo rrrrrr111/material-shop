@@ -45,4 +45,12 @@ public class AuthContext {
     private static boolean isAuthenticated(Authentication auth) {
         return auth != null && !(auth instanceof AnonymousAuthenticationToken);
     }
+
+    public static void checkUserId(Long userId) {
+        Long currentUserId = getCurrentUserId();
+        if (!currentUserId.equals(userId)) {
+            throw new InsufficientAccessException(
+                    String.format("Insufficient access to userId: %s by userId: %s", userId, currentUserId));
+        }
+    }
 }

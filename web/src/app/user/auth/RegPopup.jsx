@@ -48,13 +48,13 @@ class RegPopup extends React.PureComponent {
                 email: "",
                 firstName: "",
                 password: "",
-                aggrChecked: false,
+                agreementChecked: false,
             } : props.data,
             ui: {
                 emailValid: true,
                 firstNameValid: true,
                 passwordValid: true,
-                aggrCheckedValid: true,
+                agreementCheckedValid: true,
                 formValid: true,
                 loading: false,
                 message: "",
@@ -65,7 +65,7 @@ class RegPopup extends React.PureComponent {
                     email: checkEmail,
                     firstName: isNotBlank,
                     password: isNotBlank,
-                    aggrChecked: isTrue
+                    agreementChecked: isTrue
                 },
                 formValidField: 'formValid',
             }
@@ -120,10 +120,10 @@ class RegPopup extends React.PureComponent {
     render() {
         const {classes, ui} = this.props;
         const {
-            email, password, firstName, aggrChecked
+            email, password, firstName, agreementChecked
         } = this.state.data;
         const {
-            emailValid, passwordValid, firstNameValid, aggrCheckedValid, formValid, message, loading
+            emailValid, passwordValid, firstNameValid, agreementCheckedValid, formValid, message, loading
         } = this.state.ui;
         return (
             <Dialog
@@ -242,14 +242,14 @@ class RegPopup extends React.PureComponent {
                                                   classes={{label: classes.label}}
                                                   control={
                                                       <Checkbox tabIndex={-1}
-                                                                checked={aggrChecked}
-                                                                onClick={prepareHandler(this, 'aggrChecked', checkboxHandler)}
+                                                                checked={agreementChecked}
+                                                                onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
                                                                 checkedIcon={<Check className={classes.checkedIcon}/>}
                                                                 icon={<Check
                                                                     className={
                                                                         classNames({
                                                                             [classes.uncheckedIcon]: true,
-                                                                            "redShadow": !aggrCheckedValid
+                                                                            "redShadow": !agreementCheckedValid
                                                                         })}/>}
                                                                 classes={{agreementChecked: classes.agreementChecked}}
                                                                 disabled={loading}/>
