@@ -18,14 +18,21 @@ import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
-import {USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
-import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
+import {mapUserToProps, USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
+import {action, buttonDebounceRule, connect, update2UiFields} from "app/utils/functionUtil";
 import util from "app/utils/util"
-import {checkEmail, isNotBlank, isTrue} from "app/utils/validateUtil";
+import {
+    checkboxHandler,
+    checkEmail,
+    inputHandler,
+    inputTrimHandler,
+    isNotBlank,
+    isTrue,
+    prepareHandler
+} from "app/utils/validateUtil";
 import classNames from "classnames";
 import debounce from 'lodash/debounce'
 import React from "react";
-import {connect} from "react-redux";
 import {store} from "store";
 import regPopupStyle from "./regPopupStyle";
 
@@ -66,26 +73,6 @@ class RegPopup extends React.PureComponent {
         );
         this.handleClose = this.handleClose.bind(this);
         this.handleSignup = this.handleSignup.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleAggrToggle = this.handleAggrToggle.bind(this);
-    }
-
-    handleEmailChange = (e) => {
-        this.validator.handleChange('email', e.target.value.trim());
-    };
-
-    handleFirstNameChange = (e) => {
-        this.validator.handleChange('firstName', e.target.value.trim());
-    };
-
-    handlePasswordChange = (e) => {
-        this.validator.handleChange('password', e.target.value);
-    };
-
-    handleAggrToggle(e) {
-        this.validator.handleChange('aggrChecked', !this.state.data.aggrChecked);
     }
 
     componentDidMount() {
@@ -197,7 +184,7 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Имя...",
                                         name: "First name",
                                         value: firstName,
-                                        onChange: this.handleFirstNameChange,
+                                        onChange: prepareHandler(this, 'firstName', inputTrimHandler),
                                         error: !firstNameValid
                                     }}
                                     otherProps={{
@@ -220,7 +207,7 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Email...",
                                         name: "Email",
                                         value: email,
-                                        onChange: this.handleEmailChange,
+                                        onChange: prepareHandler(this, 'email', inputTrimHandler),
                                         error: !emailValid
                                     }}
                                     otherProps={{
@@ -242,7 +229,7 @@ class RegPopup extends React.PureComponent {
                                         type: "password",
                                         name: "password",
                                         value: password,
-                                        onChange: this.handlePasswordChange,
+                                        onChange: prepareHandler(this, 'password', inputHandler),
                                         error: !passwordValid
                                     }}
                                     otherProps={{
@@ -253,8 +240,8 @@ class RegPopup extends React.PureComponent {
                                                   classes={{label: classes.label}}
                                                   control={
                                                       <Checkbox tabIndex={-1}
-                                                                onClick={this.handleAggrToggle}
                                                                 checked={aggrChecked}
+                                                                onClick={prepareHandler(this, 'aggrChecked', checkboxHandler)}
                                                                 checkedIcon={<Check className={classes.checkedIcon}/>}
                                                                 icon={<Check
                                                                     className={
@@ -296,8 +283,4 @@ class RegPopup extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
-    return state.user;
-};
-
-export default connect(mapStateToProps)(withStyles(regPopupStyle)(RegPopup));
+export default connect(mapUserToProps)(withStyles(regPopupStyle)(RegPopup));

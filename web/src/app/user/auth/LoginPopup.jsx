@@ -18,14 +18,13 @@ import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
-import {USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
-import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
+import {mapUserToProps, USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
+import {action, buttonDebounceRule, connect, update2UiFields} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
-import {checkEmail, isNotBlank} from "app/utils/validateUtil";
+import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
 import debounce from 'lodash/debounce'
 import React from "react";
-import {connect} from "react-redux";
 import {store} from "store";
 
 import loginPopupStyle from "./loginPopupStyle";
@@ -61,17 +60,7 @@ class LoginPopup extends React.PureComponent {
         );
         this.handleClose = this.handleClose.bind(this);
         this.handleSignin = this.handleSignin.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
-
-    handleEmailChange = (e) => {
-        this.validator.handleChange('email', e.target.value.trim());
-    };
-
-    handlePasswordChange = (e) => {
-        this.validator.handleChange('password', e.target.value);
-    };
 
     componentDidMount() {
         if (this.props.ui.authorized) {
@@ -193,7 +182,7 @@ class LoginPopup extends React.PureComponent {
                                         placeholder: "Email...",
                                         name: "Email",
                                         value: email,
-                                        onChange: this.handleEmailChange,
+                                        onChange: prepareHandler(this, 'email', inputTrimHandler),
                                         error: !emailValid
                                     }}
                                     otherProps={{
@@ -218,7 +207,7 @@ class LoginPopup extends React.PureComponent {
                                         type: "password",
                                         name: "password",
                                         value: password,
-                                        onChange: this.handlePasswordChange,
+                                        onChange: prepareHandler(this, 'password', inputHandler),
                                         error: !passwordValid
                                     }}
                                     otherProps={{
@@ -247,8 +236,4 @@ class LoginPopup extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
-    return state.user;
-};
-
-export default connect(mapStateToProps)(withStyles(loginPopupStyle)(LoginPopup));
+export default connect(mapUserToProps)(withStyles(loginPopupStyle)(LoginPopup));

@@ -1,10 +1,9 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {CLOSE_NOTIFY} from "app/common/message/notify/reducer";
+import {CLOSE_NOTIFY, mapNotifyToProps} from "app/common/message/notify/reducer";
 import snackbarStyle from "app/common/message/notify/snackbarStyle";
-import {action} from "app/utils/functionUtil";
+import {action, connect} from "app/utils/functionUtil";
 import React from "react";
-import {connect} from "react-redux";
 import {notificationColor, notificationPlace} from "../../style/styles";
 import Snackbar from "./Snackbar";
 
@@ -57,8 +56,4 @@ class Notify extends React.PureComponent {
     };
 }
 
-const mapStateToProps = (state) => {
-    return state.notify;
-};
-
-export default connect(mapStateToProps)(withStyles(snackbarStyle)(Notify));
+export default connect(mapNotifyToProps)(withStyles(snackbarStyle)(Notify));

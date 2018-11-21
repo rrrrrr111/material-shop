@@ -38,3 +38,7 @@ export const uiUserReducer = createReducer({
         return update(state, {authorized: {$set: false}});
     },
 });
+
+export const mapUserToProps = (state) => {
+    return state.user;
+};

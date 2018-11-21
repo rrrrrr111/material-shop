@@ -27,3 +27,7 @@ export const uiFeedReducer = createReducer({
         return update(state, {loading: {$set: false}, error: {$set: value}});
     }
 });
+
+export const mapFeedToProps = (state) => {
+    return state.feed;
+};

@@ -1,3 +1,4 @@
+import {capitalize} from "app/utils/functionUtil";
 import update from 'immutability-helper';
 
 export const isNotBlank = (str) => {
@@ -17,22 +18,22 @@ export const checkEmail = (email) => {
     return checkRegexp(email, regExp);
 };
 
-const createValidator = (objRef, conf) => {
-    return new Validator(objRef, conf);
+const createValidator = (compRef, conf) => {
+    return new Validator(compRef, conf);
 };
 
 class Validator {
-    constructor(objRef, conf) {
-        this.objRef = objRef;
+    constructor(compRef, conf) {
+        this.compRef = compRef;
         this.conf = conf;
     }
 
     handleChange = (fieldName, value) => {
         const fieldValid = this.isFieldValid(fieldName, value);
         const formValid = this.checkOtherFormFieldsFlags(fieldName, fieldValid);
-        this.objRef.setState(
+        this.compRef.setState(
             update(
-                this.objRef.state, {
+                this.compRef.state, {
                     data: {[fieldName]: {$set: value}},
                     ui: {
                         [fieldName + "Valid"]: {$set: fieldValid},
@@ -46,7 +47,7 @@ class Validator {
         if (this.conf.disabled) {
             return true;
         }
-        let valid = this.objRef.state.ui[fieldName + "Valid"];
+        let valid = this.compRef.state.ui[fieldName + "Valid"];
         if (!valid) {
             valid = this.conf.fieldsToCheckers[fieldName](value);
         }
@@ -58,7 +59,7 @@ class Validator {
         for (const field in this.conf.fieldsToCheckers) {
             if (this.conf.fieldsToCheckers.hasOwnProperty(field)
                 && field !== exceptField) {
-                valid &= this.objRef.state.ui[field + "Valid"]
+                valid &= this.compRef.state.ui[field + "Valid"]
             }
         }
         return valid;
@@ -69,28 +70,53 @@ class Validator {
             return true;
         }
         const checkers = this.conf.fieldsToCheckers;
-        const objRef = this.objRef;
-        const uiObj = {...objRef.state.ui};
+        const compRef = this.compRef;
+        const uiObj = {...compRef.state.ui};
 
         let formValid = true;
         let fieldValid;
         for (const field in checkers) {
             if (checkers.hasOwnProperty(field)) {
-                fieldValid = checkers[field](objRef.state.data[field]);
+                fieldValid = checkers[field](compRef.state.data[field]);
                 uiObj[field + "Valid"] = fieldValid;
                 formValid &= fieldValid;
             }
         }
         if (!formValid) {
             uiObj[this.conf.formValidField] = formValid;
-            objRef.setState({
-                ...objRef.state,
+            compRef.setState({
+                ...compRef.state,
                 ui: uiObj
             });
         }
         return formValid;
     };
 }
+
+export const prepareHandler = (compRef, fieldName, valueHandler) => {
+    const handlerName = `handle${capitalize(fieldName)}Change`;
+    let handler = compRef[handlerName];
+    if (handler) {
+        return handler;
+    }
+    handler = (e) => {
+        valueHandler(compRef, fieldName, e);
+    };
+    handler.bind(compRef);
+    return handler;
+};
+
+export const inputHandler = (compRef, fieldName, event) => {
+    compRef.validator.handleChange(fieldName, event.target.value);
+};
+
+export const inputTrimHandler = (compRef, fieldName, event) => {
+    compRef.validator.handleChange(fieldName, event.target.value.trim());
+};
+
+export const checkboxHandler = (compRef, fieldName, event) => {
+    compRef.validator.handleChange(fieldName, !compRef.state.data[fieldName]);
+};
 
 const validate = {
     isNotBlank: isNotBlank,

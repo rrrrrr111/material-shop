@@ -16,3 +16,7 @@ export const notifyReducer = createReducer(
             return {text: "", show: false};
         }
     });
+
+export const mapNotifyToProps = (state) => {
+    return state.notify;
+};

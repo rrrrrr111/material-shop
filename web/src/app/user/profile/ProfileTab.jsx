@@ -6,12 +6,14 @@ import CardFooter from "app/common/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import CustomInput from "app/common/input/CustomInput.jsx";
+import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {USER_DATA} from "app/user/reducer";
-import {action, buttonDebounceRule, update2UiFields} from "app/utils/functionUtil";
+import {mapUserToProps, USER_DATA} from "app/user/reducer";
+import {action, buttonDebounceRule, connect, update2UiFields} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import {checkEmail, isNotBlank} from "app/utils/validateUtil";
+import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
 import debounce from 'lodash/debounce'
 import React from "react";
 import {store} from "store";
@@ -43,27 +45,7 @@ class ProfileTab extends React.PureComponent {
             }
         );
         this.handleSave = this.handleSave.bind(this);
-        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-        this.handleLastNameChange = this.handleLastNameChange.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePhoneChange = this.handlePhoneChange.bind(this);
     }
-
-    handleFirstNameChange = (e) => {
-        this.validator.handleChange('firstName', e.target.value.trim());
-    };
-
-    handleLastNameChange = (e) => {
-        this.validator.handleChange('lastName', e.target.value.trim());
-    };
-
-    handleEmailChange = (e) => {
-        this.validator.handleChange('email', e.target.value.trim());
-    };
-
-    handlePhoneChange = (e) => {
-        this.validator.handleChange('phone', e.target.value.trim());
-    };
 
     handleSave = (e) => {
         e.stopPropagation();
@@ -92,6 +74,12 @@ class ProfileTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const {
+            firstName, lastName, email, phone
+        } = this.state.data;
+        const {
+            firstNameValid, lastNameValid, emailValid, phoneValid, enterButtonActive, message, loading
+        } = this.state.ui;
         return (
             <form>
                 <Card className={classes.profileTab}>
@@ -106,6 +94,9 @@ class ProfileTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "First name",
+                                        value: firstName,
+                                        onChange: prepareHandler(this, 'firstName', inputTrimHandler),
+                                        error: !firstNameValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -121,6 +112,9 @@ class ProfileTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "Last name",
+                                        value: lastName,
+                                        onChange: prepareHandler(this, 'lastName', inputTrimHandler),
+                                        error: !lastNameValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -136,6 +130,9 @@ class ProfileTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "Phone",
+                                        value: phone,
+                                        onChange: prepareHandler(this, 'phone', inputHandler),
+                                        error: !phoneValid
                                     }}
                                     numberProps={{
                                         format: "+7 (###) ###-####",
@@ -152,6 +149,9 @@ class ProfileTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "Email",
+                                        value: email,
+                                        onChange: prepareHandler(this, 'email', inputTrimHandler),
+                                        error: !emailValid
                                     }}
                                     otherProps={{
                                         maxLength: 200,
@@ -162,9 +162,14 @@ class ProfileTab extends React.PureComponent {
                     </CardBody>
                     <CardFooter>
                         <div className={classes.width100}>
-                            <Button color={buttonColor} className={classes.cardFooterButton}>
-                                Обновить профиль
-                            </Button>
+                            {loading
+                                ? <CircularLoading/>
+                                : <Button color={buttonColor} className={classes.cardFooterButton}
+                                          disabled={!enterButtonActive} onClick={this.handleSave}>
+                                    Обновить профиль
+                                </Button>
+                            }
+                            <ErrorMessageBox text={message}/>
                         </div>
                     </CardFooter>
                 </Card>
@@ -173,4 +178,4 @@ class ProfileTab extends React.PureComponent {
     }
 }
 
-export default withStyles(userProfileStyle)(ProfileTab);
+export default connect(mapUserToProps)(withStyles(userProfileStyle)(ProfileTab));

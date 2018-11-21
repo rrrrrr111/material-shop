@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItemMessage from "app/common/message/GridItemMessage";
-import {RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
+import {mapFeedToProps, RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
 import {action} from "app/utils/functionUtil";
@@ -61,8 +61,4 @@ class SimpleFeed extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
-    return state.feed;
-};
-
-export default connect(mapStateToProps)(withStyles(simpleFeedStyle)(SimpleFeed));
+export default connect(mapFeedToProps)(withStyles(simpleFeedStyle)(SimpleFeed));
