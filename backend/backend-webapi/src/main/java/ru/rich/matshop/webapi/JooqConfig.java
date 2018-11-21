@@ -5,11 +5,12 @@ import org.jooq.conf.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @see org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration
  */
-//@Configuration
+@Configuration
 public class JooqConfig {
     private static final Logger log = LoggerFactory.getLogger(JooqConfig.class);
 
