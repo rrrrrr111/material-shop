@@ -28,6 +28,7 @@ import {
     inputTrimHandler,
     isNotBlank,
     isTrue,
+    prepareEnterHandler,
     prepareHandler
 } from "app/utils/validateUtil";
 import classNames from "classnames";
@@ -235,7 +236,8 @@ class RegPopup extends React.PureComponent {
                                         name: "password",
                                         value: password,
                                         onChange: prepareHandler(this, 'password', inputHandler),
-                                        error: !passwordValid
+                                        error: !passwordValid,
+                                        onKeyPress: prepareEnterHandler(this, this.handleSignup),
                                     }}
                                     otherProps={{
                                         maxLength: 100,

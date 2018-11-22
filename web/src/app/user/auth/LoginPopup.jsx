@@ -22,7 +22,14 @@ import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_ST
 import {action, buttonDebounceRule, connect, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
-import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
+import {
+    checkEmail,
+    inputHandler,
+    inputTrimHandler,
+    isNotBlank,
+    prepareEnterHandler,
+    prepareHandler
+} from "app/utils/validateUtil";
 import debounce from 'lodash/debounce'
 import React from "react";
 import {store} from "store";
@@ -216,7 +223,8 @@ class LoginPopup extends React.PureComponent {
                                         name: "password",
                                         value: password,
                                         onChange: prepareHandler(this, 'password', inputHandler),
-                                        error: !passwordValid
+                                        error: !passwordValid,
+                                        onKeyPress: prepareEnterHandler(this, this.handleSignin),
                                     }}
                                     otherProps={{
                                         maxLength: 100,

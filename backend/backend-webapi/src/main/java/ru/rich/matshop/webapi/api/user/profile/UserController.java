@@ -20,6 +20,7 @@ import ru.rich.matshop.webapi.api.user.profile.settings.UserSaveSettingsRequest;
 import ru.rich.matshop.webapi.api.user.profile.settings.UserSaveSettingsResponse;
 
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.util.Date;
 
 import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
@@ -47,7 +48,7 @@ public class UserController extends AbstractRestController {
     @PostMapping(USER_URL_PREFIX + "/save")
     @Transactional
     public UserSaveResponse save(@RequestBody
-                                 @Validated({OnSave.class})
+                                 @Validated({OnSave.class, Default.class})
                                          UserSaveRequest req) {
         Person reqPerson = fromUi(req.getPerson());
         Person respPerson = toUi(personService.update(reqPerson));

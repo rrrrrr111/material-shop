@@ -10,6 +10,4 @@ public interface PersonValidation {
 
     interface OnSave {
     }
-
-
 }

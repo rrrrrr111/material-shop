@@ -107,6 +107,21 @@ export const prepareHandler = (compRef, fieldName, valueHandler) => {
     return handler;
 };
 
+export const prepareEnterHandler = (compRef, onEnterHandler) => {
+    const handlerName = `handleEnter`;
+    let handler = compRef[handlerName];
+    if (handler) {
+        return handler;
+    }
+    handler = (e) => {
+        if (e.key === 'Enter') {
+            onEnterHandler(e);
+        }
+    };
+    handler.bind(compRef);
+    return handler;
+};
+
 export const inputHandler = (compRef, fieldName, event) => {
     compRef.validator.handleChange(fieldName, event.target.value);
 };

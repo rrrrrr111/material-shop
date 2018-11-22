@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,16 +13,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
+import ru.rich.matshop.webapi.api.common.rest.EmptyResponse;
 import ru.rich.matshop.webapi.api.common.security.AuthContext;
 import ru.rich.matshop.webapi.api.user.PersonService;
 import ru.rich.matshop.webapi.api.user.auth.signin.LoginResponse;
-import ru.rich.matshop.webapi.api.common.rest.EmptyResponse;
 import ru.rich.matshop.webapi.api.user.auth.signup.SignupRequest;
 import ru.rich.matshop.webapi.api.user.auth.signup.SignupResponse;
 import ru.rich.matshop.webapi.api.user.model.Person;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.groups.Default;
 
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_LOGIN_PROCESSING;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.URL_SIGNOUT;
@@ -52,8 +55,7 @@ public class AuthController extends AbstractRestController {
     public @ResponseBody
     LoginResponse afterLoginSuccess(
             @RequestHeader(HEADER_JWT) String oldToken,
-            HttpServletRequest request, HttpServletResponse response,
-            Authentication auth) {
+            HttpServletResponse response, Authentication auth) {
 
         String newToken = authenticationCacheService.putAuth(auth);
         clearUserAuth(oldToken);
@@ -71,7 +73,7 @@ public class AuthController extends AbstractRestController {
             @RequestHeader(HEADER_JWT) String oldToken,
             HttpServletRequest request, HttpServletResponse response,
             @RequestBody
-                    //@Validated({WithPassword.class, WithAgreementChecked.class})
+            @Validated({OnSignup.class, Default.class})
                     SignupRequest req) {
 
         Person person = personService.signup(fromUi(req.getPerson()));
