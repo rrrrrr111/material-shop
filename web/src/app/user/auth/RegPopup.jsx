@@ -18,8 +18,8 @@ import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
-import {mapUserToProps, USER_AUTH_RESULT, USER_DATA} from "app/user/reducer";
-import {action, buttonDebounceRule, connect, update2UiFields} from "app/utils/functionUtil";
+import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {action, buttonDebounceRule, connect, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {
     checkboxHandler,
@@ -56,7 +56,6 @@ class RegPopup extends React.PureComponent {
                 passwordValid: true,
                 agreementCheckedValid: true,
                 formValid: true,
-                loading: false,
                 message: "",
             },
         };
@@ -96,12 +95,14 @@ class RegPopup extends React.PureComponent {
     _debouncedSignup = debounce( // для избежания двойного клика
         () => {
             const compRef = this;
-            update2UiFields(compRef, "loading", true, "message", "");
+            updateUiField(compRef, "message", "");
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
+            store.dispatch(action(USER_START_LOADING));
             util.ajax.backendPost("auth/signup", {person: statePerson})
                 .then((response) => {
+                    store.dispatch(action(USER_STOP_LOADING));
                     const success = response.success;
                     let person = response.person;
                     if (!success) {
@@ -109,7 +110,7 @@ class RegPopup extends React.PureComponent {
                     }
                     store.dispatch(action(USER_DATA, person));
                     store.dispatch(action(USER_AUTH_RESULT, success));
-                    update2UiFields(compRef, "loading", false, "message", response.message);
+                    updateUiField(compRef, "message", response.message);
                     if (success) {
                         compRef.handleClose();
                         util.notify.signIn();
@@ -118,12 +119,15 @@ class RegPopup extends React.PureComponent {
         }, 500, buttonDebounceRule);
 
     render() {
-        const {classes, ui} = this.props;
+        const {classes} = this.props;
+        const {
+            loading
+        } = this.props.ui;
         const {
             email, password, firstName, agreementChecked
         } = this.state.data;
         const {
-            emailValid, passwordValid, firstNameValid, agreementCheckedValid, formValid, message, loading
+            emailValid, passwordValid, firstNameValid, agreementCheckedValid, formValid, message
         } = this.state.ui;
         return (
             <Dialog

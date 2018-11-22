@@ -3,6 +3,7 @@ package ru.rich.matshop.webapi.api.common.rest;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,9 +45,13 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
                             "Учетная запись пользователя заблокирована",
                             UNAUTHORIZED.value()
                     ),
-                    InsufficientAuthenticationException.class, of(
+                    InsufficientAuthenticationException.class, of( // попытка доступа к закрытому ресурсу без авторизации
                             FORBIDDEN.getReasonPhrase(),
                             FORBIDDEN.value()
+                    ),
+                    InternalAuthenticationServiceException.class, of( // любая др ошибка, например не доступна БД
+                            "Unknown error",
+                            UNAUTHORIZED.value()
                     )
             );
 

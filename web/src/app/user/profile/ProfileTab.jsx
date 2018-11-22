@@ -10,8 +10,8 @@ import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {mapUserToProps, USER_DATA} from "app/user/reducer";
-import {action, buttonDebounceRule, connect, update2UiFields} from "app/utils/functionUtil";
+import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {action, buttonDebounceRule, connect, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
 import debounce from 'lodash/debounce'
@@ -60,8 +60,10 @@ class ProfileTab extends React.PureComponent {
     }
 
     static reloadUser = () => {
+        store.dispatch(action(USER_START_LOADING));
         util.ajax.backendPost("user/load")
             .then(function (response) {
+                store.dispatch(action(USER_STOP_LOADING));
                 const success = response.success;
                 if (success) {
                     store.dispatch(action(USER_DATA, response.person));
@@ -80,11 +82,13 @@ class ProfileTab extends React.PureComponent {
     _debouncedSave = debounce( // для избежания двойного клика
         () => {
             const compRef = this;
-            update2UiFields(compRef, "loading", true, "message", "");
+            updateUiField(compRef, "message", "");
 
+            store.dispatch(action(USER_START_LOADING));
             util.ajax.backendPost("user/save", {person: compRef.state.data})
                 .then(function (response) {
-                    update2UiFields(compRef, "loading", false, "message", response.message);
+                    store.dispatch(action(USER_STOP_LOADING));
+                    updateUiField(compRef, "message", response.message);
                     const success = response.success;
                     if (success) {
                         store.dispatch(action(USER_DATA, response.person));
@@ -96,10 +100,13 @@ class ProfileTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
+            loading
+        } = this.props.ui;
+        const {
             firstName, lastName, email, phone
         } = this.state.data;
         const {
-            firstNameValid, lastNameValid, emailValid, phoneValid, formValid, message, loading
+            firstNameValid, lastNameValid, emailValid, phoneValid, formValid, message
         } = this.state.ui;
         return (
             <form>

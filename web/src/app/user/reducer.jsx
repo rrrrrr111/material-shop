@@ -2,6 +2,8 @@ import {createReducer} from "app/utils/functionUtil";
 import update from 'immutability-helper';
 
 
+export const USER_START_LOADING = 'USER_START_LOADING';
+export const USER_STOP_LOADING = 'USER_STOP_LOADING';
 export const USER_DATA = 'USER_DATA';
 export const USER_AUTH_RESULT = 'USER_AUTH_RESULT';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
@@ -29,6 +31,7 @@ export const dataUserReducer = createReducer(
     });
 
 export const uiUserReducer = createReducer({
+    loading: false,
     loaded: false,
 }, {
     [USER_AUTH_RESULT]: (state, value) => {
@@ -36,6 +39,12 @@ export const uiUserReducer = createReducer({
     },
     [USER_LOGGED_OUT]: (state) => {
         return update(state, {loaded: {$set: false}});
+    },
+    [USER_START_LOADING]: (state) => {
+        return update(state, {loading: {$set: true}});
+    },
+    [USER_STOP_LOADING]: (state) => {
+        return update(state, {loading: {$set: false}});
     },
 });
 

@@ -7,6 +7,7 @@ export const SERVER_SIDE_ERROR = "Ошибка при обращении к се
 export const determineUserMessage = (message) => {
     switch (message) {
         case "Unknown error":
+        case "Unauthorized":
             return SERVER_SIDE_ERROR;
         default:
             return message;
