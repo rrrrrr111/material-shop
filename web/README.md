@@ -25,6 +25,7 @@
     - переменные из .env подхватываются из только при перезапуске npm
     - переустановить все пакеты, грохнуть %USERPROFILE%\AppData\Roaming\npm, npm-cache и в проекте \node_modules
     - Если не запускается npm, установить актуальную версию NodeJS, очистить кэши `npm cache clean --force`
+    - Если возникают циклические зависисмости между функциями, при страте приложения Object(...) is not a function
 
 #### Используется
  [HTML, CSS, JavaScript](http://htmlbook.ru/css/cat/text)

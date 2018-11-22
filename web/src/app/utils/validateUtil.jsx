@@ -22,8 +22,12 @@ export const checkEmail = (email) => {
     return checkRegexp(email, regExp);
 };
 
+export const checkPhone = (phone) => {
+    return checkRegexp(phone, /^\d{10}$/);
+};
+
 const createValidator = (compRef, conf) => {
-    conf.disabled = true; // выключение валидации на полях
+    //conf.disabled = true; // выключение валидации на полях
     return new Validator(compRef, conf);
 };
 
@@ -107,6 +111,7 @@ export const prepareHandler = (compRef, fieldName, valueHandler) => {
     handler = (e) => {
         valueHandler(compRef, fieldName, e);
     };
+    compRef[handlerName] = handler;
     handler.bind(compRef);
     return handler;
 };
@@ -122,6 +127,7 @@ export const prepareEnterHandler = (compRef, onEnterHandler) => {
             onEnterHandler(e);
         }
     };
+    compRef[handlerName] = handler;
     handler.bind(compRef);
     return handler;
 };

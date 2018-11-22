@@ -243,31 +243,35 @@ class RegPopup extends React.PureComponent {
                                     }}
                                     disabled={loading}
                                 />
-                                <FormControlLabel className={classes.termAndCondAgreementBox}
-                                                  classes={{label: classes.label}}
-                                                  control={
-                                                      <Checkbox tabIndex={-1}
-                                                                checked={agreementChecked}
-                                                                onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
-                                                                checkedIcon={<Check className={classes.checkedIcon}/>}
-                                                                icon={<Check
-                                                                    className={
-                                                                        classNames({
-                                                                            [classes.uncheckedIcon]: true,
-                                                                            "redShadow": !agreementCheckedValid
-                                                                        })}/>}
-                                                                classes={{agreementChecked: classes.agreementChecked}}
-                                                                disabled={loading}/>
-                                                  }
-                                                  label={<span className={classes.termAndCondAgreementLabel}>
-                                                            Я принимаю условия
-                                                            <LocalLink to="/info/privacy-policy"
-                                                                       className={classes.aClasses}> политики конфиденциальности </LocalLink>{" "}
-                                                      и
-                                                            <LocalLink to="/info/user-agreement"
-                                                                       className={classes.aClasses}> пользовательского соглашения </LocalLink>{" "}
-                                                      .
-                                                        </span>}
+                                <FormControlLabel
+                                    className={classes.termAndCondAgreementBox}
+                                    classes={{label: classes.label}}
+                                    control={
+                                        <Checkbox tabIndex={-1}
+                                                  checked={agreementChecked}
+                                                  onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
+                                                  checkedIcon={<Check className={classes.checkedIcon}/>}
+                                                  icon={<Check
+                                                      className={
+                                                          classNames({
+                                                              [classes.uncheckedIcon]: true,
+                                                              "redShadow": !agreementCheckedValid
+                                                          })}/>}
+                                                  disabled={loading}/>
+                                    }
+                                    label={
+                                        <span className={classes.termAndCondAgreementLabel}>
+                                                  Я принимаю условия{" "}
+                                            <LocalLink to="/info/privacy-policy">
+                                                  политики конфиденциальности
+                                                 </LocalLink>
+                                            {" "}и{" "}
+                                            <LocalLink to="/info/user-agreement">
+                                                  пользовательского соглашения
+                                                </LocalLink>
+                                            {" "}.
+                                             </span>
+                                    }
                                 />
                                 <div className={classes.textCenter}>
                                     {loading

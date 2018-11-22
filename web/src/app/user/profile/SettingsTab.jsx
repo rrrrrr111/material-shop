@@ -27,7 +27,7 @@ class SettingsTab extends React.PureComponent {
             data: SettingsTab.getStateDataFromProps(props),
             ui: {
                 agreementCheckedValid: true,
-                loading: false,
+                formValid: true,
                 message: "",
             },
         };
@@ -42,7 +42,7 @@ class SettingsTab extends React.PureComponent {
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (state.data.editDate !== props.data.editDate) {
+        if (state.data.personEditDate !== props.data.editDate) {
             return {
                 ...state,
                 data: SettingsTab.getStateDataFromProps(props)
@@ -79,7 +79,7 @@ class SettingsTab extends React.PureComponent {
             updateUiField(compRef, "message", "");
             dispatch(USER_START_LOADING);
 
-            util.ajax.backendPost("user/save-settings", {...compRef.state.data})
+            util.ajax.backendPost("user/save-settings", {settingsChange: {...compRef.state.data}})
                 .then(function (response) {
                     updateUiField(compRef, "message", response.message);
                     dispatch(USER_STOP_LOADING);
@@ -88,7 +88,7 @@ class SettingsTab extends React.PureComponent {
                         dispatch(USER_DATA, {
                             ...compRef.props.data,
                             agreementChecked: compRef.state.data.agreementChecked,
-                            editDate: response.editDate,
+                            editDate: response.personEditDate,
                         });
                         util.notify.dataSaved();
                     }
@@ -125,9 +125,9 @@ class SettingsTab extends React.PureComponent {
                                                         [classes.uncheckedIcon]: true,
                                                         "redShadow": !agreementCheckedValid
                                                     })}/>}
-                                            classes={{agreementChecked: classes.agreementChecked}}
                                             disabled={loading}
                                         />
+
                                     }
                                     classes={{label: classes.label}}
                                     label="Получать сообщения о распродажах, акциях, скидках и новостях компании"

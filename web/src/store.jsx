@@ -25,5 +25,7 @@ export const action = (type, value) => {
 };
 
 export const dispatch = (type, value) => {
-    store.dispatch(action(type, value));
+    store.dispatch((dispatch) => {
+        dispatch(action(type, value));
+    })
 };

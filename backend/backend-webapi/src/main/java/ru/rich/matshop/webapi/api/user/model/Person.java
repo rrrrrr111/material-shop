@@ -5,6 +5,7 @@ import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -19,12 +20,13 @@ public class Person {
     @CurrentUserId(groups = {OnSave.class})
     private Long id;
     @NotBlank(groups = {OnSignup.class, OnSave.class})
-    @Pattern(groups = {OnSignup.class, OnSave.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
+    @Email(groups = {OnSignup.class, OnSave.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = {OnSignup.class})
     private String password;
     @NotBlank(groups = {OnSave.class})
+    @Pattern(groups = {OnSave.class}, regexp = "^\\d{10}$")
     private String phone;
     @NotBlank(groups = {OnSignup.class, OnSave.class})
     private String firstName;

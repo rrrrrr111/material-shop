@@ -10,10 +10,17 @@ import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
+import {
+    checkEmail,
+    checkPhone,
+    inputHandler,
+    inputTrimHandler,
+    isNotBlank,
+    prepareHandler
+} from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
 
@@ -37,7 +44,7 @@ class ProfileTab extends React.PureComponent {
                     firstName: isNotBlank,
                     lastName: isNotBlank,
                     email: checkEmail,
-                    phone: isNotBlank,
+                    phone: checkPhone,
                 },
                 formValidField: 'formValid',
             }
@@ -66,6 +73,7 @@ class ProfileTab extends React.PureComponent {
                 const success = response.success;
                 if (success) {
                     dispatch(USER_DATA, response.person);
+                    dispatch(USER_AUTH_RESULT, true);
                 }
             });
     };
