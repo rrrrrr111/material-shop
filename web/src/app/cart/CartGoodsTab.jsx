@@ -172,9 +172,7 @@ class CartGoodsTab extends React.PureComponent {
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
                                            <h4>
-                                               В
-                                               корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)} на
-                                               сумму:
+                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}:
                                            </h4>
                                        </Grid>
                                    </GridItem>
