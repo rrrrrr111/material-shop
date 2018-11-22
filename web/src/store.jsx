@@ -19,3 +19,11 @@ export const store = applyMiddleware(thunk)(createStore)(
         }),
         notify: notifyReducer
     }));
+
+export const action = (type, value) => {
+    return {type, value};
+};
+
+export const dispatch = (type, value) => {
+    store.dispatch(action(type, value));
+};

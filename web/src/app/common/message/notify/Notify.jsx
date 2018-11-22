@@ -2,8 +2,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
 import {CLOSE_NOTIFY, mapNotifyToProps} from "app/common/message/notify/reducer";
 import snackbarStyle from "app/common/message/notify/snackbarStyle";
-import {action, connect} from "app/utils/functionUtil";
+import {connect} from "app/utils/functionUtil";
 import React from "react";
+import {dispatch} from "store";
 import {notificationColor, notificationPlace} from "../../style/styles";
 import Snackbar from "./Snackbar";
 
@@ -25,20 +26,15 @@ class Notify extends React.PureComponent {
     restartCloseTimer() {
 
         this.clearCloseTimer();
-        this.closeTimerRef = setTimeout(
-            () => {
-                this.props.dispatch((dispatch) => {
-                    dispatch(action(CLOSE_NOTIFY));
-                })
+        this.closeTimerRef = setTimeout(() => {
+                dispatch(CLOSE_NOTIFY);
             }, Notify.timeout
         );
     };
 
     closeNotify() {
         this.clearCloseTimer();
-        this.props.dispatch((dispatch) => {
-            dispatch(action(CLOSE_NOTIFY));
-        })
+        dispatch(CLOSE_NOTIFY);
     };
 
     render() {

@@ -2,14 +2,13 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItemMessage from "app/common/message/GridItemMessage";
-import {mapFeedToProps, RELOAD_MAIN_FEED, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
+import {MAIN_FEED_DATA, mapFeedToProps, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
-import {action} from "app/utils/functionUtil";
-import {SERVER_SIDE_ERROR} from "app/utils/notifyUtil";
+import {connect} from "app/utils/functionUtil";
+import {dispatch} from "store";
 import util from "app/utils/util";
 import React from "react";
-import {connect} from "react-redux";
 
 class SimpleFeed extends React.PureComponent {
     constructor(props) {
@@ -18,24 +17,24 @@ class SimpleFeed extends React.PureComponent {
 
     componentDidMount() {
         util.navigate.scrollUp();
-        this.props.dispatch(this.reloadMainFeed);
+        this.reloadMainFeed();
     }
 
-    reloadMainFeed = (dispatch) => {
-        dispatch(action(START_RELOAD_MAIN_FEED));
+    reloadMainFeed = () => {
+        dispatch(START_RELOAD_MAIN_FEED);
         util.ajax.backendPost("feed/list", {})
-            .then(function (response) {
-                dispatch(action(RELOAD_MAIN_FEED, response.products));
-                dispatch(action(STOP_RELOAD_MAIN_FEED, !!response.message));
+            .then((response) => {
+                dispatch(STOP_RELOAD_MAIN_FEED, response.message);
+                dispatch(MAIN_FEED_DATA, response.products);
             });
     };
 
-    message = (isLoading, isError, productsIsEmpty) => {
-        if (isLoading) {
+    getMessage = (ui, products) => {
+        if (ui.loading) {
             return "Загрузка каталога товаров";
-        } else if (isError) {
-            return SERVER_SIDE_ERROR;
-        } else if (productsIsEmpty) {
+        } else if (ui.message) {
+            return ui.message;
+        } else if (ui.loaded && products.length === 0) {
             return "Товар не найден";
         }
         return null;
@@ -43,7 +42,7 @@ class SimpleFeed extends React.PureComponent {
 
     render() {
         const {classes, data, ui} = this.props;
-        const message = this.message(ui.loading, ui.error, data.products.length === 0);
+        const message = this.getMessage(ui, data.products);
         return (
             <GridContainer spacing={16} className={classes.simpleFeedContainer} justify="center">
                 {(message)

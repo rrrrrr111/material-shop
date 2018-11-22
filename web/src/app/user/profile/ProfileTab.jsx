@@ -11,12 +11,11 @@ import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {action, buttonDebounceRule, connect, updateUiField} from "app/utils/functionUtil";
+import {buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkEmail, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
-import debounce from 'lodash/debounce'
 import React from "react";
-import {store} from "store";
+import {dispatch} from "store";
 
 class ProfileTab extends React.PureComponent {
     constructor(props) {
@@ -60,13 +59,13 @@ class ProfileTab extends React.PureComponent {
     }
 
     static reloadUser = () => {
-        store.dispatch(action(USER_START_LOADING));
+        dispatch(USER_START_LOADING);
         util.ajax.backendPost("user/load")
             .then(function (response) {
-                store.dispatch(action(USER_STOP_LOADING));
+                dispatch(USER_STOP_LOADING);
                 const success = response.success;
                 if (success) {
-                    store.dispatch(action(USER_DATA, response.person));
+                    dispatch(USER_DATA, response.person);
                 }
             });
     };
@@ -79,23 +78,23 @@ class ProfileTab extends React.PureComponent {
         this._debouncedSave();
     };
 
-    _debouncedSave = debounce( // для избежания двойного клика
+    _debouncedSave = debounce(
         () => {
             const compRef = this;
             updateUiField(compRef, "message", "");
 
-            store.dispatch(action(USER_START_LOADING));
+            dispatch(USER_START_LOADING);
             util.ajax.backendPost("user/save", {person: compRef.state.data})
                 .then(function (response) {
-                    store.dispatch(action(USER_STOP_LOADING));
+                    dispatch(USER_STOP_LOADING);
                     updateUiField(compRef, "message", response.message);
                     const success = response.success;
                     if (success) {
-                        store.dispatch(action(USER_DATA, response.person));
+                        dispatch(USER_DATA, response.person);
                         util.notify.dataSaved();
                     }
                 });
-        }, 500, buttonDebounceRule);
+        }, 1000, buttonDebounceRule);
 
     render() {
         const {classes} = this.props;

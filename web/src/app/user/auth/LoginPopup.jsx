@@ -19,7 +19,7 @@ import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {action, buttonDebounceRule, connect, updateUiField} from "app/utils/functionUtil";
+import {buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
 import {
@@ -30,9 +30,8 @@ import {
     prepareEnterHandler,
     prepareHandler
 } from "app/utils/validateUtil";
-import debounce from 'lodash/debounce'
 import React from "react";
-import {store} from "store";
+import {dispatch} from "store";
 
 import loginPopupStyle from "./loginPopupStyle";
 
@@ -93,24 +92,24 @@ class LoginPopup extends React.PureComponent {
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
-            store.dispatch(action(USER_START_LOADING));
+            dispatch(USER_START_LOADING);
             util.ajax.backendSignin(statePerson)
                 .then((response) => {
-                    store.dispatch(action(USER_STOP_LOADING));
+                    dispatch(USER_STOP_LOADING);
                     const success = response.success;
                     let person = response.person;
                     if (!success) {
                         person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, чтобы было уже введено на форме регистрации
                     }
-                    store.dispatch(action(USER_DATA, person));
-                    store.dispatch(action(USER_AUTH_RESULT, success));
+                    dispatch(USER_DATA, person);
+                    dispatch(USER_AUTH_RESULT, success);
                     updateUiField(compRef, "message", response.message);
                     if (success) {
                         compRef.handleClose();
                         util.notify.signIn();
                     }
                 });
-        }, 500, buttonDebounceRule);
+        }, 1000, buttonDebounceRule);
 
     static show = () => {
         util.navigate.goToUrl("/auth/signin", {modal: true});

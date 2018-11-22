@@ -1,6 +1,5 @@
 import {SHOW_NOTIFY} from "app/common/message/notify/reducer";
-import {action} from "app/utils/functionUtil";
-import {store} from "store";
+import {dispatch} from "store";
 
 export const SERVER_SIDE_ERROR = "Ошибка при обращении к серверу, попробуйте позже";
 
@@ -15,9 +14,7 @@ export const determineUserMessage = (message) => {
 };
 
 const showNotify = function (text) {
-    store.dispatch((dispatch) => {
-        dispatch(action(SHOW_NOTIFY, text));
-    });
+    dispatch(SHOW_NOTIFY, text);
 };
 
 const notify = {

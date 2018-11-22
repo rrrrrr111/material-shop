@@ -1,14 +1,14 @@
+import classNamesExport from "classnames";
 import {createBrowserHistory} from 'history'
 import update from 'immutability-helper';
-import {connect as reduxConnect} from "react-redux";
+import debounceExport from 'lodash/debounce'
+import {connect as connectExport} from "react-redux";
 
 
-export const connect = reduxConnect; // для удобства, автоматический импорт
+export const connect = connectExport; // для удобства, автоматический импорт в IDEA
+export const debounce = debounceExport;
+export const classNames = classNamesExport;
 export const routerHistory = createBrowserHistory({});
-
-export const action = (type, value) => {
-    return {type: type, value: value};
-};
 
 export const createReducer = (initialState, mappingObj) => {
     return (state = initialState, action) => {
@@ -31,18 +31,6 @@ export const updateUiField = (componentRef, fieldName, value) => {
         update(
             componentRef.state, {
                 ui: {[fieldName]: {$set: value}}
-            })
-    );
-};
-
-export const update2UiFields = (componentRef, fieldName1, value1, fieldName2, value2) => {
-    componentRef.setState(
-        update(
-            componentRef.state, {
-                ui: {
-                    [fieldName1]: {$set: value1},
-                    [fieldName2]: {$set: value2}
-                }
             })
     );
 };

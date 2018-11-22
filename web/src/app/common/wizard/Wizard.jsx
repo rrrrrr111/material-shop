@@ -5,10 +5,9 @@ import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
-import {buttonDebounceRule} from "app/utils/functionUtil";
+import {buttonDebounceRule, debounce} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import classNames from "classnames";
-import debounce from 'lodash/debounce'
 import PropTypes from "prop-types";
 import React from "react";
 import {Redirect, withRouter} from "react-router";
@@ -46,11 +45,11 @@ class Wizard extends React.Component {
     };
 
     debounceChangeTab(e, step) {
-        this._delayedChangeTab(e, step, this.props);
+        this._delayedChangeTab(e, step);
     };
 
     _delayedChangeTab = debounce( // для избежания двойного клика
-        function (e, step, props) {
+        function (e, step) {
             const tabIndex = this.state.activeTabIndex + step;
             if (tabIndex === -1) {
                 // todo учитывать возврат с других шагов

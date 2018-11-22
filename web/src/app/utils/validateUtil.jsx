@@ -6,7 +6,11 @@ export const isNotBlank = (str) => {
 };
 
 export const isTrue = (val) => {
-    return !!val;
+    return (val === true);
+};
+
+export const isBoolean = (val) => {
+    return (val === true || val === false);
 };
 
 export const checkRegexp = (str, regexp) => {

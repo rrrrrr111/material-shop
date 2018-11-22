@@ -1,9 +1,8 @@
 import {USER_LOGGED_OUT} from "app/user/reducer";
-import {action} from "app/utils/functionUtil";
+import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import React from "react";
-import {connect} from "react-redux";
-import {store} from "store";
+import {dispatch} from "store";
 
 class SignoutComp extends React.PureComponent {
 
@@ -22,9 +21,8 @@ class SignoutComp extends React.PureComponent {
 
     static signout = (backToPreviousUrl) => {
         util.ajax.backendSignout()
-            .then(function () {
-
-                store.dispatch(action(USER_LOGGED_OUT));
+            .then(() => {
+                dispatch(USER_LOGGED_OUT);
                 SignoutComp.afterSignOut(backToPreviousUrl);
             });
     };
