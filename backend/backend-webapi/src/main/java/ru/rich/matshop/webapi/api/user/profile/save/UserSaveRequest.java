@@ -22,8 +22,9 @@ public class UserSaveRequest extends AbstractRestRequest {
 
     @Override
     public String toString() {
-        return "UserSaveRequest{" +
+        return "EmptyRequest{" +
                 "person=" + person +
+                ", shopId=" + getShopId() +
                 '}';
     }
 }

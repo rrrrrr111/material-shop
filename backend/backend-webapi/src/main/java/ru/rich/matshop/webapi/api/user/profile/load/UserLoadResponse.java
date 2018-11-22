@@ -1,9 +1,9 @@
-package ru.rich.matshop.webapi.api.user.auth.signin;
+package ru.rich.matshop.webapi.api.user.profile.load;
 
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
 import ru.rich.matshop.webapi.api.user.model.Person;
 
-public class LoginResponse extends AbstractRestResponse {
+public class UserLoadResponse extends AbstractRestResponse {
 
     private Person person;
 
@@ -17,7 +17,7 @@ public class LoginResponse extends AbstractRestResponse {
 
     @Override
     public String toString() {
-        return "LoginResponse{" +
+        return "UserLoadResponse{" +
                 "person=" + person +
                 ", serverId=" + getServerId() +
                 ", message='" + getMessage() + '\'' +

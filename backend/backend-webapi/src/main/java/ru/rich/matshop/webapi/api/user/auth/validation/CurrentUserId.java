@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {CurrentUserIdValidator.class})
 public @interface CurrentUserId {
 
-    String message() default "matshop.webapi.validation.currentUserId";
+    String message() default "{matshop.webapi.validation.currentUserId}";
 
     Class<?>[] groups() default {};
 

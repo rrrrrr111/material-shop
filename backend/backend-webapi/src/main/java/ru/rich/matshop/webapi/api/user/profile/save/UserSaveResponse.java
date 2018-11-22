@@ -17,8 +17,10 @@ public class UserSaveResponse extends AbstractRestResponse {
 
     @Override
     public String toString() {
-        return "UserSaveResponse{" +
+        return "UserLoadResponse{" +
                 "person=" + person +
+                ", serverId=" + getServerId() +
+                ", message='" + getMessage() + '\'' +
                 '}';
     }
 }

@@ -36,12 +36,4 @@ public abstract class AbstractRestResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    @Override
-    public String toString() {
-        return "AbstractRestResponse{" +
-                "serverId=" + serverId +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

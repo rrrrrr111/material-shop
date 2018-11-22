@@ -24,6 +24,7 @@ public class SignupRequest extends AbstractRestRequest {
     public String toString() {
         return "SignupRequest{" +
                 "person=" + person +
+                ", shopId=" + getShopId() +
                 '}';
     }
 }

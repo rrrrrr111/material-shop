@@ -22,7 +22,7 @@ class ProfileTab extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data,
+            data: {...props.data},
             ui: {
                 firstNameValid: true,
                 lastNameValid: true,
@@ -48,10 +48,26 @@ class ProfileTab extends React.PureComponent {
 
     static getDerivedStateFromProps(props, state) {
         if (state.data.editDate !== props.data.editDate) {
-            return {...state, data: props.data};
+            return {...state, data: {...props.data}};
         }
         return null;
     }
+
+    componentDidMount() {
+        if (!this.props.ui.loaded) {
+            ProfileTab.reloadUser();
+        }
+    }
+
+    static reloadUser = () => {
+        util.ajax.backendPost("user/load")
+            .then(function (response) {
+                const success = response.success;
+                if (success) {
+                    store.dispatch(action(USER_DATA, response.person));
+                }
+            });
+    };
 
     handleSave = (e) => {
         e.stopPropagation();

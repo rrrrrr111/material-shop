@@ -44,7 +44,7 @@ class RegPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.ui.authorized ? {
+            data: props.ui.loaded ? {
                 email: "",
                 firstName: "",
                 password: "",
@@ -75,7 +75,7 @@ class RegPopup extends React.PureComponent {
     }
 
     componentDidMount() {
-        if (this.props.ui.authorized) {
+        if (this.props.ui.loaded) {
             SignoutComp.signout(false);
         }
     }
@@ -100,8 +100,8 @@ class RegPopup extends React.PureComponent {
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
-            util.ajax.backendPost("auth/signup", {person: compRef.state.data})
-                .then(function (response) {
+            util.ajax.backendPost("auth/signup", {person: statePerson})
+                .then((response) => {
                     const success = response.success;
                     let person = response.person;
                     if (!success) {

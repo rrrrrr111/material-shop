@@ -11,14 +11,14 @@ import ru.rich.matshop.webapi.api.user.profile.settings.SettingsChange;
 import java.util.Date;
 
 @Service
-public class UserService {
+public class PersonService {
     private static final String EMAIL_EXISTS_USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован";
     private static final String PHONE_EXISTS_USER_MESSAGE = "Пользователь с указанным телефоном уже зарегистрирован";
     private static final String INCORRECT_OLD_PASSWORD_MESSAGE = "Старый пароль указан не верно";
 
     private final PersonDao personDao;
 
-    UserService(PersonDao personDao) {
+    PersonService(PersonDao personDao) {
         this.personDao = personDao;
     }
 
@@ -32,7 +32,11 @@ public class UserService {
         return personDao.getById(personId);
     }
 
-    public Person updateProfile(Person person) {
+    public Person get(Long personId) {
+        return personDao.getById(personId);
+    }
+
+    public Person update(Person person) {
         Long personId = Preconditions.checkNotNull(person.getId(), "Person id must not be null");
 
         checkEmailNotExists(personId, person.getEmail());

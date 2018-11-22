@@ -1,7 +1,7 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
-import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
 import ru.rich.matshop.webapi.api.common.paging.PageResponse;
+import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
 
 import java.util.List;
 
@@ -34,6 +34,8 @@ public class FeedResponse extends AbstractRestResponse {
         return "FeedResponse{" +
                 "pageResponse=" + pageResponse +
                 ", products=" + products +
+                ", serverId=" + getServerId() +
+                ", message='" + getMessage() + '\'' +
                 '}';
     }
 }

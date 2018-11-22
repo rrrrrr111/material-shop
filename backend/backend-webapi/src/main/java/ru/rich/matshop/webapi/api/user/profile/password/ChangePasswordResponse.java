@@ -20,6 +20,8 @@ public class ChangePasswordResponse extends AbstractRestResponse {
     public String toString() {
         return "ChangePasswordResponse{" +
                 "personEditDate=" + personEditDate +
+                ", serverId=" + getServerId() +
+                ", message='" + getMessage() + '\'' +
                 '}';
     }
 }

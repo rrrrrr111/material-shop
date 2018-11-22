@@ -9,7 +9,7 @@ class SignoutComp extends React.PureComponent {
 
     componentDidMount() {
 
-        if (this.props.ui.authorized) {
+        if (this.props.ui.loaded) {
             SignoutComp.signout(true);
         } else {
             SignoutComp.afterSignOut(true);

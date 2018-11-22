@@ -20,6 +20,8 @@ public class UserSaveSettingsResponse extends AbstractRestResponse {
     public String toString() {
         return "UserSaveSettingsResponse{" +
                 "personEditDate=" + personEditDate +
+                ", serverId=" + getServerId() +
+                ", message='" + getMessage() + '\'' +
                 '}';
     }
 }

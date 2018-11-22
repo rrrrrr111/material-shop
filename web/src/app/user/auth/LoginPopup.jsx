@@ -37,7 +37,7 @@ class LoginPopup extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.ui.authorized ? {
+            data: props.ui.loaded ? {
                 email: "",
                 password: "",
             } : {...props.data},
@@ -62,7 +62,7 @@ class LoginPopup extends React.PureComponent {
     }
 
     componentDidMount() {
-        if (this.props.ui.authorized) {
+        if (this.props.ui.loaded) {
             SignoutComp.signout(false);
         }
     }
@@ -87,8 +87,8 @@ class LoginPopup extends React.PureComponent {
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
-            util.ajax.backendSignin(compRef.state.data)
-                .then(function (response) {
+            util.ajax.backendSignin(statePerson)
+                .then((response) => {
                     const success = response.success;
                     let person = response.person;
                     if (!success) {

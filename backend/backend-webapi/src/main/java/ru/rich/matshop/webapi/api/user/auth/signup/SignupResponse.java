@@ -19,6 +19,8 @@ public class SignupResponse extends AbstractRestResponse {
     public String toString() {
         return "SignupResponse{" +
                 "person=" + person +
+                ", serverId=" + getServerId() +
+                ", message='" + getMessage() + '\'' +
                 '}';
     }
 }

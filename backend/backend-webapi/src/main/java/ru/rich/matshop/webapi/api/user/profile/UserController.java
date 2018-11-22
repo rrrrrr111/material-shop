@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
-import ru.rich.matshop.webapi.api.user.UserService;
+import ru.rich.matshop.webapi.api.common.security.AuthContext;
+import ru.rich.matshop.webapi.api.user.PersonService;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
+import ru.rich.matshop.webapi.api.user.profile.load.UserLoadResponse;
 import ru.rich.matshop.webapi.api.user.profile.password.ChangePasswordRequest;
 import ru.rich.matshop.webapi.api.user.profile.password.ChangePasswordResponse;
 import ru.rich.matshop.webapi.api.user.profile.save.UserSaveRequest;
@@ -27,10 +29,19 @@ import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_
 public class UserController extends AbstractRestController {
     private static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
 
-    private final UserService userService;
+    private final PersonService personService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(PersonService personService) {
+        this.personService = personService;
+    }
+
+    @PostMapping(USER_URL_PREFIX + "/load")
+    public UserLoadResponse load() {
+        Person respPerson = toUi(personService.get(AuthContext.getCurrentUserId()));
+
+        var resp = prepareResponse(new UserLoadResponse());
+        resp.setPerson(respPerson);
+        return resp;
     }
 
     @PostMapping(USER_URL_PREFIX + "/save")
@@ -39,7 +50,7 @@ public class UserController extends AbstractRestController {
                                  @Validated({OnSave.class})
                                          UserSaveRequest req) {
         Person reqPerson = fromUi(req.getPerson());
-        Person respPerson = toUi(userService.updateProfile(reqPerson));
+        Person respPerson = toUi(personService.update(reqPerson));
 
         var resp = prepareResponse(new UserSaveResponse());
         resp.setPerson(respPerson);
@@ -52,7 +63,7 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          UserSaveSettingsRequest req) {
         SettingsChange sc = req.getSettingsChange();
-        Date editDate = userService.updateSettings(sc);
+        Date editDate = personService.updateSettings(sc);
 
         var resp = prepareResponse(new UserSaveSettingsResponse());
         resp.setPersonEditDate(editDate);
@@ -65,7 +76,7 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          ChangePasswordRequest req) {
         var pc = req.getPasswordChange();
-        Date editDate = userService.updatePassword(pc);
+        Date editDate = personService.updatePassword(pc);
 
         var resp = prepareResponse(new ChangePasswordResponse());
         resp.setPersonEditDate(editDate);

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.common.security.AuthContext;
-import ru.rich.matshop.webapi.api.user.UserService;
+import ru.rich.matshop.webapi.api.user.PersonService;
 import ru.rich.matshop.webapi.api.user.auth.signin.LoginResponse;
-import ru.rich.matshop.webapi.api.user.auth.signout.SignoutResponse;
+import ru.rich.matshop.webapi.api.common.rest.EmptyResponse;
 import ru.rich.matshop.webapi.api.user.auth.signup.SignupRequest;
 import ru.rich.matshop.webapi.api.user.auth.signup.SignupResponse;
 import ru.rich.matshop.webapi.api.user.model.Person;
@@ -33,14 +33,14 @@ import static ru.rich.matshop.webapi.api.user.profile.UserController.toUi;
 @RestController
 public class AuthController extends AbstractRestController {
 
-    private final UserService userService;
+    private final PersonService personService;
     private final AuthenticationManager authenticationManager;
     private final AuthenticationCacheService authenticationCacheService;
 
-    public AuthController(UserService userService,
+    public AuthController(PersonService personService,
                           AuthenticationManager authenticationManager,
                           AuthenticationCacheService authenticationCacheService) {
-        this.userService = userService;
+        this.personService = personService;
         this.authenticationManager = authenticationManager;
         this.authenticationCacheService = authenticationCacheService;
     }
@@ -74,7 +74,7 @@ public class AuthController extends AbstractRestController {
                     //@Validated({WithPassword.class, WithAgreementChecked.class})
                     SignupRequest req) {
 
-        Person person = userService.signup(fromUi(req.getPerson()));
+        Person person = personService.signup(fromUi(req.getPerson()));
         Authentication auth = userSignin(request, person.getEmail(), person.getPassword());
 
         String newToken = authenticationCacheService.putAuth(auth);
@@ -88,12 +88,12 @@ public class AuthController extends AbstractRestController {
     }
 
     @GetMapping(URL_SIGNOUT)
-    public SignoutResponse signout(
+    public EmptyResponse signout(
             @RequestHeader(HEADER_JWT) String token) {
 
         clearUserAuth(token);
 
-        return prepareResponse(new SignoutResponse());
+        return prepareResponse(new EmptyResponse());
     }
 
     private Authentication userSignin(HttpServletRequest request, String username, String password) {

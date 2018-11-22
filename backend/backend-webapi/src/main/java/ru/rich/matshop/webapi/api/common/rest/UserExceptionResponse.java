@@ -10,6 +10,7 @@ public class UserExceptionResponse extends AbstractRestResponse {
     public String toString() {
         return "UserExceptionResponse{" +
                 "serverId=" + getServerId() +
+                ", serverId=" + getServerId() +
                 ", message='" + getMessage() + '\'' +
                 '}';
     }

@@ -29,13 +29,13 @@ export const dataUserReducer = createReducer(
     });
 
 export const uiUserReducer = createReducer({
-    authorized: false,
+    loaded: false,
 }, {
     [USER_AUTH_RESULT]: (state, value) => {
-        return update(state, {authorized: {$set: value}});
+        return update(state, {loaded: {$set: value}});
     },
     [USER_LOGGED_OUT]: (state) => {
-        return update(state, {authorized: {$set: false}});
+        return update(state, {loaded: {$set: false}});
     },
 });
 
