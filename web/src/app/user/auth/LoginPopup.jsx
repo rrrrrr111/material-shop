@@ -19,14 +19,14 @@ import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
+import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
 import {
     checkEmail,
     inputHandler,
     inputTrimHandler,
-    isNotBlank,
+    isNotEmpty,
     prepareEnterHandler,
     prepareHandler
 } from "app/utils/validateUtil";
@@ -57,7 +57,7 @@ class LoginPopup extends React.PureComponent {
         this.validator = util.validate.createValidator(this, {
                 fieldsToCheckers: {
                     email: checkEmail,
-                    password: isNotBlank,
+                    password: isNotEmpty,
                 },
                 formValidField: 'formValid',
             }
@@ -109,7 +109,7 @@ class LoginPopup extends React.PureComponent {
                         util.notify.signIn();
                     }
                 });
-        }, 1000, buttonDebounceRule);
+        }, ajaxDebounceTimeout, buttonDebounceRule);
 
     static show = () => {
         util.navigate.goToUrl("/auth/signin", {modal: true});

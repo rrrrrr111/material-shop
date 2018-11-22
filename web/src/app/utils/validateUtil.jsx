@@ -5,6 +5,10 @@ export const isNotBlank = (str) => {
     return (str && str.trim().length !== 0);
 };
 
+export const isNotEmpty = (str) => {
+    return (str && str.length !== 0);
+};
+
 export const isTrue = (val) => {
     return (val === true);
 };
@@ -145,10 +149,6 @@ export const checkboxHandler = (compRef, fieldName, event) => {
 };
 
 const validate = {
-    isNotBlank: isNotBlank,
-    isTrue: isTrue,
-    checkRegexp: checkRegexp,
-    checkEmail: checkEmail,
     createValidator: createValidator,
 };
 export default validate;

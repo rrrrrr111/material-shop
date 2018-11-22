@@ -15,6 +15,7 @@ public class PersonService {
     private static final String EMAIL_EXISTS_USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован";
     private static final String PHONE_EXISTS_USER_MESSAGE = "Пользователь с указанным телефоном уже зарегистрирован";
     private static final String INCORRECT_OLD_PASSWORD_MESSAGE = "Старый пароль указан не верно";
+    private static final String OLD_PASSWORD_SAME_AS_NEW_MESSAGE = "Новый пароль не может совпадать со старым";
 
     private final PersonDao personDao;
 
@@ -52,6 +53,10 @@ public class PersonService {
         if (!record.getPassword().equals(pc.getOldPassword())) {
             throw new UserException(INCORRECT_OLD_PASSWORD_MESSAGE,
                     String.format("Incorrect old password specified, user id=%s", personId));
+        }
+        if (pc.getNewPassword().equals(pc.getOldPassword())) {
+            throw new UserException(OLD_PASSWORD_SAME_AS_NEW_MESSAGE,
+                    String.format("New passwords equal to old, user id=%s", personId));
         }
         return personDao.updatePassword(pc);
     }

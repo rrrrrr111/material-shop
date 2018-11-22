@@ -34,5 +34,8 @@ const notify = {
     dataSaved() {
         showNotify("Данные сохранены");
     },
+    passwordChanged() {
+        showNotify("Ваш пароль изменен");
+    },
 };
 export default notify;

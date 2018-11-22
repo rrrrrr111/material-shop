@@ -5,7 +5,7 @@ import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
-import {buttonDebounceRule, debounce} from "app/utils/functionUtil";
+import {buttonDebounceRule, debounce, urlDebounceTimeout} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -63,7 +63,7 @@ class Wizard extends React.Component {
                 url = this.props.tabsConfig[tabIndex].url;
             }
             util.navigate.goToUrl(url);
-        }, 500, buttonDebounceRule);
+        }, urlDebounceTimeout, buttonDebounceRule);
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         return this.state.activeTabKey !== nextProps.match.params.activeTabKey;

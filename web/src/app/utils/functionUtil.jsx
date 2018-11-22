@@ -21,6 +21,8 @@ export const createReducer = (initialState, mappingObj) => {
 };
 
 export const buttonDebounceRule = {leading: true, trailing: false};
+export const urlDebounceTimeout = 500;
+export const ajaxDebounceTimeout = 1000;
 
 export const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);

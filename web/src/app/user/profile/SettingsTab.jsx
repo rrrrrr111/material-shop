@@ -14,7 +14,14 @@ import {buttonColor} from "app/common/style/styles";
 import ProfileTab from "app/user/profile/ProfileTab";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {buttonDebounceRule, classNames, connect, debounce, updateUiField} from "app/utils/functionUtil";
+import {
+    ajaxDebounceTimeout,
+    buttonDebounceRule,
+    classNames,
+    connect,
+    debounce,
+    updateUiField
+} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkboxHandler, isBoolean, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
@@ -93,7 +100,7 @@ class SettingsTab extends React.PureComponent {
                         util.notify.dataSaved();
                     }
                 });
-        }), 1000, buttonDebounceRule);
+        }), ajaxDebounceTimeout, buttonDebounceRule);
 
     render() {
         const {classes} = this.props;

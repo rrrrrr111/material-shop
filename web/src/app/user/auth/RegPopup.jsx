@@ -19,14 +19,14 @@ import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
 import SignoutComp from "app/user/auth/SignoutComp";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
+import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {
     checkboxHandler,
     checkEmail,
     inputHandler,
     inputTrimHandler,
-    isNotBlank,
+    isNotBlank, isNotEmpty,
     isTrue,
     prepareEnterHandler,
     prepareHandler
@@ -63,7 +63,7 @@ class RegPopup extends React.PureComponent {
                 fieldsToCheckers: {
                     email: checkEmail,
                     firstName: isNotBlank,
-                    password: isNotBlank,
+                    password: isNotEmpty,
                     agreementChecked: isTrue
                 },
                 formValidField: 'formValid',
@@ -116,7 +116,7 @@ class RegPopup extends React.PureComponent {
                         util.notify.signIn();
                     }
                 });
-        }, 1000, buttonDebounceRule);
+        }, ajaxDebounceTimeout, buttonDebounceRule);
 
     render() {
         const {classes} = this.props;
