@@ -40,20 +40,19 @@ class PasswordTab extends React.PureComponent {
                     newPassword1: this.checkNewPassword1,
                     newPassword2: this.checkNewPassword2,
                 },
+                revalidateAllOnChange: true,
                 formValidField: 'formValid',
             }
         );
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.checkNewPassword1 = this.checkNewPassword1.bind(this);
-        this.checkNewPassword2 = this.checkNewPassword2.bind(this);
     };
 
-    checkNewPassword1 = (str) => {
-        return (isNotEmpty(str) && str === this.state.data.newPassword2);
+    checkNewPassword1 = (str, newData) => {
+        return (isNotEmpty(str) && str === newData['newPassword2']);
     };
 
-    checkNewPassword2 = (str) => {
-        return (isNotEmpty(str) && str === this.state.data.newPassword1);
+    checkNewPassword2 = (str, newData) => {
+        return (isNotEmpty(str) && str === newData['newPassword1']);
     };
 
     handleChangePassword = (e) => {
@@ -122,6 +121,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
+                                disabled={loading}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
@@ -141,6 +141,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
+                                disabled={loading}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
@@ -163,6 +164,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
+                                disabled={loading}
                             />
                         </GridItem>
                     </GridContainer>

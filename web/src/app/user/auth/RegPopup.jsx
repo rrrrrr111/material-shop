@@ -26,7 +26,8 @@ import {
     checkEmail,
     inputHandler,
     inputTrimHandler,
-    isNotBlank, isNotEmpty,
+    isNotBlank,
+    isNotEmpty,
     isTrue,
     prepareEnterHandler,
     prepareHandler

@@ -22,14 +22,7 @@ import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_ST
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
-import {
-    checkEmail,
-    inputHandler,
-    inputTrimHandler,
-    isNotEmpty,
-    prepareEnterHandler,
-    prepareHandler
-} from "app/utils/validateUtil";
+import {checkEmail, inputHandler, inputTrimHandler, isNotEmpty, prepareEnterHandler, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
 

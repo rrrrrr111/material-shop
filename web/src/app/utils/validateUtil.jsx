@@ -1,5 +1,4 @@
 import {capitalize} from "app/utils/functionUtil";
-import update from 'immutability-helper';
 
 export const isNotBlank = (str) => {
     return (str && str.trim().length !== 0);
@@ -31,79 +30,90 @@ export const checkPhone = (phone) => {
 };
 
 const createValidator = (compRef, conf) => {
-    //conf.disabled = true; // выключение валидации на полях
+    //conf.disabled = true;
     return new Validator(compRef, conf);
 };
 
 class Validator {
     constructor(compRef, conf) {
         this.compRef = compRef;
-        this.conf = conf;
+        this.conf = {
+            disabled: false, // выключение всей валидации
+            lazyValidation: true, // true - подсветка ошибки только при нажатии кнопки, false - сразу при вводе
+            revalidateAllOnChange: false, // проверка всех полей при изменении в одном
+            ...conf
+        };
     }
 
     handleChange = (fieldName, value) => {
-        const fieldValid = this.isFieldValid(fieldName, value);
-        const formValid = this.checkOtherFormFieldsFlags(fieldName, fieldValid);
-        this.compRef.setState(
-            update(
-                this.compRef.state, {
-                    data: {[fieldName]: {$set: value}},
-                    ui: {
-                        [fieldName + "Valid"]: {$set: fieldValid},
-                        [this.conf.formValidField]: {$set: formValid}
-                    }
-                })
-        );
-    };
+        const newData = {...this.compRef.state.data, [fieldName]: value};
+        const newUi = {...this.compRef.state.ui};
+        const lazy = this.conf.lazyValidation;
 
-    isFieldValid = (fieldName, value) => {
-        if (this.conf.disabled) {
-            return true;
+        if (this.conf.revalidateAllOnChange) {
+            this.checkFields(lazy, newData, newUi);
+        } else {
+            this.checkField(lazy, newData, newUi, fieldName);
+            this.checkFieldFlags(newUi);
         }
-        let valid = this.compRef.state.ui[fieldName + "Valid"];
-        if (!valid) {
-            valid = this.conf.fieldsToCheckers[fieldName](value);
-        }
-        return valid;
-    };
-
-    checkOtherFormFieldsFlags = (exceptField, valid = true) => {
-        if (!valid) return false;
-        for (const field in this.conf.fieldsToCheckers) {
-            if (this.conf.fieldsToCheckers.hasOwnProperty(field)
-                && field !== exceptField) {
-                valid &= this.compRef.state.ui[field + "Valid"]
-            }
-        }
-        return valid;
+        this.setState(newData, newUi);
     };
 
     isFormValid = () => {
         if (this.conf.disabled) {
             return true;
         }
-        const checkers = this.conf.fieldsToCheckers;
-        const compRef = this.compRef;
-        const uiObj = {...compRef.state.ui};
 
-        let formValid = true;
-        let fieldValid;
-        for (const field in checkers) {
-            if (checkers.hasOwnProperty(field)) {
-                fieldValid = checkers[field](compRef.state.data[field]);
-                uiObj[field + "Valid"] = fieldValid;
-                formValid &= fieldValid;
-            }
-        }
+        const newData = {...this.compRef.state.data};
+        const newUi = {...this.compRef.state.ui};
+        this.checkFields(false, newData, newUi);
+        const formValid = newUi[this.conf.formValidField];
+
         if (!formValid) {
-            uiObj[this.conf.formValidField] = formValid;
-            compRef.setState({
-                ...compRef.state,
-                ui: uiObj
-            });
+            this.setState(newData, newUi);
         }
         return formValid;
     };
+
+    checkFields = (lazy, newData, newUi) => {
+        const checkers = this.conf.fieldsToCheckers;
+
+        for (const fieldName in checkers) {
+            if (checkers.hasOwnProperty(fieldName)) {
+                this.checkField(lazy, newData, newUi, fieldName);
+            }
+        }
+        this.checkFieldFlags(newUi);
+    };
+
+    checkField = (lazy, newData, newUi, fieldName) => {
+        if (this.conf.disabled) {
+            return true;
+        }
+        const fieldValidFlag = `${fieldName}Valid`;
+        if (!lazy || !newUi[fieldValidFlag]) {
+            newUi[fieldValidFlag] = this.conf.fieldsToCheckers[fieldName](newData[fieldName], newData);
+        }
+    };
+
+    checkFieldFlags = (newUi) => {
+        const checkers = this.conf.fieldsToCheckers;
+        let formValid = true;
+        for (const fieldName in checkers) {
+            if (checkers.hasOwnProperty(fieldName)) {
+                formValid &= newUi[`${fieldName}Valid`]
+            }
+        }
+        newUi[this.conf.formValidField] = formValid;
+    };
+
+    setState(newData, newUi) {
+        this.compRef.setState({
+            ...this.compRef.state,
+            data: newData,
+            ui: newUi,
+        });
+    }
 }
 
 export const prepareHandler = (compRef, fieldName, valueHandler) => {

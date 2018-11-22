@@ -13,14 +13,7 @@ import userProfileStyle from "app/user/profile/userProfileStyle";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import {
-    checkEmail,
-    checkPhone,
-    inputHandler,
-    inputTrimHandler,
-    isNotBlank,
-    prepareHandler
-} from "app/utils/validateUtil";
+import {checkEmail, checkPhone, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
 
