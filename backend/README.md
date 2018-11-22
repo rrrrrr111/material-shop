@@ -21,6 +21,7 @@
 * `gradle -i --stacktrace jooqGenerate` - Генерация классов JOOQ
 
 #### Troubleshooting
+- Генерируемые Jooq сущности (Record) не кладутся в ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...)
 
 #### Используется
 * [Java](https://www.oracle.com/technetwork/java/javase/downloads/index.html)

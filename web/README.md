@@ -11,6 +11,7 @@
     `src` - для разработки, процессится Webpack'ом на предмет JS и CSS
 
 #### Команды
+Выполняются в папке /web/
     `npm i` - установка пакетов
     `npm run start --verbose` - запуск в режиме разработки через react-scripts, см скрипты в package.json, открываем http://localhost:3000
     `npm run start-wp --verbose` - (не актуально) запуск в режиме разработки через webpack, открываем http://localhost:3000

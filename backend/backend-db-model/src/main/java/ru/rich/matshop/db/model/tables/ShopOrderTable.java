@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = 437861970;
+    private static final long serialVersionUID = 75428520;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -107,6 +107,11 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
      * The column <code>matshop.shop_order.service_comment</code>.
      */
     public final TableField<ShopOrderRecord, String> SERVICE_COMMENT = createField("service_comment", org.jooq.impl.SQLDataType.VARCHAR(10000), this, "");
+
+    /**
+     * The column <code>matshop.shop_order.payment_info</code>.
+     */
+    public final TableField<ShopOrderRecord, String> PAYMENT_INFO = createField("payment_info", org.jooq.impl.SQLDataType.VARCHAR(10000), this, "");
 
     /**
      * The column <code>matshop.shop_order.create_date</code>.

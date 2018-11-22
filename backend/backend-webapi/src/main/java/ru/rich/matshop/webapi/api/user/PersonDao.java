@@ -1,19 +1,18 @@
 package ru.rich.matshop.webapi.api.user;
 
 import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 import ru.rich.matshop.db.model.tables.PersonTable;
-import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.Role;
+import ru.rich.matshop.webapi.api.user.model.UserInfo;
 import ru.rich.matshop.webapi.api.user.profile.password.PasswordChange;
+import ru.rich.matshop.webapi.api.user.profile.settings.SettingsChange;
 
 import java.util.Date;
-import java.util.Set;
 
 import static ru.rich.matshop.db.model.Tables.PERSON;
 import static ru.rich.matshop.webapi.util.DaoUtil.isOne;
@@ -27,29 +26,27 @@ public class PersonDao {
         this.create = create;
     }
 
-    @Cacheable("personById")
-    public PersonRecord getById(Long id) {
+    @Cacheable(value = "personById", key = "#id")
+    public UserInfo getById(Long id) {
         PersonTable p = PERSON.as("p");
         return create.selectFrom(p)
                 .where(p.ID.eq(id))
-                .fetchOne();
+                .fetchOneInto(UserInfo.class);
     }
 
-    @Cacheable("personIdByEmail")
-    public Long getIdByEmail(String email, Set<Long> exceptIds) {
+    @Cacheable(value = "personIdByEmail", key = "#email")
+    public Long getIdByEmail(String email) {
         return create.select(PERSON.ID)
                 .from(PERSON)
-                .where(PERSON.EMAIL.eq(email)
-                        .and(exceptIds.isEmpty() ? DSL.trueCondition() : PERSON.ID.notIn(exceptIds)))
+                .where(PERSON.EMAIL.eq(email))
                 .fetchOneInto(Long.class);
     }
 
-    @Cacheable("personIdByPhone")
-    public Long getIdByPhone(String phone, Set<Long> exceptIds) {
+    @Cacheable(value = "personIdByPhone", key = "#phone")
+    public Long getIdByPhone(String phone) {
         return create.select(PERSON.ID)
                 .from(PERSON)
-                .where(PERSON.PHONE.eq(phone)
-                        .and(exceptIds.isEmpty() ? DSL.trueCondition() : PERSON.ID.notIn(exceptIds)))
+                .where(PERSON.PHONE.eq(phone))
                 .fetchOneInto(Long.class);
     }
 
@@ -106,8 +103,23 @@ public class PersonDao {
                         PERSON.ID.eq(pc.getPersonId())
                                 .and(PERSON.EDIT_DATE.eq(pc.getPersonEditDate()))
                                 .and(PERSON.PASSWORD.eq(pc.getOldPassword()))
-                )
-                .execute();
+                ).execute();
+        isOne(res);
+        return now;
+    }
+
+    @Caching(evict = {
+            @CacheEvict(value = {"personById"}, key = "#sc.personId")
+    })
+    public Date updateSettings(SettingsChange sc) {
+        Date now = new Date();
+        int res = create.update(PERSON)
+                .set(PERSON.AGREEMENT_CHECKED, sc.getAgreementChecked())
+                .set(PERSON.EDIT_DATE, now)
+                .where(
+                        PERSON.ID.eq(sc.getPersonId())
+                                .and(PERSON.EDIT_DATE.eq(sc.getPersonEditDate()))
+                ).execute();
         isOne(res);
         return now;
     }

@@ -49,7 +49,7 @@ class RegPopup extends React.PureComponent {
                 firstName: "",
                 password: "",
                 agreementChecked: false,
-            } : props.data,
+            } : {...props.data},
             ui: {
                 emailValid: true,
                 firstNameValid: true,

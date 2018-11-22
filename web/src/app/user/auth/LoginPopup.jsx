@@ -40,7 +40,7 @@ class LoginPopup extends React.PureComponent {
             data: props.ui.authorized ? {
                 email: "",
                 password: "",
-            } : props.data,
+            } : {...props.data},
             ui: {
                 emailValid: true,
                 passwordValid: true,

@@ -52,9 +52,10 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          UserSaveSettingsRequest req) {
         SettingsChange sc = req.getSettingsChange();
-        // todo
+        Date editDate = userService.updateSettings(sc);
 
         var resp = prepareResponse(new UserSaveSettingsResponse());
+        resp.setPersonEditDate(editDate);
         return resp;
     }
 
@@ -64,7 +65,7 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          ChangePasswordRequest req) {
         var pc = req.getPasswordChange();
-        Date editDate = userService.changePassword(pc);
+        Date editDate = userService.updatePassword(pc);
 
         var resp = prepareResponse(new ChangePasswordResponse());
         resp.setPersonEditDate(editDate);

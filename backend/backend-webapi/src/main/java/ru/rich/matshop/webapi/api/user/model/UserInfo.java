@@ -5,13 +5,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class UserInfo extends Person implements UserDetails {
 
+    @JsonIgnore
+    private Date lastVisit;
+    @JsonIgnore
     private boolean locked;
+    @JsonIgnore
     private Role role;
 
-    @JsonIgnore
     public boolean isLocked() {
         return locked;
     }
@@ -20,13 +24,20 @@ public class UserInfo extends Person implements UserDetails {
         this.locked = locked;
     }
 
-    @JsonIgnore
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Date getLastVisit() {
+        return lastVisit;
+    }
+
+    public void setLastVisit(Date lastVisit) {
+        this.lastVisit = lastVisit;
     }
 
     @Override
@@ -80,6 +91,7 @@ public class UserInfo extends Person implements UserDetails {
                 ", locked=" + locked +
                 ", role=" + role +
                 ", editDate=" + getEditDate() +
+                ", lastVisit=" + lastVisit +
                 '}';
     }
 }
