@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.rich.matshop.webapi.api.common.security.InsufficientAccessException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -49,10 +47,6 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
                     InsufficientAuthenticationException.class, of(
                             FORBIDDEN.getReasonPhrase(),
                             FORBIDDEN.value()
-                    ),
-                    InsufficientAccessException.class, of(
-                            FORBIDDEN.getReasonPhrase(),
-                            FORBIDDEN.value()
                     )
             );
 
@@ -74,7 +68,7 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException ex) throws IOException, ServletException {
+                         AuthenticationException ex) throws IOException {
 
         Pair<String, Integer> status = resolveResponseStatus(ex);
         response.sendError(status.getRight(), status.getLeft());
@@ -86,8 +80,8 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
      */
     @ExceptionHandler(AuthenticationException.class)
     @ResponseBody
-    public UserExceptionResponse handle(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException ex) throws IOException {
+    public UserExceptionResponse handle(HttpServletResponse response,
+                                        AuthenticationException ex) {
         log.warn("Exception on authentication", ex.getMessage());
 
         Pair<String, Integer> status = resolveResponseStatus(ex);

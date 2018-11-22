@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.common.security;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.rich.matshop.webapi.api.user.model.UserInfo;
@@ -15,7 +16,7 @@ public class AuthContext {
     public static UserInfo getCurrentUser() {
         Authentication auth = getAuthentication();
         if (!isAuthenticated(auth)) {
-            throw new IllegalStateException("User not authenticated");
+            throw new InsufficientAuthenticationException("User not authenticated");
         }
         return (UserInfo) auth.getPrincipal();
     }
@@ -43,14 +44,9 @@ public class AuthContext {
     }
 
     private static boolean isAuthenticated(Authentication auth) {
-        return auth != null && !(auth instanceof AnonymousAuthenticationToken);
-    }
-
-    public static void checkUserId(Long userId) {
-        Long currentUserId = getCurrentUserId();
-        if (!currentUserId.equals(userId)) {
-            throw new InsufficientAccessException(
-                    String.format("Insufficient access to userId: %s by userId: %s", userId, currentUserId));
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return false;
         }
+        return auth.isAuthenticated();
     }
 }

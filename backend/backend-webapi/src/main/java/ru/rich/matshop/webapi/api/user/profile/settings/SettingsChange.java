@@ -1,12 +1,14 @@
 package ru.rich.matshop.webapi.api.user.profile.settings;
 
+import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
 public class SettingsChange {
 
-    @NotNull
+    @CurrentUserId
     private Long personId;
     @NotNull
     private Boolean agreementChecked;

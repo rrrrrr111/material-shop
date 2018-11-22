@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
@@ -15,7 +16,7 @@ public class Person {
 
 
     @Null(groups = {OnSignup.class})
-    @NotNull(groups = {OnSave.class})
+    @CurrentUserId(groups = {OnSave.class})
     private Long id;
     @NotBlank(groups = {OnSignup.class, OnSave.class})
     @Pattern(groups = {OnSignup.class, OnSave.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")

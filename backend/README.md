@@ -1,11 +1,16 @@
 #### Первичная настройка
-1. Устанавливаем Gradle 4.10+ и JDK 11+
-2. IntelliJ IDEA 2018.2+ или др IDE для работы с Java
-3. в IntelliJ IDEA в Code Style -> Java убрать схловывание импортов к звездочке
+1. Устанавливаем
+    - Gradle 4.10+
+    - JDK 11+
+    - IntelliJ IDEA 2018.2+ или др IDE для работы с Java
+3. В настройках IntelliJ IDEA
+    - Code Style -> Java убрать схловывание импортов к звездочке
+    - Editor -> File Encodings -> Default encoding for properties files ставим UTF-8
 
 #### Команды
 * Для запуска приложения бэкенда делаем конфигурацию запуска класса `ru.rich.matshop.webapi.Start`,
        передаем параметры
+       - Program arguments
 
             --spring.config.location=file:///C:/.. ../material-shop/conf/local/application.properties
 

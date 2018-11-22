@@ -24,8 +24,8 @@ public class Start {
     @Bean
     public CommandLineRunner loggingCommandLineRunner(ApplicationContext ctx) {
         return args -> {
-            if (false) logBeans(ctx);
-            if (true) logBaseUrl();
+            //logBeans(ctx);
+            logBaseUrl();
         };
     }
 

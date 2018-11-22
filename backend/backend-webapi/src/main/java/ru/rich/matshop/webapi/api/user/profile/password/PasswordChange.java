@@ -1,5 +1,7 @@
 package ru.rich.matshop.webapi.api.user.profile.password;
 
+import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.Date;
 
 public class PasswordChange {
 
-    @NotNull
+    @CurrentUserId
     private Long personId;
     @NotBlank
     private String oldPassword;

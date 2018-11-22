@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
-import ru.rich.matshop.webapi.api.common.security.AuthContext;
 import ru.rich.matshop.webapi.api.user.UserService;
 import ru.rich.matshop.webapi.api.user.model.Person;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
@@ -40,12 +39,10 @@ public class UserController extends AbstractRestController {
                                  @Validated({OnSave.class})
                                          UserSaveRequest req) {
         Person reqPerson = fromUi(req.getPerson());
-
-        AuthContext.checkUserId(reqPerson.getId());
-        Person respPerson = userService.updateProfile(reqPerson);
+        Person respPerson = toUi(userService.updateProfile(reqPerson));
 
         var resp = prepareResponse(new UserSaveResponse());
-        resp.setPerson(toUi(respPerson));
+        resp.setPerson(respPerson);
         return resp;
     }
 
@@ -55,8 +52,6 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          UserSaveSettingsRequest req) {
         SettingsChange sc = req.getSettingsChange();
-        AuthContext.checkUserId(sc.getPersonId());
-
         // todo
 
         var resp = prepareResponse(new UserSaveSettingsResponse());
@@ -69,8 +64,6 @@ public class UserController extends AbstractRestController {
                                                  @Valid
                                                          ChangePasswordRequest req) {
         var pc = req.getPasswordChange();
-
-        AuthContext.checkUserId(pc.getPersonId());
         Date editDate = userService.changePassword(pc);
 
         var resp = prepareResponse(new ChangePasswordResponse());
