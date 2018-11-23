@@ -6,7 +6,8 @@ import CardFooter from "app/common/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import CustomInput from "app/common/input/CustomInput.jsx";
-import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import ErrorMessage from "app/common/message/ErrorMessage";
+import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
@@ -35,7 +36,6 @@ class ProfileTab extends React.PureComponent {
                 phoneValid: true,
                 emailValid: true,
                 formValid: true,
-                loading: false,
                 message: "",
             },
         };
@@ -87,8 +87,9 @@ class ProfileTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
-            loading
+            loading, loaded
         } = this.props.userUi;
+        const disabled = loading || !loaded;
         const {
             firstName, lastName, email, phone
         } = this.state.data;
@@ -116,7 +117,7 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
-                                    disabled={loading}
+                                    disabled={disabled}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -135,7 +136,7 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 100,
                                     }}
-                                    disabled={loading}
+                                    disabled={disabled}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -155,7 +156,7 @@ class ProfileTab extends React.PureComponent {
                                         format: "+7 (###) ###-####",
                                         mask: "_",
                                     }}
-                                    disabled={loading}
+                                    disabled={disabled}
                                 />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={6}>
@@ -174,22 +175,22 @@ class ProfileTab extends React.PureComponent {
                                     otherProps={{
                                         maxLength: 200,
                                     }}
-                                    disabled={loading}
+                                    disabled={disabled}
                                 />
                             </GridItem>
                         </GridContainer>
                     </CardBody>
                     <CardFooter>
                         <div className={classes.width100}>
-                            {loading
-                                ? <CircularLoading/>
-                                : <Button color={buttonColor} className={classes.cardFooterButton}
-                                          onClick={this.handleSave}
-                                          disabled={!formValid || loading}>
+                            <CircularLoading show={loading}>
+                                <Button color={buttonColor} className={classes.cardFooterButton}
+                                        onClick={this.handleSave}
+                                        disabled={disabled || !formValid}>
                                     Обновить профиль
                                 </Button>
-                            }
-                            <ErrorMessageBox text={message}/>
+                            </CircularLoading>
+                            <ErrorMessage show={message}/>
+                            <NeedLoginMessage show={!loaded && !loading}/>
                         </div>
                     </CardFooter>
                 </Card>

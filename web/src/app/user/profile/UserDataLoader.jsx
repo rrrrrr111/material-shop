@@ -37,4 +37,4 @@ class UserDataLoader extends React.PureComponent {
     }
 }
 
-export default connect(mapUserToProps)(connect(mapUserToProps)(UserDataLoader));
+export default connect(mapUserToProps)(UserDataLoader);

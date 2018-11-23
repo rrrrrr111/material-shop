@@ -1,9 +1,5 @@
+import {classNames, PropTypes} from "app/utils/functionUtil";
 import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-
-import PropTypes from "prop-types";
-
 import withStyles from "@material-ui/core/styles/withStyles";
 
 

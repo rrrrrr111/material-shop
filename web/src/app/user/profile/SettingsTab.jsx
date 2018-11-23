@@ -8,7 +8,7 @@ import CardBody from "app/common/card/CardBody.jsx";
 import CardFooter from "app/common/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
-import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
@@ -131,15 +131,14 @@ class SettingsTab extends React.PureComponent {
                 </CardBody>
                 <CardFooter>
                     <div className={classes.width100}>
-                        {loading
-                            ? <CircularLoading/>
-                            : <Button color={buttonColor} className={classes.cardFooterButton}
-                                      onClick={this.handleSave}
-                                      disabled={!formValid || loading}>
+                        <CircularLoading>
+                            <Button color={buttonColor} className={classes.cardFooterButton}
+                                    onClick={this.handleSave}
+                                    disabled={!formValid || loading}>
                                 Сохранить
                             </Button>
-                        }
-                        <ErrorMessageBox text={message}/>
+                        </CircularLoading>
+                        <ErrorMessage>{message}</ErrorMessage>
                     </div>
                 </CardFooter>
             </Card>

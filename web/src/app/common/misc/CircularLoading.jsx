@@ -1,6 +1,7 @@
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {appStyles} from "app/common/style/styles";
+import {PropTypes} from "app/utils/functionUtil";
 import React from "react";
 
 
@@ -16,12 +17,18 @@ const style = theme => ({
 
 // todo используется цвет темы Matireal UI, вынести настройки темы
 function CircularLoading(props) {
-    const {classes, ...rest} = props;
+    const {classes, show, children, ...rest} = props;
     return (
-        <div className={classes.container}>
-            <CircularProgress className={classes.circular} thickness={5} {...rest}/>
-        </div>
+        show ? (
+                <div className={classes.container}>
+                    <CircularProgress className={classes.circular} thickness={5} {...rest}/>
+                </div>)
+            : (children ? children : null)
     );
 }
+
+CircularLoading.propTypes = {
+    show: PropTypes.bool
+};
 
 export default withStyles(style)(CircularLoading);

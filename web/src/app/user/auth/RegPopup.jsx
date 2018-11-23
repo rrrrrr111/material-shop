@@ -13,7 +13,7 @@ import Card from "app/common/card/Card";
 import CardBody from "app/common/card/CardBody";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
-import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styles";
@@ -261,28 +261,23 @@ class RegPopup extends React.PureComponent {
                                     }
                                     label={
                                         <span className={classes.termAndCondAgreementLabel}>
-                                                  Я принимаю условия{" "}
-                                            <LocalLink to="/info/privacy-policy">
-                                                  политики конфиденциальности
-                                                 </LocalLink>
-                                            {" "}и{" "}
-                                            <LocalLink to="/info/user-agreement">
-                                                  пользовательского соглашения
-                                                </LocalLink>
-                                            {" "}.
-                                             </span>
+                                            Я принимаю условия
+                                            <LocalLink
+                                                to="/info/privacy-policy"> политики конфиденциальности </LocalLink> и
+                                            <LocalLink
+                                                to="/info/user-agreement"> пользовательского соглашения </LocalLink>.
+                                        </span>
                                     }
                                 />
                                 <div className={classes.textCenter}>
-                                    {loading
-                                        ? <CircularLoading/>
-                                        : <Button color={buttonColor} onClick={this.handleSignup}
-                                                  disabled={!formValid || loading}>
+                                    <CircularLoading show={loading}>
+                                        <Button color={buttonColor} onClick={this.handleSignup}
+                                                disabled={!formValid || loading}>
                                             Зарегистрироваться
                                         </Button>
-                                    }
+                                    </CircularLoading>
                                 </div>
-                                <ErrorMessageBox text={message}/>
+                                <ErrorMessage>{message}</ErrorMessage>
                             </CardBody>
                         </DialogContent>
                         <div className={classes.textCenter}>

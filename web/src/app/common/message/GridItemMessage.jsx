@@ -19,7 +19,7 @@ function GridItemMessage(props) {
     return (
         <Grow in={true}>
             <Grid item>
-                {loading ? <CircularLoading/> : null}
+                <CircularLoading show={loading}/>
                 <h3 className={classes.text}>
                     {text}
                 </h3>

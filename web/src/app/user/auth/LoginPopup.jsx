@@ -13,7 +13,7 @@ import CardBody from "app/common/card/CardBody";
 import CardHeader from "app/common/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
-import ErrorMessageBox from "app/common/message/ErrorMessageBox";
+import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styles";
@@ -22,7 +22,14 @@ import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_ST
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
-import {checkEmail, inputHandler, inputTrimHandler, isNotEmpty, prepareEnterHandler, prepareHandler} from "app/utils/validateUtil";
+import {
+    checkEmail,
+    inputHandler,
+    inputTrimHandler,
+    isNotEmpty,
+    prepareEnterHandler,
+    prepareHandler
+} from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
 
@@ -225,15 +232,14 @@ class LoginPopup extends React.PureComponent {
                             </CardBody>
                         </DialogContent>
                         <DialogActions className={`${classes.modalFooter} ${classes.justifyContentCenter}`}>
-                            {loading
-                                ? <CircularLoading/>
-                                : <Button color={buttonColor} onClick={this.handleSignin}
-                                          disabled={!formValid || loading}>
+                            <CircularLoading show={loading}>
+                                <Button color={buttonColor} onClick={this.handleSignin}
+                                        disabled={!formValid || loading}>
                                     Войти
                                 </Button>
-                            }
+                            </CircularLoading>
                         </DialogActions>
-                        <ErrorMessageBox text={message}/>
+                        <ErrorMessage>{message}</ErrorMessage>
                         <div className={classes.textCenter}>
                             <LocalLink to="/auth/signup" modal replace>Зарегистрироваться</LocalLink>
                         </div>
