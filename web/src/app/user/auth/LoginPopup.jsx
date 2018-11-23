@@ -52,7 +52,6 @@ class LoginPopup extends React.PureComponent {
                     email: checkEmail,
                     password: isNotEmpty,
                 },
-                formValidField: 'formValid',
             }
         );
         this.handleClose = this.handleClose.bind(this);

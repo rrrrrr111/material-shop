@@ -6,7 +6,6 @@ import AppIcon from "app/common/icon/AppIcon";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
 import Table from "app/common/table/CustomTable";
-import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import util from "app/utils/util";
 import fill from 'lodash/fill';
@@ -29,12 +28,6 @@ class OrdersTab extends React.PureComponent {
         state: "new",
         deliveryType: "COURIER"
     });
-
-    componentDidMount() {
-        if (!this.props.ui.loaded) {
-            UserProfile.reloadUserData();
-        }
-    }
 
     rowActionButtons = [1].map((prop, key) => {
         return (

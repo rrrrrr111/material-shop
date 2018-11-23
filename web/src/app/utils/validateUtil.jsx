@@ -39,6 +39,7 @@ class Validator {
         this.compRef = compRef;
         this.conf = {
             disabled: false, // выключение всей валидации
+            formValidField: 'formValid', // поле в state формы сигнализирующее, что все поля валидны
             lazyValidation: true, // true - подсветка ошибки только при нажатии кнопки, false - сразу при вводе
             revalidateAllOnChange: false, // проверка всех полей при изменении в одном
             ...conf

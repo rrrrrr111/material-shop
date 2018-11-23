@@ -1,7 +1,8 @@
-package ru.rich.matshop.webapi.api.feed.model;
+package ru.rich.matshop.webapi.api.feed.list;
 
 import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
+import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
 
 import java.util.List;
 

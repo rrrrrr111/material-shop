@@ -6,14 +6,13 @@ import OrdersTab from "app/user/profile/OrdersTab";
 import PasswordTab from "app/user/profile/PasswordTab";
 import ProfileTab from "app/user/profile/ProfileTab";
 import SettingsTab from "app/user/profile/SettingsTab";
+import UserDataLoader from "app/user/profile/UserDataLoader";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import util from "app/utils/util";
 import classNames from "classnames";
 
 import React from "react";
 import {Redirect} from "react-router";
-import {dispatch} from "store";
 
 class UserProfile extends React.Component {
     history = null;
@@ -54,7 +53,7 @@ class UserProfile extends React.Component {
         this.setState({activeTabKey: this.tabsConfig[tabIndex].key,});
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, ss) {
         util.navigate.scrollUp();
     }
 
@@ -64,24 +63,11 @@ class UserProfile extends React.Component {
     };
 
     tabsConfig = [
-        {key: "profile", name: "Профиль пользователя", icon: "face", content: <ProfileTab/>},
-        {key: "orders", name: "История Заказов", icon: "history", content: <OrdersTab/>},
-        {key: "settings", name: "Настройки", icon: "settings", content: <SettingsTab/>},
-        {key: "password", name: "Смена пароля", icon: "fingerprint", content: <PasswordTab/>},
+        {key: "profile", name: "Профиль пользователя", icon: "face", content: ProfileTab},
+        {key: "orders", name: "История Заказов", icon: "history", content: OrdersTab},
+        {key: "settings", name: "Настройки", icon: "settings", content: SettingsTab},
+        {key: "password", name: "Смена пароля", icon: "fingerprint", content: PasswordTab},
     ];
-
-    static reloadUserData = () => {
-        dispatch(USER_START_LOADING);
-        util.ajax.backendPost("user/load")
-            .then(function (response) {
-                dispatch(USER_STOP_LOADING);
-                const success = response.success;
-                if (success) {
-                    dispatch(USER_DATA, response.person);
-                    dispatch(USER_AUTH_RESULT, true);
-                }
-            });
-    };
 
     render() {
         const {classes} = this.props;
@@ -91,6 +77,7 @@ class UserProfile extends React.Component {
             return <Redirect to="/page-not-found"/>;
         }
         return (
+
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div className={classes.container}>
                     <Clearfix/>
@@ -106,7 +93,11 @@ class UserProfile extends React.Component {
                                     pillText: tab.name,
                                     pillClasses: classes.profileTabPill,
                                     pillIcon: tab.icon,
-                                    content: tab.content
+                                    content: (
+                                        <UserDataLoader>
+                                            <tab.content/>
+                                        </UserDataLoader>
+                                    )
                                 }
                             })}
                         />

@@ -28,7 +28,7 @@ import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_
 
 @RestController
 public class UserController extends AbstractRestController {
-    private static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
+    public static final String USER_URL_PREFIX = API_URL_PREFIX + "/user";
 
     private final PersonService personService;
 

@@ -67,7 +67,6 @@ class RegPopup extends React.PureComponent {
                     password: isNotEmpty,
                     agreementChecked: isTrue
                 },
-                formValidField: 'formValid',
             }
         );
         this.handleClose = this.handleClose.bind(this);

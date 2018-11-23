@@ -11,11 +11,9 @@ import GridItem from "app/common/grid/GridItem.jsx";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
-import ProfileTab from "app/user/profile/ProfileTab";
-import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {ajaxDebounceTimeout, buttonDebounceRule, classNames, connect, debounce, updateUiField} from "app/utils/functionUtil";
+import {USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {ajaxDebounceTimeout, buttonDebounceRule, classNames, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkboxHandler, isBoolean, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
@@ -36,14 +34,13 @@ class SettingsTab extends React.PureComponent {
                 fieldsToCheckers: {
                     agreementChecked: isBoolean,
                 },
-                formValidField: 'formValid',
             }
         );
         this.handleSave = this.handleSave.bind(this);
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (state.data.personEditDate !== props.data.editDate) {
+        if (state.data.personEditDate !== props.userData.editDate) {
             return {
                 ...state,
                 data: SettingsTab.getStateDataFromProps(props)
@@ -53,17 +50,12 @@ class SettingsTab extends React.PureComponent {
     };
 
     static getStateDataFromProps = (props) => {
+        const userData = props.userData;
         return {
-            personId: props.data.id,
-            agreementChecked: props.data.agreementChecked,
-            personEditDate: props.data.editDate
+            personId: userData.id,
+            agreementChecked: userData.agreementChecked,
+            personEditDate: userData.editDate
         };
-    };
-
-    componentDidMount() {
-        if (!this.props.ui.loaded) {
-            UserProfile.reloadUserData();
-        }
     };
 
     handleSave = (e) => {
@@ -87,7 +79,7 @@ class SettingsTab extends React.PureComponent {
 
                     if (response.success) {
                         dispatch(USER_DATA, {
-                            ...compRef.props.data,
+                            ...compRef.props.userData,
                             agreementChecked: compRef.state.data.agreementChecked,
                             editDate: response.personEditDate,
                         });
@@ -100,7 +92,7 @@ class SettingsTab extends React.PureComponent {
         const {classes} = this.props;
         const {
             loading
-        } = this.props.ui;
+        } = this.props.userUi;
         const {
             agreementChecked
         } = this.state.data;
@@ -155,4 +147,4 @@ class SettingsTab extends React.PureComponent {
     };
 }
 
-export default connect(mapUserToProps)(withStyles(userProfileStyle)(SettingsTab));
+export default withStyles(userProfileStyle)(SettingsTab);

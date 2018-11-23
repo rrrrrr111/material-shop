@@ -9,12 +9,18 @@ import CustomInput from "app/common/input/CustomInput.jsx";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
-import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
+import {USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {ajaxDebounceTimeout, buttonDebounceRule, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import {checkEmail, checkPhone, inputHandler, inputTrimHandler, isNotBlank, prepareHandler} from "app/utils/validateUtil";
+import {
+    checkEmail,
+    checkPhone,
+    inputHandler,
+    inputTrimHandler,
+    isNotBlank,
+    prepareHandler
+} from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
 
@@ -22,7 +28,7 @@ class ProfileTab extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: {...props.data},
+            data: {...props.userData},
             ui: {
                 firstNameValid: true,
                 lastNameValid: true,
@@ -40,23 +46,16 @@ class ProfileTab extends React.PureComponent {
                     email: checkEmail,
                     phone: checkPhone,
                 },
-                formValidField: 'formValid',
             }
         );
         this.handleSave = this.handleSave.bind(this);
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (state.data.editDate !== props.data.editDate) {
-            return {...state, data: {...props.data}};
+        if (state.data.editDate !== props.userData.editDate) {
+            return {...state, data: {...props.userData}};
         }
         return null;
-    }
-
-    componentDidMount() {
-        if (!this.props.ui.loaded) {
-            UserProfile.reloadUserData();
-        }
     }
 
     handleSave = (e) => {
@@ -89,7 +88,7 @@ class ProfileTab extends React.PureComponent {
         const {classes} = this.props;
         const {
             loading
-        } = this.props.ui;
+        } = this.props.userUi;
         const {
             firstName, lastName, email, phone
         } = this.state.data;
@@ -199,4 +198,4 @@ class ProfileTab extends React.PureComponent {
     }
 }
 
-export default connect(mapUserToProps)(withStyles(userProfileStyle)(ProfileTab));
+export default withStyles(userProfileStyle)(ProfileTab);

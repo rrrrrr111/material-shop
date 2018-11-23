@@ -1,7 +1,8 @@
-package ru.rich.matshop.webapi.api.feed.model;
+package ru.rich.matshop.webapi.api.feed.list;
 
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.common.paging.PageRequest;
+import ru.rich.matshop.webapi.api.feed.model.FeedProductFilter;
 
 /**
  *

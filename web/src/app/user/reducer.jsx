@@ -31,8 +31,8 @@ export const dataUserReducer = createReducer(
     });
 
 export const uiUserReducer = createReducer({
-    loading: false,
-    loaded: false,
+    loaded: false, // загружены ли уже данные
+    loading: false, // данные в процессе загрузки
 }, {
     [USER_AUTH_RESULT]: (state, value) => {
         return update(state, {loaded: {$set: value}});

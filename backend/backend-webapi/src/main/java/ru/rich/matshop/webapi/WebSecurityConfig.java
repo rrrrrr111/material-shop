@@ -33,6 +33,8 @@ import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.POST;
 import static ru.rich.matshop.webapi.api.common.security.JwtAuthenticationFilter.HEADER_JWT;
+import static ru.rich.matshop.webapi.api.order.OrderController.ORDER_URL_PREFIX;
+import static ru.rich.matshop.webapi.api.user.profile.UserController.USER_URL_PREFIX;
 
 @Configuration
 @EnableWebSecurity
@@ -69,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .antMatcher(API_URL_PREFIX + "/**").authorizeRequests()
-                    .antMatchers(POST, API_URL_PREFIX + "/user/**", API_URL_PREFIX + "/order/list").authenticated()
+                    .antMatchers(POST, USER_URL_PREFIX + "/**", ORDER_URL_PREFIX + "/list").authenticated()
                     .antMatchers(API_URL_PREFIX + "/**").permitAll()
                     .anyRequest().authenticated()
                     .and().headers().xssProtection()
