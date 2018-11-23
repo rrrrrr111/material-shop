@@ -12,10 +12,6 @@ import java.util.Date;
 
 @Service
 public class PersonService {
-    private static final String EMAIL_EXISTS_USER_MESSAGE = "Пользователь с указанным Email уже зарегистрирован";
-    private static final String PHONE_EXISTS_USER_MESSAGE = "Пользователь с указанным телефоном уже зарегистрирован";
-    private static final String INCORRECT_OLD_PASSWORD_MESSAGE = "Старый пароль указан не верно";
-    private static final String OLD_PASSWORD_SAME_AS_NEW_MESSAGE = "Новый пароль не может совпадать со старым";
 
     private final PersonDao personDao;
 
@@ -38,7 +34,8 @@ public class PersonService {
     }
 
     public Person update(Person person) {
-        Long personId = Preconditions.checkNotNull(person.getId(), "Person id must not be null");
+        Long personId = Preconditions.checkNotNull(
+                person.getId(), "Person id must not be null");
 
         checkEmailNotExists(personId, person.getEmail());
         checkPhoneNotExists(personId, person.getPhone());
@@ -47,16 +44,17 @@ public class PersonService {
     }
 
     public Date updatePassword(PasswordChange pc) {
-        Long personId = Preconditions.checkNotNull(pc.getPersonId(), "Person id must not be null");
+        Long personId = Preconditions.checkNotNull(
+                pc.getPersonId(), "Person id must not be null");
 
         Person record = personDao.getById(personId);
         if (!record.getPassword().equals(pc.getOldPassword())) {
-            throw new UserException(INCORRECT_OLD_PASSWORD_MESSAGE,
+            throw new UserException("Старый пароль указан не верно",
                     String.format("Incorrect old password specified, user id=%s", personId));
         }
         if (pc.getNewPassword().equals(pc.getOldPassword())) {
-            throw new UserException(OLD_PASSWORD_SAME_AS_NEW_MESSAGE,
-                    String.format("New passwords equal to old, user id=%s", personId));
+            throw new UserException("Новый пароль не может совпадать со старым",
+                    String.format("New password equal to old, user id=%s", personId));
         }
         return personDao.updatePassword(pc);
     }
@@ -72,7 +70,7 @@ public class PersonService {
         }
         final Long personId = personDao.getIdByEmail(email);
         if (personId != null && !personId.equals(userId)) {
-            throw new UserException(EMAIL_EXISTS_USER_MESSAGE,
+            throw new UserException("Пользователь с указанным Email уже зарегистрирован",
                     String.format("User with id=%s already exists, email=%s",
                             personId, email));
         }
@@ -84,7 +82,7 @@ public class PersonService {
         }
         final Long personId = personDao.getIdByPhone(phone);
         if (personId != null && !personId.equals(userId)) {
-            throw new UserException(PHONE_EXISTS_USER_MESSAGE,
+            throw new UserException("Пользователь с указанным телефоном уже зарегистрирован",
                     String.format("User with id=%s already exists, phone=%s",
                             personId, phone));
         }
