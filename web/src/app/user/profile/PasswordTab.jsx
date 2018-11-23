@@ -7,6 +7,7 @@ import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import CustomInput from "app/common/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
+import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
@@ -91,8 +92,9 @@ class PasswordTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
-            loading
+            loading, loaded
         } = this.props.userUi;
+        const disabled = loading || !loaded;
         const {
             oldPassword, newPassword1, newPassword2
         } = this.state.data;
@@ -120,7 +122,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
-                                disabled={loading}
+                                disabled={disabled}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
@@ -140,7 +142,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
-                                disabled={loading}
+                                disabled={disabled}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6}>
@@ -163,7 +165,7 @@ class PasswordTab extends React.PureComponent {
                                 otherProps={{
                                     maxLength: 100,
                                 }}
-                                disabled={loading}
+                                disabled={disabled}
                             />
                         </GridItem>
                     </GridContainer>
@@ -173,11 +175,12 @@ class PasswordTab extends React.PureComponent {
                         <CircularLoading show={loading}>
                             <Button color={buttonColor} className={classes.cardFooterButton}
                                     onClick={this.handleChangePassword}
-                                    disabled={!formValid || loading}>
+                                    disabled={disabled || !formValid}>
                                 Сменить пароль
                             </Button>
                         </CircularLoading>
                         <ErrorMessage>{message}</ErrorMessage>
+                        <NeedLoginMessage show={!loaded && !loading}/>
                     </div>
                 </CardFooter>
             </Card>

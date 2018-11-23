@@ -9,6 +9,7 @@ import CardFooter from "app/common/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import ErrorMessage from "app/common/message/ErrorMessage";
+import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
 import userProfileStyle from "app/user/profile/userProfileStyle";
@@ -91,8 +92,9 @@ class SettingsTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const {
-            loading
+            loading, loaded
         } = this.props.userUi;
+        const disabled = loading || !loaded;
         const {
             agreementChecked
         } = this.state.data;
@@ -118,7 +120,7 @@ class SettingsTab extends React.PureComponent {
                                                         [classes.uncheckedIcon]: true,
                                                         "redShadow": !agreementCheckedValid
                                                     })}/>}
-                                            disabled={loading}
+                                            disabled={disabled}
                                         />
 
                                     }
@@ -134,11 +136,12 @@ class SettingsTab extends React.PureComponent {
                         <CircularLoading>
                             <Button color={buttonColor} className={classes.cardFooterButton}
                                     onClick={this.handleSave}
-                                    disabled={!formValid || loading}>
+                                    disabled={disabled || !formValid}>
                                 Сохранить
                             </Button>
                         </CircularLoading>
                         <ErrorMessage>{message}</ErrorMessage>
+                        <NeedLoginMessage show={!loaded && !loading}/>
                     </div>
                 </CardFooter>
             </Card>
