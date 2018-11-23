@@ -12,12 +12,24 @@ export const ORDER_CREATED = 'ORDER_CREATED';
 export const dataCartReducer = createReducer(
     {
         cartGoodsList: [],
+        totalAmount: 0,
+        totalQuantity: 0,
     }, {
         // добавление одной единицы товара в корзину
         [ADD_TO_CART]: (state, value) => {
             return updateCart(state, value,
                 (state, index) => {
-                    return update(state, {cartGoodsList: {[index]: {quantity: {$set: obj.quantity + 1}}}});
+                    return update(state, {
+                        cartGoodsList: {
+                            [index]: {
+                                quantity: {
+                                    $set: (q) => {
+                                        return q + 1;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 },
                 (state) => {
                     return update(state, {cartGoodsList: {$push: [{...value, quantity: 1}]}});
@@ -58,12 +70,25 @@ export const uiCartReducer = createReducer({
 });
 
 const updateCart = (state, product, foundCallback, notFoundCallback) => {
-    let index = state.cartGoodsList.findIndex((it) => (it.productId === product.productId));
+    const index = state.cartGoodsList.findIndex((it) => (it.productId === product.productId));
+    let resState;
     if (index > -1) {
-        return foundCallback(state, index);
+        resState = foundCallback(state, index);
     } else {
-        return notFoundCallback(state);
+        resState = notFoundCallback(state);
     }
+    return update(resState, {
+        totalAmount: {$set: getCartTotalAmount(resState.cartGoodsList)},
+        totalQuantity: {$set: getCartTotalQuantity(resState.cartGoodsList)}
+    });
+};
+
+const getCartTotalAmount = (cartGoodsList) => {
+    return cartGoodsList.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0);
+};
+
+const getCartTotalQuantity = (cartGoodsList) => {
+    return cartGoodsList.map(item => item.quantity).reduce((a, b) => a + b, 0);
 };
 
 export const mapCartToProps = (state) => {

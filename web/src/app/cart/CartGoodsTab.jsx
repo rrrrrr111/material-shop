@@ -20,14 +20,6 @@ import React from "react";
 import {withRouter} from "react-router";
 import {dispatch} from "store";
 
-const getCartTotalAmount = (cartGoodsList) => {
-    return cartGoodsList.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0);
-};
-
-const getCartTotalQuantity = (cartGoodsList) => {
-    return cartGoodsList.map(item => item.quantity).reduce((a, b) => a + b, 0);
-};
-
 class CartGoodsTab extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -82,8 +74,12 @@ class CartGoodsTab extends React.PureComponent {
     render() {
         const {classes} = this.props;
         const cartGoodsList = this.getCartGoodsList();
+        const {
+            totalAmount,
+            totalQuantity
+        } = this.props.data;
 
-        if (cartGoodsList.length === 0) {
+        if (!totalQuantity) {
             return (
                 <Card className={classes.goodsTableContainer}>
                     <CardBody>
@@ -92,7 +88,6 @@ class CartGoodsTab extends React.PureComponent {
                 </Card>
             )
         }
-        const totalQuantity = getCartTotalQuantity(cartGoodsList);
 
         return (
             <Card className={classes.goodsTableContainer}>
@@ -165,9 +160,7 @@ class CartGoodsTab extends React.PureComponent {
                                    </GridItem>
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
-                                           <Price bold big value={
-                                               getCartTotalAmount(cartGoodsList)
-                                           }/>
+                                           <Price bold big value={totalAmount}/>
                                        </Grid>
                                    </GridItem>
                                </GridContainer>
