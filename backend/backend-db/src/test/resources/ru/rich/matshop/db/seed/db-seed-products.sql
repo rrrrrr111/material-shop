@@ -1,0 +1,7 @@
+INSERT INTO PRODUCT (SHOP_ID, EDIT_DATE, STATE, DATA, PRICING, BASE_PRICE, FORMAT_VERSION)
+VALUES (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0');

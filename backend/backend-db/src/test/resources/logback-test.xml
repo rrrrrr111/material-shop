@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%green(%d{HH:mm:ss.SSS}) %highlight(%p) %yellow(%t) %gray(%mdc[%c{3}]) %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.sbrf.ufs.cbreaker" level="TRACE"/>
+    <logger name="ru.sbrf.ufs.platform" level="INFO"/>
+    <logger name="ru.sbrf.ufs.scheduler" level="INFO"/>
+    <!-- SQL запросы -->
+    <logger name="org.springframework.jdbc" level="DEBUG"/>
+
+    <!-- Rest запросы -->
+    <logger name="ru.sbrf.ufs.cbreaker.commons.filter.CustomControllerLoggingFilter" level="DEBUG"/>
+
+    <root level="INFO">
+        <!--<appender-ref ref="FILE"/>-->
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
