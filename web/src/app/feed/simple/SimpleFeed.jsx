@@ -6,14 +6,11 @@ import {MAIN_FEED_DATA, mapFeedToProps, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
 import {connect} from "app/utils/functionUtil";
-import {dispatch} from "store";
 import util from "app/utils/util";
 import React from "react";
+import {dispatch} from "store";
 
 class SimpleFeed extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         util.navigate.scrollUp();

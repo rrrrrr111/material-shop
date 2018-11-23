@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {CHANGE_QUANTITY, mapCartToProps, REMOVE_FROM_CART} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
 import Button from "app/common/button/Button";
 import Card from "app/common/card/Card.jsx";
@@ -12,50 +13,36 @@ import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
 import Table from "app/common/table/CustomTable";
+import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import toNumber from 'lodash/toNumber'
 import React from "react";
 import {withRouter} from "react-router";
+import {dispatch} from "store";
+
+const getCartTotalAmount = (cartGoodsList) => {
+    return cartGoodsList.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0);
+};
+
+const getCartTotalQuantity = (cartGoodsList) => {
+    return cartGoodsList.map(item => item.quantity).reduce((a, b) => a + b, 0);
+};
 
 class CartGoodsTab extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            cartGoods: [
-                {
-                    id: 1,
-                    image: "000/000/000[2:jpg, 3]",
-                    link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
-                    name: "Spring Jacket",
-                    quantity: 1,
-                    price: 1093232
-                },
-                {
-                    id: 2,
-                    image: "000/000/000[2:jpg, 3]",
-                    link: "/goods/spring_jacket_p-2",
-                    name: "Spring Jacket as dasd asdaSD;Asldj;skldfgj;sld ksdf;g jskdf;gkljs df;glksjdfg;l ksd;flkg sjdf;lgsjd;f lkjsdf;lkj ;sldkgj;slkdf",
-                    quantity: 3,
-                    price: 32
-                },
-                {
-                    id: 3,
-                    image: "000/000/000[2:jpg, 3]",
-                    link: "/goods/spri__________SD_asd_ng_jacket_p-3",
-                    name: "Spring Jacket",
-                    quantity: 1,
-                    price: 3232
-                },
-                {
-                    id: 4,
-                    image: "000/000/000[2:jpg, 3]",
-                    link: "/goods/spri__________SD_asd_ng_jacket_p-3",
-                    name: "Spring Jacket",
-                    quantity: 1,
-                    price: 3232
-                },
-            ]
-        };
+        // this.state = {
+        //     cartGoodsList: [
+        //         {
+        //             productId: 1,
+        //             image: "000/000/000[2:jpg, 3]",
+        //             link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
+        //             name: "Spring Jacket",
+        //             quantity: 1,
+        //             price: 1093232
+        //         }
+        //     ]
+        //};
 
         this.handleClickMinus = this.handleClickMinus.bind(this);
         this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -64,39 +51,39 @@ class CartGoodsTab extends React.PureComponent {
     }
 
     handleClickMinus = (e, index) => {
-        const newQuantity = Math.max(this.getGoods()[index].quantity - 1, 0);
+        const newQuantity = Math.max(this.getCartGoodsList()[index].quantity - 1, 0);
         this.changeQuantity(index, newQuantity);
     };
-
-    getGoods() {
-        return this.state.cartGoods;
-    }
 
     handleClickPlus = (e, index) => {
-        const newQuantity = Math.min(this.getGoods()[index].quantity + 1, 9999);
+        const newQuantity = Math.min(this.getCartGoodsList()[index].quantity + 1, 9999);
         this.changeQuantity(index, newQuantity);
     };
+
     handleChangeQuantity = (e, index) => {
         this.changeQuantity(index, toNumber(e.target.value));
     };
 
+    getCartGoodsList() {
+        return this.props.data.cartGoodsList;
+    }
+
     changeQuantity(index, newQuantity) {
-        const goods = this.getGoods();
-        goods.splice(index, 1, {...goods[index], quantity: newQuantity});
-        this.setState({...goods});
+        dispatch(CHANGE_QUANTITY, {
+            ...this.getCartGoodsList()[index],
+            quantity: newQuantity
+        });
     }
 
     handleClickDelete = (e, index) => {
-        const goods = this.getGoods();
-        goods.splice(index, 1);
-        this.setState({cartGoods: [...goods]});
+        dispatch(REMOVE_FROM_CART, this.getCartGoodsList()[index]);
     };
 
     render() {
         const {classes} = this.props;
-        const goods = this.state.cartGoods;
+        const cartGoodsList = this.getCartGoodsList();
 
-        if (goods.length === 0) {
+        if (cartGoodsList.length === 0) {
             return (
                 <Card className={classes.goodsTableContainer}>
                     <CardBody>
@@ -105,7 +92,7 @@ class CartGoodsTab extends React.PureComponent {
                 </Card>
             )
         }
-        const totalQuantity = goods.map(item => item.quantity).reduce((a, b) => a + b, 0);
+        const totalQuantity = getCartTotalQuantity(cartGoodsList);
 
         return (
             <Card className={classes.goodsTableContainer}>
@@ -115,7 +102,7 @@ class CartGoodsTab extends React.PureComponent {
                            tableHead={[
                                "", "Наименование", "Цена", "Количество", ""
                            ]}
-                           tableData={goods.map((item, index) => {
+                           tableData={cartGoodsList.map((item, index) => {
                                return [
                                    <div className={classes.imgCell}>
                                        <div className={classes.imgContainer}>
@@ -179,7 +166,7 @@ class CartGoodsTab extends React.PureComponent {
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
                                            <Price bold big value={
-                                               goods.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
+                                               getCartTotalAmount(cartGoodsList)
                                            }/>
                                        </Grid>
                                    </GridItem>
@@ -196,4 +183,4 @@ class CartGoodsTab extends React.PureComponent {
     }
 }
 
-export default withStyles(userCartStyle)(withRouter(CartGoodsTab));
+export default connect(mapCartToProps)(withStyles(userCartStyle)(withRouter(CartGoodsTab)));

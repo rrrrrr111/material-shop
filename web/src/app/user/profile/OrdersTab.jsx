@@ -56,8 +56,9 @@ class OrdersTab extends React.PureComponent {
                 return "Передан в службу доставки";
             case "CLOSED" :
                 return "Выполнен";
+            default:
+                return "";
         }
-        return "";
     }
 
     render() {

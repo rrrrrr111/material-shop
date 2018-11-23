@@ -5,7 +5,7 @@ import toNumber from "lodash/toNumber"
 const indexOf = function (str, symbol) {
     const index = str.indexOf(symbol);
     if (index === -1) {
-        throw `Symbol ${symbol} not found in ${str}`;
+        throw new Error(`Symbol ${symbol} not found in ${str}`);
     }
     return index;
 };
