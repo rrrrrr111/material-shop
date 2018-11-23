@@ -27,7 +27,7 @@ class OrdersTab extends React.PureComponent {
         amount: 19912,
         deliveryAmount: 300,
         state: "new",
-        deliveryType: "courier"
+        deliveryType: "COURIER"
     });
 
     componentDidMount() {
