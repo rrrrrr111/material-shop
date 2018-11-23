@@ -9,6 +9,7 @@ import CustomInput from "app/common/input/CustomInput.jsx";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
+import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
@@ -54,22 +55,9 @@ class ProfileTab extends React.PureComponent {
 
     componentDidMount() {
         if (!this.props.ui.loaded) {
-            ProfileTab.reloadUser();
+            UserProfile.reloadUserData();
         }
     }
-
-    static reloadUser = () => {
-        dispatch(USER_START_LOADING);
-        util.ajax.backendPost("user/load")
-            .then(function (response) {
-                dispatch(USER_STOP_LOADING);
-                const success = response.success;
-                if (success) {
-                    dispatch(USER_DATA, response.person);
-                    dispatch(USER_AUTH_RESULT, true);
-                }
-            });
-    };
 
     handleSave = (e) => {
         e.stopPropagation();

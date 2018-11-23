@@ -9,6 +9,7 @@ import CustomInput from "app/common/input/CustomInput";
 import ErrorMessageBox from "app/common/message/ErrorMessageBox";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styles";
+import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {mapUserToProps, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
@@ -54,6 +55,12 @@ class PasswordTab extends React.PureComponent {
     checkNewPassword2 = (str, newData) => {
         return (isNotEmpty(str) && str === newData['newPassword1']);
     };
+
+    componentDidMount() {
+        if (!this.props.ui.loaded) {
+            UserProfile.reloadUserData();
+        }
+    }
 
     handleChangePassword = (e) => {
         e.stopPropagation();

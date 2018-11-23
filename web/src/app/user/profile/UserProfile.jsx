@@ -7,11 +7,13 @@ import PasswordTab from "app/user/profile/PasswordTab";
 import ProfileTab from "app/user/profile/ProfileTab";
 import SettingsTab from "app/user/profile/SettingsTab";
 import userProfileStyle from "app/user/profile/userProfileStyle";
+import {USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import util from "app/utils/util";
 import classNames from "classnames";
 
 import React from "react";
 import {Redirect} from "react-router";
+import {dispatch} from "store";
 
 class UserProfile extends React.Component {
     history = null;
@@ -67,6 +69,19 @@ class UserProfile extends React.Component {
         {key: "settings", name: "Настройки", icon: "settings", content: <SettingsTab/>},
         {key: "password", name: "Смена пароля", icon: "fingerprint", content: <PasswordTab/>},
     ];
+
+    static reloadUserData = () => {
+        dispatch(USER_START_LOADING);
+        util.ajax.backendPost("user/load")
+            .then(function (response) {
+                dispatch(USER_STOP_LOADING);
+                const success = response.success;
+                if (success) {
+                    dispatch(USER_DATA, response.person);
+                    dispatch(USER_AUTH_RESULT, true);
+                }
+            });
+    };
 
     render() {
         const {classes} = this.props;

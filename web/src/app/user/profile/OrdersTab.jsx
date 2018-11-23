@@ -6,6 +6,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styles";
 import Table from "app/common/table/CustomTable";
+import UserProfile from "app/user/profile/UserProfile";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import util from "app/utils/util";
 import fill from 'lodash/fill';
@@ -29,6 +30,12 @@ class OrdersTab extends React.PureComponent {
         deliveryType: "courier"
     });
 
+    componentDidMount() {
+        if (!this.props.ui.loaded) {
+            UserProfile.reloadUserData();
+        }
+    }
+
     rowActionButtons = [1].map((prop, key) => {
         return (
             <Button simple justIcon size="sm" color={iconButtonColor} key={key}>
@@ -50,11 +57,11 @@ class OrdersTab extends React.PureComponent {
 
     asUserState(state) {
         switch (state) {
-            case "new" :
+            case "NEW" :
                 return "В обработке";
-            case "on_delivery" :
+            case "ON_DELIVERY" :
                 return "Передан в службу доставки";
-            case "closed" :
+            case "CLOSED" :
                 return "Выполнен";
         }
         return "";
