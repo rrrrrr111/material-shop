@@ -13,6 +13,8 @@ import simpleFeedStyle from "app/feed/simple/simpleFeedStyle";
 import util from "app/utils/util";
 import classNames from "classnames";
 import React from "react";
+import {dispatch} from "../../../store";
+import {ADD_TO_CART} from "../../cart/reducer";
 
 
 class SimpleProductCard extends React.PureComponent {
@@ -22,6 +24,7 @@ class SimpleProductCard extends React.PureComponent {
     }
 
     handleAddToShoppingCart() {
+        dispatch(ADD_TO_CART, this.props.product);
         util.notify.addToCart();
     }
 

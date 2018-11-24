@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.rich.matshop.webapi.util.ExceptionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,6 +75,7 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException ex) throws IOException {
+        log.warn("Authentication exception {}", ExceptionUtil.getAllErrorMessage(ex));
 
         Pair<String, Integer> status = resolveResponseStatus(ex);
         response.sendError(status.getRight(), status.getLeft());
@@ -87,7 +89,7 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
     @ResponseBody
     public UserExceptionResponse handle(HttpServletResponse response,
                                         AuthenticationException ex) {
-        log.warn("Exception on authentication", ex.getMessage());
+        log.warn("Exception on authentication {}", ExceptionUtil.getAllErrorMessage(ex));
 
         Pair<String, Integer> status = resolveResponseStatus(ex);
         response.setStatus(status.getRight());
