@@ -1,36 +1,28 @@
 package ru.rich.matshop.db.seed
 
 import groovy.transform.CompileStatic
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
-import org.springframework.test.context.jdbc.SqlGroup
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
-import org.testng.annotations.Test
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import ru.rich.matshop.db.TestConfig
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-        classes = TestConfig.class
-)
-@AutoConfigureMockMvc
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
 @CompileStatic
-class DbSeed extends AbstractTestNGSpringContextTests {
+class DbSeed extends GroovyTestCase {
 
     @Test
-    @SqlGroup([
-            @Sql(scripts = [
-                    "classpath:db-seed-products.sql"
-            ])
+    @Sql(scripts = [
+            "classpath:ru/rich/matshop/db/seed/db-seed-products.sql"
     ])
     void upload() {}
 
 
     @Test
-    @SqlGroup([
-            @Sql(scripts = [
-                    "classpath:db-seed-clean.sql"
-            ]),
+    @Sql(scripts = [
+            "classpath:db-seed-clean.sql"
     ])
     void clean() {}
 }

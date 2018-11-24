@@ -42,13 +42,15 @@ dependencies {
     compile("org.jooq:jooq-meta:$jooqVersion")
     compile("org.glassfish.jaxb:jaxb-runtime:2.2.11")
     compile group: 'javax.activation', name: 'activation', version: '1.1.1'
-    compile("org.postgresql:postgresql:$postgreDriverVersion")
 
     testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4', ext: 'pom'
+    testCompile("org.springframework.boot:spring-boot-starter:$springBootVersion")
     testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    testCompile("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
+    testCompile("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
 
+    runtime("org.postgresql:postgresql:$postgreDriverVersion")
+    
     jooqGenerateClasspath project(":backend-db")
 }
 

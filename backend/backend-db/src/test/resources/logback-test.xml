@@ -7,17 +7,10 @@
         </encoder>
     </appender>
 
-    <logger name="ru.sbrf.ufs.cbreaker" level="TRACE"/>
-    <logger name="ru.sbrf.ufs.platform" level="INFO"/>
-    <logger name="ru.sbrf.ufs.scheduler" level="INFO"/>
     <!-- SQL запросы -->
     <logger name="org.springframework.jdbc" level="DEBUG"/>
 
-    <!-- Rest запросы -->
-    <logger name="ru.sbrf.ufs.cbreaker.commons.filter.CustomControllerLoggingFilter" level="DEBUG"/>
-
     <root level="INFO">
-        <!--<appender-ref ref="FILE"/>-->
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
