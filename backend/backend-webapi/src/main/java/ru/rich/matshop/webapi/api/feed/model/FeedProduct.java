@@ -4,18 +4,18 @@ import java.math.BigInteger;
 
 public class FeedProduct {
 
-    private Long id;
+    private Long productId;
     private String image;
     private String link;
     private String name;
     private BigInteger price;
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getImage() {
@@ -53,7 +53,7 @@ public class FeedProduct {
     @Override
     public String toString() {
         return "FeedProduct{" +
-                "id=" + id +
+                "productId=" + productId +
                 ", image='" + image + '\'' +
                 ", link='" + link + '\'' +
                 ", name='" + name + '\'' +

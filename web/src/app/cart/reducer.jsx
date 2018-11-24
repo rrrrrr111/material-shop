@@ -36,19 +36,19 @@ export const dataCartReducer = createReducer(
                 }
             );
         },
-        // удаление товара из корзины независимо от его количества
-        [REMOVE_FROM_CART]: (state, value) => {
-            return updateCart(state, value,
-                (state, index) => {
-                    return update(state, {cartGoodsList: {$splice: [[index, 1]]}});
-                }
-            );
-        },
         // изменение количества определенного товара в корзине, без добавления\удаления товара
         [CHANGE_QUANTITY]: (state, value) => {
             return updateCart(state, value,
                 (state, index) => {
                     return update(state, {cartGoodsList: {[index]: {quantity: {$set: value.quantity}}}});
+                }
+            );
+        },
+        // удаление товара из корзины независимо от его количества
+        [REMOVE_FROM_CART]: (state, value) => {
+            return updateCart(state, value,
+                (state, index) => {
+                    return update(state, {cartGoodsList: {$splice: [[index, 1]]}});
                 }
             );
         },
@@ -71,10 +71,10 @@ export const uiCartReducer = createReducer({
 
 const updateCart = (state, product, foundCallback, notFoundCallback) => {
     const index = state.cartGoodsList.findIndex((it) => (it.productId === product.productId));
-    let resState;
-    if (index > -1) {
+    let resState = state;
+    if (index > -1 && foundCallback) {
         resState = foundCallback(state, index);
-    } else {
+    } else if (notFoundCallback) {
         resState = notFoundCallback(state);
     }
     return update(resState, {
