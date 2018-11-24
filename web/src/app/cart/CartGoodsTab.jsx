@@ -126,7 +126,7 @@ class CartGoodsTab extends React.PureComponent {
                                             inputClasses={classes.quantityInput}
                                             inputProps={{
                                                 autoComplete: "off",
-                                                value: item.quantity,
+                                                value: item.quantity + "",
                                                 onChange: (e) => this.handleChangeQuantity(e, index),
                                             }}
                                             numberProps={{

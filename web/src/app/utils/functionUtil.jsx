@@ -2,12 +2,14 @@ import classNamesExport from "classnames";
 import {createBrowserHistory} from 'history'
 import update from 'immutability-helper';
 import debounceExport from 'lodash/debounce'
+import toNumberExport from "lodash/toNumber"
 import PropTypesExport from "prop-types";
 import {connect as connectExport} from "react-redux";
 
 
 export const connect = connectExport; // для удобства, автоматический импорт в IDEA
 export const debounce = debounceExport;
+export const toNumber = toNumberExport;
 export const classNames = classNamesExport;
 export const PropTypes = PropTypesExport;
 export const routerHistory = createBrowserHistory({});

@@ -23,9 +23,9 @@ export const dataCartReducer = createReducer(
                         cartGoodsList: {
                             [index]: {
                                 quantity: {
-                                    $set: (q) => {
+                                    $apply: ((q) => {
                                         return q + 1;
-                                    }
+                                    })
                                 }
                             }
                         }
