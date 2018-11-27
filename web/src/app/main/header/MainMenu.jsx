@@ -4,7 +4,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
 import MenuButton from "app/common/menu/MenuButton";
 import MenuDropdown from "app/common/menu/MenuDropdown.jsx";
-import MenuItem from "app/common/menu/MenuItem";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
 import menuStyle from "app/main/header/menuStyle.jsx";
 import util from "app/utils/util";
@@ -25,25 +24,25 @@ class MainMenu extends React.PureComponent {
         util.navigate.goToUrl("/cart/goods");
     }
 
-    catalogMenuMap = [
-        {id: 0, name: "Презентация", to: "/", icon: null},
-        {id: 1, name: "Дазайн", to: "/design", icon: "apps"},
-        {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle"},
-        {id: 3, name: "Еще более длинное наименование меню", to: "/very-long", icon: "fingerprint"},
+    catalogMenuItems = [
+        {id: 0, name: "Презентация", to: "/", icon: null, link: true},
+        {id: 1, name: "Дазайн", to: "/design", icon: "apps", link: true},
+        {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle", link: true},
+        {id: 3, name: "Еще более длинное наименование меню", to: "/very-long", icon: "fingerprint", link: true},
         {
             id: 4, name: "Совсем, совсем при совсем, очень длинное придлинное наименование " +
                 "меню, трали вали трали вали трали вали вали валилилилилии",
             to: "/very-very-very-loooooong",
-            icon: "shopping_cart"
+            icon: "shopping_cart", link: true
         },
     ];
 
-    userMenuMap = [
-        {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face"},
-        {id: 2, name: "История заказов", to: "/user/orders", icon: "history"},
-        {id: 3, name: "Настройки", to: "/user/settings", icon: "settings"},
-        {id: 4, name: "Смена пароля", to: "/user/password", icon: "fingerprint"},
-        {id: 5, name: "Выход", to: "/auth/signout", icon: "fas fa-sign-out-alt"},
+    userMenuItems = [
+        {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face", link: true},
+        {id: 2, name: "История заказов", to: "/user/orders", icon: "history", link: true},
+        {id: 3, name: "Настройки", to: "/user/settings", icon: "settings", link: true},
+        {id: 4, name: "Смена пароля", to: "/user/password", icon: "fingerprint", link: true},
+        {id: 5, name: "Выход", to: "/auth/signout", icon: "fas fa-sign-out-alt", link: true},
     ];
 
     render = () => {
@@ -62,11 +61,7 @@ class MainMenu extends React.PureComponent {
                             color: "transparent"
                         }}
                         buttonIcon={<AppIcon name="apps"/>}
-                        dropdownList={
-                            this.catalogMenuMap.map(item =>
-                                <MenuItem itemInfo={item} icon={item.icon}/>
-                            )
-                        }
+                        dropdownList={this.catalogMenuItems}
                     />
                 </ListItem>
                 <ListItem className={classes.listItem}>
@@ -79,20 +74,17 @@ class MainMenu extends React.PureComponent {
                             color: "transparent"
                         }}
                         buttonIcon={<AppIcon name="account_circle"/>}
-                        dropdownList={
-                            this.userMenuMap.map(item =>
-                                <MenuItem itemInfo={item} icon={item.icon}/>
-                            )}
+                        dropdownList={this.userMenuItems}
                     />
                 </ListItem>
                 <ListItem className={classes.listItem}>
                     <MenuButton
-                        buttonIcon={<AppIcon name="shopping_cart"/>}
                         buttonText="Корзина"
                         buttonProps={{
                             className: classes.rootMenuItemButton,
                             color: "transparent"
                         }}
+                        buttonIcon={<AppIcon name="shopping_cart"/>}
                         caret={false}
                         onClick={this.handleClickCart}
                     />

@@ -8,6 +8,7 @@ import Popper from "@material-ui/core/Popper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import dropdownStyle from "app/common/menu/dropdownStyle.jsx";
 import MenuButton from "app/common/menu/MenuButton";
+import MenuItemContent from "app/common/menu/MenuItemContent";
 import {ALL_COLORS, ALL_PLACEMENTS} from "app/common/style/styles";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -121,8 +122,8 @@ class MenuDropdown extends React.PureComponent {
                                             {dropdownHeader}
                                         </MenuItem>
                                     ) : null}
-                                    {dropdownList.map((prop, key) => {
-                                        if (prop.divider) {
+                                    {dropdownList.map((item, key) => {
+                                        if (item.divider) {
                                             return (
                                                 <Divider
                                                     key={key}
@@ -130,24 +131,25 @@ class MenuDropdown extends React.PureComponent {
                                                     className={classes.dropdownDividerItem}
                                                 />
                                             );
-                                        } else if (prop.ref === "multi") {
+                                        } else if (item.ref === "multi") {
                                             return (
                                                 <MenuItem
                                                     key={key}
+                                                    onClick={this.handleMenuClick.bind(this, item)}
                                                     className={dropdownItemClasses}
                                                     style={{overflow: "visible", padding: 0}}
                                                 >
-                                                    {prop}
+                                                    <MenuItemContent itemInfo={item}/>
                                                 </MenuItem>
                                             );
                                         }
                                         return (
                                             <MenuItem
                                                 key={key}
-                                                onClick={this.handleMenuClick.bind(this, prop)}
+                                                onClick={this.handleMenuClick.bind(this, item)}
                                                 className={dropdownItemClasses}
                                             >
-                                                {prop}
+                                                <MenuItemContent itemInfo={item}/>
                                             </MenuItem>
                                         );
                                     })}
