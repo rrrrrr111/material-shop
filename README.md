@@ -1,2 +1,3 @@
 # material-shop
-см README в соотв подпапках
+
+см README в соотв подпапках /web/, /backend/

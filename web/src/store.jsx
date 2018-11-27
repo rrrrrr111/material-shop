@@ -30,7 +30,7 @@ export const action = (type, value) => {
 };
 
 export const dispatch = (type, value) => {
-    store.dispatch((dispatch) => {
-        dispatch(action(type, value));
+    return store.dispatch((dispatch) => {
+        return dispatch(action(type, value));
     })
 };

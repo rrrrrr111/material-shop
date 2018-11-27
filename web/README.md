@@ -1,8 +1,10 @@
 #### Первичная настройка
-    1. Установить Node.js, IntelliJ IDEA или др. IDE для работы с JavaScript, JSX, CSS
-    2. В идее установить папки /src, /public как папки исходников, иначе импорты криво подсвечиваются
-    3. в настрйоках IDEA включить прямые импорты для JavaScript
-    4. npm i
+1. Установить
+* Node.js,
+* IntelliJ IDEA или др. IDE для работы с JavaScript, CSS, JSX
+2. В идее установить папки /src, /public как папки исходников, иначе импорты криво подсвечиваются
+3. В настрйоках IDEA включить прямые импорты для JavaScript
+4. Выполнить `npm i` в папке /web/
 
 #### Структура
     `public` - папка с static ресурсами доступными через URL, не обрабатывается Webpack'ом при
@@ -28,20 +30,20 @@
     - Если возникают циклические зависисмости между функциями, при страте приложения Object(...) is not a function
 
 #### Используется
- [HTML, CSS, JavaScript](http://htmlbook.ru/css/cat/text)
- [React.js](https://reactjs.org/docs)
- [react-router](https://reacttraining.com/react-router/web/guides/philosophy)
- [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v1.7.0)
- [Redux](https://redux.js.org/basics/store)
- [JSS (CSS in JS)](http://cssinjs.org)
- Node.js, npm
- [Material UI](https://material-ui.com/demos/app-bar/)
- [Creative Tim Material Kit Examples](https://demos.creative-tim.com/), https://demos.creative-tim.com/material-kit-pro/presentation.html
- [react-number-format](https://github.com/s-yadav/react-number-format)
- [react-text-mask](https://github.com/text-mask/text-mask)
- [Lodash](https://lodash.com/docs/)
- [Axios](https://github.com/axios/axios)
- [immutability-helper](https://github.com/kolodny/immutability-helper)
- [Webpack](https://webpack.js.org/concepts/)
- [Babel](https://babeljs.io/docs/en/)
+* [HTML, CSS, JavaScript](http://htmlbook.ru/css/cat/text)
+* [React.js](https://reactjs.org/docs)
+* [react-router](https://reacttraining.com/react-router/web/guides/philosophy)
+* [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v1.7.0)
+* [Redux](https://redux.js.org/basics/store)
+* [JSS (CSS in JS)](http://cssinjs.org)
+* Node.js, npm
+* [Material UI](https://material-ui.com/demos/app-bar/)
+* [Creative Tim Material Kit Examples](https://demos.creative-tim.com/), https://demos.creative-tim.com/material-kit-pro/presentation.html
+* [react-number-format](https://github.com/s-yadav/react-number-format)
+* [react-text-mask](https://github.com/text-mask/text-mask)
+* [Lodash](https://lodash.com/docs/)
+* [Axios](https://github.com/axios/axios)
+* [immutability-helper](https://github.com/kolodny/immutability-helper)
+* [Webpack](https://webpack.js.org/concepts/)
+* [Babel](https://babeljs.io/docs/en/)
 
