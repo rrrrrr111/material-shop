@@ -9,7 +9,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
 import dropdownStyle from "app/common/menu/dropdownStyle.jsx";
 import {ALL_COLORS, ALL_PLACEMENTS} from "app/common/style/styles";
-import {prepareParamHandler} from "app/utils/validateUtil";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -141,43 +140,42 @@ class MenuDropdown extends React.PureComponent {
                         {caret ? <b className={caretClasses}/> : null}
                     </Button>
                 </div>
-                {open ?
-                    <Popper
-                        open={open}
-                        anchorEl={this.anchorEl}
-                        transition
-                        disablePortal
-                        placement={dropPlacement}
-                        className={classNames({
-                            [classes.popperClose]: !open,
-                            [classes.pooperResponsive]: true,
-                            [classes.pooperNav]: open && navDropdown
-                        })}
-                    >
-                        {({TransitionProps, placement}) => (
-                            <Grow
-                                in={open}
-                                id="menu-list"
-                                style={
-                                    dropup
-                                        ? {transformOrigin: "0 100% 0"}
-                                        : {transformOrigin: "0 0 0"}
-                                }
-                            >
-                                <Paper className={classes.dropdown}>
-                                    {innerDropDown ? (
-                                        dropDownMenu
-                                    ) : ( // баг, ClickAwayListener остается после
+                <Popper
+                    open={open}
+                    anchorEl={this.anchorEl}
+                    transition
+                    disablePortal
+                    placement={dropPlacement}
+                    className={classNames({
+                        [classes.popperClose]: !open,
+                        [classes.pooperResponsive]: true,
+                        [classes.pooperNav]: open && navDropdown
+                    })}
+                >
+                    {({TransitionProps, placement}) => (
+                        <Grow
+                            in={open}
+                            id="menu-list"
+                            style={
+                                dropup
+                                    ? {transformOrigin: "0 100% 0"}
+                                    : {transformOrigin: "0 0 0"}
+                            }
+                        >
+                            <Paper className={classes.dropdown}>
+                                {innerDropDown ? (
+                                    dropDownMenu
+                                ) : (
+                                    open ?
                                         <ClickAwayListener onClickAway={this.handleClose}>
                                             {dropDownMenu}
                                         </ClickAwayListener>
-                                    )}
-                                </Paper>
-                            </Grow>
-                        )}
-                    </Popper>
-                    : null
-                }
+                                        : null
+                                )}
+                            </Paper>
+                        </Grow>
+                    )}
+                </Popper>
             </div>
         );
     }
