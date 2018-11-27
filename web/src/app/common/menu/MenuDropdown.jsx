@@ -7,8 +7,9 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
-import dropdownStyle from "app/common/dropdown/dropdownStyle.jsx";
+import dropdownStyle from "app/common/menu/dropdownStyle.jsx";
 import {ALL_COLORS, ALL_PLACEMENTS} from "app/common/style/styles";
+import {prepareParamHandler} from "app/utils/validateUtil";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -18,20 +19,36 @@ class MenuDropdown extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
-            clicks: 0
+            open: false
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
-    handleClick() {
-        const x = (this.state.clicks + 1) % 2;
-        this.setState({open: true, clicks: x});
+    handleDrop = (e, open) => {
+        //debounce(
+        //(e, open) => {
+        const currentState = this.state.open;
+        if (open === undefined) {
+            open = !currentState;
+        }
+        this.setState({open});
+    };
+
+    //, buttonDebounceTimeout, buttonDebounceRule);
+
+    handleClose(e) {
+        if (this.state.open === false) {
+            return;
+        }
+        this.handleDrop(null, false);
     }
 
-    handleClose() {
-        this.setState({open: false, clicks: 0});
+    handleMenuClick(item) {
+        this.handleDrop(null, false);
+        if (item && item.onClick) {
+            item.onClick(item);
+        }
     }
 
     render() {
@@ -68,7 +85,7 @@ class MenuDropdown extends React.PureComponent {
             <MenuList role="menu" className={classes.menuList}>
                 {dropdownHeader !== undefined ? (
                     <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleMenuClick.bind(this, dropdownHeader)}
                         className={classes.dropdownHeader}
                     >
                         {dropdownHeader}
@@ -79,7 +96,7 @@ class MenuDropdown extends React.PureComponent {
                         return (
                             <Divider
                                 key={key}
-                                onClick={this.handleClose}
+                                onClick={this.handleMenuClick.bind(this, "divider")}
                                 className={classes.dropdownDividerItem}
                             />
                         );
@@ -97,7 +114,7 @@ class MenuDropdown extends React.PureComponent {
                     return (
                         <MenuItem
                             key={key}
-                            onClick={this.handleClose}
+                            onClick={this.handleMenuClick.bind(this, prop)}
                             className={dropdownItemClasses}
                         >
                             {prop}
@@ -117,47 +134,50 @@ class MenuDropdown extends React.PureComponent {
                             this.anchorEl = node;
                         }}
                         {...buttonProps}
-                        onClick={open ? this.handleClose : this.handleClick}
+                        onClick={this.handleDrop}
                     >
                         {buttonIcon !== undefined ? buttonIcon : null}
                         {buttonText !== undefined ? buttonText : null}
                         {caret ? <b className={caretClasses}/> : null}
                     </Button>
                 </div>
-                <Popper
-                    open={open}
-                    anchorEl={this.anchorEl}
-                    transition
-                    disablePortal
-                    placement={dropPlacement}
-                    className={classNames({
-                        [classes.popperClose]: !open,
-                        [classes.pooperResponsive]: true,
-                        [classes.pooperNav]: open && navDropdown
-                    })}
-                >
-                    {({TransitionProps, placement}) => (
-                        <Grow
-                            in={open}
-                            id="menu-list"
-                            style={
-                                dropup
-                                    ? {transformOrigin: "0 100% 0"}
-                                    : {transformOrigin: "0 0 0"}
-                            }
-                        >
-                            <Paper className={classes.dropdown}>
-                                {innerDropDown ? (
-                                    dropDownMenu
-                                ) : (
-                                    <ClickAwayListener onClickAway={this.handleClose} ref="cacat">
-                                        {dropDownMenu}
-                                    </ClickAwayListener>
-                                )}
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
+                {open ?
+                    <Popper
+                        open={open}
+                        anchorEl={this.anchorEl}
+                        transition
+                        disablePortal
+                        placement={dropPlacement}
+                        className={classNames({
+                            [classes.popperClose]: !open,
+                            [classes.pooperResponsive]: true,
+                            [classes.pooperNav]: open && navDropdown
+                        })}
+                    >
+                        {({TransitionProps, placement}) => (
+                            <Grow
+                                in={open}
+                                id="menu-list"
+                                style={
+                                    dropup
+                                        ? {transformOrigin: "0 100% 0"}
+                                        : {transformOrigin: "0 0 0"}
+                                }
+                            >
+                                <Paper className={classes.dropdown}>
+                                    {innerDropDown ? (
+                                        dropDownMenu
+                                    ) : ( // баг, ClickAwayListener остается после
+                                        <ClickAwayListener onClickAway={this.handleClose}>
+                                            {dropDownMenu}
+                                        </ClickAwayListener>
+                                    )}
+                                </Paper>
+                            </Grow>
+                        )}
+                    </Popper>
+                    : null
+                }
             </div>
         );
     }

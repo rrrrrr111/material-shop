@@ -2,6 +2,8 @@
 //
 // } from "lib/assets/jss/material-kit-pro-react.jsx";
 
+import {blackColor} from "app/common/style/styles";
+
 const cardStyle = {
   card: {
     border: "0",
@@ -87,7 +89,7 @@ const cardStyle = {
       border: 0
     },
     "& ul li b": {
-      color: "#3c4858"
+      color: blackColor
     },
     "& h1": {
       marginTop: "30px"

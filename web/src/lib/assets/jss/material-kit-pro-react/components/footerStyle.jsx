@@ -2,6 +2,7 @@
 // // // Footer styles
 // #############################
 
+import {blackColor} from "app/common/style/styles";
 import {
   container,
   primaryColor,
@@ -94,11 +95,11 @@ const footerStyle = {
   },
   white: {
     backgroundColor: "#fff",
-    color: "#3c4858",
+    color: blackColor,
     textDecoration: "none",
     "& a": {
       "&:visited": {
-        color: "#3c4858"
+        color: blackColor
       },
       "&:hover, &:focus": {
         color: "#89229b"
@@ -149,7 +150,7 @@ const footerStyle = {
     fontSize: "18px",
     lineHeight: "50px",
     marginLeft: "-15px",
-    color: "#3c4858",
+    color: blackColor,
     textDecoration: "none",
     fontWeight: 700,
     fontFamily: "Roboto Slab,Times New Roman,serif"

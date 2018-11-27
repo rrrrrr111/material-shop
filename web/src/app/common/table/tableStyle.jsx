@@ -2,6 +2,7 @@
 // // // Table styles
 // #############################
 
+import {blackColor} from "app/common/style/styles";
 import {
     dangerColor,
     defaultFont,
@@ -63,7 +64,7 @@ const tableStyle = theme => ({
         borderBottom: "none",
         borderTop: "1px solid #ddd",
         position: "relative",
-        color: "#3C4858"
+        color: blackColor
     },
     tableHeadCell: {
         fontSize: "1.063rem",

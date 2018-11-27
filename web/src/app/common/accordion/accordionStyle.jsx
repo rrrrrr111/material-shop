@@ -1,3 +1,4 @@
+import {blackColor} from "app/common/style/styles";
 import {
     dangerColor,
     infoColor,
@@ -29,7 +30,7 @@ const accordionStyle = theme => ({
         padding: "25px 10px 5px 0px",
         borderTopLeftRadius: "3px",
         borderTopRightRadius: "3px",
-        color: "#3C4858"
+        color: blackColor
     },
     primaryExpansionPanelSummary: {
         "&:hover": {

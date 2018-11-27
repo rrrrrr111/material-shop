@@ -40,6 +40,8 @@ const ALL_PLACEMENTS = ["bottom", "top", "right", "left", "bottom-start", "botto
 const notificationColor = ROSE_COLOR;
 const notificationPlace = "bc";
 
+const blackColor = "#3C4858";
+
 const font = '"Roboto", "Helvetica", "Arial", sans-serif';
 const boldFont = '"Roboto Slab", "Times New Roman", serif';
 
@@ -156,6 +158,7 @@ export {
     notificationColor,
     notificationPlace,
 
+    blackColor,
     font,
     boldFont,
 

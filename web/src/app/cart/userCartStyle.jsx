@@ -1,5 +1,5 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
-import {appStyles} from "app/common/style/styles";
+import {appStyles, blackColor} from "app/common/style/styles";
 import {container, main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
 import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
@@ -44,7 +44,7 @@ const userCartStyle = theme => ({
         }
     },
     goodsName: {
-        color: "#3C4858",
+        color: blackColor,
     },
     quantityCustomInput: {
         padding: 0,

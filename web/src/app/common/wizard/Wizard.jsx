@@ -5,7 +5,7 @@ import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styles";
 import wizardStyle from "app/common/wizard/wizardStyle";
-import {buttonDebounceRule, debounce, urlDebounceTimeout} from "app/utils/functionUtil";
+import {buttonDebounceRule, debounce, buttonDebounceTimeout} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -37,14 +37,14 @@ class Wizard extends React.Component {
     }
 
     handleClickPrev = (e) => {
-        this.debounceChangeTab(e, -1);
+        this.changeTab(e, -1);
     };
 
     handleClickNext = (e) => {
-        this.debounceChangeTab(e, 1);
+        this.changeTab(e, 1);
     };
 
-    debounceChangeTab(e, step) {
+    changeTab(e, step) {
         this._delayedChangeTab(e, step);
     };
 
@@ -63,7 +63,7 @@ class Wizard extends React.Component {
                 url = this.props.tabsConfig[tabIndex].url;
             }
             util.navigate.goToUrl(url);
-        }, urlDebounceTimeout, buttonDebounceRule);
+        }, buttonDebounceTimeout, buttonDebounceRule);
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         return this.state.activeTabKey !== nextProps.match.params.activeTabKey;

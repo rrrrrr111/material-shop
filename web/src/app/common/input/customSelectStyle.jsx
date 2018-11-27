@@ -1,3 +1,4 @@
+import {blackColor} from "app/common/style/styles";
 import {primaryBoxShadow, primaryColor} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 const customSelectStyle = {
@@ -8,7 +9,7 @@ const customSelectStyle = {
         lineHeight: "1.42857",
         textDecoration: "none",
         textTransform: "uppercase",
-        color: "#3C4858",
+        color: blackColor,
         letterSpacing: "0",
         "&:focus": {
             backgroundColor: "transparent"
@@ -35,7 +36,7 @@ const customSelectStyle = {
     selectLabel: {
         fontSize: "12px",
         textTransform: "uppercase",
-        color: "#3C4858 !important",
+        color: blackColor + " !important",
         top: "8px"
     },
     selectMenu: {
@@ -98,7 +99,7 @@ const customSelectStyle = {
             borderLeft: "2px solid currentColor",
             transform: "rotate(-45deg)",
             opacity: "1",
-            color: "#3c4858",
+            color: blackColor,
             position: "absolute",
             content: "''",
             borderBottom: "2px solid currentColor",

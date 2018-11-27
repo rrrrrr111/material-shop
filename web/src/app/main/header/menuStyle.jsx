@@ -77,7 +77,7 @@ const menuStyle = theme => ({
             marginTop: "-4px",
             marginRight: "4px",
             marginBottom: "0px",
-            fontSize: "1.25rem"
+            fontSize: "1.25rem",
         },
         [theme.breakpoints.down("sm")]: {
             width: "calc(100% - 30px)",
@@ -93,14 +93,6 @@ const menuStyle = theme => ({
             marginRight: "3px",
             width: "20px",
             height: "20px"
-        }
-    },
-    navLinkJustIcon: {
-        "& .fab,& .far,& .fal,& .fas,& .material-icons": {
-            marginRight: "0px"
-        },
-        "& svg": {
-            marginRight: "0px"
         }
     },
     navButton: {
@@ -152,20 +144,6 @@ const menuStyle = theme => ({
             backgroundColor: "rgba(255, 255, 255, 0.1)"
         }
     },
-    dropdownIcons: {
-        width: "24px",
-        height: "24px",
-        fontSize: "24px",
-        margin: "-4px 14px 0 0",
-        opacity: "0.5",
-        top: "1px",
-        verticalAlign: "middle",
-        position: "relative",
-        "&.fas, &.fab": { // my
-            margin: "-4px 11px 0 3px",
-            fontSize: "22px",
-        },
-    },
     socialIcons: {
         position: "relative",
         fontSize: "1.25rem",
@@ -175,20 +153,6 @@ const menuStyle = theme => ({
         top: "4px",
         [theme.breakpoints.down("sm")]: {
             top: "0"
-        }
-    },
-    dropdownLink: {
-        "&,&:hover,&:focus": {
-            color: "inherit",
-            textDecoration: "none",
-            display: "flex",
-            padding: "0.75rem 1.25rem 0.75rem 0.75rem",
-            whiteSpace: "normal",
-            /* для десктопа */
-            [theme.breakpoints.up("md")]: { //my
-                minWidth: 200,
-                maxWidth: 300,
-            },
         }
     },
     marginRight5: {

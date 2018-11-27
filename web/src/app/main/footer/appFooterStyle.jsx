@@ -1,4 +1,4 @@
-import {appStyles} from "app/common/style/styles";
+import {appStyles, blackColor} from "app/common/style/styles";
 import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 import imagesStyle from "app/common/style/imagesStyle.jsx";
 
@@ -90,7 +90,7 @@ const appFooterStyle = theme => ({
             display: "inline-block"
         },
         "& h4, & h5": {
-            color: "#3c4858",
+            color: blackColor,
             textDecoration: "none"
         },
         "& ul:not($socialButtons) li a": {

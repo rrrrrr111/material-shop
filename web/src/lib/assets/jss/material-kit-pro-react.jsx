@@ -1,4 +1,4 @@
-import {boldFont} from "app/common/style/styles";
+import {blackColor, boldFont} from "app/common/style/styles";
 
 const drawerWidth = 260;
 
@@ -116,7 +116,7 @@ const roseCardHeader = {
     ...roseBoxShadow
 };
 const darkCardHeader = {
-    color: "#3C4858",
+    color: blackColor,
     background: "linear-gradient(60deg, #999999, #999999)",
     ...roseBoxShadow
 };
@@ -145,7 +145,7 @@ const defaultBoxShadow = {
 };
 
 const title = {
-    color: "#3C4858",
+    color: blackColor,
     textDecoration: "none",
     fontWeight: "700",
     marginTop: "30px",

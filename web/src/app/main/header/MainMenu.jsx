@@ -2,15 +2,15 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
-import MenuDropdown from "app/common/dropdown/MenuDropdown.jsx";
+import MenuDropdown from "app/common/menu/MenuDropdown.jsx";
+import MenuItem from "app/common/menu/MenuItem";
 import AppIcon from "app/common/icon/AppIcon";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
-import menuStyle from "app/main/header/menu/menuStyle.jsx";
+import menuStyle from "app/main/header/menuStyle.jsx";
 import util from "app/utils/util";
 import PropTypes from "prop-types";
 import React from "react";
 import {withRouter} from "react-router";
-import MenuItem from "./MenuItem";
 
 class MainMenu extends React.PureComponent {
     constructor(props) {
@@ -78,7 +78,7 @@ class MainMenu extends React.PureComponent {
                             className: classes.rootMenuItemButton,
                             color: "transparent"
                         }}
-                        buttonIcon={<AppIcon name="shopping_cart"/>}
+                        buttonIcon={<AppIcon name="account_circle"/>}
                         dropdownList={
                             this.userMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
