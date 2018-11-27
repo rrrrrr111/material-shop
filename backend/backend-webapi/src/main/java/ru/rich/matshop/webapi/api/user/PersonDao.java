@@ -42,17 +42,8 @@ public class PersonDao {
                 .fetchOneInto(Long.class);
     }
 
-    @Cacheable(value = "personIdByPhone", key = "#phone")
-    public Long getIdByPhone(String phone) {
-        return create.select(PERSON.ID)
-                .from(PERSON)
-                .where(PERSON.PHONE.eq(phone))
-                .fetchOneInto(Long.class);
-    }
-
     @Caching(evict = {
-            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
-            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null")
     })
     public Long insert(Person p) {
         final var now = new Date();
@@ -69,8 +60,7 @@ public class PersonDao {
 
     @Caching(evict = {
             @CacheEvict(value = {"personById"}, key = "#p.id"),
-            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null"),
-            @CacheEvict(value = {"personIdByPhone"}, key = "#p.phone", condition = "#p.phone != null")
+            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null")
     })
     public Person updateProfile(Person p) {
         Date now = new Date();

@@ -23,7 +23,6 @@ public class PersonService {
         Assert.isNull(person.getId(), "Person id must be null");
 
         checkEmailNotExists(null, person.getEmail());
-        checkPhoneNotExists(null, person.getPhone());
 
         Long personId = personDao.insert(person);
         return personDao.getById(personId);
@@ -38,7 +37,6 @@ public class PersonService {
                 person.getId(), "Person id must not be null");
 
         checkEmailNotExists(personId, person.getEmail());
-        checkPhoneNotExists(personId, person.getPhone());
 
         return personDao.updateProfile(person);
     }
@@ -73,18 +71,6 @@ public class PersonService {
             throw new UserException("Пользователь с указанным Email уже зарегистрирован",
                     String.format("User with id=%s already exists, email=%s",
                             personId, email));
-        }
-    }
-
-    private void checkPhoneNotExists(Long userId, String phone) {
-        if (phone == null) {
-            return;
-        }
-        final Long personId = personDao.getIdByPhone(phone);
-        if (personId != null && !personId.equals(userId)) {
-            throw new UserException("Пользователь с указанным телефоном уже зарегистрирован",
-                    String.format("User with id=%s already exists, phone=%s",
-                            personId, phone));
         }
     }
 }
