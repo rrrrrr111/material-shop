@@ -75,7 +75,9 @@ const dropdownStyle = theme => ({
         textAlign: "left",
         listStyle: "none",
         backgroundColor: "#fff",
-        backgroundClip: "padding-box"
+        backgroundClip: "padding-box",
+        maxHeight: 500,
+        overflowY: "auto",
     },
     menuList: {
         padding: "0"
