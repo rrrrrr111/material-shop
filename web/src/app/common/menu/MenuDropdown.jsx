@@ -6,8 +6,8 @@ import MenuList from "@material-ui/core/MenuList";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/button/Button.jsx";
 import dropdownStyle from "app/common/menu/dropdownStyle.jsx";
+import MenuButton from "app/common/menu/MenuButton";
 import {ALL_COLORS, ALL_PLACEMENTS} from "app/common/style/styles";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -22,19 +22,16 @@ class MenuDropdown extends React.PureComponent {
         };
         this.handleDrop = this.handleDrop.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.buttonRefBinder = this.buttonRefBinder.bind(this);
     }
 
     handleDrop = (e, open) => {
-        //debounce(
-        //(e, open) => {
         const currentState = this.state.open;
         if (open === undefined) {
             open = !currentState;
         }
         this.setState({open});
     };
-
-    //, buttonDebounceTimeout, buttonDebounceRule);
 
     handleClose(e) {
         if (this.state.open === false) {
@@ -49,6 +46,10 @@ class MenuDropdown extends React.PureComponent {
             item.onClick(item);
         }
     }
+
+    buttonRefBinder = (node) => {
+        this.anchorEl = node;
+    };
 
     render() {
         const {open} = this.state;
@@ -68,78 +69,26 @@ class MenuDropdown extends React.PureComponent {
             innerDropDown,
             navDropdown
         } = this.props;
-        const caretClasses = classNames({
-            [classes.caret]: true,
-            [classes.caretDropup]: dropup && !open,
-            [classes.caretActive]: open && !dropup,
-            [classes.caretRTL]: rtlActive
-        });
+
         const dropdownItemClasses = classNames({
             [classes.dropdownItem]: true,
             [classes[hoverColor + "Hover"]]: true,
             [classes.noLiPadding]: noLiPadding,
             [classes.dropdownItemRTL]: rtlActive
         });
-        const dropDownMenu = (
-            <MenuList role="menu" className={classes.menuList}>
-                {dropdownHeader !== undefined ? (
-                    <MenuItem
-                        onClick={this.handleMenuClick.bind(this, dropdownHeader)}
-                        className={classes.dropdownHeader}
-                    >
-                        {dropdownHeader}
-                    </MenuItem>
-                ) : null}
-                {dropdownList.map((prop, key) => {
-                    if (prop.divider) {
-                        return (
-                            <Divider
-                                key={key}
-                                onClick={this.handleMenuClick.bind(this, "divider")}
-                                className={classes.dropdownDividerItem}
-                            />
-                        );
-                    } else if (prop.ref === "multi") {
-                        return (
-                            <MenuItem
-                                key={key}
-                                className={dropdownItemClasses}
-                                style={{overflow: "visible", padding: 0}}
-                            >
-                                {prop}
-                            </MenuItem>
-                        );
-                    }
-                    return (
-                        <MenuItem
-                            key={key}
-                            onClick={this.handleMenuClick.bind(this, prop)}
-                            className={dropdownItemClasses}
-                        >
-                            {prop}
-                        </MenuItem>
-                    );
-                })}
-            </MenuList>
-        );
-        return (
+        const dropDown = (
             <div className={innerDropDown ? classes.innerManager : classes.manager}>
-                <div className={buttonText !== undefined ? "" : classes.target}>
-                    <Button
-                        aria-label="Notifications"
-                        aria-owns={open ? "menu-list" : null}
-                        aria-haspopup="true"
-                        buttonRef={node => {
-                            this.anchorEl = node;
-                        }}
-                        {...buttonProps}
-                        onClick={this.handleDrop}
-                    >
-                        {buttonIcon !== undefined ? buttonIcon : null}
-                        {buttonText !== undefined ? buttonText : null}
-                        {caret ? <b className={caretClasses}/> : null}
-                    </Button>
-                </div>
+                <MenuButton
+                    buttonIcon={buttonIcon}
+                    buttonText={buttonText}
+                    buttonProps={buttonProps}
+                    buttonRef={this.buttonRefBinder}
+                    caret={caret}
+                    dropup={dropup}
+                    onClick={this.handleDrop}
+                    open={open}
+                    rtlActive={rtlActive}
+                />
                 <Popper
                     open={open}
                     anchorEl={this.anchorEl}
@@ -163,20 +112,59 @@ class MenuDropdown extends React.PureComponent {
                             }
                         >
                             <Paper className={classes.dropdown}>
-                                {innerDropDown ? (
-                                    dropDownMenu
-                                ) : (
-                                    open ?
-                                        <ClickAwayListener onClickAway={this.handleClose}>
-                                            {dropDownMenu}
-                                        </ClickAwayListener>
-                                        : null
-                                )}
+                                <MenuList role="menu" className={classes.menuList}>
+                                    {dropdownHeader !== undefined ? (
+                                        <MenuItem
+                                            onClick={this.handleMenuClick.bind(this, dropdownHeader)}
+                                            className={classes.dropdownHeader}
+                                        >
+                                            {dropdownHeader}
+                                        </MenuItem>
+                                    ) : null}
+                                    {dropdownList.map((prop, key) => {
+                                        if (prop.divider) {
+                                            return (
+                                                <Divider
+                                                    key={key}
+                                                    onClick={this.handleMenuClick.bind(this, "divider")}
+                                                    className={classes.dropdownDividerItem}
+                                                />
+                                            );
+                                        } else if (prop.ref === "multi") {
+                                            return (
+                                                <MenuItem
+                                                    key={key}
+                                                    className={dropdownItemClasses}
+                                                    style={{overflow: "visible", padding: 0}}
+                                                >
+                                                    {prop}
+                                                </MenuItem>
+                                            );
+                                        }
+                                        return (
+                                            <MenuItem
+                                                key={key}
+                                                onClick={this.handleMenuClick.bind(this, prop)}
+                                                className={dropdownItemClasses}
+                                            >
+                                                {prop}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </MenuList>
                             </Paper>
                         </Grow>
                     )}
                 </Popper>
             </div>
+        );
+
+        return (
+            open && !innerDropDown ?
+                <ClickAwayListener onClickAway={this.handleClose}>
+                    {dropDown}
+                </ClickAwayListener>
+                : dropDown
         );
     }
 

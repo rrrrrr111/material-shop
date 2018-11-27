@@ -1,20 +1,18 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import menuItemStyle from "app/common/menu/menuItemStyle";
 import AppIcon from "app/common/icon/AppIcon";
+import dropdownStyle from "app/common/menu/dropdownStyle";
 import LocalLink from "app/common/misc/LocalLink";
 import React from "react";
 
-class MenuItem extends React.PureComponent {
+const MenuItem = (props) => {
 
-    render() {
-        const {itemInfo, classes} = this.props;
-        return (
-            <LocalLink to={itemInfo.to} className={classes.dropdownLink}>
-                <AppIcon name={itemInfo.icon} className={classes.dropdownIcons}/>
-                {itemInfo.name}
-            </LocalLink>
-        );
-    }
-}
+    const {itemInfo, classes} = props;
+    return (
+        <LocalLink to={itemInfo.to} className={classes.dropdownLink}>
+            <AppIcon name={itemInfo.icon} className={classes.dropdownIcons}/>
+            {itemInfo.name}
+        </LocalLink>
+    );
+};
 
-export default withStyles(menuItemStyle)(MenuItem);
+export default withStyles(dropdownStyle)(MenuItem);

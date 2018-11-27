@@ -13,7 +13,6 @@ import {store} from "store";
 
 
 ReactDOM.render(
-    // приложение на Redux должно быть обёрнуто в Redux Provider, чтобы Redux управлял child-ами
     <Provider store={store}>
         <Router basename={util.global.routerBasename} history={routerHistory}>
             <Switch>

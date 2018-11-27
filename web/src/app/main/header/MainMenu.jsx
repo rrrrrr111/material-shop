@@ -1,10 +1,10 @@
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/button/Button.jsx";
+import AppIcon from "app/common/icon/AppIcon";
+import MenuButton from "app/common/menu/MenuButton";
 import MenuDropdown from "app/common/menu/MenuDropdown.jsx";
 import MenuItem from "app/common/menu/MenuItem";
-import AppIcon from "app/common/icon/AppIcon";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
 import menuStyle from "app/main/header/menuStyle.jsx";
 import util from "app/utils/util";
@@ -86,16 +86,16 @@ class MainMenu extends React.PureComponent {
                     />
                 </ListItem>
                 <ListItem className={classes.listItem}>
-                    <Button
-                        color="transparent"
-                        className={classes.rootMenuItemButton}
-                        aria-label="Корзина"
-                        aria-haspopup="false"
+                    <MenuButton
+                        buttonIcon={<AppIcon name="shopping_cart"/>}
+                        buttonText="Корзина"
+                        buttonProps={{
+                            className: classes.rootMenuItemButton,
+                            color: "transparent"
+                        }}
+                        caret={false}
                         onClick={this.handleClickCart}
-                    >
-                        <AppIcon name="shopping_cart"/>
-                        Корзина
-                    </Button>
+                    />
                 </ListItem>
             </List>
         );
