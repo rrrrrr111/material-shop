@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 import debounceExport from 'lodash/debounce'
 import toNumberExport from "lodash/toNumber"
 import PropTypesExport from "prop-types";
+import withStylesExport from "@material-ui/core/styles/withStyles";
 import {connect as connectExport} from "react-redux";
 
 
@@ -12,6 +13,7 @@ export const debounce = debounceExport;
 export const toNumber = toNumberExport;
 export const classNames = classNamesExport;
 export const PropTypes = PropTypesExport;
+export const withStyles = withStylesExport;
 export const routerHistory = createBrowserHistory({});
 
 export const createReducer = (initialState, mappingObj) => {

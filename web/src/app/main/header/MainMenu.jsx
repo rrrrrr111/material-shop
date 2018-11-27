@@ -5,6 +5,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import MenuButton from "app/common/menu/MenuButton";
 import MenuDropdown from "app/common/menu/MenuDropdown.jsx";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
+import CartIcon from "app/main/header/CartIcon";
 import menuStyle from "app/main/header/menuStyle.jsx";
 import util from "app/utils/util";
 import PropTypes from "prop-types";
@@ -79,12 +80,11 @@ class MainMenu extends React.PureComponent {
                 </ListItem>
                 <ListItem className={classes.listItem}>
                     <MenuButton
-                        buttonText="Корзина"
                         buttonProps={{
                             className: classes.rootMenuItemButton,
                             color: "transparent"
                         }}
-                        buttonIcon={<AppIcon name="shopping_cart"/>}
+                        buttonIcon={<CartIcon/>}
                         caret={false}
                         onClick={this.handleClickCart}
                     />
