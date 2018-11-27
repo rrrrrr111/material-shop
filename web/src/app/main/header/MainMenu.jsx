@@ -13,13 +13,6 @@ import React from "react";
 import {withRouter} from "react-router";
 
 class MainMenu extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            emptyCartNotification: false,
-        };
-        this.handleClickCart = this.handleClickCart.bind(this);
-    }
 
     handleClickCart() {
         util.navigate.goToUrl("/cart/goods");
@@ -121,7 +114,7 @@ class MainMenu extends React.PureComponent {
     };
 
     static defaultProps = {
-        hoverColor: PRIMARY_COLOR
+        dropdownHoverColor: PRIMARY_COLOR
     };
 
     static propTypes = {
