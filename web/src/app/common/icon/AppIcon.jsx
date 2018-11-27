@@ -13,9 +13,8 @@ class AppIcon extends React.PureComponent {
                 // название в snake_case, преобразовать в CamelCase
                 // можно создавать свои из SVG кодов
 
-                const classes = classNames({[className]: className,});
                 return (
-                    <this.props.name className={classes}/>
+                    <this.props.name className={classNames({[className]: className})}/>
                 );
 
             case "string":
@@ -37,11 +36,8 @@ class AppIcon extends React.PureComponent {
                     // и https://materialdesignicons.com/ - работают не все, только те у кого поставщик Google
                     // названия с нижним подчеркиванием (_), см также имена алиасы
 
-                    const classes = classNames({
-                        [className]: className,
-                    });
                     return (
-                        <Icon className={classes}>
+                        <Icon className={classNames({[className]: className})}>
                             {name}
                         </Icon>
                     )

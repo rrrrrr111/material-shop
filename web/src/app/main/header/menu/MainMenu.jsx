@@ -4,7 +4,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "app/common/button/Button.jsx";
 import MenuDropdown from "app/common/dropdown/MenuDropdown.jsx";
 import AppIcon from "app/common/icon/AppIcon";
-import Notify from "app/common/message/notify/Notify";
 import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
 import menuStyle from "app/main/header/menu/menuStyle.jsx";
 import util from "app/utils/util";
@@ -13,24 +12,17 @@ import React from "react";
 import {withRouter} from "react-router";
 import MenuItem from "./MenuItem";
 
-class Menu extends React.PureComponent {
+class MainMenu extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             emptyCartNotification: false,
         };
-        this.handleShowEmptyCartNotification = this.handleShowEmptyCartNotification.bind(this);
-        this.handleCloseEmptyCartNotification = this.handleCloseEmptyCartNotification.bind(this);
+        this.handleClickCart = this.handleClickCart.bind(this);
     }
 
-    handleShowEmptyCartNotification() {
-
+    handleClickCart() {
         util.navigate.goToUrl("/cart/goods");
-        util.notify.cartEmpty();
-    }
-
-    handleCloseEmptyCartNotification() {
-        util.notify.cartEmpty();
     }
 
     catalogMenuMap = [
@@ -47,7 +39,6 @@ class Menu extends React.PureComponent {
     ];
 
     userMenuMap = [
-        {id: 1, name: "Корзина", to: "/cart/goods", icon: "shopping_cart"},
         {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face"},
         {id: 2, name: "История заказов", to: "/user/orders", icon: "history"},
         {id: 3, name: "Настройки", to: "/user/settings", icon: "settings"},
@@ -67,7 +58,7 @@ class Menu extends React.PureComponent {
                         hoverColor={dropdownHoverColor}
                         buttonText="Каталог"
                         buttonProps={{
-                            className: classes.navLink,
+                            className: classes.rootMenuItemButton,
                             color: "transparent"
                         }}
                         buttonIcon={<AppIcon name="apps"/>}
@@ -84,10 +75,10 @@ class Menu extends React.PureComponent {
                         navDropdown
                         hoverColor={dropdownHoverColor}
                         buttonProps={{
-                            className: classes.navLink,
+                            className: classes.rootMenuItemButton,
                             color: "transparent"
                         }}
-                        buttonIcon={<AppIcon name="account_circle"/>}
+                        buttonIcon={<AppIcon name="shopping_cart"/>}
                         dropdownList={
                             this.userMenuMap.map(item =>
                                 <MenuItem itemInfo={item} icon={item.icon}/>
@@ -97,17 +88,14 @@ class Menu extends React.PureComponent {
                 <ListItem className={classes.listItem}>
                     <Button
                         color="transparent"
+                        className={classes.rootMenuItemButton}
                         aria-label="Корзина"
                         aria-haspopup="false"
-                        onClick={this.handleShowEmptyCartNotification}
+                        onClick={this.handleClickCart}
                     >
-                        <AppIcon name="shopping_cart" className={classes.icons}/>
+                        <AppIcon name="shopping_cart"/>
                         Корзина
                     </Button>
-                    <Notify text="Корзина пуста"
-                            isOpen={this.state.emptyCartNotification}
-                            onClose={this.handleCloseEmptyCartNotification}
-                    />
                 </ListItem>
             </List>
         );
@@ -122,4 +110,4 @@ class Menu extends React.PureComponent {
     };
 }
 
-export default withStyles(menuStyle)(withRouter(Menu));
+export default withStyles(menuStyle)(withRouter(MainMenu));

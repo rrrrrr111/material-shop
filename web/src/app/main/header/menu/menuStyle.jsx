@@ -57,7 +57,7 @@ const menuStyle = theme => ({
     listItemText: {
         padding: "0 !important"
     },
-    navLink: {
+    rootMenuItemButton: {
         color: "inherit",
         position: "relative",
         padding: "0.9375rem",
@@ -121,9 +121,6 @@ const menuStyle = theme => ({
             "& > span:first-child": {
                 justifyContent: "flex-start"
             }
-        },
-        "& $icons": {
-            marginRight: "3px"
         }
     },
     notificationNavLink: {
@@ -155,19 +152,14 @@ const menuStyle = theme => ({
             backgroundColor: "rgba(255, 255, 255, 0.1)"
         }
     },
-    icons: {
-        width: "20px",
-        height: "20px",
-        marginRight: "14px"
-    },
     dropdownIcons: {
         width: "24px",
         height: "24px",
+        fontSize: "24px",
         margin: "-4px 14px 0 0",
         opacity: "0.5",
         top: "1px",
         verticalAlign: "middle",
-        fontSize: "24px",
         position: "relative",
         "&.fas, &.fab": { // my
             margin: "-4px 11px 0 3px",
