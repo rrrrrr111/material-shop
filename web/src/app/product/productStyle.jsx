@@ -1,6 +1,6 @@
-import customSelectStyle from "app/common/input/customSelectStyle";
+import customSelectStyle from "app/common/theme/input/customSelectStyle";
 import {helperStyles} from "app/common/style/styleConsts";
-import tooltipStyle from "app/common/tooltip/tooltipStyle";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle";
 import {container, main, mainRaised, title} from "app/common/style/themeStyles.jsx";
 
 

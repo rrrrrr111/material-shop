@@ -1,5 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/button/Button";
+import Button from "app/common/theme/button/Button";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";

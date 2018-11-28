@@ -1,4 +1,4 @@
-import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle.jsx";
 import {mlAuto} from "app/common/style/themeStyles.jsx";
 
 const menuStyle = theme => ({

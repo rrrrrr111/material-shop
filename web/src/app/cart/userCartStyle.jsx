@@ -1,4 +1,4 @@
-import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
+import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle";
 import {helperStyles, blackColor} from "app/common/style/styleConsts";
 import {container, main, mainRaised} from "app/common/style/themeStyles";
 import {title} from "app/common/style/themeStyles.jsx";

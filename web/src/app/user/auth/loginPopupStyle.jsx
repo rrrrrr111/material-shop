@@ -1,8 +1,8 @@
-import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
+import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/component/modalStyle.jsx";
 import popoverStyles from "app/common/style/component/popoverStyles.jsx";
 import {helperStyles} from "app/common/style/styleConsts";
-import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle.jsx";
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "app/common/style/themeStyles.jsx";
 
 

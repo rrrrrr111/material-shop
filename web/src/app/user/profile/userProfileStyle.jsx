@@ -1,5 +1,5 @@
-import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
-import inputStyle from "app/common/input/inputStyle";
+import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle";
+import inputStyle from "app/common/theme/input/inputStyle";
 import {helperStyles} from "app/common/style/styleConsts";
 import {container, formControl, labelRoot, main, mainRaised} from "app/common/style/themeStyles.jsx";
 

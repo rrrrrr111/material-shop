@@ -13,7 +13,7 @@ import LocalLink from "app/common/misc/LocalLink";
 import {ALL_COLOR_KEYS, WHITE_COLOR_KEY} from "app/common/style/styleConsts";
 
 import menuBarStyle from "app/main/header/menuBarStyle.jsx";
-// nodejs library that concatenates classes
+
 import classNames from "classnames";
 
 import PropTypes from "prop-types";

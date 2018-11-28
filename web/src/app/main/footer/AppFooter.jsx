@@ -1,5 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/button/Button";
+import Button from "app/common/theme/button/Button";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
@@ -7,7 +7,7 @@ import LocalLink from "app/common/misc/LocalLink";
 
 import appFooterStyle from "app/main/footer/appFooterStyle.jsx";
 import classNames from "classnames";
-import Footer from "lib/components/Footer/Footer.jsx";
+import Footer from "app/common/theme/footer/Footer.jsx";
 import React from "react";
 
 class AppFooter extends React.PureComponent {

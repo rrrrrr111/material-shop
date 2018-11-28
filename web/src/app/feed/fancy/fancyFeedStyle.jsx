@@ -1,6 +1,6 @@
 import {helperStyles, roseColor} from "app/common/style/styleConsts";
 import {cardTitle, title} from "app/common/style/themeStyles.jsx";
-import tooltipStyle from "app/common/tooltip/tooltipStyle";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle";
 
 
 const fancyFeedStyle = theme => ({

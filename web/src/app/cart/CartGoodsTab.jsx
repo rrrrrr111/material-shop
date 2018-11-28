@@ -2,17 +2,17 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {CHANGE_QUANTITY, mapCartToProps, REMOVE_FROM_CART} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
-import Button from "app/common/button/Button";
-import Card from "app/common/card/Card.jsx";
-import CardBody from "app/common/card/CardBody.jsx";
+import Button from "app/common/theme/button/Button";
+import Card from "app/common/theme/card/Card.jsx";
+import CardBody from "app/common/theme/card/CardBody.jsx";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
-import CustomInput from "app/common/input/CustomInput";
+import CustomInput from "app/common/theme/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styleConsts";
-import Table from "app/common/table/CustomTable";
+import Table from "app/common/theme/table/CustomTable";
 import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import toNumber from 'lodash/toNumber'
