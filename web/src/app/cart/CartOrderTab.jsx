@@ -3,6 +3,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabe
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Check from "@material-ui/icons/Check";
+import {mapCartToProps} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
 import GridContainer from "app/common/grid/GridContainer";
 import Price from "app/common/misc/Price";
@@ -12,6 +13,7 @@ import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
 import CustomInput from "app/common/theme/input/CustomInput";
 import SelectInput from "app/common/theme/input/SelectInput";
+import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkEmail, checkPhone, isNotBlank} from "app/utils/validateUtil";
 import classNames from "classnames";
@@ -22,29 +24,39 @@ class CartOrderTab extends React.PureComponent {
         super(props);
         this.state = {
             data: {
-                person: {...props.userData},
-                delivery: {
-                    type: 0,
-                    address: {
-                        region: "77",
-                    },
-                }
+                person: {...props.userData, agreementChecked: true},
+                address: {
+                    region: "77",
+                },
+                deliveryAmount: null,
+                deliveryType: "COURIER",
+                paymentInfo: null,
+                paymentType: "CASH",
             },
             ui: {
-                firstNameValid: true,
-                lastNameValid: true,
-                phoneValid: true,
-                emailValid: true,
+                person: {
+                    firstNameValid: true,
+                    phoneValid: true,
+                    emailValid: true,
+                    agreementCheckedValid: true,
+                },
+                address: {
+                    regionValid: "77",
+                },
                 formValid: true,
                 message: "",
             },
         };
         this.validator = util.validate.createValidator(this, {
                 fieldsToCheckers: {
-                    firstName: isNotBlank,
-                    lastName: isNotBlank,
-                    email: checkEmail,
-                    phone: checkPhone,
+                    person: {
+                        firstName: isNotBlank,
+                        email: checkEmail,
+                        phone: checkPhone,
+                    },
+                    address: {
+                        region: isNotBlank,
+                    },
                 },
             }
         );
@@ -85,6 +97,31 @@ class CartOrderTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const {
+            loading
+        } = this.props.userUi;
+        const disabled = loading;
+        const {
+            firstName, email, phone, agreementChecked,
+        } = this.state.data.person;
+        const {
+            firstNameValid, emailValid, phoneValid, agreementCheckedValid,
+        } = this.state.ui.person;
+        const {
+            region,
+        } = this.state.data.address;
+        const {
+            regionValid,
+        } = this.state.ui.address;
+        const {
+            deliveryAmount,
+            deliveryType,
+            paymentInfo,
+            paymentType,
+        } = this.state.data;
+        const {
+            formValid, message
+        } = this.state.ui;
         return (
             <form>
                 <Card>
@@ -147,7 +184,7 @@ class CartOrderTab extends React.PureComponent {
                                         <Checkbox
                                             tabIndex={-1}
                                             onClick={this.handleToggle}
-                                            checked={this.state.agreementChecked}
+                                            checked={agreementChecked}
                                             checkedIcon={<Check className={classes.checkedIcon}/>}
                                             icon={<Check className={classes.uncheckedIcon}/>}
                                             classes={{checked: classes.checked}}
@@ -166,8 +203,8 @@ class CartOrderTab extends React.PureComponent {
                                              labelText="Регион"
                                              fakeItemText="Выберите регион"
                                              onChange={this.handleRegionChange}
-                                             options={util.dictionary.regionList}
-                                             value={this.state.delivery.region}
+                                             options={util.dictionary.regionDict.values}
+                                             value={region}
                                 />
                             </Grid>
                             <Grid xs={6} item/>
@@ -178,14 +215,14 @@ class CartOrderTab extends React.PureComponent {
                                     onChange={this.onDeliveryTypeChange}
                                     tabs={[
                                         {
-                                            pillText: util.dictionary.deliveryTypeMap.COURIER.name,
+                                            pillText: util.dictionary.deliveryTypeDict.getById(0).description,
                                             content: (
                                                 <GridContainer spacing={16}>
                                                     <Grid item xs={12}>
                                                         <h5>
                                                             Курьерская доставка —{" "}
                                                             <Price value={
-                                                                util.dictionary.deliveryTypeMap.COURIER.coast
+                                                                util.dictionary.deliveryTypeDict.getById(0).coast
                                                             }/>
                                                         </h5>
                                                     </Grid>
@@ -316,7 +353,7 @@ class CartOrderTab extends React.PureComponent {
                                             )
                                         },
                                         {
-                                            pillText: util.dictionary.deliveryTypeMap.RUSSIAN_POST.name,
+                                            pillText: util.dictionary.deliveryTypeDict.getById(1).description,
                                             content: (
                                                 <span>
                                                     <h5>Сожалеем, доставка Почтой России временно не доступна.</h5>
@@ -335,4 +372,4 @@ class CartOrderTab extends React.PureComponent {
     }
 }
 
-export default withStyles(userCartStyle)(CartOrderTab);
+export default connect(mapStateToProps)(withStyles(userCartStyle)(CartOrderTab));

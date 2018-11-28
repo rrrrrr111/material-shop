@@ -13,7 +13,8 @@ import React from "react";
 
 class OrdersTab extends React.PureComponent {
     orders = fill(Array(3), {
-        date: "18.02.2018", address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",
+        date: "18.02.2018",
+        address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",
         goods: [
             {name: "Колонка JBL Masters 1200 Kb", quantity: 2, price: 1500},
             {name: "dsf asd fasdf", quantity: 1, price: 1800},
@@ -44,7 +45,7 @@ class OrdersTab extends React.PureComponent {
                     ? <li key={index}>{item.quantity} x {item.name} ({item.price}p)</li>
                     : <li key={index}>{item.name} ({item.price}p)</li>
             })}
-            <li>Доставка {util.dictionary.deliveryTypeMap[item.deliveryType].name} ({item.deliveryAmount}p)</li>
+            <li>Доставка {util.dictionary.deliveryTypeDict[item.deliveryType].name} ({item.deliveryAmount}p)</li>
         </ul>);
     };
 

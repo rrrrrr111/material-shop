@@ -6,15 +6,16 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CHANGE_QUANTITY = 'CHANGE_QUANTITY';
 
 export const START_ORDER_CREATE = 'START_ORDER_CREATE';
-export const STOP_ORDER_CREATE = 'STOP_ORDER_CREATE';
 export const ORDER_CREATED = 'ORDER_CREATED';
 
+const initialState = {
+    cartGoodsList: [],
+    totalAmount: 0,
+    totalQuantity: 0,
+    shopOrder: null
+};
 export const dataCartReducer = createReducer(
-    {
-        cartGoodsList: [],
-        totalAmount: 0,
-        totalQuantity: 0,
-    }, {
+    initialState, {
         // добавление одной единицы товара в корзину
         [ADD_TO_CART]: (state, value) => {
             return updateCart(state, value,
@@ -54,7 +55,7 @@ export const dataCartReducer = createReducer(
         },
         // заказ оформлен
         [ORDER_CREATED]: (state) => {
-            return update(state, {cartGoodsList: {$set: []}});
+            return initialState;
         },
     });
 
@@ -64,7 +65,7 @@ export const uiCartReducer = createReducer({
     [START_ORDER_CREATE]: (state) => {
         return update(state, {loading: {$set: true}});
     },
-    [STOP_ORDER_CREATE]: (state) => {
+    [ORDER_CREATED]: (state) => {
         return update(state, {loading: {$set: false}});
     },
 });
