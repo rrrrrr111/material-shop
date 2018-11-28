@@ -1,19 +1,20 @@
 import Badge from '@material-ui/core/Badge';
 import {mapCartToProps} from "app/cart/reducer";
 import AppIcon from "app/common/icon/AppIcon";
+import {roseColor} from "app/common/style/styleConsts";
 import {connect, withStyles} from "app/utils/functionUtil";
-import {roseColor} from "lib/assets/jss/material-kit-pro-react";
 import React from "react";
 
 const styles = theme => ({
     badge: {
-        top: -17,
-        right: -12,
+        top: -14,
+        right: -8,
         backgroundColor: "white",
         color: roseColor,
-        height: 18,
+        fontSize: "10px",
+        height: 14,
         width: "auto",
-        minWidth: 18,
+        minWidth: 14,
     },
 });
 

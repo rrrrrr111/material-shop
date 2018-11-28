@@ -11,7 +11,7 @@ import AppIcon from "app/common/icon/AppIcon";
 import CustomInput from "app/common/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
-import {iconButtonColor} from "app/common/style/styles";
+import {iconButtonColor} from "app/common/style/styleConsts";
 import Table from "app/common/table/CustomTable";
 import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"

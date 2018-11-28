@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Clearfix from "app/common/misc/Clearfix";
-import {navPillsColor} from "app/common/style/styles";
+import {navPillsColor} from "app/common/style/styleConsts";
 import NavPills from "app/common/tabs/NavPills";
 import OrdersTab from "app/user/profile/OrdersTab";
 import PasswordTab from "app/user/profile/PasswordTab";

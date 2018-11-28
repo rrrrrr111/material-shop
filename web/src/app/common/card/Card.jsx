@@ -2,7 +2,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 import cardStyle from "app/common/card/cardStyle.jsx";
-import {ALL_COLORS} from "app/common/style/styles";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
@@ -56,7 +56,7 @@ Card.propTypes = {
     background: PropTypes.bool,
     pricing: PropTypes.bool,
     testimonial: PropTypes.bool,
-    color: PropTypes.oneOf(ALL_COLORS),
+    color: PropTypes.oneOf(ALL_COLOR_KEYS),
     product: PropTypes.bool
 };
 

@@ -1,5 +1,5 @@
 import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
-import {mlAuto} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {mlAuto} from "app/common/style/themeStyles.jsx";
 
 const menuStyle = theme => ({
     ...tooltipStyle(theme),
@@ -38,8 +38,8 @@ const menuStyle = theme => ({
         [theme.breakpoints.down("sm")]: {
             "& ul": {
                 maxHeight: "400px",
-                overflowY: "auto", // my
-                overflowX: "auto", // my
+                overflowY: "auto",
+                overflowX: "auto",
             },
             width: "100%",
             "&:not(:last-child)": {
@@ -82,8 +82,8 @@ const menuStyle = theme => ({
         [theme.breakpoints.down("sm")]: {
             width: "calc(100% - 30px)",
             marginLeft: "10px",
-            marginBottom: "6px", // my
-            marginTop: "6px", // my
+            marginBottom: "6px",
+            marginTop: "6px",
             textAlign: "left",
             "& > span:first-child": {
                 justifyContent: "flex-start"

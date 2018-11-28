@@ -1,13 +1,13 @@
-import {appStyles, blackColor} from "app/common/style/styles";
-import {container, description, section, title} from "lib/assets/jss/material-kit-pro-react.jsx";
-import imagesStyle from "app/common/style/imagesStyle.jsx";
+import {helperStyles, blackColor} from "app/common/style/styleConsts";
+import {container, description, section, title} from "app/common/style/themeStyles.jsx";
+import imagesStyle from "app/common/style/component/imagesStyle.jsx";
 
 const appFooterStyle = theme => ({
     ...imagesStyle,
     container,
     title,
     description,
-    ...appStyles(theme),
+    ...helperStyles(theme),
     dividerBlock: {
         height: 40
     },

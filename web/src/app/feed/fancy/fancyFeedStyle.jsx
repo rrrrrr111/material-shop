@@ -1,10 +1,10 @@
-import {appStyles} from "app/common/style/styles";
+import {helperStyles, roseColor} from "app/common/style/styleConsts";
+import {cardTitle, title} from "app/common/style/themeStyles.jsx";
 import tooltipStyle from "app/common/tooltip/tooltipStyle";
-import {cardTitle, roseColor, title} from "lib/assets/jss/material-kit-pro-react.jsx";
 
 
 const fancyFeedStyle = theme => ({
-    ...appStyles(theme),
+    ...helperStyles(theme),
     ...tooltipStyle(theme),
 
     title: {

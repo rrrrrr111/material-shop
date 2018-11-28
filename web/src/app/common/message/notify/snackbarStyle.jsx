@@ -6,7 +6,7 @@ import {
     roseBoxShadow,
     successBoxShadow,
     warningBoxShadow
-} from "lib/assets/jss/material-kit-pro-react";
+} from "app/common/style/themeStyles";
 
 const snackbarStyle = {
     root: {

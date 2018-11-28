@@ -10,7 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import LocalLink from "app/common/misc/LocalLink";
-import {ALL_COLORS, WHITE_COLOR} from "app/common/style/styles";
+import {ALL_COLOR_KEYS, WHITE_COLOR_KEY} from "app/common/style/styleConsts";
 
 import menuBarStyle from "app/main/header/menuBarStyle.jsx";
 // nodejs library that concatenates classes
@@ -120,19 +120,19 @@ class MenuBar extends React.PureComponent {
     }
 
     static defaultProp = {
-        color: WHITE_COLOR
+        color: WHITE_COLOR_KEY
     };
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        color: PropTypes.oneOf(ALL_COLORS),
+        color: PropTypes.oneOf(ALL_COLOR_KEYS),
         menuLinks: PropTypes.node,
         brandName: PropTypes.string,
         fixed: PropTypes.bool,
         absolute: PropTypes.bool,
         changeColorOnScroll: PropTypes.shape({
             height: PropTypes.number.isRequired,
-            color: PropTypes.oneOf(ALL_COLORS).isRequired
+            color: PropTypes.oneOf(ALL_COLOR_KEYS).isRequired
         })
     };
 }

@@ -9,7 +9,7 @@ import {
   successColor,
   infoColor,
   roseColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/themeStyles.jsx";
 
 const badgeStyle = {
   badge: {

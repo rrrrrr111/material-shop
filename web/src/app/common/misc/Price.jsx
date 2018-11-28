@@ -1,7 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {appStyles, boldFont, font} from "app/common/style/styles";
-import {title} from "lib/assets/jss/material-kit-pro-react";
+import {helperStyles, boldFont, font} from "app/common/style/styleConsts";
+import {title} from "app/common/style/themeStyles";
 import PropTypes from "prop-types";
 import React from "react";
 import NumberFormat from "react-number-format";
@@ -9,7 +9,7 @@ import NumberFormat from "react-number-format";
 
 const style = theme => ({
     price: {
-        ...appStyles(theme).nowrap,
+        ...helperStyles(theme).nowrap,
         color: title.color,
         fontFamily: font,
         fontSize: "1.0625rem",

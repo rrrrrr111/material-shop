@@ -9,8 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import dropdownStyle from "app/common/menu/dropdownStyle.jsx";
 import MenuButton from "app/common/menu/MenuButton";
 import MenuItemContent from "app/common/menu/MenuItemContent";
-import {ALL_COLORS, ALL_PLACEMENTS, PRIMARY_COLOR} from "app/common/style/styles";
-import classNames from "classnames";
+import {ALL_COLOR_KEYS, ALL_PLACEMENTS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
+import {classNames} from "app/utils/functionUtil";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -173,12 +173,12 @@ class MenuDropdown extends React.PureComponent {
     static defaultProps = {
         caret: true,
         dropup: false,
-        hoverColor: PRIMARY_COLOR,
+        hoverColor: PRIMARY_COLOR_KEY,
     };
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        hoverColor: PropTypes.oneOf(ALL_COLORS),
+        hoverColor: PropTypes.oneOf(ALL_COLOR_KEYS),
         buttonText: PropTypes.node,
         buttonIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
         dropdownList: PropTypes.array,

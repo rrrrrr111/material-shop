@@ -2,10 +2,10 @@
 // // // NavPills component style
 // #############################
 
-import {appStyles} from "app/common/style/styles";
+import {helperStyles} from "app/common/style/styleConsts";
 
 const wizardStyle = theme => ({
-    ...appStyles(theme),
+    ...helperStyles(theme),
 
     contentWrapper: {
         marginTop: "20px",

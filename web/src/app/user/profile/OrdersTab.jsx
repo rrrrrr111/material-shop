@@ -4,7 +4,7 @@ import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import Price from "app/common/misc/Price";
-import {iconButtonColor} from "app/common/style/styles";
+import {iconButtonColor} from "app/common/style/styleConsts";
 import Table from "app/common/table/CustomTable";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import util from "app/utils/util";

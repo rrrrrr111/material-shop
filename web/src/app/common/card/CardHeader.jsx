@@ -2,7 +2,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 import cardHeaderStyle from "app/common/card/cardHeaderStyle.jsx";
-import {ALL_COLORS} from "app/common/style/styles";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -40,7 +40,7 @@ function CardHeader(props) {
 CardHeader.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
-    color: PropTypes.oneOf(ALL_COLORS),
+    color: PropTypes.oneOf(ALL_COLOR_KEYS),
     plain: PropTypes.bool,
     image: PropTypes.bool,
     contact: PropTypes.bool,

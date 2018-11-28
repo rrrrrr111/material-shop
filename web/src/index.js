@@ -1,8 +1,7 @@
-import "app/common/style/styles.css";
+import "app/common/style/styles.css?v=1.1.0";
 import MainLayout from "app/main/MainLayout";
 import {routerHistory} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import "lib/assets/scss/material-kit-pro-react.css?v=1.1.0";
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";

@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
-import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
+import {ALL_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
 import navPillsStyle from "app/common/tabs/navPillsStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -100,7 +100,7 @@ class NavPills extends React.PureComponent {
 
     static defaultProps = {
         activeTabIndex: 0,
-        color: PRIMARY_COLOR
+        color: PRIMARY_COLOR_KEY
     };
 
     static propTypes = {
@@ -114,7 +114,7 @@ class NavPills extends React.PureComponent {
                 pillClasses: PropTypes.string,
             })
         ).isRequired,
-        color: PropTypes.oneOf(ALL_COLORS),
+        color: PropTypes.oneOf(ALL_COLOR_KEYS),
         direction: PropTypes.string,
         horizontal: PropTypes.shape({
             tabsGrid: PropTypes.object,

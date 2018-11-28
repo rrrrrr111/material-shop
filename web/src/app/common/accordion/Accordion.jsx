@@ -4,7 +4,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import accordionStyle from "app/common/accordion/accordionStyle.jsx";
-import {ALL_COLORS} from "app/common/style/styles";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -122,7 +122,7 @@ class Accordion extends React.PureComponent {
                 content: PropTypes.node
             })
         ).isRequired,
-        activeColor: PropTypes.oneOf(ALL_COLORS)
+        activeColor: PropTypes.oneOf(ALL_COLOR_KEYS)
     };
 }
 

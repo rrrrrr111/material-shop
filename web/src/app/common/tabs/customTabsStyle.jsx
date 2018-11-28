@@ -1,4 +1,4 @@
-import {defaultFont} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {defaultFont} from "app/common/style/themeStyles.jsx";
 
 const customTabsStyle = theme => ({
     cardTitle: {

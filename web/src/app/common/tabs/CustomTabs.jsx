@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Card from "app/common/card/Card.jsx";
 import CardBody from "app/common/card/CardBody.jsx";
 import CardHeader from "app/common/card/CardHeader.jsx";
-import {ALL_COLORS} from "app/common/style/styles";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 import customTabsStyle from "app/common/tabs/customTabsStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -95,7 +95,7 @@ class CustomTabs extends React.PureComponent {
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        headerColor: PropTypes.oneOf(ALL_COLORS),
+        headerColor: PropTypes.oneOf(ALL_COLOR_KEYS),
         title: PropTypes.string,
         tabs: PropTypes.arrayOf(
             PropTypes.shape({

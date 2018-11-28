@@ -9,7 +9,7 @@ import CustomInput from "app/common/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
-import {buttonColor} from "app/common/style/styles";
+import {buttonColor} from "app/common/style/styleConsts";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, debounce, updateUiField} from "app/utils/functionUtil";

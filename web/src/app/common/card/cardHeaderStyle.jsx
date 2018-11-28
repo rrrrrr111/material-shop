@@ -6,7 +6,7 @@ import {
     roseCardHeader,
     successCardHeader,
     warningCardHeader
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/themeStyles.jsx";
 
 const cardHeaderStyle = {
     cardHeader: {

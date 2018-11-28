@@ -1,11 +1,11 @@
 import customSelectStyle from "app/common/input/customSelectStyle";
-import {appStyles} from "app/common/style/styles";
+import {helperStyles} from "app/common/style/styleConsts";
 import tooltipStyle from "app/common/tooltip/tooltipStyle";
-import {container, main, mainRaised, title} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {container, main, mainRaised, title} from "app/common/style/themeStyles.jsx";
 
 
 const productStyle = theme => ({
-    ...appStyles(theme),
+    ...helperStyles(theme),
     ...tooltipStyle(theme),
     ...customSelectStyle,
 

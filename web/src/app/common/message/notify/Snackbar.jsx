@@ -9,7 +9,7 @@ import snackbarStyle from "app/common/message/notify/snackbarStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import {ALL_COLORS} from "../../style/styles";
+import {ALL_COLOR_KEYS} from "../../style/styleConsts";
 
 function Snackbar(props) {
     const {classes, message, color, close, icon, place, open} = props;
@@ -60,7 +60,7 @@ function Snackbar(props) {
 Snackbar.propTypes = {
     classes: PropTypes.object.isRequired,
     message: PropTypes.node.isRequired,
-    color: PropTypes.oneOf(ALL_COLORS),
+    color: PropTypes.oneOf(ALL_COLOR_KEYS),
     close: PropTypes.bool,
     icon: PropTypes.node,
     onClose: PropTypes.func,

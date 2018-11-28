@@ -5,7 +5,7 @@ import {
     roseColor,
     successColor,
     warningColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/styleConsts";
 
 const navPillsStyle = theme => ({
     root: {

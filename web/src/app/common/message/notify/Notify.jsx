@@ -5,7 +5,7 @@ import snackbarStyle from "app/common/message/notify/snackbarStyle";
 import {connect} from "app/utils/functionUtil";
 import React from "react";
 import {dispatch} from "store";
-import {notificationColor, notificationPlace} from "../../style/styles";
+import {notificationColor, notificationPlace} from "../../style/styleConsts";
 import Snackbar from "./Snackbar";
 
 

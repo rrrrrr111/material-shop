@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import buttonStyle from "app/common/button/buttonStyle.jsx";
-import {ALL_COLORS} from "app/common/style/styles";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -47,7 +47,7 @@ function RegularButton(props) {
 
 RegularButton.propTypes = {
     classes: PropTypes.object.isRequired,
-    color: PropTypes.oneOf(ALL_COLORS),
+    color: PropTypes.oneOf(ALL_COLOR_KEYS),
     size: PropTypes.oneOf(["sm", "lg"]),
     simple: PropTypes.bool,
     round: PropTypes.bool,

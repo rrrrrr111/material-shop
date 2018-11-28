@@ -4,7 +4,7 @@ import {
     headerParallaxFilterColor,
     menuAfterScrollColor,
     menuInitialColor
-} from "app/common/style/styles";
+} from "app/common/style/styleConsts";
 import headerStyle from "app/main/header/headerStyle.jsx";
 import MainMenu from "app/main/header/MainMenu.jsx";
 import MenuBar from "app/main/header/MenuBar.jsx";

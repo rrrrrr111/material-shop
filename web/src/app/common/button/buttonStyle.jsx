@@ -11,7 +11,7 @@ import {
   successColor,
   warningColor,
   dangerColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/styleConsts";
 
 const buttonStyle = {
   button: {
@@ -51,7 +51,7 @@ const buttonStyle = {
       top: "0",
       marginTop: "-1em",
       marginBottom: "-1em",
-      // fontSize: "1.1rem", // my
+      // fontSize: "1.1rem",
       marginRight: "4px",
       verticalAlign: "middle"
     },

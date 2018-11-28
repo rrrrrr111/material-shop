@@ -1,5 +1,5 @@
-import {font} from "app/common/style/styles";
-import { title } from "lib/assets/jss/material-kit-pro-react.jsx";
+import {font} from "app/common/style/styleConsts";
+import { title } from "app/common/style/themeStyles.jsx";
 
 const mediaStyle = {
   media: {

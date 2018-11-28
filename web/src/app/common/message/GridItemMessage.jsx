@@ -2,15 +2,15 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Grow from "@material-ui/core/Grow/Grow";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CircularLoading from "app/common/misc/CircularLoading";
-import {appStyles} from "app/common/style/styles";
+import {helperStyles} from "app/common/style/styleConsts";
 import PropTypes from "prop-types";
 import React from "react";
 
 
 const style = theme => ({
     text: {
-        ...appStyles(theme).title,
-        ...appStyles(theme).textCenter,
+        ...helperStyles(theme).title,
+        ...helperStyles(theme).textCenter,
     },
 });
 

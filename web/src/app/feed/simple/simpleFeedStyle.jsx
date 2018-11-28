@@ -1,9 +1,9 @@
-import {appStyles} from "app/common/style/styles";
-import {cardTitle, main, mainRaised, mlAuto} from "lib/assets/jss/material-kit-pro-react";
+import {helperStyles} from "app/common/style/styleConsts";
+import {cardTitle, main, mainRaised, mlAuto} from "app/common/style/themeStyles";
 
 
 const simpleFeedStyle = theme => ({
-    ...appStyles(theme),
+    ...helperStyles(theme),
     mlAuto,
     simpleFeedContainer: {
         ...main,

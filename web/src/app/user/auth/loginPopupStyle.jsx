@@ -1,9 +1,9 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle.jsx";
-import modalStyle from "app/common/style/modalStyle.jsx";
-import popoverStyles from "app/common/style/popoverStyles.jsx";
-import {appStyles} from "app/common/style/styles";
+import modalStyle from "app/common/style/component/modalStyle.jsx";
+import popoverStyles from "app/common/style/component/popoverStyles.jsx";
+import {helperStyles} from "app/common/style/styleConsts";
 import tooltipStyle from "app/common/tooltip/tooltipStyle.jsx";
-import {cardTitle, container, description, mlAuto, mrAuto, title} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {cardTitle, container, description, mlAuto, mrAuto, title} from "app/common/style/themeStyles.jsx";
 
 
 const loginPopupStyle = theme => ({
@@ -12,7 +12,7 @@ const loginPopupStyle = theme => ({
     cardTitle,
     mlAuto,
     mrAuto,
-    ...appStyles(theme),
+    ...helperStyles(theme),
     ...tooltipStyle(theme),
     ...popoverStyles,
     ...modalStyle(theme),

@@ -3,7 +3,7 @@ import Button from "app/common/button/Button";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
-import {buttonColor} from "app/common/style/styles";
+import {buttonColor} from "app/common/style/styleConsts";
 import wizardStyle from "app/common/wizard/wizardStyle";
 import {buttonDebounceRule, debounce, buttonDebounceTimeout} from "app/utils/functionUtil";
 import util from "app/utils/util";

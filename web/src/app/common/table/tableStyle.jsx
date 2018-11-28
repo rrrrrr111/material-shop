@@ -2,17 +2,17 @@
 // // // Table styles
 // #############################
 
-import {blackColor} from "app/common/style/styles";
 import {
+    blackColor,
     dangerColor,
-    defaultFont,
     grayColor,
     infoColor,
     primaryColor,
     roseColor,
     successColor,
     warningColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/styleConsts";
+import {defaultFont,} from "app/common/style/themeStyles.jsx";
 
 const tableStyle = theme => ({
     warning: {

@@ -1,5 +1,5 @@
-import {blackColor} from "app/common/style/styles";
-import {primaryBoxShadow, primaryColor} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {blackColor, primaryColor} from "app/common/style/styleConsts";
+import {primaryBoxShadow} from "app/common/style/themeStyles.jsx";
 
 const customSelectStyle = {
     select: {

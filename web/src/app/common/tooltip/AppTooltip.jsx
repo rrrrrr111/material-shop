@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
-import {ALL_PLACEMENTS} from "app/common/style/styles";
+import {ALL_PLACEMENTS} from "app/common/style/styleConsts";
 import tooltipStyle from "app/common/tooltip/tooltipStyle";
 import classNames from "classnames";
 import PropTypes from "prop-types";

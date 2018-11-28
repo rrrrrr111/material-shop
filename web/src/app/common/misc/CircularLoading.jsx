@@ -1,13 +1,13 @@
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {appStyles} from "app/common/style/styles";
+import {helperStyles} from "app/common/style/styleConsts";
 import {PropTypes} from "app/utils/functionUtil";
 import React from "react";
 
 
 const style = theme => ({
     container: {
-        ...appStyles(theme).alignCenter,
+        ...helperStyles(theme).alignCenter,
         width: "70px",
     },
     circular: {

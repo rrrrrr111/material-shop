@@ -1,4 +1,4 @@
-import {dangerColor, grayColor, primaryColor, roseColor} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {dangerColor, grayColor, primaryColor, roseColor} from "app/common/style/styleConsts";
 
 
 const customCheckboxRadioSwitch = {

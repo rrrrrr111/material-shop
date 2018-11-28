@@ -1,11 +1,5 @@
-import {font} from "app/common/style/styles";
-import {
-    dangerColor,
-    formControl,
-    labelRoot,
-    primaryColor,
-    successColor,
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {dangerColor, font, primaryColor, successColor} from "app/common/style/styleConsts";
+import {formControl, labelRoot,} from "app/common/style/themeStyles.jsx";
 
 const inputStyle = {
     formControl,

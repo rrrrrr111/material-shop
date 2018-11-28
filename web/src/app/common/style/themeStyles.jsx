@@ -1,6 +1,4 @@
-import {blackColor, boldFont} from "app/common/style/styles";
-
-const drawerWidth = 260;
+import {blackColor, boldFont} from "app/common/style/styleConsts";
 
 const transition = {
     transition: "all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
@@ -50,15 +48,6 @@ const defaultFont = {
     fontWeight: "300",
     lineHeight: "1.5em"
 };
-
-const primaryColor = "#9c27b0";
-const secondaryColor = "#fafafa";
-const warningColor = "#ff9800";
-const dangerColor = "#f44336";
-const successColor = "#4caf50";
-const infoColor = "#00acc1";
-const roseColor = "#e91e63";
-const grayColor = "#999999";
 
 const primaryBoxShadow = {
     boxShadow:
@@ -256,7 +245,7 @@ const labelRoot = {
 };
 
 const formControl = {
-    margin: "0 0 0 0", // my
+    margin: "0 0 0 0",
     paddingTop: "27px",
     position: "relative",
     "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {
@@ -265,22 +254,13 @@ const formControl = {
 };
 
 export {
-    //variables
-    drawerWidth,
+
     transition,
     container,
     containerFluid,
     boxShadow,
     card,
     defaultFont,
-    primaryColor,
-    secondaryColor,
-    warningColor,
-    dangerColor,
-    successColor,
-    infoColor,
-    roseColor,
-    grayColor,
     primaryBoxShadow,
     infoBoxShadow,
     successBoxShadow,
@@ -311,6 +291,6 @@ export {
     mrAuto,
     btnLink,
     coloredShadow,
-    labelRoot, // my
-    formControl, // my
+    labelRoot,
+    formControl,
 };

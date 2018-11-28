@@ -1,5 +1,5 @@
-import {blackColor} from "app/common/style/styles";
 import {
+    blackColor,
     dangerColor,
     infoColor,
     primaryColor,
@@ -7,7 +7,7 @@ import {
     secondaryColor,
     successColor,
     warningColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/styleConsts";
 
 const accordionStyle = theme => ({
     root: {

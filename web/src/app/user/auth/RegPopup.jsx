@@ -16,7 +16,7 @@ import CustomInput from "app/common/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
-import {buttonColor} from "app/common/style/styles";
+import {buttonColor} from "app/common/style/styleConsts";
 import SignoutComp from "app/user/auth/SignoutComp";
 import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";

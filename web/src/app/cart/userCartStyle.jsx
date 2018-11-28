@@ -1,10 +1,10 @@
 import customCheckboxRadioSwitch from "app/common/input/customCheckboxRadioSwitchStyle";
-import {appStyles, blackColor} from "app/common/style/styles";
-import {container, main, mainRaised} from "lib/assets/jss/material-kit-pro-react";
-import {title} from "lib/assets/jss/material-kit-pro-react.jsx";
+import {helperStyles, blackColor} from "app/common/style/styleConsts";
+import {container, main, mainRaised} from "app/common/style/themeStyles";
+import {title} from "app/common/style/themeStyles.jsx";
 
 const userCartStyle = theme => ({
-    ...appStyles(theme),
+    ...helperStyles(theme),
     ...customCheckboxRadioSwitch,
     title,
     main,
@@ -15,15 +15,15 @@ const userCartStyle = theme => ({
     },
 
     goodsContainer: {
-        ...appStyles(theme).centeredContainer,
+        ...helperStyles(theme).centeredContainer,
         maxWidth: 1200,
     },
     orderContainer: {
-        ...appStyles(theme).centeredContainer,
+        ...helperStyles(theme).centeredContainer,
         maxWidth: 800,
     },
     paymentContainer: {
-        ...appStyles(theme).centeredContainer,
+        ...helperStyles(theme).centeredContainer,
         maxWidth: 1200,
     },
     goodsTableContainer: {
@@ -34,7 +34,7 @@ const userCartStyle = theme => ({
         padding: "0 30px 0 30px",
     },
     imgContainer: {
-        ...appStyles(theme).alignCenter,
+        ...helperStyles(theme).alignCenter,
         width: "60px",
         maxHeight: "80px",
         overflow: "hidden",
@@ -50,11 +50,11 @@ const userCartStyle = theme => ({
         padding: 0,
     },
     quantityInput: {
-        ...appStyles(theme).textCenter,
+        ...helperStyles(theme).textCenter,
         width: 40,
     },
     tableFooterContainer: {
-        ...appStyles(theme).width100,
+        ...helperStyles(theme).width100,
     },
     agreementCheckboxLabel: {
         fontSize: "10px",

@@ -10,7 +10,7 @@ import GridContainer from "app/common/grid/GridContainer";
 import CustomInput from "app/common/input/CustomInput";
 import SelectInput from "app/common/input/SelectInput";
 import Price from "app/common/misc/Price";
-import {navPillsColor} from "app/common/style/styles";
+import {navPillsColor} from "app/common/style/styleConsts";
 import NavPills from "app/common/tabs/NavPills";
 import util from "app/utils/util";
 import classNames from "classnames";

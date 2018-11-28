@@ -1,18 +1,20 @@
 import {
-    dangerBoxShadow,
     dangerColor,
+    infoColor,
+    primaryColor,
+    roseColor,
+    successColor,
+    warningColor
+} from "app/common/style/styleConsts";
+import {
+    dangerBoxShadow,
     defaultFont,
     infoBoxShadow,
-    infoColor,
     primaryBoxShadow,
-    primaryColor,
     roseBoxShadow,
-    roseColor,
     successBoxShadow,
-    successColor,
     warningBoxShadow,
-    warningColor
-} from "lib/assets/jss/material-kit-pro-react.jsx";
+} from "app/common/style/themeStyles.jsx";
 
 const dropdownStyle = theme => ({
     popperClose: {
@@ -216,7 +218,7 @@ const dropdownStyle = theme => ({
         top: "1px",
         verticalAlign: "middle",
         position: "relative",
-        "&.fas, &.fab, &.far, &.fal": { // my
+        "&.fas, &.fab, &.far, &.fal": {
             margin: "-4px 11px 0 3px",
             fontSize: "22px",
         },

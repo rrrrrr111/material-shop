@@ -7,7 +7,7 @@ import CardHeader from "app/common/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
-import {iconButtonColor} from "app/common/style/styles";
+import {iconButtonColor} from "app/common/style/styleConsts";
 import AppTooltip from "app/common/tooltip/AppTooltip";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle";
 import util from "app/utils/util";

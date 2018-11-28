@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
 import MenuButton from "app/common/menu/MenuButton";
 import MenuDropdown from "app/common/menu/MenuDropdown.jsx";
-import {ALL_COLORS, PRIMARY_COLOR} from "app/common/style/styles";
+import {ALL_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
 import CartIcon from "app/main/header/CartIcon";
 import menuStyle from "app/main/header/menuStyle.jsx";
 import util from "app/utils/util";
@@ -114,11 +114,11 @@ class MainMenu extends React.PureComponent {
     };
 
     static defaultProps = {
-        dropdownHoverColor: PRIMARY_COLOR
+        dropdownHoverColor: PRIMARY_COLOR_KEY
     };
 
     static propTypes = {
-        dropdownHoverColor: PropTypes.oneOf(ALL_COLORS)
+        dropdownHoverColor: PropTypes.oneOf(ALL_COLOR_KEYS)
     };
 }
 
