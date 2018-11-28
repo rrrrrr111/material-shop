@@ -6,7 +6,6 @@ import org.jooq.RecordMapper;
 import org.springframework.stereotype.Repository;
 import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import static ru.rich.matshop.db.model.Tables.PRODUCT;
@@ -39,7 +38,7 @@ class FeedProductDao {
                         p.setImage("000/000/000[3]");
                         p.setLink("spring_jacasdf_asdf_asdf_aket_p-1");
                         p.setName("This is Java Product");
-                        p.setPrice(BigInteger.TEN);
+                        p.setPrice(r.get(PRODUCT_COSMETIC.PRICE));
                         return p;
                     }
                 });

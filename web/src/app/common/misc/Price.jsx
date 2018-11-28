@@ -1,10 +1,10 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {helperStyles, boldFont, font} from "app/common/style/styleConsts";
+import {boldFont, font, helperStyles} from "app/common/style/styleConsts";
 import {title} from "app/common/style/themeStyles";
+import {NumberFormat} from "app/utils/functionUtil";
 import PropTypes from "prop-types";
 import React from "react";
-import NumberFormat from "react-number-format";
 
 
 const style = theme => ({

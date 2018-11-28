@@ -26,7 +26,7 @@ const notify = {
         showNotify("Выполнен выход из аккаунта");
     },
     cartEmpty() {
-        showNotify("Ваша корзина пуста");
+        showNotify("Корзина пуста");
     },
     addToCart() {
         showNotify("Товар добавлен к корзину");

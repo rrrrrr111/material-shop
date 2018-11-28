@@ -2,21 +2,15 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import MenuButton from "app/common/theme/menu/MenuButton";
-import MenuDropdown from "app/common/theme/menu/MenuDropdown.jsx";
 import {ALL_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
-import CartIcon from "app/main/header/CartIcon";
+import MenuDropdown from "app/common/theme/menu/MenuDropdown.jsx";
+import CartButton from "app/main/header/CartButton";
 import menuStyle from "app/main/header/menuStyle.jsx";
-import util from "app/utils/util";
 import PropTypes from "prop-types";
 import React from "react";
 import {withRouter} from "react-router";
 
 class MainMenu extends React.PureComponent {
-
-    handleClickCart() {
-        util.navigate.goToUrl("/cart/goods");
-    }
 
     catalogMenuItems = [
         {id: 0, name: "Презентация", to: "/", icon: null, link: true},
@@ -99,15 +93,7 @@ class MainMenu extends React.PureComponent {
                     />
                 </ListItem>
                 <ListItem className={classes.listItem}>
-                    <MenuButton
-                        buttonProps={{
-                            className: classes.rootMenuItemButton,
-                            color: "transparent"
-                        }}
-                        buttonIcon={<CartIcon/>}
-                        caret={false}
-                        onClick={this.handleClickCart}
-                    />
+                    <CartButton/>
                 </ListItem>
             </List>
         );

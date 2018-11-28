@@ -1,10 +1,10 @@
 INSERT INTO PRODUCT (SHOP_ID, EDIT_DATE, STATE, DATA, PRICING, BASE_PRICE, FORMAT_VERSION)
-VALUES (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
+VALUES (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 10, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 100, 'JSON_1.0'),
        (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
-       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
-       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
-       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0'),
-       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 1000, 'JSON_1.0');
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 10000, 'JSON_1.0'),
+       (1, {TS '2000-01-01 11:11:11'}, 'ACTIVE', '{}', 'PLUS(30%)', 100000, 'JSON_1.0');
 
 INSERT INTO PRODUCT_COSMETIC (PRODUCT_ID, NAME, PRICE, CATEGORY, POPULARITY)
     (SELECT ID, '', BASE_PRICE, 1, 0

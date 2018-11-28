@@ -1,14 +1,12 @@
 package ru.rich.matshop.webapi.api.feed.model;
 
-import java.math.BigInteger;
-
 public class FeedProduct {
 
     private Long productId;
     private String image;
     private String link;
     private String name;
-    private BigInteger price;
+    private Long price;
 
     public Long getProductId() {
         return productId;
@@ -42,11 +40,11 @@ public class FeedProduct {
         this.name = name;
     }
 
-    public BigInteger getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(BigInteger price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
