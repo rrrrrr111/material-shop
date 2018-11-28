@@ -4,15 +4,16 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Check from "@material-ui/icons/Check";
 import userCartStyle from "app/cart/userCartStyle";
-import Card from "app/common/theme/card/Card.jsx";
-import CardBody from "app/common/theme/card/CardBody.jsx";
 import GridContainer from "app/common/grid/GridContainer";
-import CustomInput from "app/common/theme/input/CustomInput";
-import SelectInput from "app/common/theme/input/SelectInput";
 import Price from "app/common/misc/Price";
 import {navPillsColor} from "app/common/style/styleConsts";
 import NavPills from "app/common/tabs/NavPills";
+import Card from "app/common/theme/card/Card.jsx";
+import CardBody from "app/common/theme/card/CardBody.jsx";
+import CustomInput from "app/common/theme/input/CustomInput";
+import SelectInput from "app/common/theme/input/SelectInput";
 import util from "app/utils/util";
+import {checkEmail, checkPhone, isNotBlank} from "app/utils/validateUtil";
 import classNames from "classnames";
 import React from "react";
 
@@ -20,16 +21,37 @@ class CartOrderTab extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            agreementChecked: true,
-            regionList: util.dictionary.regionList,
-            delivery: {
-                type: 0,
-                region: "77",
-            }
+            data: {
+                person: {...props.userData},
+                delivery: {
+                    type: 0,
+                    address: {
+                        region: "77",
+                    },
+                }
+            },
+            ui: {
+                firstNameValid: true,
+                lastNameValid: true,
+                phoneValid: true,
+                emailValid: true,
+                formValid: true,
+                message: "",
+            },
         };
+        this.validator = util.validate.createValidator(this, {
+                fieldsToCheckers: {
+                    firstName: isNotBlank,
+                    lastName: isNotBlank,
+                    email: checkEmail,
+                    phone: checkPhone,
+                },
+            }
+        );
         this.handleToggle = this.handleToggle.bind(this);
         this.handleRegionChange = this.handleRegionChange.bind(this);
         this.onDeliveryTypeChange = this.onDeliveryTypeChange.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     handleToggle(e) {
@@ -41,6 +63,10 @@ class CartOrderTab extends React.PureComponent {
 
     handleRegionChange(e) {
         this.setDeliveryProp("region", e.target.value);
+    }
+
+    handleSave(e) {
+
     }
 
     onDeliveryTypeChange = (event, activeTabIndex) => {
@@ -140,7 +166,7 @@ class CartOrderTab extends React.PureComponent {
                                              labelText="Регион"
                                              fakeItemText="Выберите регион"
                                              onChange={this.handleRegionChange}
-                                             options={this.state.regionList}
+                                             options={util.dictionary.regionList}
                                              value={this.state.delivery.region}
                                 />
                             </Grid>

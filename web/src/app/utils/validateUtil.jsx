@@ -47,16 +47,22 @@ class Validator {
     }
 
     handleChange = (fieldName, value) => {
-        const newData = {...this.compRef.state.data, [fieldName]: value};
+        const newData = {...this.compRef.state.data};
         const newUi = {...this.compRef.state.ui};
         const lazy = this.conf.lazyValidation;
+        const checkers = this.conf.fieldsToCheckers;
+        const propPath = fieldName.split('.');
 
+        this.setField(newData, propPath); // todo
+
+        let formValid;
         if (this.conf.revalidateAllOnChange) {
-            this.checkFields(lazy, newData, newUi);
+            formValid = this.checkFields(lazy, newData, newUi, checkers);
         } else {
-            this.checkField(lazy, newData, newUi, fieldName);
-            this.checkFieldFlags(newUi);
+            this.checkField(lazy, newData, newUi, fieldName, checkers);
+            formValid = this.checkFieldFlags(newUi, checkers);
         }
+        newUi[this.conf.formValidField] = formValid;
         this.setState(newData, newUi);
     };
 
@@ -64,11 +70,12 @@ class Validator {
         if (this.conf.disabled) {
             return true;
         }
-
         const newData = {...this.compRef.state.data};
         const newUi = {...this.compRef.state.ui};
-        this.checkFields(false, newData, newUi);
-        const formValid = newUi[this.conf.formValidField];
+        const checkers = this.conf.fieldsToCheckers;
+
+        const formValid = this.checkFields(false, newData, newUi, checkers);
+        newUi[this.conf.formValidField] = formValid;
 
         if (!formValid) {
             this.setState(newData, newUi);
@@ -76,36 +83,48 @@ class Validator {
         return formValid;
     };
 
-    checkFields = (lazy, newData, newUi) => {
-        const checkers = this.conf.fieldsToCheckers;
-
-        for (const fieldName in checkers) {
-            if (checkers.hasOwnProperty(fieldName)) {
-                this.checkField(lazy, newData, newUi, fieldName);
+    checkFields = (lazy, dataObj, uiObj, checkersObj) => {
+        let checker;
+        for (const fieldName in checkersObj) {
+            if (checkersObj.hasOwnProperty(fieldName)) {
+                checker = checkersObj[fieldName];
+                if (typeof checker === "function") {
+                    this.checkField(lazy, dataObj, uiObj, fieldName, checkersObj);
+                } else {
+                    dataObj[fieldName] = {...dataObj[fieldName]};
+                    uiObj[fieldName] = {...uiObj[fieldName]};
+                    this.checkFields(lazy, dataObj[fieldName], uiObj[fieldName], checker);
+                }
             }
         }
-        this.checkFieldFlags(newUi);
+        return this.checkFieldFlags(uiObj, checkersObj);
     };
 
-    checkField = (lazy, newData, newUi, fieldName) => {
+    checkField = (lazy, dataObj, uiObj, fieldName, checkersObj) => {
         if (this.conf.disabled) {
             return true;
         }
         const fieldValidFlag = `${fieldName}Valid`;
-        if (!lazy || !newUi[fieldValidFlag]) {
-            newUi[fieldValidFlag] = this.conf.fieldsToCheckers[fieldName](newData[fieldName], newData);
+        if (!lazy || !uiObj[fieldValidFlag]) {
+            uiObj[fieldValidFlag] = checkersObj[fieldName](dataObj[fieldName], dataObj);
         }
     };
 
-    checkFieldFlags = (newUi) => {
-        const checkers = this.conf.fieldsToCheckers;
+    checkFieldFlags = (uiObj, checkersObj) => {
         let formValid = true;
-        for (const fieldName in checkers) {
-            if (checkers.hasOwnProperty(fieldName)) {
-                formValid &= newUi[`${fieldName}Valid`]
+        let checker;
+        for (const fieldName in checkersObj) {
+            if (checkersObj.hasOwnProperty(fieldName)) {
+                checker = checkersObj[fieldName];
+                if (typeof checker === "function") {
+                    formValid &= uiObj[`${fieldName}Valid`]
+                } else { // вложенный объект
+                    uiObj[fieldName] = {...uiObj[fieldName]};
+                    formValid &= this.checkFieldFlags(uiObj[fieldName], checker);
+                }
             }
         }
-        newUi[this.conf.formValidField] = formValid;
+        return formValid;
     };
 
     setState(newData, newUi) {
