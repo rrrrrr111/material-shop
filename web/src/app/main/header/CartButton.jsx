@@ -1,4 +1,5 @@
 import Badge from '@material-ui/core/Badge';
+import Zoom from "@material-ui/core/Zoom/Zoom";
 import {mapCartToProps} from "app/cart/reducer";
 import AppIcon from "app/common/icon/AppIcon";
 import {roseColor} from "app/common/style/styleConsts";
@@ -66,13 +67,17 @@ class CartButton extends React.PureComponent {
             );
         }
         return (
-            <MenuButton
-                buttonProps={{className: classes.rootMenuItemButton, color: "transparent"}}
-                buttonText={amount}
-                buttonIcon={icon}
-                caret={false}
-                onClick={this.handleClickCart}
-            />
+            <Zoom in={true} timeout={1000}>
+                <div>
+                    <MenuButton
+                        buttonProps={{className: classes.rootMenuItemButton, color: "transparent"}}
+                        buttonText={amount}
+                        buttonIcon={icon}
+                        caret={false}
+                        onClick={this.handleClickCart}
+                    />
+                </div>
+            </Zoom>
         );
     };
 }

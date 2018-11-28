@@ -1,3 +1,4 @@
+import Zoom from "@material-ui/core/Zoom/Zoom";
 import AppIcon from "app/common/icon/AppIcon";
 import {dropdownHoverColor} from "app/common/style/styleConsts";
 import MenuButton from "app/common/theme/menu/MenuButton";
@@ -36,28 +37,32 @@ class UserButton extends React.PureComponent {
     }
 
     render = () => {
-        const {classes} = this.props;
+        const {classes, data} = this.props;
         const buttonProps = {
             className: classes.rootMenuItemButton,
             color: "transparent"
         };
-        return (
-            this.isUserLoggedIn() ?
-                <MenuDropdown
-                    noLiPadding
-                    navDropdown
-                    hoverColor={dropdownHoverColor}
-                    buttonProps={buttonProps}
-                    buttonIcon={<AppIcon name="account_circle"/>}
-                    dropdownList={UserButton.userMenuItems}
-                />
-                :
-                <MenuButton
-                    buttonProps={buttonProps}
-                    buttonIcon={<AppIcon name="account_circle"/>}
-                    caret={false}
-                    onClick={this.handleClickUser}
-                />
+        return ( // специфекты не для всех компонент отрабатывают, потому обрачиваем в div
+            <Zoom in={true} timeout={1000}>
+                <div>
+                    {this.isUserLoggedIn() ?
+                        <MenuDropdown
+                            noLiPadding
+                            navDropdown
+                            hoverColor={dropdownHoverColor}
+                            buttonProps={buttonProps}
+                            buttonIcon={<AppIcon name="account_circle"/>}
+                            dropdownList={UserButton.userMenuItems}
+                        />
+                        :
+                        <MenuButton
+                            buttonProps={buttonProps}
+                            buttonIcon={<AppIcon name="account_circle"/>}
+                            caret={false}
+                            onClick={this.handleClickUser}
+                        />}
+                </div>
+            </Zoom>
         );
     };
 }

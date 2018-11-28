@@ -1,4 +1,5 @@
 import Grid from "@material-ui/core/Grid/Grid";
+import Grow from "@material-ui/core/Grow/Grow";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItemMessage from "app/common/message/GridItemMessage";
@@ -47,9 +48,11 @@ class SimpleFeed extends React.PureComponent {
                     ? <GridItemMessage loading={ui.loading} text={message}/>
                     : data.products.map((product, index) => {
                         return (
-                            <Grid item xs={12} sm={6} md={3} lg={2} key={index}>
-                                <SimpleProductCard product={product}/>
-                            </Grid>
+                            <Grow timeout={100 * index} in={true} key={index}>
+                                <Grid item xs={12} sm={6} md={3} lg={2}>
+                                    <SimpleProductCard product={product}/>
+                                </Grid>
+                            </Grow>
                         );
                     })
                 }
