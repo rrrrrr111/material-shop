@@ -123,9 +123,9 @@ export const prepareHandler = (compRef, fieldName, valueHandler) => {
     if (handler) {
         return handler;
     }
-    handler = ((e) => {
+    handler = (e) => {
         valueHandler(compRef, fieldName, e);
-    }).bind(compRef);
+    };
     compRef[handlerName] = handler;
     return handler;
 };
@@ -136,11 +136,11 @@ export const prepareEnterHandler = (compRef, onEnterHandler) => {
     if (handler) {
         return handler;
     }
-    handler = ((e) => {
+    handler = (e) => {
         if (e.key === 'Enter') {
             onEnterHandler(e);
         }
-    }).bind(compRef);
+    };
     compRef[handlerName] = handler;
     return handler;
 };

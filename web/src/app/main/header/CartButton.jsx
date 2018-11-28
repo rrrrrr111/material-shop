@@ -46,7 +46,7 @@ class CartButton extends React.PureComponent {
     }
 
     render = () => {
-        const {ui, data, classes} = this.props;
+        const {data, classes} = this.props;
 
         let icon;
         let amount;
