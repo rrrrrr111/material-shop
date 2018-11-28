@@ -53,7 +53,7 @@ class Validator {
         const checkers = this.conf.fieldsToCheckers;
         const propPath = fieldName.split('.');
 
-        this.setField(newData, propPath); // todo
+        this.setField(newData, propPath, value); // todo
 
         let formValid;
         if (this.conf.revalidateAllOnChange) {
