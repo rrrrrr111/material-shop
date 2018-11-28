@@ -1,11 +1,11 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/theme/button/Button";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button";
 import wizardStyle from "app/common/wizard/wizardStyle";
-import {buttonDebounceRule, debounce, buttonDebounceTimeout} from "app/utils/functionUtil";
+import {buttonDebounceRule, buttonDebounceTimeout, debounce} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -144,16 +144,16 @@ class Wizard extends React.Component {
                     index={tabIndex}
                     onChangeIndex={this.handleSwipe}
                 >
-                    {tabsConfig.map((tabConfig, key) => {
+                    {tabsConfig.map((tab, index) => {
                         return (
-                            <div key={key} className={
+                            <div key={index} className={
                                 classNames({
-                                    [tabConfig.containerClassName]: tabConfig.containerClassName,
+                                    [tab.containerClassName]: tab.containerClassName,
                                 })}>
-                                {tabConfig.content}
+                                <tab.content/>
                                 <div className={classes.width100}>
-                                    {this.renderNextButton(classes, tabConfig)}
-                                    {this.renderPrevButton(classes, tabConfig)}
+                                    {this.renderNextButton(classes, tab)}
+                                    {this.renderPrevButton(classes, tab)}
                                 </div>
                             </div>
                         );
@@ -178,7 +178,7 @@ class Wizard extends React.Component {
             PropTypes.shape({
                 key: PropTypes.string.isRequired,
                 url: PropTypes.string.isRequired,
-                content: PropTypes.node.isRequired,
+                content: PropTypes.func.isRequired,
                 containerClassName: PropTypes.string,
                 prevButtonText: PropTypes.string,
                 nextButtonText: PropTypes.string,

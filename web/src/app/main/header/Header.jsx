@@ -8,7 +8,7 @@ import {
 import headerStyle from "app/main/header/headerStyle.jsx";
 import MainMenu from "app/main/header/MainMenu.jsx";
 import MenuBar from "app/main/header/MenuBar.jsx";
-import Parallax from "app/common/theme/Parallax/Parallax.jsx";
+import Parallax from "app/common/theme/parallax/Parallax.jsx";
 import React from "react";
 
 class Header extends React.PureComponent {

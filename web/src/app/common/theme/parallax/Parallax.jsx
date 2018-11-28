@@ -1,6 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import {classNames} from "app/utils/functionUtil";
-import parallaxStyle from "app/common/theme/Parallax/parallaxStyle.jsx";
+import parallaxStyle from "app/common/theme/parallax/parallaxStyle.jsx";
 
 import PropTypes from "prop-types";
 import React from "react";

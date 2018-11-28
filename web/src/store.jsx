@@ -28,7 +28,8 @@ export const action = (type, value) => {
 };
 
 export const dispatch = (type, value) => {
-    return store.dispatch((dispatch) => {
-        return dispatch(action(type, value));
+    return store.dispatch((dispatch, getState) => {
+        dispatch(action(type, value));
+        return Promise.resolve(dispatch)
     })
 };

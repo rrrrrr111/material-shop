@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItemMessage from "app/common/message/GridItemMessage";
-import {MAIN_FEED_DATA, mapFeedToProps, START_RELOAD_MAIN_FEED, STOP_RELOAD_MAIN_FEED} from "app/feed/reducer";
+import {MAIN_FEED_DATA, mapFeedToProps, START_RELOAD_MAIN_FEED} from "app/feed/reducer";
 import simpleFeedStyle from "app/feed/simple/simpleFeedStyle.jsx";
 import SimpleProductCard from "app/feed/simple/SimpleProductCard";
 import {connect} from "app/utils/functionUtil";
@@ -18,12 +18,13 @@ class SimpleFeed extends React.PureComponent {
     }
 
     reloadMainFeed = () => {
-        dispatch(START_RELOAD_MAIN_FEED);
-        util.ajax.backendPost("feed/list", {})
+        dispatch(START_RELOAD_MAIN_FEED)
+            .then((dispatch) => {
+                return util.ajax.backendPost("feed/list", {});
+            })
             .then((response) => {
-                dispatch(STOP_RELOAD_MAIN_FEED, response.message);
-                dispatch(MAIN_FEED_DATA, response.products);
-            });
+                return dispatch(MAIN_FEED_DATA, response);
+            })
     };
 
     getMessage = (ui, products) => {

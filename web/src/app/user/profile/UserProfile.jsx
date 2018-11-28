@@ -88,7 +88,7 @@ class UserProfile extends React.Component {
                             onSwipe={this.handleSwipe}
                             onChange={this.handleChange}
                             color={navPillsColor}
-                            tabs={this.tabsConfig.map((tab) => {
+                            tabs={this.tabsConfig.map((tab, index) => {
                                 return {
                                     pillText: tab.name,
                                     pillClasses: classes.profileTabPill,

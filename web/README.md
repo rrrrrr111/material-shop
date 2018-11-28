@@ -35,6 +35,7 @@
 * [react-router](https://reacttraining.com/react-router/web/guides/philosophy)
 * [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v1.7.0)
 * [Redux](https://redux.js.org/basics/store)
+* [redux-thunk] (https://github.com/reduxjs/redux-thunk)
 * [JSS (CSS in JS)](http://cssinjs.org)
 * Node.js, npm
 * [Material UI](https://material-ui.com/demos/app-bar/)
