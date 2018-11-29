@@ -10,11 +10,12 @@ class UserDataLoader extends React.PureComponent {
 
     componentDidMount() {
         if (!this.props.ui.loaded && !this.props.ui.loading) {
-            UserDataLoader.reloadUserData();
+            this.reloadUserData();
         }
     }
 
-    static reloadUserData = () => {
+    reloadUserData = () => {
+        const compRef = this;
         dispatch(USER_START_LOADING)
             .then(() => {
                 return util.ajax.backendPost("user/load");
@@ -28,7 +29,7 @@ class UserDataLoader extends React.PureComponent {
                 } else {
                     dispatch(USER_STOP_LOADING);
                     if (response.status === 403
-                        && this.props.showLogin) {
+                        && compRef.props.showLogin) {
                         LoginPopup.show();
                     }
                 }

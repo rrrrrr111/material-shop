@@ -3,6 +3,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
 import DeliveryAddressStreet from "app/common/address/DeliveryAddressStreet";
 import GridContainer from "app/common/grid/GridContainer";
+import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {navPillsColor} from "app/common/style/styleConsts";
 import NavPills from "app/common/tabs/NavPills";
@@ -60,7 +61,18 @@ class CartOrderTab extends React.PureComponent {
                 <Card>
                     <CardBody>
                         <h3>Оформление заказа</h3>
-                        <h5 className={classes.title}>Получатель</h5>
+                        <Grid container spacing={8}>
+                            <Grid xs={6} sm item>
+                                <h5 className={classes.title}>Получатель</h5>
+                            </Grid>
+                            <Grid xs={6} sm item>
+                                <span className={classes.smallText}>
+                                    <LocalLink to="/auth/signin" modal>Вход</LocalLink>
+                                        /
+                                    <LocalLink to="/auth/signup" modal>Регистрация</LocalLink>
+                                </span>
+                            </Grid>
+                        </Grid>
                         <Grid container justify="center" spacing={16}>
                             <Grid xs={12} sm item>
                                 <CustomInput
@@ -189,6 +201,7 @@ class CartOrderTab extends React.PureComponent {
 
                             </Grid>
                         </Grid>
+                        <h5 className={classes.title}>Оплата</h5>
                     </CardBody>
                 </Card>
             </form>

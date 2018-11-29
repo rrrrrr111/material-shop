@@ -8,9 +8,9 @@ const NeedLoginMessage = (props) => {
     return (
         <ErrorMessage show={show}>
             Для работы на странице необходимо выполнить
-            <LocalLink nav to="/auth/signin" modal> Вход </LocalLink>
+            <LocalLink to="/auth/signin" modal> Вход </LocalLink>
             или
-            <LocalLink nav to="/auth/signup" modal> Регистрацию </LocalLink>
+            <LocalLink to="/auth/signup" modal> Регистрацию </LocalLink>
         </ErrorMessage>
     );
 };

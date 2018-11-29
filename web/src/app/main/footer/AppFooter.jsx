@@ -48,7 +48,7 @@ class AppFooter extends React.PureComponent {
                                     <h5>Личный кабинет</h5>
                                     <p>
                                         <LocalLink nav to="/auth/signin" modal> Вход </LocalLink>
-                                        \
+                                        /
                                         <LocalLink nav to="/auth/signup" modal> Регистрация </LocalLink>
                                     </p>
                                     <p><LocalLink nav to="/user/profile"> Профиль пользователя </LocalLink></p>
