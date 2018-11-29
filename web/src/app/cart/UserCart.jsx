@@ -71,9 +71,9 @@ class UserCart extends React.PureComponent {
                         firstName: isNotBlank,
                         email: checkEmail,
                         phone: checkPhone,
-                    },
-                    address: {
-                        region: isNotBlank,
+                        address: {
+                            region: isNotBlank,
+                        },
                     },
                 },
             }

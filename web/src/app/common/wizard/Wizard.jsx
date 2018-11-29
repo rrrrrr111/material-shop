@@ -14,28 +14,22 @@ import SwipeableViews from "react-swipeable-views";
 class Wizard extends React.Component {
     constructor(props) {
         super(props);
-        let tabIndex = this.getTabIndex(props);
-        tabIndex = tabIndex >= 0 ? tabIndex : 0; // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
-        this.state = {
-            activeTabIndex: tabIndex,
-            activeTabKey: props.tabsConfig[tabIndex].key,
-        };
         this.handleSwipe = this.handleSwipe.bind(this);
         this.handleClickPrev = this.handleClickPrev.bind(this);
         this.handleClickNext = this.handleClickNext.bind(this);
         util.navigate.scrollUp();
     }
 
-    handleSwipe = activeTabIndex => {
-        this.pushToTab(activeTabIndex);
+    handleSwipe = tabIndex => {
+        this.pushToTab(tabIndex);
     };
 
     getTabConfig(index) {
         return this.props.tabsConfig[index];
     }
 
-    pushToTab(activeTabIndex) {
-        util.navigate.goToUrl(this.getTabConfig(activeTabIndex).url);
+    pushToTab(tabIndex) {
+        util.navigate.goToUrl(this.getTabConfig(tabIndex).url);
     }
 
     handleClickPrev = (e) => {
@@ -53,7 +47,7 @@ class Wizard extends React.Component {
     _delayedChangeTab = debounce( // для избежания двойного клика
         (e, step) => {
             const compRef = this,
-                currIndex = compRef.state.activeTabIndex,
+                currIndex = compRef.getTabIndex(compRef.props),
                 currTabConfig = compRef.getTabConfig(currIndex),
                 newIndex = currIndex + step,
                 goBack = newIndex < 0,
@@ -61,21 +55,18 @@ class Wizard extends React.Component {
                 goNext = newIndex > currIndex,
                 goFinal = newIndex >= compRef.props.tabsConfig.length || currTabConfig.isFinalStep;
 
-            if (goNext) {
-                if (currTabConfig.nextButton.canGo
-                    && !currTabConfig.nextButton.canGo())
-                    return
+            if (goNext && currTabConfig.nextButton.canGo
+                && !currTabConfig.nextButton.canGo()) {
+                return;
             }
-            if (goPrev) {
-                if (currTabConfig.prevButton.canGo
-                    && !currTabConfig.prevButton.canGo())
-                    return
+            if (goPrev && currTabConfig.prevButton.canGo
+                && !currTabConfig.prevButton.canGo()) {
+                return;
             }
-
             if (goBack) {
                 // todo учитывать возврат с других шагов
                 util.navigate.goToPreviousUrl();
-                return
+                return;
             }
             let url;
             if (goFinal) {
@@ -86,22 +77,6 @@ class Wizard extends React.Component {
             util.navigate.goToUrl(url);
             util.navigate.scrollUp();
         }, buttonDebounceTimeout, buttonDebounceRule);
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return this.state.activeTabKey !== nextProps.match.params.activeTabKey;
-    }
-
-    componentWillUpdate(nextProps, nextState, nextContext) {
-        let tabIndex = this.getTabIndex(nextProps);
-        if (tabIndex < 0) { // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
-            return;
-        }
-        this.setState({
-            ...this.state,
-            activeTabIndex: tabIndex,
-            activeTabKey: this.getTabConfig(tabIndex).key
-        });
-    }
 
     getTabIndex = (props) => {
         return props.tabsConfig.map((tab) => tab.key)

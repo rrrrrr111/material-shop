@@ -60,6 +60,7 @@ class CartOrderTab extends React.PureComponent {
         const {
             orderFormValid, message
         } = this.props.ui;
+
         return (
             <form>
                 <Card>

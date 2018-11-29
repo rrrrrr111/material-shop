@@ -35,9 +35,10 @@ const createValidator = (compRef, conf) => {
 };
 
 const setField = (obj, path, value) => {
-    let i;
+    let i = 0;
     path = path.split('.');
-    for (i = 0; i < path.length - 1; i++) {
+    for (; i < path.length - 1; i++) {
+        obj[path[i]] = {...obj[path[i]]};
         obj = obj[path[i]];
     }
     obj[path[i]] = value;
@@ -149,6 +150,7 @@ class Validator {
     };
 
     setState(compRef, data, ui) {
+        //console.log(">>> validator >>>", data, ui);
         compRef.setState({
             ...compRef.state,
             data,
