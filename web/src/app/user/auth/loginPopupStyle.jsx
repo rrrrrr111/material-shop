@@ -1,9 +1,8 @@
-import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/component/modalStyle.jsx";
 import popoverStyles from "app/common/style/component/popoverStyles.jsx";
 import {helperStyles} from "app/common/style/styleConsts";
-import tooltipStyle from "app/common/theme/tooltip/tooltipStyle.jsx";
 import {cardTitle, container, description, mlAuto, mrAuto, title} from "app/common/style/themeStyles.jsx";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle.jsx";
 
 
 const loginPopupStyle = theme => ({
@@ -16,7 +15,6 @@ const loginPopupStyle = theme => ({
     ...tooltipStyle(theme),
     ...popoverStyles,
     ...modalStyle(theme),
-    ...customCheckboxRadioSwitch,
     section: {
         padding: "70px 0 0"
     },

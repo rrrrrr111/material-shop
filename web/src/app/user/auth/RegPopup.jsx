@@ -1,24 +1,23 @@
-import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Icon from "@material-ui/core/Icon/Icon";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {Check, Email, Face} from "@material-ui/icons";
-import Button from "app/common/theme/button/Button";
-import Card from "app/common/theme/card/Card";
-import CardBody from "app/common/theme/card/CardBody";
+import {Email, Face} from "@material-ui/icons";
 import AppIcon from "app/common/icon/AppIcon";
-import CustomInput from "app/common/theme/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button";
+import Card from "app/common/theme/card/Card";
+import CardBody from "app/common/theme/card/CardBody";
+import CustomCheckbox from "app/common/theme/input/CustomCheckbox";
+import CustomInput from "app/common/theme/input/CustomInput";
 import SignoutComp from "app/user/auth/SignoutComp";
-import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {mapUserToProps, USER_AUTH, USER_START_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import {
@@ -99,17 +98,17 @@ class RegPopup extends React.PureComponent {
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
-            dispatch(USER_START_LOADING);
-            util.ajax.backendPost("auth/signup", {person: statePerson})
+            dispatch(USER_START_LOADING)
+                .then(() => {
+                    return util.ajax.backendPost("auth/signup", {person: statePerson});
+                })
                 .then((response) => {
-                    dispatch(USER_STOP_LOADING);
                     const success = response.success;
                     let person = response.person;
                     if (!success) {
                         person = {...propsPerson, ...statePerson}
                     }
-                    dispatch(USER_DATA, person);
-                    dispatch(USER_AUTH_RESULT, success);
+                    dispatch(USER_AUTH, {person, success});
                     updateUiField(compRef, "message", response.message);
                     if (success) {
                         compRef.handleClose();
@@ -243,24 +242,14 @@ class RegPopup extends React.PureComponent {
                                     }}
                                     disabled={loading}
                                 />
-                                <FormControlLabel
-                                    className={classes.termAndCondAgreementBox}
-                                    classes={{label: classes.label}}
-                                    control={
-                                        <Checkbox tabIndex={-1}
-                                                  checked={agreementChecked}
-                                                  onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
-                                                  checkedIcon={<Check className={classes.checkedIcon}/>}
-                                                  icon={<Check
-                                                      className={
-                                                          classNames({
-                                                              [classes.uncheckedIcon]: true,
-                                                              "redShadow": !agreementCheckedValid
-                                                          })}/>}
-                                                  disabled={loading}/>
-                                    }
+                                <CustomCheckbox
+                                    boxClass={classes.termAndCondAgreementBox}
+                                    checked={agreementChecked}
+                                    onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
+                                    disabled={loading}
+                                    error={!agreementCheckedValid}
                                     label={
-                                        <span className={classes.termAndCondAgreementLabel}>
+                                        <span className={classes.smallText}>
                                             Я принимаю условия
                                             <LocalLink
                                                 to="/info/privacy-policy"> политики конфиденциальности </LocalLink> и

@@ -252,6 +252,10 @@ const formControl = {
         color: "#495057"
     }
 };
+export const smallText = {
+    fontSize: "10px",
+    lineHeight: "12px",
+};
 
 export {
 

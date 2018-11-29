@@ -5,10 +5,8 @@ import AppIcon from "app/common/icon/AppIcon";
 import {buttonColor} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import wizardStyle from "app/common/wizard/wizardStyle";
-import {buttonDebounceRule, buttonDebounceTimeout, debounce} from "app/utils/functionUtil";
+import {buttonDebounceRule, buttonDebounceTimeout, classNames, debounce, PropTypes} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import {Redirect, withRouter} from "react-router";
 import SwipeableViews from "react-swipeable-views";
@@ -16,11 +14,11 @@ import SwipeableViews from "react-swipeable-views";
 class Wizard extends React.Component {
     constructor(props) {
         super(props);
-        let tabIndex = this.getTabIndex(this.props);
+        let tabIndex = this.getTabIndex(props);
         tabIndex = tabIndex >= 0 ? tabIndex : 0; // чтобы дальше не падало, когда activeTabKey не известный ничего не отрисовывается
         this.state = {
             activeTabIndex: tabIndex,
-            activeTabKey: this.props.tabsConfig[tabIndex].key,
+            activeTabKey: props.tabsConfig[tabIndex].key,
         };
         this.handleSwipe = this.handleSwipe.bind(this);
         this.handleClickPrev = this.handleClickPrev.bind(this);
@@ -32,8 +30,12 @@ class Wizard extends React.Component {
         this.pushToTab(activeTabIndex);
     };
 
+    getTabConfig(index) {
+        return this.props.tabsConfig[index];
+    }
+
     pushToTab(activeTabIndex) {
-        util.navigate.goToUrl(this.props.tabsConfig[activeTabIndex].url);
+        util.navigate.goToUrl(this.getTabConfig(activeTabIndex).url);
     }
 
     handleClickPrev = (e) => {
@@ -49,20 +51,40 @@ class Wizard extends React.Component {
     };
 
     _delayedChangeTab = debounce( // для избежания двойного клика
-        function (e, step) {
-            const tabIndex = this.state.activeTabIndex + step;
-            if (tabIndex === -1) {
+        (e, step) => {
+            const compRef = this,
+                currIndex = compRef.state.activeTabIndex,
+                currTabConfig = compRef.getTabConfig(currIndex),
+                newIndex = currIndex + step,
+                goBack = newIndex < 0,
+                goPrev = newIndex < currIndex,
+                goNext = newIndex > currIndex,
+                goFinal = newIndex >= compRef.props.tabsConfig.length || currTabConfig.isFinalStep;
+
+            if (goNext) {
+                if (currTabConfig.nextButton.canGo
+                    && !currTabConfig.nextButton.canGo())
+                    return
+            }
+            if (goPrev) {
+                if (currTabConfig.prevButton.canGo
+                    && !currTabConfig.prevButton.canGo())
+                    return
+            }
+
+            if (goBack) {
                 // todo учитывать возврат с других шагов
                 util.navigate.goToPreviousUrl();
                 return
             }
             let url;
-            if (tabIndex === this.props.tabsConfig.length) {
-                url = this.props.finalUrl;
+            if (goFinal) {
+                url = compRef.props.finalUrl;
             } else {
-                url = this.props.tabsConfig[tabIndex].url;
+                url = compRef.getTabConfig(newIndex).url;
             }
             util.navigate.goToUrl(url);
+            util.navigate.scrollUp();
         }, buttonDebounceTimeout, buttonDebounceRule);
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -77,46 +99,38 @@ class Wizard extends React.Component {
         this.setState({
             ...this.state,
             activeTabIndex: tabIndex,
-            activeTabKey: this.props.tabsConfig[tabIndex].key
+            activeTabKey: this.getTabConfig(tabIndex).key
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        util.navigate.scrollUp();
-    }
-
     getTabIndex = (props) => {
-        return this.props.tabsConfig.map((tab) => tab.key)
+        return props.tabsConfig.map((tab) => tab.key)
             .indexOf(props.match.params.activeTabKey);
     };
 
     renderPrevButton(classes, tabConfig) {
-        const buttonText = tabConfig.prevButtonText;
-        if (buttonText === undefined) {
-            return null;
-        }
+        const button = tabConfig.prevButton;
         return <Button color={buttonColor} className={classNames(classes.cardFooterButton, "left")}
-                       aria-label={buttonText}
+                       aria-label={button.text}
                        aria-haspopup="false"
+                       disabled={button.disabled}
                        onClick={this.handleClickPrev}
         >
             <AppIcon name="fas fa-arrow-left" className={classes.buttonLeftIcon}/>
-            {buttonText}
+            {button.text}
         </Button>;
     };
 
     renderNextButton(classes, tabConfig) {
-        const buttonText = tabConfig.nextButtonText;
-        if (buttonText === undefined) {
-            return null;
-        }
+        const button = tabConfig.nextButton;
         return <Button color={buttonColor} className={classNames(classes.cardFooterButton, "right")}
-                       aria-label={buttonText}
+                       aria-label={button.text}
                        aria-haspopup="false"
+                       disabled={button.disabled}
                        onClick={this.handleClickNext}
         >
-            {buttonText}
-            {this.props.tabsConfig[this.props.tabsConfig.length - 1].key === tabConfig.key
+            {button.text}
+            {this.getTabConfig(this.props.tabsConfig.length - 1).key === tabConfig.key
                 ? null
                 : <AppIcon name="fas fa-arrow-right" className={classes.buttonRightIcon}/>
             }
@@ -150,7 +164,7 @@ class Wizard extends React.Component {
                                 classNames({
                                     [tab.containerClassName]: tab.containerClassName,
                                 })}>
-                                <tab.content/>
+                                {typeof tab.content === 'function' ? <tab.content/> : tab.content}
                                 <div className={classes.width100}>
                                     {this.renderNextButton(classes, tab)}
                                     {this.renderPrevButton(classes, tab)}
@@ -178,10 +192,19 @@ class Wizard extends React.Component {
             PropTypes.shape({
                 key: PropTypes.string.isRequired,
                 url: PropTypes.string.isRequired,
-                content: PropTypes.func.isRequired,
+                content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
                 containerClassName: PropTypes.string,
-                prevButtonText: PropTypes.string,
-                nextButtonText: PropTypes.string,
+                prevButton: PropTypes.shape({
+                    text: PropTypes.string.isRequired,
+                    disabled: PropTypes.bool,
+                    canGo: PropTypes.func,
+                }).isRequired,
+                nextButton: PropTypes.shape({
+                    text: PropTypes.string.isRequired,
+                    disabled: PropTypes.bool,
+                    canGo: PropTypes.func,
+                }).isRequired,
+                isFinalStep: PropTypes.bool,
             })
         ).isRequired,
         direction: PropTypes.string,

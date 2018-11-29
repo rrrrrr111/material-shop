@@ -1,4 +1,3 @@
-import LoginPopup from "app/user/auth/LoginPopup";
 import {determineUserMessage, SERVER_SIDE_ERROR} from "app/utils/notifyUtil";
 import util from "app/utils/util";
 import axios from "axios";
@@ -6,6 +5,7 @@ import axios from "axios";
 
 const KEY_JWT = 'JWT';
 const HEADER_JWT = 'x-auth-token';
+
 let backend;
 const prepareBackend = () => {
     if (!backend) {
@@ -52,17 +52,18 @@ const handleResponse = (response) => {
 
 const handleError = (error) => {
     let message;
-    if (error && error.response
-        && error.response.status === 403) {
-        LoginPopup.show();
-        message = null;
-    } else if (error && error.response
-        && error.response.data && error.response.data.message) {
-        message = determineUserMessage(error.response.data.message);
+    let status;
+    if (error && error.response) {
+        status = error.response.status;
+        if (error.response.data && error.response.data.message) {
+            message = determineUserMessage(error.response.data.message);
+        } else {
+            message = null;
+        }
     } else {
         message = SERVER_SIDE_ERROR;
     }
-    return {message, success: false};
+    return {message, status, success: false};
 };
 
 const backendPost = (urlTail, request) => {

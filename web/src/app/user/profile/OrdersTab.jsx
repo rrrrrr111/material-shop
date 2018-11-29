@@ -45,7 +45,7 @@ class OrdersTab extends React.PureComponent {
                     ? <li key={index}>{item.quantity} x {item.name} ({item.price}p)</li>
                     : <li key={index}>{item.name} ({item.price}p)</li>
             })}
-            <li>Доставка {util.dictionary.deliveryTypeDict[item.deliveryType].name} ({item.deliveryAmount}p)</li>
+            <li>Доставка {util.dictionary.deliveryTypeDict.getByName(item.deliveryType).name} ({item.deliveryAmount}p)</li>
         </ul>);
     };
 

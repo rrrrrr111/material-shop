@@ -89,22 +89,22 @@ const regionDict = {
     ]
 };
 
-const deliveryTypeDict = {
-    values: [
+class DeliveryTypeDict {
+    values = [
         {id: 0, name: "COURIER", description: "Курьером", isActive: true, coast: 350},
         {id: 1, name: "RUSSIAN_POST", description: "Почтой России", isActive: false, coast: null}
-    ],
-    getById: (id) => {
+    ];
+    getById = ((id) => {
         return this.values.find((it) => (it.id === id))
-    },
-    getByName: (name) => {
+    }).bind(this);
+    getByName = ((name) => {
         return this.values.find((it) => (it.name === name))
-    },
-};
+    }).bind(this);
+}
 
 const dictionary = {
 
     regionDict: regionDict,
-    deliveryTypeDict: deliveryTypeDict,
+    deliveryTypeDict: new DeliveryTypeDict(),
 };
 export default dictionary;

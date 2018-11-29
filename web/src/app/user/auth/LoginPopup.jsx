@@ -7,18 +7,18 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Mail from "@material-ui/icons/Mail";
-import Button from "app/common/theme/button/Button";
-import Card from "app/common/theme/card/Card";
-import CardBody from "app/common/theme/card/CardBody";
-import CardHeader from "app/common/theme/card/CardHeader";
 import AppIcon from "app/common/icon/AppIcon";
-import CustomInput from "app/common/theme/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
 import {buttonColor, popupHeaderColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button";
+import Card from "app/common/theme/card/Card";
+import CardBody from "app/common/theme/card/CardBody";
+import CardHeader from "app/common/theme/card/CardHeader";
+import CustomInput from "app/common/theme/input/CustomInput";
 import SignoutComp from "app/user/auth/SignoutComp";
-import {mapUserToProps, USER_AUTH_RESULT, USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {mapUserToProps, USER_AUTH, USER_START_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
 
 import util from "app/utils/util"
@@ -91,17 +91,17 @@ class LoginPopup extends React.PureComponent {
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
-            dispatch(USER_START_LOADING);
-            util.ajax.backendSignin(statePerson)
+            dispatch(USER_START_LOADING)
+                .then(() => {
+                    return util.ajax.backendSignin(statePerson)
+                })
                 .then((response) => {
-                    dispatch(USER_STOP_LOADING);
                     const success = response.success;
                     let person = response.person;
                     if (!success) {
                         person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, чтобы было уже введено на форме регистрации
                     }
-                    dispatch(USER_DATA, person);
-                    dispatch(USER_AUTH_RESULT, success);
+                    dispatch(USER_AUTH, {person, success});
                     updateUiField(compRef, "message", response.message);
                     if (success) {
                         compRef.handleClose();

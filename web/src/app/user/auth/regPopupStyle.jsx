@@ -1,21 +1,19 @@
-import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle";
-import customCheckboxRadioSwitchStyle from "app/common/theme/input/customCheckboxRadioSwitchStyle.jsx";
 import modalStyle from "app/common/style/component/modalStyle";
 import popoverStyles from "app/common/style/component/popoverStyles";
 import {helperStyles} from "app/common/style/styleConsts";
-import tooltipStyle from "app/common/theme/tooltip/tooltipStyle";
-import {description, mlAuto, mrAuto} from "app/common/style/themeStyles";
+import {description, mlAuto, mrAuto, smallText} from "app/common/style/themeStyles";
 import {cardTitle, container} from "app/common/style/themeStyles.jsx";
+import tooltipStyle from "app/common/theme/tooltip/tooltipStyle";
 
 
 const regPopupStyle = theme => ({
     description,
     mlAuto,
     mrAuto,
+    smallText,
     ...tooltipStyle(theme),
     ...popoverStyles,
     ...modalStyle(theme),
-    ...customCheckboxRadioSwitch,
     ...helperStyles(theme),
     container: {
         ...container,
@@ -98,7 +96,6 @@ const regPopupStyle = theme => ({
         textAlign: "center !important",
         marginBottom: "0.75rem"
     },
-    ...customCheckboxRadioSwitchStyle,
     socials: {
         marginTop: "0",
         position: "absolute",
@@ -173,11 +170,7 @@ const regPopupStyle = theme => ({
     },
     termAndCondAgreementBox: {
         padding: 14,
-        margin: 0,
-    },
-    termAndCondAgreementLabel: {
-        fontSize: "10px",
-        lineHeight: "12px",
+        marginTop: 15,
     },
 });
 

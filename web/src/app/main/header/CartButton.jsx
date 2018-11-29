@@ -43,7 +43,7 @@ class CartButton extends React.PureComponent {
     }
 
     isCartEmpty() {
-        return this.props.data.totalQuantity === 0;
+        return this.props.data.goodsQuantity === 0;
     }
 
     render = () => {
@@ -56,13 +56,13 @@ class CartButton extends React.PureComponent {
             amount = null;
         } else {
             icon = (
-                <Badge color="primary" badgeContent={data.totalQuantity} classes={{badge: classes.badge}}>
+                <Badge color="primary" badgeContent={data.goodsQuantity} classes={{badge: classes.badge}}>
                     <AppIcon name="shopping_cart"/>
                 </Badge>);
             amount = (
                 <span className={classes.amount}>
                     <NumberFormat displayType='text' thousandSeparator=' '
-                                  value={data.totalAmount}/>р
+                                  value={data.goodsAmount}/>р
                 </span>
             );
         }

@@ -1,5 +1,4 @@
-import {createReducer} from "app/utils/functionUtil";
-import update from 'immutability-helper';
+import {createReducer, update} from "app/utils/functionUtil";
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
@@ -9,10 +8,10 @@ export const START_ORDER_CREATE = 'START_ORDER_CREATE';
 export const ORDER_CREATED = 'ORDER_CREATED';
 
 const initialState = {
+    person: null,
     cartGoodsList: [],
-    totalAmount: 0,
-    totalQuantity: 0,
-    shopOrder: null
+    goodsAmount: 0,
+    goodsQuantity: 0,
 };
 export const dataCartReducer = createReducer(
     initialState, {
@@ -79,16 +78,16 @@ const updateCart = (state, product, foundCallback, notFoundCallback) => {
         resState = notFoundCallback(state);
     }
     return update(resState, {
-        totalAmount: {$set: getCartTotalAmount(resState.cartGoodsList)},
-        totalQuantity: {$set: getCartTotalQuantity(resState.cartGoodsList)}
+        goodsAmount: {$set: getCartGoodsAmount(resState.cartGoodsList)},
+        goodsQuantity: {$set: getCartGoodsQuantity(resState.cartGoodsList)}
     });
 };
 
-const getCartTotalAmount = (cartGoodsList) => {
+const getCartGoodsAmount = (cartGoodsList) => {
     return cartGoodsList.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0);
 };
 
-const getCartTotalQuantity = (cartGoodsList) => {
+const getCartGoodsQuantity = (cartGoodsList) => {
     return cartGoodsList.map(item => item.quantity).reduce((a, b) => a + b, 0);
 };
 

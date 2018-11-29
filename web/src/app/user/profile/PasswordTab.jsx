@@ -1,15 +1,15 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "app/common/theme/button/Button.jsx";
-import Card from "app/common/theme/card/Card.jsx";
-import CardBody from "app/common/theme/card/CardBody.jsx";
-import CardFooter from "app/common/theme/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
-import CustomInput from "app/common/theme/input/CustomInput";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button.jsx";
+import Card from "app/common/theme/card/Card.jsx";
+import CardBody from "app/common/theme/card/CardBody.jsx";
+import CardFooter from "app/common/theme/card/CardFooter.jsx";
+import CustomInput from "app/common/theme/input/CustomInput";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, debounce, updateUiField} from "app/utils/functionUtil";
@@ -78,13 +78,14 @@ class PasswordTab extends React.PureComponent {
                 }
             }).then((response) => {
                 updateUiField(compRef, "message", response.message);
-                dispatch(USER_STOP_LOADING);
                 if (response.success) {
                     dispatch(USER_DATA, {
                         ...compRef.props.userData,
                         editDate: response.personEditDate,
                     });
                     util.notify.passwordChanged();
+                } else {
+                    dispatch(USER_STOP_LOADING);
                 }
             });
         }), ajaxDebounceTimeout, buttonDebounceRule);

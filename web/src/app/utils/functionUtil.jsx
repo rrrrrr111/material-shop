@@ -1,7 +1,7 @@
 import withStylesExport from "@material-ui/core/styles/withStyles";
 import classNamesExport from "classnames";
 import {createBrowserHistory} from 'history'
-import update from 'immutability-helper';
+import updateExport from 'immutability-helper';
 import debounceExport from 'lodash/debounce'
 import toNumberExport from "lodash/toNumber"
 import PropTypesExport from "prop-types";
@@ -16,6 +16,7 @@ export const classNames = classNamesExport;
 export const PropTypes = PropTypesExport;
 export const withStyles = withStylesExport;
 export const NumberFormat = NumberFormatExport;
+export const update = updateExport;
 export const routerHistory = createBrowserHistory({});
 
 export const createReducer = (initialState, mappingObj) => {

@@ -94,7 +94,7 @@ class UserProfile extends React.Component {
                                     pillClasses: classes.profileTabPill,
                                     pillIcon: tab.icon,
                                     content: (
-                                        <UserDataLoader>
+                                        <UserDataLoader showLogin={true}>
                                             <tab.content/>
                                         </UserDataLoader>
                                     )

@@ -1,20 +1,18 @@
-import Checkbox from "@material-ui/core/Checkbox/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Check from "@material-ui/icons/Check";
-import Button from "app/common/theme/button/Button.jsx";
-import Card from "app/common/theme/card/Card.jsx";
-import CardBody from "app/common/theme/card/CardBody.jsx";
-import CardFooter from "app/common/theme/card/CardFooter.jsx";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import {buttonColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button.jsx";
+import Card from "app/common/theme/card/Card.jsx";
+import CardBody from "app/common/theme/card/CardBody.jsx";
+import CardFooter from "app/common/theme/card/CardFooter.jsx";
+import CustomCheckbox from "app/common/theme/input/CustomCheckbox";
 import userProfileStyle from "app/user/profile/userProfileStyle";
 import {USER_DATA, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
-import {ajaxDebounceTimeout, buttonDebounceRule, classNames, debounce, updateUiField} from "app/utils/functionUtil";
+import {ajaxDebounceTimeout, buttonDebounceRule, debounce, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkboxHandler, isBoolean, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
@@ -71,13 +69,16 @@ class SettingsTab extends React.PureComponent {
         (() => {
             const compRef = this;
             updateUiField(compRef, "message", "");
-            dispatch(USER_START_LOADING);
-
-            util.ajax.backendPost("user/save-settings", {settingsChange: {...compRef.state.data}})
-                .then(function (response) {
+            dispatch(USER_START_LOADING)
+                .then(() => {
+                    return util.ajax.backendPost(
+                        "user/save-settings", {
+                            settingsChange: {...compRef.state.data}
+                        }
+                    );
+                })
+                .then((response) => {
                     updateUiField(compRef, "message", response.message);
-                    dispatch(USER_STOP_LOADING);
-
                     if (response.success) {
                         dispatch(USER_DATA, {
                             ...compRef.props.userData,
@@ -85,6 +86,8 @@ class SettingsTab extends React.PureComponent {
                             editDate: response.personEditDate,
                         });
                         util.notify.dataSaved();
+                    } else {
+                        dispatch(USER_STOP_LOADING);
                     }
                 });
         }), ajaxDebounceTimeout, buttonDebounceRule);
@@ -106,28 +109,12 @@ class SettingsTab extends React.PureComponent {
                 <CardBody>
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={6}>
-                            <div className={classes.checkboxAndRadio + " " + classes.checkboxAndRadioHorizontal}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            tabIndex={-1}
-                                            checked={agreementChecked}
-                                            onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
-                                            checkedIcon={<Check className={classes.checkedIcon}/>}
-                                            icon={<Check
-                                                className={
-                                                    classNames({
-                                                        [classes.uncheckedIcon]: true,
-                                                        "redShadow": !agreementCheckedValid
-                                                    })}/>}
-                                            disabled={disabled}
-                                        />
-
-                                    }
-                                    classes={{label: classes.label}}
-                                    label="Получать сообщения о распродажах, акциях, скидках и новостях компании"
-                                />
-                            </div>
+                            <CustomCheckbox
+                                checked={agreementChecked}
+                                onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
+                                disabled={disabled}
+                                label="Получать сообщения о распродажах, акциях, скидках и новостях компании"
+                            />
                         </GridItem>
                     </GridContainer>
                 </CardBody>

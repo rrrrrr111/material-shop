@@ -1,15 +1,14 @@
-import customCheckboxRadioSwitch from "app/common/theme/input/customCheckboxRadioSwitchStyle";
-import {helperStyles, blackColor} from "app/common/style/styleConsts";
-import {container, main, mainRaised} from "app/common/style/themeStyles";
+import {blackColor, helperStyles} from "app/common/style/styleConsts";
+import {container, main, mainRaised, smallText} from "app/common/style/themeStyles";
 import {title} from "app/common/style/themeStyles.jsx";
 
 const userCartStyle = theme => ({
     ...helperStyles(theme),
-    ...customCheckboxRadioSwitch,
     title,
     main,
     mainRaised,
     container,
+    smallText,
     cartContainer: {
         margin: "-35px 0 50px 0",
     },
@@ -55,10 +54,6 @@ const userCartStyle = theme => ({
     },
     tableFooterContainer: {
         ...helperStyles(theme).width100,
-    },
-    agreementCheckboxLabel: {
-        fontSize: "10px",
-        lineHeight: "12px",
     },
 });
 

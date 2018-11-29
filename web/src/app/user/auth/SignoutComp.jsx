@@ -1,4 +1,4 @@
-import {USER_LOGGED_OUT, USER_START_LOADING, USER_STOP_LOADING} from "app/user/reducer";
+import {USER_LOGGED_OUT, USER_START_LOADING} from "app/user/reducer";
 import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import React from "react";
@@ -20,10 +20,11 @@ class SignoutComp extends React.PureComponent {
     }
 
     static signout = (backToPreviousUrl) => {
-        dispatch(USER_START_LOADING);
-        util.ajax.backendSignout()
+        dispatch(USER_START_LOADING)
             .then(() => {
-                dispatch(USER_STOP_LOADING);
+                return util.ajax.backendSignout()
+            })
+            .then(() => {
                 dispatch(USER_LOGGED_OUT);
                 SignoutComp.afterSignOut(backToPreviousUrl);
             });

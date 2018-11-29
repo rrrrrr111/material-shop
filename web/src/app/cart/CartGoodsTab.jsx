@@ -75,11 +75,11 @@ class CartGoodsTab extends React.PureComponent {
         const {classes} = this.props;
         const cartGoodsList = this.getCartGoodsList();
         const {
-            totalAmount,
-            totalQuantity
+            goodsAmount,
+            goodsQuantity
         } = this.props.data;
 
-        if (!totalQuantity) {
+        if (!goodsQuantity) {
             return (
                 <Card className={classes.goodsTableContainer}>
                     <CardBody>
@@ -154,13 +154,13 @@ class CartGoodsTab extends React.PureComponent {
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
                                            <h4>
-                                               В корзине {totalQuantity} {util.declension.inclineGoods(totalQuantity)}:
+                                               В корзине {goodsQuantity} {util.declension.inclineGoods(goodsQuantity)}:
                                            </h4>
                                        </Grid>
                                    </GridItem>
                                    <GridItem container xs={12} sm zeroMinWidth justify="center">
                                        <Grid item>
-                                           <Price bold big value={totalAmount}/>
+                                           <Price bold big value={goodsAmount}/>
                                        </Grid>
                                    </GridItem>
                                </GridContainer>
