@@ -61,18 +61,12 @@ class CartOrderTab extends React.PureComponent {
                 <Card>
                     <CardBody>
                         <h3>Оформление заказа</h3>
-                        <Grid container spacing={8}>
-                            <Grid xs={6} sm item>
-                                <h5 className={classes.title}>Получатель</h5>
-                            </Grid>
-                            <Grid xs={6} sm item>
-                                <span className={classes.smallText}>
-                                    <LocalLink to="/auth/signin" modal>Вход</LocalLink>
+                        <h5 className={classes.title}>Получатель</h5>
+                        <span className={classes.smallText}>
+                                    <LocalLink to="/auth/signin" modal>Вход </LocalLink>
                                         /
-                                    <LocalLink to="/auth/signup" modal>Регистрация</LocalLink>
+                                    <LocalLink to="/auth/signup" modal> Регистрация</LocalLink>
                                 </span>
-                            </Grid>
-                        </Grid>
                         <Grid container justify="center" spacing={16}>
                             <Grid xs={12} sm item>
                                 <CustomInput
