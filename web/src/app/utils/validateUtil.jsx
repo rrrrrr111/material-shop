@@ -38,7 +38,7 @@ const setField = (obj, path, value) => {
     let i = 0;
     path = path.split('.');
     for (; i < path.length - 1; i++) {
-        obj[path[i]] = {...obj[path[i]]};
+        //obj[path[i]] = {...obj[path[i]]};
         obj = obj[path[i]];
     }
     obj[path[i]] = value;
@@ -126,9 +126,12 @@ class Validator {
         }
         const fieldValidFlag = `${fieldName}Valid`;
         if (!lazy || !getField(uiObj, fieldValidFlag)) {
-            setField(uiObj, fieldValidFlag, // ...is not a function - если не верно указан propertyPath
-                getField(checkersObj, fieldName)(
-                    getField(dataObj, fieldName), dataObj));
+            const checker = getField(checkersObj, fieldName);
+            if (checker) {
+                const value = getField(dataObj, fieldName);
+                setField(uiObj, fieldValidFlag, // ...is not a function - если не верно указан propertyPath
+                    checker(value, dataObj));
+            }
         }
     };
 
@@ -165,8 +168,8 @@ export const prepareHandler = (compRef, fieldName, valueHandler) => {
     if (handler) {
         return handler;
     }
-    handler = (e) => {
-        valueHandler(compRef, fieldName, e);
+    handler = (e, param) => {
+        valueHandler(compRef, fieldName, e, param);
     };
     compRef[handlerName] = handler;
     return handler;
@@ -178,9 +181,9 @@ export const prepareEnterHandler = (compRef, onEnterHandler) => {
     if (handler) {
         return handler;
     }
-    handler = (e) => {
+    handler = (e, param) => {
         if (e.key === 'Enter') {
-            onEnterHandler(e);
+            onEnterHandler(e, param);
         }
     };
     compRef[handlerName] = handler;

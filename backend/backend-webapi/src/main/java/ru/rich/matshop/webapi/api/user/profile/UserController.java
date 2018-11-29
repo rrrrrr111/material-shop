@@ -24,6 +24,7 @@ import javax.validation.groups.Default;
 import java.util.Date;
 
 import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 
 @RestController
@@ -87,8 +88,8 @@ public class UserController extends AbstractRestController {
     public static Person fromUi(Person p) {
         p.setPhone(defaultIfEmpty(p.getPhone(), null));
         p.setEmail(defaultIfEmpty(p.getEmail(), null));
-        p.setFirstName(defaultIfEmpty(p.getFirstName(), null));
-        p.setLastName(defaultIfEmpty(p.getLastName(), null));
+        p.setFirstName(trimToNull(p.getFirstName()));
+        p.setLastName(trimToNull(p.getLastName()));
         p.setPassword(defaultIfEmpty(p.getPassword(), null));
         return p;
     }

@@ -20,16 +20,25 @@ let initialState = {
     agreementChecked: false,
     address: {
         region: "",
+        town: "",
+        street: "",
+        house: "",
+        housing: "",
+        construction: "",
+        apartment: "",
+        entrance: "",
+        intercom: "",
+        addressComment: "",
     },
     editDate: null,
 };
 export const dataUserReducer = createReducer(
     initialState, {
         [USER_DATA]: (state, value = initialState) => {
-            return value;
+            return {...initialState, ...value}; // todo
         },
         [USER_AUTH]: (state, value) => {
-            return value.success ? value.person : state;
+            return value.success ? {...initialState, ...value.person} : state; // todo
         },
         [USER_LOGGED_OUT]: () => {
             return initialState;

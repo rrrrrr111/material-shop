@@ -113,7 +113,7 @@ class ProfileTab extends React.PureComponent {
                                         autoComplete: "on",
                                         name: "First name",
                                         value: firstName,
-                                        onChange: prepareHandler(this, 'firstName', inputTrimHandler),
+                                        onChange: prepareHandler(this, 'firstName', inputHandler),
                                         error: !firstNameValid
                                     }}
                                     otherProps={{
@@ -132,7 +132,7 @@ class ProfileTab extends React.PureComponent {
                                         autoComplete: "on",
                                         name: "Last name",
                                         value: lastName,
-                                        onChange: prepareHandler(this, 'lastName', inputTrimHandler),
+                                        onChange: prepareHandler(this, 'lastName', inputHandler),
                                         error: !lastNameValid
                                     }}
                                     otherProps={{

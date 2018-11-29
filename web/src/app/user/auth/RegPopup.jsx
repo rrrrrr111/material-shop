@@ -186,7 +186,7 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Имя...",
                                         name: "First name",
                                         value: firstName,
-                                        onChange: prepareHandler(this, 'firstName', inputTrimHandler),
+                                        onChange: prepareHandler(this, 'firstName', inputHandler),
                                         error: !firstNameValid
                                     }}
                                     otherProps={{

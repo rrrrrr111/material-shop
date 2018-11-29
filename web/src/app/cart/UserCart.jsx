@@ -20,7 +20,7 @@ class UserCart extends React.PureComponent {
         this.goodsStepCheck = this.goodsStepCheck.bind(this);
         this.orderStepCheck = this.orderStepCheck.bind(this);
         this.paymentStepCheck = this.paymentStepCheck.bind(this);
-        this.handlePaymentTypeChange = this.handlePaymentTypeChange.bind(this);
+        this.paymentTypeHandler = this.paymentTypeHandler.bind(this);
         this.state = {
             data: {
                 person: {
@@ -44,10 +44,19 @@ class UserCart extends React.PureComponent {
                     agreementCheckedValid: true,
                     address: {
                         regionValid: true,
+                        townValid: true,
+                        streetValid: true,
+                        houseValid: true,
+                        housingValid: true,
+                        constructionValid: true,
+                        apartmentValid: true,
+                        entranceValid: true,
+                        intercomValid: true,
+                        addressCommentValid: true,
                     },
                 },
-                formValid: true,
-                message: "",
+                orderFormValid: true,
+                orderFormMessage: "",
             },
             tabsState: [
                 {
@@ -76,11 +85,12 @@ class UserCart extends React.PureComponent {
                         },
                     },
                 },
+                formValidField: 'orderFormValid',
             }
         );
     }
 
-    handlePaymentTypeChange(paymentType) {
+    paymentTypeHandler(paymentType) {
         let nextButtonText;
         let isFinalStep;
         if ("CASH" === paymentType) {
@@ -151,8 +161,8 @@ class UserCart extends React.PureComponent {
                                     url: "/cart/order",
                                     content: (
                                         <CartOrderTab
-                                            handlePaymentTypeChange={this.handlePaymentTypeChange}
-                                            cartStateComponent={this}
+                                            paymentTypeHandler={this.paymentTypeHandler}
+                                            stateComponent={this}
                                             userUi={this.props.userUi}
                                             data={this.state.data}
                                             ui={this.state.ui}

@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
+import DeliveryAddressStreet from "app/common/address/DeliveryAddressStreet";
 import GridContainer from "app/common/grid/GridContainer";
 import Price from "app/common/misc/Price";
 import {navPillsColor} from "app/common/style/styleConsts";
@@ -11,39 +12,30 @@ import CustomCheckbox from "app/common/theme/input/CustomCheckbox";
 import CustomInput from "app/common/theme/input/CustomInput";
 import SelectInput from "app/common/theme/input/SelectInput";
 import util from "app/utils/util";
-import {checkboxHandler, prepareHandler} from "app/utils/validateUtil";
+import {checkboxHandler, inputHandler, inputTrimHandler, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
 
 class CartOrderTab extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.handleRegionChange = this.handleRegionChange.bind(this);
-        this.onDeliveryTypeChange = this.onDeliveryTypeChange.bind(this);
-    }
 
-    handleRegionChange(e) {
-
-    }
-
-    onDeliveryTypeChange = (event, activeTabIndex) => {
-
+    deliveryTypeHandler = (compRef, fieldName, event, tabIndex) => {
+        compRef.validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
     };
 
-    onPaymentTypeChange = (event) => {
-        this.props.handlePaymentTypeChange();
+    paymentTypeHandler = (event) => {
+        this.props.paymentTypeHandler();
     };
 
     render() {
-        const {classes, cartStateComponent} = this.props;
+        const {classes, stateComponent} = this.props;
         const {
             loading
         } = this.props.userUi;
         const disabled = loading;
         const {
-            firstName, email, phone, agreementChecked,
+            address: dataAddress, firstName, email, phone, agreementChecked,
         } = this.props.data.person;
         const {
-            firstNameValid, emailValid, phoneValid, agreementCheckedValid,
+            address: uiAddress, firstNameValid, emailValid, phoneValid, agreementCheckedValid,
         } = this.props.ui.person;
         const {
             region,
@@ -58,8 +50,10 @@ class CartOrderTab extends React.PureComponent {
             paymentType,
         } = this.props.data;
         const {
-            orderFormValid, message
+            orderFormValid, orderFormMessage
         } = this.props.ui;
+        const courierDelivery = util.dictionary.deliveryTypeDict.getById(0);
+        const postDelivery = util.dictionary.deliveryTypeDict.getById(1);
 
         return (
             <form>
@@ -77,10 +71,14 @@ class CartOrderTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "First name",
+                                        value: firstName,
+                                        onChange: prepareHandler(stateComponent, 'person.firstName', inputHandler),
+                                        error: !firstNameValid
                                     }}
                                     otherProps={{
                                         maxLength: 100,
                                     }}
+                                    disabled={disabled}
                                 />
                             </Grid>
                             <Grid xs={12} sm item>
@@ -92,11 +90,15 @@ class CartOrderTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "Phone",
+                                        value: phone,
+                                        onChange: prepareHandler(stateComponent, 'person.phone', inputHandler),
+                                        error: !phoneValid
                                     }}
                                     numberProps={{
                                         format: "+7 (###) ###-####",
                                         mask: "_",
                                     }}
+                                    disabled={disabled}
                                 />
                             </Grid>
                             <Grid xs={12} sm item>
@@ -108,17 +110,21 @@ class CartOrderTab extends React.PureComponent {
                                     inputProps={{
                                         autoComplete: "on",
                                         name: "Email",
+                                        value: email,
+                                        onChange: prepareHandler(stateComponent, 'person.email', inputTrimHandler),
+                                        error: !emailValid
                                     }}
                                     otherProps={{
                                         maxLength: 200,
                                     }}
+                                    disabled={disabled}
                                 />
                             </Grid>
                         </Grid>
                         <Grid container spacing={8}>
                             <Grid xs={12} item>
                                 <CustomCheckbox
-                                    onClick={prepareHandler(cartStateComponent, 'person.agreementChecked', checkboxHandler)}
+                                    onClick={prepareHandler(stateComponent, 'person.agreementChecked', checkboxHandler)}
                                     checked={agreementChecked}
                                     error={!agreementCheckedValid}
                                     disabled={disabled}
@@ -132,12 +138,15 @@ class CartOrderTab extends React.PureComponent {
                         <h5 className={classes.title}>Доставка</h5>
                         <Grid container justify="center" spacing={8}>
                             <Grid xs={6} item>
-                                <SelectInput id="region"
-                                             labelText="Регион"
-                                             fakeItemText="Выберите регион"
-                                             onChange={this.handleRegionChange}
-                                             options={util.dictionary.regionDict.values}
-                                             value={region}
+                                <SelectInput
+                                    id="region"
+                                    labelText="Регион"
+                                    fakeItemText="Выберите регион"
+                                    value={region}
+                                    onChange={prepareHandler(stateComponent, 'person.address.region', inputHandler)}
+                                    error={!regionValid}
+                                    options={util.dictionary.regionDict.values}
+                                    disabled={disabled}
                                 />
                             </Grid>
                             <Grid xs={6} item/>
@@ -145,10 +154,10 @@ class CartOrderTab extends React.PureComponent {
                                 <NavPills
                                     color={navPillsColor}
                                     activeTabIndex={util.dictionary.deliveryTypeDict.getByName(deliveryType).id}
-                                    onChange={this.onDeliveryTypeChange}
+                                    onChange={prepareHandler(stateComponent, 'deliveryType', this.deliveryTypeHandler)}
                                     tabs={[
                                         {
-                                            pillText: util.dictionary.deliveryTypeDict.getById(0).description,
+                                            pillText: courierDelivery.description,
                                             content: (
                                                 <div>
                                                     <GridContainer spacing={16}>
@@ -156,141 +165,19 @@ class CartOrderTab extends React.PureComponent {
                                                             <h5>
                                                                 Курьерская доставка —{" "}
                                                                 <Price value={
-                                                                    util.dictionary.deliveryTypeDict.getById(0).coast
+                                                                    courierDelivery.coast
                                                                 }/>
                                                             </h5>
                                                         </Grid>
                                                     </GridContainer>
-                                                    <GridContainer spacing={16}>
-                                                        <Grid item xs={12} sm={6}>
-                                                            <CustomInput
-                                                                labelText="Улица"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Street",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 200,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Дом"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "House",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Корпус"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Housing",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Строение"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Construction",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={6}/>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Квартира"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Apartment",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Подъезд"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Entrance",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={4} sm={2}>
-                                                            <CustomInput
-                                                                labelText="Домофон"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    name: "Intercom",
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 10,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item xs={12}>
-                                                            <CustomInput
-                                                                id="address-comment"
-                                                                labelText="Комментарий к доставке"
-                                                                formControlProps={{
-                                                                    fullWidth: true
-                                                                }}
-                                                                inputProps={{
-                                                                    autoComplete: "on",
-                                                                    multiline: true,
-                                                                    rows: 3,
-                                                                }}
-                                                                otherProps={{
-                                                                    maxLength: 1000,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                    </GridContainer>
+                                                    <DeliveryAddressStreet stateComponent={stateComponent}
+                                                                           disabled={disabled}
+                                                                           data={dataAddress} ui={uiAddress}/>
                                                 </div>
                                             )
                                         },
                                         {
-                                            pillText: util.dictionary.deliveryTypeDict.getById(1).description,
+                                            pillText: postDelivery.description,
                                             content: (
                                                 <span>
                                                     <h5>Сожалеем, доставка Почтой России временно не доступна.</h5>
