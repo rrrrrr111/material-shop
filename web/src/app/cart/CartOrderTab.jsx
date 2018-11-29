@@ -39,10 +39,10 @@ class CartOrderTab extends React.PureComponent {
             address: uiAddress, firstNameValid, emailValid, phoneValid, agreementCheckedValid,
         } = this.props.ui.person;
         const {
-            region,
+            region, town,
         } = this.props.data.person.address;
         const {
-            regionValid,
+            regionValid, townValid,
         } = this.props.ui.person.address;
         const {
             deliveryAmount,
