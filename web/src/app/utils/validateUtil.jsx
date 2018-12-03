@@ -71,17 +71,19 @@ class Validator {
 
     handleChange = (fieldPath, value) => {
         const context = this.initContext();
-        setField(context.rootData, fieldPath, value);
+        setField(context.data, fieldPath, value);
 
-        context.rootUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
+        context.ui[this.conf.formValidField] = this.conf.revalidateAllOnChange
             ? this.checkFields(context)
             : this.checkFields(context, fieldPath);
 
-        this.conf.stateSetter(context.compRef, {
+        const newState = {
             ...context.compRef.state,
-            data: context.rootData,
-            ui: context.rootUi,
-        });
+            data: context.data,
+            ui: context.ui,
+        };
+        console.log(`>>> validator.handleChange >>> ${fieldPath} value: ${value}, newState:`, newState);
+        this.conf.stateSetter(context.compRef, newState);
     };
 
     validate = () => {
@@ -91,28 +93,27 @@ class Validator {
         const context = this.initContext(false);
         const formValid = this.checkFields(context);
 
-        context.rootUi[this.conf.formValidField] = formValid;
+        context.ui[this.conf.formValidField] = formValid;
         return {
             formValid,
             state: {
                 ...context.compRef.state,
-                data: context.rootData,
-                ui: context.rootUi,
+                data: context.data,
+                ui: context.ui,
             }
         };
     };
 
     initContext = (lazy = this.conf.lazyValidation) => {
         const compRef = this.compRef,
-            newData = {...compRef.state.data},
-            newUi = {...compRef.state.ui};
+            data = {...compRef.state.data},
+            ui = {...compRef.state.ui};
         return {
             compRef,
             lazy,
-            rootData: newData,
-            data: newData,
-            rootUi: newUi,
-            ui: newUi,
+            dataRoot: data,
+            data,
+            ui,
             rootCheckers: this.conf.checkers,
             checkers: this.conf.checkers,
         };
@@ -142,10 +143,13 @@ class Validator {
                         context.data[fieldName] = {...context.data[fieldName]};
                         context.ui[fieldName] = {...context.ui[fieldName]};
                     }
-                    context.data = context.data[fieldName];
-                    context.ui = context.ui[fieldName];
-                    context.checkers = context.checkers[fieldName];
-                    formValid &= this.checkFields(context, restPath);
+                    const subContext = {
+                        ...context,
+                        data: context.data[fieldName],
+                        ui: context.ui[fieldName],
+                        checkers: context.checkers[fieldName],
+                    };
+                    formValid &= this.checkFields(subContext, restPath);
                 }
             }
         }
@@ -156,7 +160,7 @@ class Validator {
         const fieldValidFlag = `${fieldName}Valid`;
         if (!context.lazy || !context.ui[fieldValidFlag]) {
             const value = context.data[fieldName],
-                valid = checker(value, context.rootData);
+                valid = checker(value, context.dataRoot);
             context.ui[fieldValidFlag] = !!valid;
             //console.log(`>>> validator.checkField >>> ${fieldName} is valid: ${context.ui[fieldValidFlag]}`);
         }

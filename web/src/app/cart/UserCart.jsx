@@ -48,6 +48,8 @@ class UserCart extends React.PureComponent {
                         addressCommentValid: true,
                     },
                 },
+                deliveryTypeValid: true,
+                paymentTypeValid: true,
                 goodsFormValid: true,
                 orderFormValid: true,
                 paymentFormValid: true,
@@ -83,6 +85,8 @@ class UserCart extends React.PureComponent {
                             house: isNotBlank,
                         },
                     },
+                    deliveryType: this.checkDeliveryType,
+                    paymentType: this.checkPaymentType,
                 },
                 formValidField: 'orderFormValid',
                 stateSetter: this.setWizardState,
@@ -117,10 +121,17 @@ class UserCart extends React.PureComponent {
         );
     };
 
-    paymentTypeHandler(paymentType) {
+    checkDeliveryType = (deliveryType) => {
+        return deliveryType === "COURIER";
+    };
+    checkPaymentType = (paymentType) => {
+        return paymentType === "CASH";
+    };
+
+    paymentTypeHandler(validator, fieldName, event) {
         let nextButtonText;
         let isFinalStep;
-        if ("CASH" === paymentType) {
+        if ("CASH" === event.target.value) {
             nextButtonText = "Подтвердить заказ";
             isFinalStep = true;
         } else {

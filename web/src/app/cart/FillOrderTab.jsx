@@ -18,12 +18,12 @@ import React from "react";
 
 class FillOrderTab extends React.PureComponent {
 
-    deliveryTypeHandler = (compRef, fieldName, event, tabIndex) => {
-        compRef.validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
+    deliveryTypeHandler = (validator, fieldName, event, tabIndex) => {
+        validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
     };
 
-    paymentTypeHandler = (compRef, fieldName, event) => {
-        this.props.paymentTypeHandler();
+    paymentTypeHandler = (validator, fieldName, event) => {
+        this.props.paymentTypeHandler(validator, fieldName, event);
     };
 
     render() {
