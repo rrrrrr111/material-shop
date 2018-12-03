@@ -17,19 +17,35 @@ import {checkboxHandler, inputHandler, inputTrimHandler, prepareHandler} from "a
 import React from "react";
 
 class FillOrderTab extends React.PureComponent {
+    state = {
+        isTownEditable: false,
+    };
+
+    regionHandler = (compRef, fieldName, event) => {
+        const value = event.target.value;
+        let isTownEditable;
+        if (value === '77' || value === '78') {
+            inputHandler(compRef, 'person.address.town', {target: {value: ""}})
+            isTownEditable = false;
+        } else {
+            isTownEditable = true;
+        }
+        this.setState({isTownEditable});
+        inputHandler(compRef, fieldName, event);
+    };
 
     deliveryTypeHandler = (compRef, fieldName, event, tabIndex) => {
         compRef.validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
     };
 
-    paymentTypeHandler = (event) => {
+    paymentTypeHandler = (compRef, fieldName, event) => {
         this.props.paymentTypeHandler();
     };
 
     render() {
         const {classes, stateComponent} = this.props;
         const {
-            loading
+            loading, loaded
         } = this.props.userUi;
         const disabled = loading;
         const {
@@ -63,11 +79,13 @@ class FillOrderTab extends React.PureComponent {
                         <h3>Оформление заказа</h3>
                         <h5 className={classes.title}>
                             Получатель
-                            <span className={classes.signinOrSignup}>
-                            <LocalLink to="/auth/signin" modal>Вход </LocalLink>
-                            /
-                            <LocalLink to="/auth/signup" modal> Регистрация</LocalLink>
-                        </span>
+                            {loaded
+                                ? null
+                                : <span className={classes.signinOrSignup}>
+                                    <LocalLink to="/auth/signin" modal>Вход </LocalLink>
+                                    /
+                                    <LocalLink to="/auth/signup" modal> Регистрация</LocalLink>
+                                </span>}
                         </h5>
                         <Grid container justify="center" spacing={16}>
                             <Grid xs={12} sm item>
@@ -151,13 +169,31 @@ class FillOrderTab extends React.PureComponent {
                                     labelText="Регион"
                                     fakeItemText="Выберите регион"
                                     value={region}
-                                    onChange={prepareHandler(stateComponent, 'person.address.region', inputHandler)}
+                                    onChange={prepareHandler(stateComponent, 'person.address.region', this.regionHandler)}
                                     error={!regionValid}
                                     options={util.dictionary.regionDict.values}
+                                    disabled={disabled || !this.state.isTownEditable}
+                                />
+                            </Grid>
+                            <Grid xs={6} item>
+                                <CustomInput
+                                    labelText="Населенный пункт"
+                                    formControlProps={{
+                                        fullWidth: true
+                                    }}
+                                    inputProps={{
+                                        autoComplete: "on",
+                                        name: "Town",
+                                        value: town,
+                                        onChange: prepareHandler(stateComponent, 'person.address.town', inputHandler),
+                                        error: !townValid
+                                    }}
+                                    otherProps={{
+                                        maxLength: 100,
+                                    }}
                                     disabled={disabled}
                                 />
                             </Grid>
-                            <Grid xs={6} item/>
                             <Grid xs={12} item>
                                 <NavPills
                                     color={navPillsColor}

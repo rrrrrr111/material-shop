@@ -89,22 +89,27 @@ const regionDict = {
     ]
 };
 
-class DeliveryTypeDict {
-    values = [
-        {id: 0, name: "COURIER", description: "Курьером", isActive: true, coast: 350},
-        {id: 1, name: "RUSSIAN_POST", description: "Почтой России", isActive: false, coast: null}
-    ];
+class Dictionary {
+    constructor(values) {
+        this.values = values;
+    }
+
     getById = ((id) => {
         return this.values.find((it) => (it.id === id))
-    }).bind(this);
+    });
+
     getByName = ((name) => {
         return this.values.find((it) => (it.name === name))
-    }).bind(this);
+    });
 }
 
 const dictionary = {
 
     regionDict: regionDict,
-    deliveryTypeDict: new DeliveryTypeDict(),
+    deliveryTypeDict: new Dictionary([
+            {id: 0, name: "COURIER", description: "Курьером", isActive: true, coast: 350},
+            {id: 1, name: "RUSSIAN_POST", description: "Почтой России", isActive: false, coast: null}
+        ]
+    ),
 };
 export default dictionary;
