@@ -105,7 +105,6 @@ class UserCart extends React.PureComponent {
     }
 
     checkTown = (town, data) => {
-        console.log(">>>", data);
         return (
             !(data.person.address.region === '77' || data.person.address.region === '78')
             || isNotBlank(town)
@@ -141,8 +140,10 @@ class UserCart extends React.PureComponent {
     };
 
     orderStepCheck = () => {
-        let valid = this.validator.isFormValid();
+        const valid = this.validator.isFormValid();
         this.setFormValid(1, valid);
+
+        console.log("  0  >>>", valid);
         return valid;
     };
 
@@ -159,11 +160,12 @@ class UserCart extends React.PureComponent {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, userUi} = this.props;
         const {
-            tabsState,
+            data, ui, tabsState,
         } = this.state;
 
+        console.log("1 >>>", data, ui, tabsState);
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div className={classes.container}>
@@ -185,9 +187,7 @@ class UserCart extends React.PureComponent {
                                         <FillOrderTab
                                             paymentTypeHandler={this.paymentTypeHandler}
                                             stateComponent={this}
-                                            userUi={this.props.userUi}
-                                            data={this.state.data}
-                                            ui={this.state.ui}
+                                            userUi={userUi} data={data} ui={ui}
                                         />
                                     ),
                                     containerClassName: classes.orderContainer,

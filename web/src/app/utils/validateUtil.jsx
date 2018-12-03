@@ -64,95 +64,111 @@ class Validator {
     }
 
     handleChange = (fieldPath, value) => {
-        const compRef = this.compRef,
-            newData = {...compRef.state.data},
-            newUi = {...compRef.state.ui},
-            lazy = this.conf.lazyValidation,
-            checkers = this.conf.fieldsToCheckers;
+        const context = this.initContext();
 
-        setField(newData, fieldPath, value);
+        setField(context.rootData, fieldPath, value);
 
-        newUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
-            ? this.checkFields(lazy, newData, newUi, checkers)
-            : this.checkFields(lazy, newData, newUi, checkers, fieldPath);
-        this.setState(compRef, newData, newUi);
+        context.rootUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
+            ? this.checkFields(context)
+            : this.checkFields(context, fieldPath);
+        this.setState(context);
     };
 
     isFormValid = () => {
         if (this.conf.disabled) {
             return true;
         }
-        const compRef = this.compRef,
-            newData = {...compRef.state.data},
-            newUi = {...compRef.state.ui},
-            checkers = this.conf.fieldsToCheckers;
+        const context = this.initContext(false);
+        const formValid = this.checkFields(context);
 
-        const formValid = this.checkFields(false, newData, newUi, checkers);
-        newUi[this.conf.formValidField] = formValid;
+        context.rootUi[this.conf.formValidField] = formValid;
         if (!formValid) {
-            this.setState(compRef, newData, newUi);
+            this.setState(context);
         }
         return formValid;
     };
 
-    checkFields = (lazy, dataObj, uiObj, checkersObj, fieldPathToCheck) => {
+    initContext = (lazy = this.conf.lazyValidation) => {
+        const compRef = this.compRef,
+            newData = {...compRef.state.data},
+            newUi = {...compRef.state.ui};
+        return {
+            compRef,
+            lazy,
+            rootData: newData,
+            data: newData,
+            rootUi: newUi,
+            ui: newUi,
+            rootCheckers: this.conf.fieldsToCheckers,
+            checkers: this.conf.fieldsToCheckers,
+        };
+    };
+
+    checkFields = (context, fieldPathToCheck) => {
         let fieldNameToCheck = null,
-            rest = null;
+            restPath = null;
         if (fieldPathToCheck) {
             const i = fieldPathToCheck.indexOf('.');
             fieldNameToCheck = (i > -1 ? fieldPathToCheck.substring(0, i) : fieldPathToCheck);
-            rest = (i > -1 ? fieldPathToCheck.substring(i + 1) : null)
+            restPath = (i > -1 ? fieldPathToCheck.substring(i + 1) : null)
         }
-
-        for (const fieldName in checkersObj) {
-            if (checkersObj.hasOwnProperty(fieldName)) {
+        for (const fieldName in context.checkers) {
+            if (context.checkers.hasOwnProperty(fieldName)) {
                 if (fieldNameToCheck && fieldName !== fieldNameToCheck) {
                     continue;
                 }
-                const checker = checkersObj[fieldName];
+                const checker = context.checkers[fieldName];
                 if (typeof checker === "function") {
-                    this.checkField(lazy, dataObj, uiObj, fieldName, checker);
+                    this.checkField(context, fieldName, checker);
                 } else {
-                    dataObj[fieldName] = {...dataObj[fieldName]};
-                    uiObj[fieldName] = {...uiObj[fieldName]};
-                    this.checkFields(lazy, dataObj[fieldName], uiObj[fieldName], checkersObj[fieldName], rest);
+                    context.data = {...context.data[fieldName]};
+                    context.ui = {...context.ui[fieldName]};
+                    context.checkers = context.checkers[fieldName];
+                    this.checkFields(context, restPath);
                 }
             }
         }
-        return this.checkFieldFlags(uiObj, checkersObj);
+        context.data = context.rootData;
+        context.ui = context.rootUi;
+        context.checkers = context.rootCheckers;
+        return this.checkFieldFlags(context);
     };
 
-    checkField = (lazy, dataObj, uiObj, fieldName, checker) => {
+    checkField = (context, fieldName, checker) => {
         const fieldValidFlag = `${fieldName}Valid`;
-        if (!lazy || !uiObj[fieldValidFlag]) {
-            const value = dataObj[fieldName];
-            uiObj[fieldValidFlag] = checker(value, this.compRef.state.data);
+        if (!context.lazy || !context.ui[fieldValidFlag]) {
+            const value = context.data[fieldName],
+                valid = checker(value, context.rootData);
+            context.ui[fieldValidFlag] = valid;
+            console.log(">>> validator.checkField >>>", fieldName, "is valid:", !!valid);
         }
     };
 
-    checkFieldFlags = (uiObj, checkersObj) => {
+    checkFieldFlags = (context) => {
         let formValid = true;
         let checker;
-        for (const fieldName in checkersObj) {
-            if (checkersObj.hasOwnProperty(fieldName)) {
-                checker = checkersObj[fieldName];
+        for (const fieldName in context.checkers) {
+            if (context.checkers.hasOwnProperty(fieldName)) {
+                checker = context.checkers[fieldName];
                 if (typeof checker === "function") {
-                    formValid &= uiObj[`${fieldName}Valid`]
+                    formValid &= context.ui[`${fieldName}Valid`]
                 } else { // вложенный объект
-                    uiObj[fieldName] = {...uiObj[fieldName]};
-                    formValid &= this.checkFieldFlags(uiObj[fieldName], checkersObj[fieldName]);
+                    context.data = context.data[fieldName];
+                    context.ui = context.ui[fieldName];
+                    context.checkers = context.checkers[fieldName];
+                    formValid &= this.checkFieldFlags(context);
                 }
             }
         }
         return formValid;
     };
 
-    setState(compRef, data, ui) {
-        //console.log(">>> validator >>>", data, ui);
-        compRef.setState({
-            ...compRef.state,
-            data,
-            ui,
+    setState(context) {
+        console.log(">>> validator.setState >>> data:", context.rootData, "ui:", context.rootUi);
+        context.compRef.setState({
+            ...context.compRef.state,
+            data: context.rootData,
+            ui: context.rootUi,
         });
     }
 }
