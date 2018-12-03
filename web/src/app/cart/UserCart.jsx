@@ -165,7 +165,6 @@ class UserCart extends React.PureComponent {
             data, ui, tabsState,
         } = this.state;
 
-        console.log("1 >>>", data, ui, tabsState);
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div className={classes.container}>

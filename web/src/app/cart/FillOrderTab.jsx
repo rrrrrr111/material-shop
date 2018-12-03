@@ -50,7 +50,6 @@ class FillOrderTab extends React.PureComponent {
         const courierDelivery = util.dictionary.deliveryTypeDict.getById(0);
         const postDelivery = util.dictionary.deliveryTypeDict.getById(1);
 
-        console.log("2 >>>", this.props);
         return (
             <form>
                 <Card>
