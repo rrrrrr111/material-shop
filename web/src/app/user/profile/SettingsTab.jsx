@@ -59,16 +59,18 @@ class SettingsTab extends React.PureComponent {
 
     handleSave = (e) => {
         e.stopPropagation();
-        if (!this.validator.isFormValid()) {
+        const {formValid, state} = this.validator.validate();
+        if (!formValid) {
+            this.setState(state);
             return;
         }
-        this._debouncedSave();
+        this._debouncedSave(state);
     };
 
     _debouncedSave = debounce(
-        (() => {
+        ((state) => {
             const compRef = this;
-            updateUiField(compRef, "message", "");
+            updateUiField(compRef, state, "message", "");
             dispatch(USER_START_LOADING)
                 .then(() => {
                     return util.ajax.backendPost(
@@ -78,7 +80,7 @@ class SettingsTab extends React.PureComponent {
                     );
                 })
                 .then((response) => {
-                    updateUiField(compRef, "message", response.message);
+                    updateUiField(compRef, this.state, "message", response.message);
                     if (response.success) {
                         dispatch(USER_DATA, {
                             ...compRef.props.userData,

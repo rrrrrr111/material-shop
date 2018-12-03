@@ -33,14 +33,10 @@ export const buttonDebounceRule = {leading: true, trailing: false};
 export const buttonDebounceTimeout = 500;
 export const ajaxDebounceTimeout = 1000;
 
-export const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-export const updateUiField = (componentRef, fieldName, value) => {
+export const updateUiField = (componentRef, state, fieldName, value) => {
     componentRef.setState(
         update(
-            componentRef.state, {
+            state, {
                 ui: {[fieldName]: {$set: value}}
             })
     );

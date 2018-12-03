@@ -57,16 +57,18 @@ class PasswordTab extends React.PureComponent {
 
     handleChangePassword = (e) => {
         e.stopPropagation();
-        if (!this.validator.isFormValid()) {
+        const {formValid, state} = this.validator.validate();
+        if (!formValid) {
+            this.setState(state);
             return;
         }
-        this._debouncedChangePassword();
+        this._debouncedChangePassword(state);
     };
 
     _debouncedChangePassword = debounce(
-        (() => {
+        ((state) => {
             const compRef = this;
-            updateUiField(compRef, "message", "");
+            updateUiField(compRef, state, "message", "");
             dispatch(USER_START_LOADING);
 
             util.ajax.backendPost("user/change-password", {
@@ -77,7 +79,7 @@ class PasswordTab extends React.PureComponent {
                     personEditDate: compRef.props.userData.editDate,
                 }
             }).then((response) => {
-                updateUiField(compRef, "message", response.message);
+                updateUiField(compRef, this.state, "message", response.message);
                 if (response.success) {
                     dispatch(USER_DATA, {
                         ...compRef.props.userData,

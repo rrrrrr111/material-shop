@@ -78,16 +78,18 @@ class LoginPopup extends React.PureComponent {
 
     handleSignin = (e) => {
         e.stopPropagation();
-        if (!this.validator.isFormValid()) {
+        const {formValid, state} = this.validator.validate();
+        if (!formValid) {
+            this.setState(state);
             return;
         }
-        this._debouncedSignin();
+        this._debouncedSignin(state);
     };
 
     _debouncedSignin = debounce( // для избежания двойного клика
-        () => {
+        (state) => {
             const compRef = this;
-            updateUiField(compRef, "message", "");
+            updateUiField(compRef, state, "message", "");
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
@@ -102,7 +104,7 @@ class LoginPopup extends React.PureComponent {
                         person = {...propsPerson, ...statePerson} // прокинем в глобальный стор, чтобы было уже введено на форме регистрации
                     }
                     dispatch(USER_AUTH, {person, success});
-                    updateUiField(compRef, "message", response.message);
+                    updateUiField(compRef, this.state, "message", response.message);
                     if (success) {
                         compRef.handleClose();
                         util.notify.signIn();

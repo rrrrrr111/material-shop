@@ -85,16 +85,18 @@ class RegPopup extends React.PureComponent {
 
     handleSignup = (e) => {
         e.stopPropagation();
-        if (!this.validator.isFormValid()) {
+        const {formValid, state} = this.validator.validate();
+        if (!formValid) {
+            this.setState(state);
             return;
         }
-        this._debouncedSignup();
+        this._debouncedSignup(state);
     };
 
     _debouncedSignup = debounce( // для избежания двойного клика
-        () => {
+        (state) => {
             const compRef = this;
-            updateUiField(compRef, "message", "");
+            updateUiField(compRef, state, "message", "");
 
             const propsPerson = compRef.props.data;
             const statePerson = compRef.state.data;
@@ -109,7 +111,7 @@ class RegPopup extends React.PureComponent {
                         person = {...propsPerson, ...statePerson}
                     }
                     dispatch(USER_AUTH, {person, success});
-                    updateUiField(compRef, "message", response.message);
+                    updateUiField(compRef, this.state, "message", response.message);
                     if (success) {
                         compRef.handleClose();
                         util.notify.signIn();

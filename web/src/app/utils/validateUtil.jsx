@@ -75,7 +75,7 @@ class Validator {
         this.setState(context);
     };
 
-    isFormValid = () => {
+    validate = () => {
         if (this.conf.disabled) {
             return true;
         }
@@ -83,10 +83,14 @@ class Validator {
         const formValid = this.checkFields(context);
 
         context.rootUi[this.conf.formValidField] = formValid;
-        if (!formValid) {
-            this.setState(context);
-        }
-        return formValid;
+        return {
+            formValid,
+            state: {
+                ...context.compRef.state,
+                data: context.rootData,
+                ui: context.rootUi,
+            }
+        };
     };
 
     initContext = (lazy = this.conf.lazyValidation) => {
@@ -144,8 +148,8 @@ class Validator {
         if (!context.lazy || !context.ui[fieldValidFlag]) {
             const value = context.data[fieldName],
                 valid = checker(value, context.rootData);
-            context.ui[fieldValidFlag] = valid;
-            //console.log(`>>> validator.checkField >>> ${fieldName} is valid:`, !!valid);
+            context.ui[fieldValidFlag] = !!valid;
+            //console.log(`>>> validator.checkField >>> ${fieldName} is valid: ${context.ui[fieldValidFlag]}`);
         }
     };
 

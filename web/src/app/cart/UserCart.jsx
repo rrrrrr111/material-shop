@@ -137,27 +137,25 @@ class UserCart extends React.PureComponent {
 
     goodsStepCheck = () => {
         let valid = true;
-        this.setFormValid(0, valid);
+        this.setFormValid(this.state, 0, valid);
         return valid;
     };
 
     orderStepCheck = () => {
-        const valid = this.validator.isFormValid();
-        this.setFormValid(1, valid);
-
-        console.log("0 >>>", valid);
-        return valid;
+        const {formValid, state} = this.validator.validate();
+        this.setFormValid(state, 1, formValid);
+        return formValid;
     };
 
     paymentStepCheck = () => {
         let valid = true;
-        this.setFormValid(2, valid);
+        this.setFormValid(this.state, 2, valid);
         return valid;
     };
 
-    setFormValid(index, valid) {
+    setFormValid(state, index, valid) {
         this.setState(
-            update(this.state, {tabsState: {[index]: {nextButton: {disable: {$set: !valid}}}}})
+            update(state, {tabsState: {[index]: {nextButton: {disable: {$set: !valid}}}}})
         );
     }
 
