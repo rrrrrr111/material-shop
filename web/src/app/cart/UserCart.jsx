@@ -105,9 +105,11 @@ class UserCart extends React.PureComponent {
     }
 
     checkTown = (town, data) => {
+        let region = data.person.address.region;
         return (
-            !(data.person.address.region === '77' || data.person.address.region === '78')
-            || isNotBlank(town)
+            (region !== '77' && region !== '78' && isNotBlank(town))
+            ||
+            ((region === '77' || region === '78') && !isNotBlank(town))
         );
     };
 

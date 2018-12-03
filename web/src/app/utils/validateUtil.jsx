@@ -145,7 +145,7 @@ class Validator {
             const value = context.data[fieldName],
                 valid = checker(value, context.rootData);
             context.ui[fieldValidFlag] = valid;
-            console.log(`>>> validator.checkField >>> ${fieldName} is valid:`, !!valid);
+            //console.log(`>>> validator.checkField >>> ${fieldName} is valid:`, !!valid);
         }
     };
 
