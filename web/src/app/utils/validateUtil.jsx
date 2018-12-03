@@ -1,5 +1,3 @@
-import {capitalize} from "app/utils/functionUtil";
-
 export const isNotBlank = (str) => {
     return (str && str.trim().length !== 0);
 };
@@ -65,23 +63,18 @@ class Validator {
         };
     }
 
-    handleChange = (fieldName, value) => {
+    handleChange = (fieldPath, value) => {
         const compRef = this.compRef;
         const newData = {...compRef.state.data};
         const newUi = {...compRef.state.ui};
         const lazy = this.conf.lazyValidation;
         const checkers = this.conf.fieldsToCheckers;
 
-        setField(newData, fieldName, value);
+        setField(newData, fieldPath, value);
 
-        let formValid;
-        if (this.conf.revalidateAllOnChange) {
-            formValid = this.checkFields(lazy, newData, newUi, checkers);
-        } else {
-            this.checkField(lazy, newData, newUi, fieldName, checkers);
-            formValid = this.checkFieldFlags(newUi, checkers);
-        }
-        newUi[this.conf.formValidField] = formValid;
+        newUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
+            ? this.checkFields(lazy, newData, newUi, checkers)
+            : this.checkFields(lazy, newData, newUi, checkers, fieldPath);
         this.setState(compRef, newData, newUi);
     };
 
@@ -103,35 +96,41 @@ class Validator {
         return formValid;
     };
 
-    checkFields = (lazy, dataObj, uiObj, checkersObj) => {
-        let checker;
+    checkFields = (lazy, dataObj, uiObj, checkersObj, fieldPathToCheck) => {
+        let fieldNameToCheck = null,
+            rest = null;
+        if (fieldPathToCheck) {
+            const i = fieldPathToCheck.indexOf('.');
+            fieldNameToCheck = (i > -1 ? fieldPathToCheck.substring(0, i) : fieldPathToCheck);
+            rest = (i > -1 ? fieldPathToCheck.substring(i + 1) : null)
+        }
+
         for (const fieldName in checkersObj) {
             if (checkersObj.hasOwnProperty(fieldName)) {
-                checker = checkersObj[fieldName];
+                if (fieldNameToCheck && fieldName !== fieldNameToCheck) {
+                    continue;
+                }
+                const checker = checkersObj[fieldName];
                 if (typeof checker === "function") {
-                    this.checkField(lazy, dataObj, uiObj, fieldName, checkersObj);
+                    this.checkField(lazy, dataObj, uiObj, fieldName, checker);
                 } else {
                     dataObj[fieldName] = {...dataObj[fieldName]};
                     uiObj[fieldName] = {...uiObj[fieldName]};
-                    this.checkFields(lazy, dataObj[fieldName], uiObj[fieldName], checker);
+                    this.checkFields(lazy, dataObj[fieldName], uiObj[fieldName], checkersObj[fieldName], rest);
                 }
             }
         }
         return this.checkFieldFlags(uiObj, checkersObj);
     };
 
-    checkField = (lazy, dataObj, uiObj, fieldName, checkersObj) => {
-        if (this.conf.disabled) {
-            return true;
+    checkField = (lazy, dataObj, uiObj, fieldName, checker) => {
+        if (this.conf.disabled || !checker) {
+            return;
         }
         const fieldValidFlag = `${fieldName}Valid`;
-        if (!lazy || !getField(uiObj, fieldValidFlag)) {
-            const checker = getField(checkersObj, fieldName);
-            if (checker) {
-                const value = getField(dataObj, fieldName);
-                setField(uiObj, fieldValidFlag, // ...is not a function - если не верно указан propertyPath
-                    checker(value, dataObj));
-            }
+        if (!lazy || !uiObj[fieldValidFlag]) {
+            const value = dataObj[fieldName];
+            uiObj[fieldValidFlag] = checker(value, dataObj);
         }
     };
 
@@ -145,7 +144,7 @@ class Validator {
                     formValid &= uiObj[`${fieldName}Valid`]
                 } else { // вложенный объект
                     uiObj[fieldName] = {...uiObj[fieldName]};
-                    formValid &= this.checkFieldFlags(uiObj[fieldName], checker);
+                    formValid &= this.checkFieldFlags(uiObj[fieldName], checkersObj[fieldName]);
                 }
             }
         }
