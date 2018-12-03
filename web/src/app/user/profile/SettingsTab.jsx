@@ -96,6 +96,7 @@ class SettingsTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const validator = this.validator;
         const {
             loading, loaded
         } = this.props.userUi;
@@ -113,7 +114,7 @@ class SettingsTab extends React.PureComponent {
                         <GridItem xs={12} sm={12} md={6}>
                             <CustomCheckbox
                                 checked={agreementChecked}
-                                onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
+                                onClick={prepareHandler(validator, 'agreementChecked', checkboxHandler)}
                                 disabled={disabled}
                                 label="Получать сообщения о распродажах, акциях, скидках и новостях компании"
                             />

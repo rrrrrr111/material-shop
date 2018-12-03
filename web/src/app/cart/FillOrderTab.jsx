@@ -27,7 +27,7 @@ class FillOrderTab extends React.PureComponent {
     };
 
     render() {
-        const {classes, stateComponent} = this.props;
+        const {classes, validatorRef} = this.props;
         const {
             loading, loaded
         } = this.props.userUi;
@@ -76,7 +76,7 @@ class FillOrderTab extends React.PureComponent {
                                         autoComplete: "on",
                                         name: "First name",
                                         value: firstName,
-                                        onChange: prepareHandler(stateComponent, 'person.firstName', inputHandler),
+                                        onChange: prepareHandler(validatorRef, 'person.firstName', inputHandler),
                                         error: !firstNameValid
                                     }}
                                     otherProps={{
@@ -95,7 +95,7 @@ class FillOrderTab extends React.PureComponent {
                                         autoComplete: "on",
                                         name: "Phone",
                                         value: phone,
-                                        onChange: prepareHandler(stateComponent, 'person.phone', inputHandler),
+                                        onChange: prepareHandler(validatorRef, 'person.phone', inputHandler),
                                         error: !phoneValid
                                     }}
                                     numberProps={{
@@ -115,7 +115,7 @@ class FillOrderTab extends React.PureComponent {
                                         autoComplete: "on",
                                         name: "Email",
                                         value: email,
-                                        onChange: prepareHandler(stateComponent, 'person.email', inputTrimHandler),
+                                        onChange: prepareHandler(validatorRef, 'person.email', inputTrimHandler),
                                         error: !emailValid
                                     }}
                                     otherProps={{
@@ -128,7 +128,7 @@ class FillOrderTab extends React.PureComponent {
                         <Grid container spacing={8}>
                             <Grid xs={12} item>
                                 <CustomCheckbox
-                                    onClick={prepareHandler(stateComponent, 'person.agreementChecked', checkboxHandler)}
+                                    onClick={prepareHandler(validatorRef, 'person.agreementChecked', checkboxHandler)}
                                     checked={agreementChecked}
                                     error={!agreementCheckedValid}
                                     disabled={disabled}
@@ -140,7 +140,7 @@ class FillOrderTab extends React.PureComponent {
                             </Grid>
                         </Grid>
                         <h5 className={classes.title}>Доставка</h5>
-                        <DeliveryAddressRegion stateComponent={stateComponent}
+                        <DeliveryAddressRegion validatorRef={validatorRef}
                                                disabled={disabled}
                                                data={dataAddress} ui={uiAddress}/>
                         <Grid container spacing={8}>
@@ -148,7 +148,7 @@ class FillOrderTab extends React.PureComponent {
                                 <NavPills
                                     color={navPillsColor}
                                     activeTabIndex={util.dictionary.deliveryTypeDict.getByName(deliveryType).id}
-                                    onChange={prepareHandler(stateComponent, 'deliveryType', this.deliveryTypeHandler)}
+                                    onChange={prepareHandler(validatorRef, 'deliveryType', this.deliveryTypeHandler)}
                                     tabs={[
                                         {
                                             pillText: courierDelivery.description,
@@ -164,7 +164,7 @@ class FillOrderTab extends React.PureComponent {
                                                             </h5>
                                                         </Grid>
                                                     </GridContainer>
-                                                    <DeliveryAddressStreet stateComponent={stateComponent}
+                                                    <DeliveryAddressStreet validatorRef={validatorRef}
                                                                            disabled={disabled}
                                                                            data={dataAddress} ui={uiAddress}/>
                                                 </div>

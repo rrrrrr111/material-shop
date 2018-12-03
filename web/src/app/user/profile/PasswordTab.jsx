@@ -94,6 +94,7 @@ class PasswordTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const validator = this.validator;
         const {
             loading, loaded
         } = this.props.userUi;
@@ -119,7 +120,7 @@ class PasswordTab extends React.PureComponent {
                                     type: "password",
                                     name: "old-password",
                                     value: oldPassword,
-                                    onChange: prepareHandler(this, 'oldPassword', inputHandler),
+                                    onChange: prepareHandler(validator, 'oldPassword', inputHandler),
                                     error: !oldPasswordValid,
                                 }}
                                 otherProps={{
@@ -139,7 +140,7 @@ class PasswordTab extends React.PureComponent {
                                     type: "password",
                                     name: "new-password-1",
                                     value: newPassword1,
-                                    onChange: prepareHandler(this, 'newPassword1', inputHandler),
+                                    onChange: prepareHandler(validator, 'newPassword1', inputHandler),
                                     error: !newPassword1Valid,
                                 }}
                                 otherProps={{
@@ -161,9 +162,9 @@ class PasswordTab extends React.PureComponent {
                                     type: "password",
                                     name: "new-password-2",
                                     value: newPassword2,
-                                    onChange: prepareHandler(this, 'newPassword2', inputHandler),
+                                    onChange: prepareHandler(validator, 'newPassword2', inputHandler),
                                     error: !newPassword2Valid,
-                                    onKeyPress: prepareEnterHandler(this, this.handleChangePassword),
+                                    onKeyPress: prepareEnterHandler(validator, this.handleChangePassword),
                                 }}
                                 otherProps={{
                                     maxLength: 100,

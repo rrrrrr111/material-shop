@@ -121,6 +121,7 @@ class RegPopup extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const validator = this.validator;
         const {
             loading
         } = this.props.ui;
@@ -188,7 +189,7 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Имя...",
                                         name: "First name",
                                         value: firstName,
-                                        onChange: prepareHandler(this, 'firstName', inputHandler),
+                                        onChange: prepareHandler(validator, 'firstName', inputHandler),
                                         error: !firstNameValid
                                     }}
                                     otherProps={{
@@ -212,7 +213,7 @@ class RegPopup extends React.PureComponent {
                                         placeholder: "Email...",
                                         name: "Email",
                                         value: email,
-                                        onChange: prepareHandler(this, 'email', inputTrimHandler),
+                                        onChange: prepareHandler(validator, 'email', inputTrimHandler),
                                         error: !emailValid
                                     }}
                                     otherProps={{
@@ -235,9 +236,9 @@ class RegPopup extends React.PureComponent {
                                         type: "password",
                                         name: "password",
                                         value: password,
-                                        onChange: prepareHandler(this, 'password', inputHandler),
+                                        onChange: prepareHandler(validator, 'password', inputHandler),
                                         error: !passwordValid,
-                                        onKeyPress: prepareEnterHandler(this, this.handleSignup),
+                                        onKeyPress: prepareEnterHandler(validator, this.handleSignup),
                                     }}
                                     otherProps={{
                                         maxLength: 100,
@@ -247,7 +248,7 @@ class RegPopup extends React.PureComponent {
                                 <CustomCheckbox
                                     boxClass={classes.termAndCondAgreementBox}
                                     checked={agreementChecked}
-                                    onClick={prepareHandler(this, 'agreementChecked', checkboxHandler)}
+                                    onClick={prepareHandler(validator, 'agreementChecked', checkboxHandler)}
                                     disabled={loading}
                                     error={!agreementCheckedValid}
                                     label={

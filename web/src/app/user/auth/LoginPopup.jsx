@@ -118,6 +118,7 @@ class LoginPopup extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
+        const validator = this.validator;
         const {
             loading
         } = this.props.ui;
@@ -196,7 +197,7 @@ class LoginPopup extends React.PureComponent {
                                         placeholder: "Email...",
                                         name: "Email",
                                         value: email,
-                                        onChange: prepareHandler(this, 'email', inputTrimHandler),
+                                        onChange: prepareHandler(validator, 'email', inputTrimHandler),
                                         error: !emailValid
                                     }}
                                     otherProps={{
@@ -222,9 +223,9 @@ class LoginPopup extends React.PureComponent {
                                         type: "password",
                                         name: "password",
                                         value: password,
-                                        onChange: prepareHandler(this, 'password', inputHandler),
+                                        onChange: prepareHandler(validator, 'password', inputHandler),
                                         error: !passwordValid,
-                                        onKeyPress: prepareEnterHandler(this, this.handleSignin),
+                                        onKeyPress: prepareEnterHandler(validator, this.handleSignin),
                                     }}
                                     otherProps={{
                                         maxLength: 100,

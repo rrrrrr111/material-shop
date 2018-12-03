@@ -168,7 +168,7 @@ class UserCart extends React.PureComponent {
                 },
                 message: {
                     $set: (!goodsFormValid || !orderFormValid || !paymentFormValid)
-                        ? "Не все обязательные поля заполнены, либо заполнены некорректно"
+                        ? "Необходимо исправить ошибки при заполнении полей"
                         : null
                 }
             },)
@@ -201,7 +201,7 @@ class UserCart extends React.PureComponent {
                                     content: (
                                         <FillOrderTab
                                             paymentTypeHandler={this.paymentTypeHandler}
-                                            stateComponent={this}
+                                            validatorRef={this.validator}
                                             userUi={userUi} data={data} ui={ui}
                                         />
                                     ),

@@ -29,7 +29,7 @@ class DeliveryAddressRegion extends React.PureComponent {
     };
 
     render() {
-        const {stateComponent, disabled} = this.props;
+        const {validatorRef, disabled} = this.props;
         const {
             region, town,
         } = this.props.data;
@@ -45,7 +45,7 @@ class DeliveryAddressRegion extends React.PureComponent {
                         labelText="Регион"
                         fakeItemText="Выберите регион"
                         value={region}
-                        onChange={prepareHandler(stateComponent, 'person.address.region', this.regionHandler)}
+                        onChange={prepareHandler(validatorRef, 'person.address.region', this.regionHandler)}
                         error={!regionValid}
                         options={util.dictionary.regionDict.values}
                         disabled={disabled}
@@ -61,7 +61,7 @@ class DeliveryAddressRegion extends React.PureComponent {
                             autoComplete: "on",
                             name: "Town",
                             value: town,
-                            onChange: prepareHandler(stateComponent, 'person.address.town', inputHandler),
+                            onChange: prepareHandler(validatorRef, 'person.address.town', inputHandler),
                             error: !townValid
                         }}
                         otherProps={{

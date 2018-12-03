@@ -6,7 +6,7 @@ import React from "react";
 
 
 function DeliveryAddressStreet(props) {
-    const {stateComponent, disabled} = props;
+    const {validatorRef, disabled} = props;
     const {
         street, house, housing, construction, apartment, entrance, intercom, addressComment,
     } = props.data;
@@ -26,10 +26,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Street",
                         value: street,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.street',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.street', inputHandler),
                         error: !streetValid
                     }}
                     otherProps={{
@@ -48,10 +46,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "House",
                         value: house,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.house',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.house', inputHandler),
                         error: !houseValid
                     }}
                     otherProps={{
@@ -70,10 +66,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Housing",
                         value: housing,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.housing',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.housing', inputHandler),
                         error: !housingValid
                     }}
                     otherProps={{
@@ -92,10 +86,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Construction",
                         value: construction,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.construction',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.construction', inputHandler),
                         error: !constructionValid
                     }}
                     otherProps={{
@@ -115,10 +107,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Apartment",
                         value: apartment,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.apartment',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.apartment', inputHandler),
                         error: !apartmentValid
                     }}
                     otherProps={{
@@ -137,10 +127,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Entrance",
                         value: entrance,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.entrance',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.entrance', inputHandler),
                         error: !entranceValid
                     }}
                     otherProps={{
@@ -159,10 +147,8 @@ function DeliveryAddressStreet(props) {
                         autoComplete: "on",
                         name: "Intercom",
                         value: intercom,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.intercom',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.intercom', inputHandler),
                         error: !intercomValid
                     }}
                     otherProps={{
@@ -183,10 +169,8 @@ function DeliveryAddressStreet(props) {
                         multiline: true,
                         rows: 3,
                         value: addressComment,
-                        onChange: prepareHandler(
-                            stateComponent,
-                            'person.address.addressComment',
-                            inputHandler),
+                        onChange: prepareHandler(validatorRef,
+                            'person.address.addressComment', inputHandler),
                         error: !addressCommentValid
                     }}
                     otherProps={{

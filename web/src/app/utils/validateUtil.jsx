@@ -163,22 +163,22 @@ class Validator {
     };
 }
 
-export const prepareHandler = (compRef, fieldName, valueHandler) => {
+export const prepareHandler = (validator, fieldName, valueHandler) => {
     const handlerName = `handle_${fieldName.replace('.', '_')}Change`;
-    let handler = compRef[handlerName];
+    let handler = validator.compRef[handlerName];
     if (handler) {
         return handler;
     }
     handler = (e, param) => {
-        valueHandler(compRef, fieldName, e, param);
+        valueHandler(validator, fieldName, e, param);
     };
-    compRef[handlerName] = handler;
+    validator.compRef[handlerName] = handler;
     return handler;
 };
 
-export const prepareEnterHandler = (compRef, onEnterHandler) => {
+export const prepareEnterHandler = (validator, onEnterHandler) => {
     const handlerName = `handleEnter`;
-    let handler = compRef[handlerName];
+    let handler = validator.compRef[handlerName];
     if (handler) {
         return handler;
     }
@@ -187,20 +187,21 @@ export const prepareEnterHandler = (compRef, onEnterHandler) => {
             onEnterHandler(e, param);
         }
     };
-    compRef[handlerName] = handler;
+    validator.compRef[handlerName] = handler;
     return handler;
 };
 
-export const inputHandler = (compRef, fieldName, event) => {
-    compRef.validator.handleChange(fieldName, event.target.value);
+export const inputHandler = (validator, fieldName, event) => {
+    validator.handleChange(fieldName, event.target.value);
 };
 
-export const inputTrimHandler = (compRef, fieldName, event) => {
-    compRef.validator.handleChange(fieldName, event.target.value.trim());
+export const inputTrimHandler = (validator, fieldName, event) => {
+    validator.handleChange(fieldName, event.target.value.trim());
 };
 
-export const checkboxHandler = (compRef, fieldName, event) => {
-    compRef.validator.handleChange(fieldName, !getField(compRef.state.data, fieldName));
+export const checkboxHandler = (validator, fieldName, event) => {
+    validator.handleChange(fieldName,
+        !getField(validator.compRef.state.data, fieldName));
 };
 
 const validate = {
