@@ -255,6 +255,7 @@ const formControl = {
 export const smallText = {
     fontSize: "10px",
     lineHeight: "12px",
+    fontWeight: "300",
 };
 
 export {

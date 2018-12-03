@@ -1,7 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-import CartGoodsTab from "app/cart/CartGoodsTab";
-import CartOrderTab from "app/cart/CartOrderTab";
-import CartPaymentTab from "app/cart/CartPaymentTab";
+import FillOrderTab from "app/cart/FillOrderTab";
+import GoodsTab from "app/cart/GoodsTab";
+import PaymentTab from "app/cart/PaymentTab";
 import {mapCartToProps} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
 import Clearfix from "app/common/misc/Clearfix";
@@ -23,14 +23,7 @@ class UserCart extends React.PureComponent {
         this.paymentTypeHandler = this.paymentTypeHandler.bind(this);
         this.state = {
             data: {
-                person: {
-                    ...props.userData,
-                    agreementChecked: true,
-                    address: {
-                        ...props.userData.address,
-                        region: "77",
-                    },
-                },
+                person: UserCart.getPersonFromProps(props),
                 deliveryAmount: null,
                 deliveryType: "COURIER",
                 paymentInfo: null,
@@ -88,6 +81,24 @@ class UserCart extends React.PureComponent {
                 formValidField: 'orderFormValid',
             }
         );
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (state.data.person.editDate !== props.userData.editDate) {
+            return update(state, {data: {person: {$set: UserCart.getPersonFromProps(props)}}});
+        }
+        return null;
+    }
+
+    static getPersonFromProps(props) {
+        return {
+            ...props.userData,
+            agreementChecked: true,
+            address: {
+                ...props.userData.address,
+                region: (props.userData.address.region ? props.userData.address.region : "77")
+            },
+        };
     }
 
     paymentTypeHandler(paymentType) {
@@ -152,7 +163,7 @@ class UserCart extends React.PureComponent {
                                 {
                                     key: "goods",
                                     url: "/cart/goods",
-                                    content: CartGoodsTab,
+                                    content: GoodsTab,
                                     containerClassName: classes.goodsContainer,
                                     ...tabsState[0]
                                 },
@@ -160,7 +171,7 @@ class UserCart extends React.PureComponent {
                                     key: "order",
                                     url: "/cart/order",
                                     content: (
-                                        <CartOrderTab
+                                        <FillOrderTab
                                             paymentTypeHandler={this.paymentTypeHandler}
                                             stateComponent={this}
                                             userUi={this.props.userUi}
@@ -174,7 +185,7 @@ class UserCart extends React.PureComponent {
                                 {
                                     key: "payment",
                                     url: "/cart/payment",
-                                    content: CartPaymentTab,
+                                    content: PaymentTab,
                                     containerClassName: classes.paymentContainer,
                                     ...tabsState[2]
                                 },

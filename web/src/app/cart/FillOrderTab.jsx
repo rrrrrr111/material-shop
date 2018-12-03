@@ -16,7 +16,7 @@ import util from "app/utils/util";
 import {checkboxHandler, inputHandler, inputTrimHandler, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
 
-class CartOrderTab extends React.PureComponent {
+class FillOrderTab extends React.PureComponent {
 
     deliveryTypeHandler = (compRef, fieldName, event, tabIndex) => {
         compRef.validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
@@ -61,12 +61,14 @@ class CartOrderTab extends React.PureComponent {
                 <Card>
                     <CardBody>
                         <h3>Оформление заказа</h3>
-                        <h5 className={classes.title}>Получатель</h5>
-                        <span className={classes.smallText}>
-                                    <LocalLink to="/auth/signin" modal>Вход </LocalLink>
-                                        /
-                                    <LocalLink to="/auth/signup" modal> Регистрация</LocalLink>
-                                </span>
+                        <h5 className={classes.title}>
+                            Получатель
+                            <span className={classes.signinOrSignup}>
+                            <LocalLink to="/auth/signin" modal>Вход </LocalLink>
+                            /
+                            <LocalLink to="/auth/signup" modal> Регистрация</LocalLink>
+                        </span>
+                        </h5>
                         <Grid container justify="center" spacing={16}>
                             <Grid xs={12} sm item>
                                 <CustomInput
@@ -203,4 +205,4 @@ class CartOrderTab extends React.PureComponent {
     }
 }
 
-export default withStyles(userCartStyle)(CartOrderTab);
+export default withStyles(userCartStyle)(FillOrderTab);

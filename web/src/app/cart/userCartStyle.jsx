@@ -12,7 +12,6 @@ const userCartStyle = theme => ({
     cartContainer: {
         margin: "-35px 0 50px 0",
     },
-
     goodsContainer: {
         ...helperStyles(theme).centeredContainer,
         maxWidth: 1200,
@@ -54,6 +53,10 @@ const userCartStyle = theme => ({
     },
     tableFooterContainer: {
         ...helperStyles(theme).width100,
+    },
+    signinOrSignup: {
+        ...smallText,
+        margin: "0 0 0 20px",
     },
 });
 

@@ -20,7 +20,7 @@ import React from "react";
 import {withRouter} from "react-router";
 import {dispatch} from "store";
 
-class CartGoodsTab extends React.PureComponent {
+class GoodsTab extends React.PureComponent {
     constructor(props) {
         super(props);
         // this.state = {
@@ -176,4 +176,4 @@ class CartGoodsTab extends React.PureComponent {
     }
 }
 
-export default connect(mapCartToProps)(withStyles(userCartStyle)(withRouter(CartGoodsTab)));
+export default connect(mapCartToProps)(withStyles(userCartStyle)(withRouter(GoodsTab)));

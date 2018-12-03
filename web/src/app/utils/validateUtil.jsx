@@ -163,7 +163,7 @@ class Validator {
 }
 
 export const prepareHandler = (compRef, fieldName, valueHandler) => {
-    const handlerName = `handle${capitalize(fieldName).replace('.', '_')}Change`;
+    const handlerName = `handle_${fieldName.replace('.', '_')}Change`;
     let handler = compRef[handlerName];
     if (handler) {
         return handler;
