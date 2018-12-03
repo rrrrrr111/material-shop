@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import userCartStyle from "app/cart/userCartStyle";
+import DeliveryAddressRegion from "app/common/address/DeliveryAddressRegion";
 import DeliveryAddressStreet from "app/common/address/DeliveryAddressStreet";
 import GridContainer from "app/common/grid/GridContainer";
 import LocalLink from "app/common/misc/LocalLink";
@@ -11,28 +12,11 @@ import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
 import CustomCheckbox from "app/common/theme/input/CustomCheckbox";
 import CustomInput from "app/common/theme/input/CustomInput";
-import SelectInput from "app/common/theme/input/SelectInput";
 import util from "app/utils/util";
 import {checkboxHandler, inputHandler, inputTrimHandler, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
 
 class FillOrderTab extends React.PureComponent {
-    state = {
-        isTownEditable: false,
-    };
-
-    regionHandler = (compRef, fieldName, event) => {
-        const value = event.target.value;
-        let isTownEditable;
-        if (value === '77' || value === '78') {
-            inputHandler(compRef, 'person.address.town', {target: {value: ""}})
-            isTownEditable = false;
-        } else {
-            isTownEditable = true;
-        }
-        this.setState({isTownEditable});
-        inputHandler(compRef, fieldName, event);
-    };
 
     deliveryTypeHandler = (compRef, fieldName, event, tabIndex) => {
         compRef.validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
@@ -54,12 +38,6 @@ class FillOrderTab extends React.PureComponent {
         const {
             address: uiAddress, firstNameValid, emailValid, phoneValid, agreementCheckedValid,
         } = this.props.ui.person;
-        const {
-            region, town,
-        } = this.props.data.person.address;
-        const {
-            regionValid, townValid,
-        } = this.props.ui.person.address;
         const {
             deliveryAmount,
             deliveryType,
@@ -156,44 +134,16 @@ class FillOrderTab extends React.PureComponent {
                                     disabled={disabled}
                                     label={
                                         <span className={classes.smallText}>
-                                         Я хочу получать персональные предложения о распродажах, акциях, скидках и новостях компании
+                                            Хочу получать персональные предложения о распродажах, акциях, скидках и новостях компании
                                     </span>}
                                 />
                             </Grid>
                         </Grid>
                         <h5 className={classes.title}>Доставка</h5>
-                        <Grid container justify="center" spacing={8}>
-                            <Grid xs={6} item>
-                                <SelectInput
-                                    id="region"
-                                    labelText="Регион"
-                                    fakeItemText="Выберите регион"
-                                    value={region}
-                                    onChange={prepareHandler(stateComponent, 'person.address.region', this.regionHandler)}
-                                    error={!regionValid}
-                                    options={util.dictionary.regionDict.values}
-                                    disabled={disabled || !this.state.isTownEditable}
-                                />
-                            </Grid>
-                            <Grid xs={6} item>
-                                <CustomInput
-                                    labelText="Населенный пункт"
-                                    formControlProps={{
-                                        fullWidth: true
-                                    }}
-                                    inputProps={{
-                                        autoComplete: "on",
-                                        name: "Town",
-                                        value: town,
-                                        onChange: prepareHandler(stateComponent, 'person.address.town', inputHandler),
-                                        error: !townValid
-                                    }}
-                                    otherProps={{
-                                        maxLength: 100,
-                                    }}
-                                    disabled={disabled}
-                                />
-                            </Grid>
+                        <DeliveryAddressRegion stateComponent={stateComponent}
+                                               disabled={disabled}
+                                               data={dataAddress} ui={uiAddress}/>
+                        <Grid container spacing={8}>
                             <Grid xs={12} item>
                                 <NavPills
                                     color={navPillsColor}
