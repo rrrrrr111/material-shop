@@ -162,9 +162,9 @@ class UserCart extends React.PureComponent {
         compRef.setState(
             update(state, {
                 tabsState: {
-                    [0]: {nextButton: {disabled: {$set: !goodsFormValid}}},
-                    [1]: {nextButton: {disabled: {$set: !orderFormValid}}},
-                    [2]: {nextButton: {disabled: {$set: !paymentFormValid}}}
+                    0: {nextButton: {disabled: {$set: !goodsFormValid}}},
+                    1: {nextButton: {disabled: {$set: !orderFormValid}}},
+                    2: {nextButton: {disabled: {$set: !paymentFormValid}}}
                 },
                 message: {
                     $set: (!goodsFormValid || !orderFormValid || !paymentFormValid)

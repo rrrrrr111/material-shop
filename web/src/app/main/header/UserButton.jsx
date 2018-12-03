@@ -37,7 +37,7 @@ class UserButton extends React.PureComponent {
     }
 
     render = () => {
-        const {classes, data} = this.props;
+        const {classes} = this.props;
         const buttonProps = {
             className: classes.rootMenuItemButton,
             color: "transparent"

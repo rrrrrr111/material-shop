@@ -116,6 +116,7 @@ class SettingsTab extends React.PureComponent {
                                 checked={agreementChecked}
                                 onClick={prepareHandler(validator, 'agreementChecked', checkboxHandler)}
                                 disabled={disabled}
+                                error={!agreementCheckedValid}
                                 label="Получать сообщения о распродажах, акциях, скидках и новостях компании"
                             />
                         </GridItem>
