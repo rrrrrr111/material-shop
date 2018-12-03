@@ -55,7 +55,7 @@ class LoginPopup extends React.PureComponent {
             },
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     email: checkEmail,
                     password: isNotEmpty,
                 },

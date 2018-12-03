@@ -40,7 +40,7 @@ class ProfileTab extends React.PureComponent {
             },
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     firstName: isNotBlank,
                     lastName: isNotBlank,
                     email: checkEmail,

@@ -30,7 +30,7 @@ class SettingsTab extends React.PureComponent {
             },
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     agreementChecked: isBoolean,
                 },
             }

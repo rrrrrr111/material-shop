@@ -60,7 +60,7 @@ class RegPopup extends React.PureComponent {
             },
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     email: checkEmail,
                     firstName: isNotBlank,
                     password: isNotEmpty,

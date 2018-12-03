@@ -36,7 +36,7 @@ class PasswordTab extends React.PureComponent {
             },
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     oldPassword: isNotEmpty,
                     newPassword1: this.checkNewPassword1,
                     newPassword2: this.checkNewPassword2,

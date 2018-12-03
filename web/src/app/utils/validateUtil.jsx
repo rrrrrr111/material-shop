@@ -67,6 +67,7 @@ class Validator {
         const context = this.initContext();
 
         setField(context.rootData, fieldPath, value);
+        setField(context.data, fieldPath, value);
 
         context.rootUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
             ? this.checkFields(context)
@@ -99,39 +100,43 @@ class Validator {
             data: newData,
             rootUi: newUi,
             ui: newUi,
-            rootCheckers: this.conf.fieldsToCheckers,
-            checkers: this.conf.fieldsToCheckers,
+            rootCheckers: this.conf.checkers,
+            checkers: this.conf.checkers,
         };
     };
 
     checkFields = (context, fieldPathToCheck) => {
         let fieldNameToCheck = null,
-            restPath = null;
+            restPath = null,
+            formValid = true;
         if (fieldPathToCheck) {
             const i = fieldPathToCheck.indexOf('.');
             fieldNameToCheck = (i > -1 ? fieldPathToCheck.substring(0, i) : fieldPathToCheck);
             restPath = (i > -1 ? fieldPathToCheck.substring(i + 1) : null)
         }
-        for (const fieldName in context.checkers) {
-            if (context.checkers.hasOwnProperty(fieldName)) {
-                if (fieldNameToCheck && fieldName !== fieldNameToCheck) {
-                    continue;
-                }
-                const checker = context.checkers[fieldName];
+        const checkers = context.checkers;
+        for (const fieldName in checkers) {
+            if (checkers.hasOwnProperty(fieldName)) {
+
+                const checker = checkers[fieldName];
                 if (typeof checker === "function") {
-                    this.checkField(context, fieldName, checker);
+                    if (!(fieldNameToCheck && fieldName !== fieldNameToCheck)) {
+                        this.checkField(context, fieldName, checker);
+                    }
+                    formValid &= context.ui[`${fieldName}Valid`];
                 } else {
-                    context.data = {...context.data[fieldName]};
-                    context.ui = {...context.ui[fieldName]};
+                    if (!(fieldNameToCheck && fieldName !== fieldNameToCheck)) {
+                        context.data[fieldName] = {...context.data[fieldName]};
+                        context.ui[fieldName] = {...context.ui[fieldName]};
+                    }
+                    context.data = context.data[fieldName];
+                    context.ui = context.ui[fieldName];
                     context.checkers = context.checkers[fieldName];
-                    this.checkFields(context, restPath);
+                    formValid &= this.checkFields(context, restPath);
                 }
             }
         }
-        context.data = context.rootData;
-        context.ui = context.rootUi;
-        context.checkers = context.rootCheckers;
-        return this.checkFieldFlags(context);
+        return formValid;
     };
 
     checkField = (context, fieldName, checker) => {
@@ -140,27 +145,8 @@ class Validator {
             const value = context.data[fieldName],
                 valid = checker(value, context.rootData);
             context.ui[fieldValidFlag] = valid;
-            console.log(">>> validator.checkField >>>", fieldName, "is valid:", !!valid);
+            console.log(`>>> validator.checkField >>> ${fieldName} is valid:`, !!valid);
         }
-    };
-
-    checkFieldFlags = (context) => {
-        let formValid = true;
-        let checker;
-        for (const fieldName in context.checkers) {
-            if (context.checkers.hasOwnProperty(fieldName)) {
-                checker = context.checkers[fieldName];
-                if (typeof checker === "function") {
-                    formValid &= context.ui[`${fieldName}Valid`]
-                } else { // вложенный объект
-                    context.data = context.data[fieldName];
-                    context.ui = context.ui[fieldName];
-                    context.checkers = context.checkers[fieldName];
-                    formValid &= this.checkFieldFlags(context);
-                }
-            }
-        }
-        return formValid;
     };
 
     setState(context) {

@@ -68,7 +68,7 @@ class UserCart extends React.PureComponent {
             ],
         };
         this.validator = util.validate.createValidator(this, {
-                fieldsToCheckers: {
+                checkers: {
                     person: {
                         firstName: isNotBlank,
                         email: checkEmail,
@@ -143,7 +143,7 @@ class UserCart extends React.PureComponent {
         const valid = this.validator.isFormValid();
         this.setFormValid(1, valid);
 
-        console.log("  0  >>>", valid);
+        console.log("0 >>>", valid);
         return valid;
     };
 
