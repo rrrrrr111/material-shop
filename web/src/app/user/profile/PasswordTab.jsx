@@ -47,12 +47,12 @@ class PasswordTab extends React.PureComponent {
         this.handleChangePassword = this.handleChangePassword.bind(this);
     };
 
-    checkNewPassword1 = (str, newData) => {
-        return (isNotEmpty(str) && str === newData['newPassword2']);
+    checkNewPassword1 = (passw, data) => {
+        return (isNotEmpty(passw) && passw === data.newPassword2);
     };
 
-    checkNewPassword2 = (str, newData) => {
-        return (isNotEmpty(str) && str === newData['newPassword1']);
+    checkNewPassword2 = (passw, data) => {
+        return (isNotEmpty(passw) && passw === data.newPassword1);
     };
 
     handleChangePassword = (e) => {

@@ -75,6 +75,9 @@ class UserCart extends React.PureComponent {
                         phone: checkPhone,
                         address: {
                             region: isNotBlank,
+                            town: this.checkTown,
+                            street: isNotBlank,
+                            house: isNotBlank,
                         },
                     },
                 },
@@ -100,6 +103,14 @@ class UserCart extends React.PureComponent {
             },
         };
     }
+
+    checkTown = (town, data) => {
+        console.log(">>>", data);
+        return (
+            !(data.person.address.region === '77' || data.person.address.region === '78')
+            || isNotBlank(town)
+        );
+    };
 
     paymentTypeHandler(paymentType) {
         let nextButtonText;
@@ -130,7 +141,7 @@ class UserCart extends React.PureComponent {
     };
 
     orderStepCheck = () => {
-        let valid = true;
+        let valid = this.validator.isFormValid();
         this.setFormValid(1, valid);
         return valid;
     };

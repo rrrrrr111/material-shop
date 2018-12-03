@@ -64,11 +64,11 @@ class Validator {
     }
 
     handleChange = (fieldPath, value) => {
-        const compRef = this.compRef;
-        const newData = {...compRef.state.data};
-        const newUi = {...compRef.state.ui};
-        const lazy = this.conf.lazyValidation;
-        const checkers = this.conf.fieldsToCheckers;
+        const compRef = this.compRef,
+            newData = {...compRef.state.data},
+            newUi = {...compRef.state.ui},
+            lazy = this.conf.lazyValidation,
+            checkers = this.conf.fieldsToCheckers;
 
         setField(newData, fieldPath, value);
 
@@ -82,14 +82,13 @@ class Validator {
         if (this.conf.disabled) {
             return true;
         }
-        const compRef = this.compRef;
-        const newData = {...compRef.state.data};
-        const newUi = {...compRef.state.ui};
-        const checkers = this.conf.fieldsToCheckers;
+        const compRef = this.compRef,
+            newData = {...compRef.state.data},
+            newUi = {...compRef.state.ui},
+            checkers = this.conf.fieldsToCheckers;
 
         const formValid = this.checkFields(false, newData, newUi, checkers);
         newUi[this.conf.formValidField] = formValid;
-
         if (!formValid) {
             this.setState(compRef, newData, newUi);
         }
@@ -124,13 +123,10 @@ class Validator {
     };
 
     checkField = (lazy, dataObj, uiObj, fieldName, checker) => {
-        if (this.conf.disabled || !checker) {
-            return;
-        }
         const fieldValidFlag = `${fieldName}Valid`;
         if (!lazy || !uiObj[fieldValidFlag]) {
             const value = dataObj[fieldName];
-            uiObj[fieldValidFlag] = checker(value, dataObj);
+            uiObj[fieldValidFlag] = checker(value, this.compRef.state.data);
         }
     };
 
