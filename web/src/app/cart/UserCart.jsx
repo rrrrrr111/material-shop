@@ -9,7 +9,7 @@ import Wizard from "app/common/wizard/Wizard";
 import UserDataLoader from "app/user/profile/UserDataLoader";
 import {connect, update} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import {checkEmail, checkPhone, isNotBlank} from "app/utils/validateUtil";
+import {checkEmail, checkPhone, isBoolean, isNotBlank} from "app/utils/validateUtil";
 import classNames from "classnames";
 import React from "react";
 
@@ -48,8 +48,10 @@ class UserCart extends React.PureComponent {
                         addressCommentValid: true,
                     },
                 },
+                goodsFormValid: true,
                 orderFormValid: true,
-                orderFormMessage: "",
+                paymentFormValid: true,
+                message: null,
             },
             tabsState: [
                 {
@@ -73,6 +75,7 @@ class UserCart extends React.PureComponent {
                         firstName: isNotBlank,
                         email: checkEmail,
                         phone: checkPhone,
+                        agreementChecked: isBoolean,
                         address: {
                             region: isNotBlank,
                             town: this.checkTown,
@@ -82,6 +85,7 @@ class UserCart extends React.PureComponent {
                     },
                 },
                 formValidField: 'orderFormValid',
+                stateSetter: this.setWizardState,
             }
         );
     }
@@ -137,32 +141,44 @@ class UserCart extends React.PureComponent {
 
     goodsStepCheck = () => {
         let valid = true;
-        this.setFormValid(this.state, 0, valid);
+        this.setWizardState(this, this.state);
         return valid;
     };
 
     orderStepCheck = () => {
         const {formValid, state} = this.validator.validate();
-        this.setFormValid(state, 1, formValid);
+        this.setWizardState(this, state);
         return formValid;
     };
 
     paymentStepCheck = () => {
         let valid = true;
-        this.setFormValid(this.state, 2, valid);
+        this.setWizardState(this, this.state);
         return valid;
     };
 
-    setFormValid(state, index, valid) {
-        this.setState(
-            update(state, {tabsState: {[index]: {nextButton: {disable: {$set: !valid}}}}})
+    setWizardState(compRef, state) {
+        const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
+        compRef.setState(
+            update(state, {
+                tabsState: {
+                    [0]: {nextButton: {disabled: {$set: !goodsFormValid}}},
+                    [1]: {nextButton: {disabled: {$set: !orderFormValid}}},
+                    [2]: {nextButton: {disabled: {$set: !paymentFormValid}}}
+                },
+                message: {
+                    $set: (!goodsFormValid || !orderFormValid || !paymentFormValid)
+                        ? "Не все обязательные поля заполнены, либо заполнены некорректно"
+                        : null
+                }
+            },)
         );
     }
 
     render() {
         const {classes, userUi} = this.props;
         const {
-            data, ui, tabsState,
+            data, ui, tabsState, message,
         } = this.state;
 
         return (
@@ -200,7 +216,7 @@ class UserCart extends React.PureComponent {
                                     ...tabsState[2]
                                 },
                             ]
-                        } finalUrl="/"/>
+                        } finalUrl="/" message={message}/>
                     </div>
                     <Clearfix/>
                 </div>

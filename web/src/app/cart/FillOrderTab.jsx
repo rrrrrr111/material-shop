@@ -45,7 +45,7 @@ class FillOrderTab extends React.PureComponent {
             paymentType,
         } = this.props.data;
         const {
-            orderFormValid, orderFormMessage
+            orderFormValid
         } = this.props.ui;
         const courierDelivery = util.dictionary.deliveryTypeDict.getById(0);
         const postDelivery = util.dictionary.deliveryTypeDict.getById(1);

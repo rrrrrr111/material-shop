@@ -51,6 +51,11 @@ const getField = (obj, path) => {
     return obj[path[i]];
 };
 
+const defaultStateSetter = (compRef, state) => {
+    //console.log(">>> validator.setState >>> data:", state.data, "ui:", state.ui);
+    compRef.setState(state);
+};
+
 class Validator {
     constructor(compRef, conf) {
         this.compRef = compRef;
@@ -59,20 +64,24 @@ class Validator {
             formValidField: 'formValid', // поле в state формы сигнализирующее, что все поля валидны
             lazyValidation: true, // true - подсветка ошибки только при нажатии кнопки, false - сразу при вводе
             revalidateAllOnChange: false, // проверка всех полей при изменении в одном
+            stateSetter: defaultStateSetter,
             ...conf
         };
     }
 
     handleChange = (fieldPath, value) => {
         const context = this.initContext();
-
         setField(context.rootData, fieldPath, value);
-        setField(context.data, fieldPath, value);
 
         context.rootUi[this.conf.formValidField] = this.conf.revalidateAllOnChange
             ? this.checkFields(context)
             : this.checkFields(context, fieldPath);
-        this.setState(context);
+
+        this.conf.stateSetter(context.compRef, {
+            ...context.compRef.state,
+            data: context.rootData,
+            ui: context.rootUi,
+        });
     };
 
     validate = () => {
@@ -152,15 +161,6 @@ class Validator {
             //console.log(`>>> validator.checkField >>> ${fieldName} is valid: ${context.ui[fieldValidFlag]}`);
         }
     };
-
-    setState(context) {
-        console.log(">>> validator.setState >>> data:", context.rootData, "ui:", context.rootUi);
-        context.compRef.setState({
-            ...context.compRef.state,
-            data: context.rootData,
-            ui: context.rootUi,
-        });
-    }
 }
 
 export const prepareHandler = (compRef, fieldName, valueHandler) => {

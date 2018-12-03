@@ -2,6 +2,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "app/common/grid/GridContainer.jsx";
 import GridItem from "app/common/grid/GridItem.jsx";
 import AppIcon from "app/common/icon/AppIcon";
+import ErrorMessage from "app/common/message/ErrorMessage";
+import Clearfix from "app/common/misc/Clearfix";
 import {buttonColor} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import wizardStyle from "app/common/wizard/wizardStyle";
@@ -119,6 +121,7 @@ class Wizard extends React.Component {
             tabsConfig,
             direction,
             horizontal,
+            message,
         } = this.props;
 
         let tabIndex = this.getTabIndex(this.props);
@@ -144,6 +147,8 @@ class Wizard extends React.Component {
                                     {this.renderNextButton(classes, tab)}
                                     {this.renderPrevButton(classes, tab)}
                                 </div>
+                                <Clearfix/>
+                                <ErrorMessage>{message}</ErrorMessage>
                             </div>
                         );
                     })}
@@ -187,6 +192,7 @@ class Wizard extends React.Component {
             contentGrid: PropTypes.object
         }),
         finalUrl: PropTypes.string.isRequired,
+        message: PropTypes.string,
     };
 }
 
