@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const style = theme => ({
-    horizontalBox: {
+    box: {
         position: "relative",
         display: "block",
         "&:first-child": {
@@ -61,7 +61,7 @@ function CustomCheckbox(props) {
     } = props;
 
     return (
-        <div className={classes.horizontalBox}>
+        <div className={classes.box}>
             <FormControlLabel
                 className={boxClass}
                 classes={{label: classes.label}}

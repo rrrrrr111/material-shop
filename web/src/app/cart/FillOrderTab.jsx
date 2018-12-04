@@ -12,6 +12,7 @@ import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
 import CustomCheckbox from "app/common/theme/input/CustomCheckbox";
 import CustomInput from "app/common/theme/input/CustomInput";
+import CustomRadio from "app/common/theme/input/CustomRadio";
 import util from "app/utils/util";
 import {checkboxHandler, inputHandler, inputTrimHandler, prepareHandler} from "app/utils/validateUtil";
 import React from "react";
@@ -184,6 +185,8 @@ class FillOrderTab extends React.PureComponent {
                             </Grid>
                         </Grid>
                         <h5 className={classes.title}>Оплата</h5>
+                        <CustomRadio checked={true} label="Наличными курьеру"/>
+                        <CustomRadio disabled={true} label="По безналичному расчету"/>
                     </CardBody>
                 </Card>
             </form>

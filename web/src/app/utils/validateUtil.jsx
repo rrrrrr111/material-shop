@@ -82,7 +82,7 @@ class Validator {
             data: context.data,
             ui: context.ui,
         };
-        console.log(`>>> validator.handleChange >>> ${fieldPath} value: ${value}, newState:`, newState);
+        //console.log(`>>> validator.handleChange >>> ${fieldPath} value: ${value}, newState:`, newState);
         this.conf.stateSetter(context.compRef, newState);
     };
 

@@ -167,7 +167,7 @@ function DeliveryAddressStreet(props) {
                     inputProps={{
                         autoComplete: "on",
                         multiline: true,
-                        rows: 3,
+                        rows: 2,
                         value: addressComment,
                         onChange: prepareHandler(validatorRef,
                             'person.address.addressComment', inputHandler),

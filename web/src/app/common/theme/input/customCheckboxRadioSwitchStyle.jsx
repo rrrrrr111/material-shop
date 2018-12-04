@@ -5,47 +5,13 @@ const customCheckboxRadioSwitch = {
     checkRoot: {
         padding: "14px"
     },
-    radioRoot: {
-        padding: "16px"
-    },
-    checkboxAndRadio: {
-        position: "relative",
-        display: "block",
-        marginTop: "10px",
-        marginBottom: "10px"
-    },
-    checkboxAndRadioHorizontal: {
-        position: "relative",
-        display: "block",
-        "&:first-child": {
-            marginTop: "10px"
-        },
-        "&:not(:first-child)": {
-            marginTop: "-14px"
-        },
-        marginTop: "0",
-        marginBottom: "0"
-    },
+
+
     checked: {
         color: primaryColor + "!important"
     },
-    disabledIconCheckboxAndRadio: {
-        "& $checkedIcon,& $uncheckedIcon,& $radioChecked,& $radioUnchecked": {
-            borderColor: "#000000",
-            opacity: "0.26",
-            color: "#000000"
-        }
-    },
-    label: {
-        cursor: "pointer",
-        paddingLeft: "0",
-        color: "#AAAAAA",
-        fontSize: "14px",
-        lineHeight: "1.428571429",
-        fontWeight: "400",
-        display: "inline-flex",
-        transition: "0.3s ease all"
-    },
+
+
     labelHorizontal: {
         color: "rgba(0, 0, 0, 0.26)",
         cursor: "pointer",
@@ -72,25 +38,7 @@ const customCheckboxRadioSwitch = {
         paddingTop: "22px",
         marginRight: "0"
     },
-    labelError: {
-        color: dangerColor
-    },
-    radio: {
-        color: primaryColor + "!important"
-    },
-    radioChecked: {
-        width: "16px",
-        height: "16px",
-        border: "1px solid " + primaryColor,
-        borderRadius: "50%"
-    },
-    radioUnchecked: {
-        width: "0px",
-        height: "0px",
-        padding: "7px",
-        border: "1px solid rgba(0, 0, 0, .54)",
-        borderRadius: "50%"
-    },
+
     inlineChecks: {
         marginTop: "8px"
     },
