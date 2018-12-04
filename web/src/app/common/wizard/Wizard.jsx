@@ -55,7 +55,7 @@ class Wizard extends React.Component {
                 goBack = newIndex < 0,
                 goPrev = newIndex < currIndex,
                 goNext = newIndex > currIndex,
-                goFinal = newIndex >= compRef.props.tabsConfig.length || currTabConfig.isFinalStep;
+                goFinal = newIndex >= compRef.props.tabsConfig.length || (currTabConfig.isFinalStep && goNext);
 
             if (goNext && currTabConfig.nextButton.canGo
                 && !currTabConfig.nextButton.canGo()) {
@@ -65,13 +65,8 @@ class Wizard extends React.Component {
                 && !currTabConfig.prevButton.canGo()) {
                 return;
             }
-            if (goBack) {
-                // todo учитывать возврат с других шагов
-                util.navigate.goToPreviousUrl();
-                return;
-            }
             let url;
-            if (goFinal) {
+            if (goFinal || goBack) {
                 url = compRef.props.finalUrl;
             } else {
                 url = compRef.getTabConfig(newIndex).url;
