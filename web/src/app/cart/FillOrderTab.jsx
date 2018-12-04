@@ -179,12 +179,8 @@ class FillOrderTab extends React.PureComponent {
                                             pillText: postDelivery.description,
                                             content: (
                                                 <SnackbarContent
-                                                    message={
-                                                        <span>Сожалеем, доставка Почтой России временно не доступна</span>
-                                                    }
-                                                    close={false}
-                                                    color="warning"
-                                                    icon={Warning}
+                                                    message="Сожалеем, доставка Почтой России временно не доступна"
+                                                    close={false} color="warning" icon={Warning}
                                                 />
                                             )
                                         }
@@ -201,8 +197,10 @@ class FillOrderTab extends React.PureComponent {
                                      onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
                                      disabled={disabled}
                         />
-                        <CustomRadio label={<span>По безналичному расчету&nbsp;&nbsp;&nbsp;
-                            <span className="errMess">Временно не доступно</span>
+                        <CustomRadio label={<span>По безналичному расчету
+                            {paymentTypeValid ? null
+                                : <span className="errMess">&nbsp;&nbsp;&nbsp;Временно не доступно</span>
+                            }
                                             </span>}
                                      value="CASHLESS"
                                      checked={paymentType === "CASHLESS"}
