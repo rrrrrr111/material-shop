@@ -13,6 +13,24 @@ import {checkEmail, checkPhone, isBoolean, isNotBlank} from "app/utils/validateU
 import classNames from "classnames";
 import React from "react";
 
+const initialPersonUi = {
+    firstNameValid: true,
+    phoneValid: true,
+    emailValid: true,
+    agreementCheckedValid: true,
+    address: {
+        regionValid: true,
+        townValid: true,
+        streetValid: true,
+        houseValid: true,
+        housingValid: true,
+        constructionValid: true,
+        apartmentValid: true,
+        entranceValid: true,
+        intercomValid: true,
+        addressCommentValid: true,
+    },
+};
 
 class UserCart extends React.PureComponent {
     constructor(props) {
@@ -20,6 +38,7 @@ class UserCart extends React.PureComponent {
         this.goodsStepCheck = this.goodsStepCheck.bind(this);
         this.orderStepCheck = this.orderStepCheck.bind(this);
         this.paymentStepCheck = this.paymentStepCheck.bind(this);
+
         this.state = UserCart.getDerivedStateFromProps(props, {
             data: {
                 person: null,
@@ -30,24 +49,7 @@ class UserCart extends React.PureComponent {
                 totalAmount: 0,
             },
             ui: {
-                person: {
-                    firstNameValid: true,
-                    phoneValid: true,
-                    emailValid: true,
-                    agreementCheckedValid: true,
-                    address: {
-                        regionValid: true,
-                        townValid: true,
-                        streetValid: true,
-                        houseValid: true,
-                        housingValid: true,
-                        constructionValid: true,
-                        apartmentValid: true,
-                        entranceValid: true,
-                        intercomValid: true,
-                        addressCommentValid: true,
-                    },
-                },
+                person: initialPersonUi,
                 goodsAmountValid: true,
                 deliveryTypeValid: true,
                 paymentTypeValid: true,
@@ -106,7 +108,10 @@ class UserCart extends React.PureComponent {
     static getDerivedStateFromProps(props, state) { // срабатывает при изменении пропретей, а также стэйта
         let changed = false;
         if (!state.data.person || state.data.person.editDate !== props.userData.editDate) {
-            state = update(state, {data: {person: {$set: UserCart.getPersonFromProps(props)}}});
+            state = update(state, {
+                data: {person: {$set: UserCart.getPersonFromProps(props)}},
+                ui: {person: {$set: initialPersonUi}}
+            });
             changed |= true;
         }
         if (state.data.cartGoodsList !== props.data.cartGoodsList) {
@@ -140,8 +145,6 @@ class UserCart extends React.PureComponent {
     }
 
     static getWizardState(state, clearValidation) {
-        console.log(">>>>", clearValidation);
-
         const {paymentType} = state.data;
         const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
 
@@ -190,11 +193,11 @@ class UserCart extends React.PureComponent {
 
             return `Минимальная сумма покупок ${minAmount}р. Необходимо добавить 
                     в корзину товаров еще на ${minAmount - goodsAmount}р.`;
-        } else if (!goodsFormValid || !orderFormValid || !paymentFormValid) {
-            return "Необходимо исправить ошибки при заполнении полей";
-        } else {
-            return null;
         }
+        if (!goodsFormValid || !orderFormValid || !paymentFormValid) {
+            return "Необходимо исправить ошибки при заполнении полей";
+        }
+        return null;
     };
 
     checkTown = (town, data) => {
