@@ -8,7 +8,6 @@ export const START_ORDER_CREATE = 'START_ORDER_CREATE';
 export const ORDER_CREATED = 'ORDER_CREATED';
 
 const initialState = {
-    person: null,
     cartGoodsList: [],
     goodsAmount: 0,
     goodsQuantity: 0,

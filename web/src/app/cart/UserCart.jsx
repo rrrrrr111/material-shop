@@ -20,13 +20,14 @@ class UserCart extends React.PureComponent {
         this.goodsStepCheck = this.goodsStepCheck.bind(this);
         this.orderStepCheck = this.orderStepCheck.bind(this);
         this.paymentStepCheck = this.paymentStepCheck.bind(this);
-        this.state = {
+        this.state = UserCart.getDerivedStateFromProps(props, {
             data: {
-                person: UserCart.getPersonFromProps(props),
+                person: null,
                 deliveryAmount: null,
                 deliveryType: "COURIER",
                 paymentInfo: null,
                 paymentType: "CASH",
+                totalAmount: 0,
             },
             ui: {
                 person: {
@@ -47,6 +48,7 @@ class UserCart extends React.PureComponent {
                         addressCommentValid: true,
                     },
                 },
+                goodsAmountValid: true,
                 deliveryTypeValid: true,
                 paymentTypeValid: true,
                 goodsFormValid: true,
@@ -56,12 +58,12 @@ class UserCart extends React.PureComponent {
             },
             tabsState: [
                 {
-                    prevButton: {text: "Вернуться"},
+                    prevButton: {text: "Вернуться к покупкам"},
                     nextButton: {text: "К оформлению заказа", canGo: this.goodsStepCheck},
                 },
                 {
                     prevButton: {text: "Назад"},
-                    nextButton: {text: "Подтвердить заказ", canGo: this.orderStepCheck},
+                    nextButton: {text: "", canGo: this.orderStepCheck},
                     isFinalStep: true
                 },
                 {
@@ -69,8 +71,15 @@ class UserCart extends React.PureComponent {
                     nextButton: {text: "Подтвердить заказ", canGo: this.paymentStepCheck},
                 },
             ],
-        };
-        this.validator = util.validate.createValidator(this, {
+        });
+        this.goodsTabValidator = util.validate.createValidator(this, {
+                checkers: {
+                    goodsAmount: this.checkGoodsAmount,
+                },
+                formValidField: 'goodsFormValid',
+            }
+        );
+        this.orderTabValidator = util.validate.createValidator(this, {
                 checkers: {
                     person: {
                         firstName: isNotBlank,
@@ -84,6 +93,7 @@ class UserCart extends React.PureComponent {
                             house: isNotBlank,
                         },
                     },
+                    goodsAmount: this.checkGoodsAmount,
                     deliveryType: this.checkDeliveryType,
                     paymentType: this.checkPaymentType,
                 },
@@ -93,11 +103,29 @@ class UserCart extends React.PureComponent {
         );
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (state.data.person.editDate !== props.userData.editDate) {
-            return update(state, {data: {person: {$set: UserCart.getPersonFromProps(props)}}});
+    static getDerivedStateFromProps(props, state) { // срабатывает при изменении пропретей, а также стэйта
+        let changed = false;
+        if (!state.data.person || state.data.person.editDate !== props.userData.editDate) {
+            state = update(state, {data: {person: {$set: UserCart.getPersonFromProps(props)}}});
+            changed |= true;
         }
-        return null;
+        if (state.data.cartGoodsList !== props.data.cartGoodsList) {
+            state = update(state, {
+                data: {
+                    cartGoodsList: {$set: props.data.cartGoodsList},
+                    goodsAmount: {$set: props.data.goodsAmount},
+                    goodsQuantity: {$set: props.data.goodsQuantity}
+                }
+            });
+            state = UserCart.getWizardState(state, true);
+            changed |= true;
+        }
+
+        if (state.ui.loading !== props.ui.loading) {
+            state = update(state, {ui: {loading: {$set: props.ui.loading}}});
+            changed |= true;
+        }
+        return changed ? state : null;
     }
 
     static getPersonFromProps(props) {
@@ -111,6 +139,64 @@ class UserCart extends React.PureComponent {
         };
     }
 
+    static getWizardState(state, clearValidation) {
+        console.log(">>>>", clearValidation);
+
+        const {paymentType} = state.data;
+        const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
+
+        const step2nextButtonText = paymentType === "CASH" ? "Подтвердить заказ" : "Перейти к оплате";
+        const step2isFinal = paymentType === "CASH";
+
+        return update(state, {
+            ui: {
+                message: {
+                    $set: (clearValidation ? null : UserCart.getWizardMessage(state))
+                }
+            },
+            tabsState: {
+                0: {
+                    nextButton: {
+                        disabled: {$set: !(goodsFormValid | clearValidation)}
+                    }
+                },
+                1: {
+                    nextButton: {
+                        disabled: {$set: !(orderFormValid | clearValidation)},
+                        text: {$set: step2nextButtonText}
+                    },
+                    isFinalStep: {$set: step2isFinal}
+                },
+                2: {
+                    nextButton: {
+                        disabled: {$set: !(paymentFormValid | clearValidation)}
+                    }
+                }
+            },
+        },);
+    }
+
+    static getWizardMessage = (state) => {
+        const {
+            goodsAmountValid,
+            goodsFormValid, orderFormValid, paymentFormValid
+        } = state.ui;
+        const {
+            goodsAmount
+        } = state.data;
+
+        if (!goodsAmountValid) {
+            const minAmount = util.global.getSiteConfigSync().minCartGoodsAmount;
+
+            return `Минимальная сумма покупок ${minAmount}р. Необходимо добавить 
+                    в корзину товаров еще на ${minAmount - goodsAmount}р.`;
+        } else if (!goodsFormValid || !orderFormValid || !paymentFormValid) {
+            return "Необходимо исправить ошибки при заполнении полей";
+        } else {
+            return null;
+        }
+    };
+
     checkTown = (town, data) => {
         let region = data.person.address.region;
         return (
@@ -120,21 +206,26 @@ class UserCart extends React.PureComponent {
         );
     };
 
+    checkGoodsAmount = (goodsAmount) => {
+        return goodsAmount > util.global.getSiteConfigSync().minCartGoodsAmount;
+    };
+
     checkDeliveryType = (deliveryType) => {
         return deliveryType === "COURIER";
     };
+
     checkPaymentType = (paymentType) => {
         return paymentType === "CASH";
     };
 
     goodsStepCheck = () => {
-        let valid = true;
-        this.setWizardState(this, this.state);
-        return valid;
+        const {formValid, state} = this.goodsTabValidator.validate();
+        this.setWizardState(this, state);
+        return formValid;
     };
 
     orderStepCheck = () => {
-        const {formValid, state} = this.validator.validate();
+        const {formValid, state} = this.orderTabValidator.validate();
         this.setWizardState(this, state);
         return formValid;
     };
@@ -146,47 +237,19 @@ class UserCart extends React.PureComponent {
     };
 
     setWizardState(compRef, state) {
-        const {paymentType} = state.data;
-        const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
-
-        const step2nextButtonText = paymentType === "CASH" ? "Подтвердить заказ" : "Перейти к оплате";
-        const step2isFinal = paymentType === "CASH";
-
         compRef.setState(
-            update(state, {
-                tabsState: {
-                    0: {
-                        nextButton: {
-                            disabled: {$set: !goodsFormValid}
-                        }
-                    },
-                    1: {
-                        nextButton: {
-                            disabled: {$set: !orderFormValid},
-                            text: {$set: step2nextButtonText}
-                        },
-                        isFinalStep: {$set: step2isFinal}
-                    },
-                    2: {
-                        nextButton: {
-                            disabled: {$set: !paymentFormValid}
-                        }
-                    }
-                },
-                message: {
-                    $set: (!goodsFormValid || !orderFormValid || !paymentFormValid)
-                        ? "Необходимо исправить ошибки при заполнении полей"
-                        : null
-                }
-            },)
+            UserCart.getWizardState(state, false)
         );
     }
 
     render() {
         const {classes, userUi} = this.props;
         const {
-            data, ui, tabsState, message,
+            data, ui, tabsState,
         } = this.state;
+        const {
+            message,
+        } = this.state.ui;
 
         return (
             <div className={classNames(classes.main, classes.mainRaised)}>
@@ -198,7 +261,7 @@ class UserCart extends React.PureComponent {
                                 {
                                     key: "goods",
                                     url: "/cart/goods",
-                                    content: GoodsTab,
+                                    content: <GoodsTab data={data}/>,
                                     containerClassName: classes.goodsContainer,
                                     ...tabsState[0]
                                 },
@@ -207,7 +270,7 @@ class UserCart extends React.PureComponent {
                                     url: "/cart/order",
                                     content: (
                                         <FillOrderTab
-                                            validatorRef={this.validator}
+                                            validatorRef={this.orderTabValidator}
                                             userUi={userUi} data={data} ui={ui}
                                         />
                                     ),

@@ -1,19 +1,18 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {CHANGE_QUANTITY, mapCartToProps, REMOVE_FROM_CART} from "app/cart/reducer";
+import {CHANGE_QUANTITY, REMOVE_FROM_CART} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
-import Button from "app/common/theme/button/Button";
-import Card from "app/common/theme/card/Card.jsx";
-import CardBody from "app/common/theme/card/CardBody.jsx";
 import GridContainer from "app/common/grid/GridContainer";
 import GridItem from "app/common/grid/GridItem";
 import AppIcon from "app/common/icon/AppIcon";
-import CustomInput from "app/common/theme/input/CustomInput";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styleConsts";
+import Button from "app/common/theme/button/Button";
+import Card from "app/common/theme/card/Card.jsx";
+import CardBody from "app/common/theme/card/CardBody.jsx";
+import CustomInput from "app/common/theme/input/CustomInput";
 import Table from "app/common/theme/table/CustomTable";
-import {connect} from "app/utils/functionUtil";
 import util from "app/utils/util"
 import toNumber from 'lodash/toNumber'
 import React from "react";
@@ -176,4 +175,4 @@ class GoodsTab extends React.PureComponent {
     }
 }
 
-export default connect(mapCartToProps)(withStyles(userCartStyle)(withRouter(GoodsTab)));
+export default (withStyles(userCartStyle)(withRouter(GoodsTab)));

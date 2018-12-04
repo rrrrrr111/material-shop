@@ -11,15 +11,19 @@ import {Router} from 'react-router-dom';
 import {store} from "store";
 
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router basename={util.global.routerBasename} history={routerHistory}>
-            <Switch>
-                <Route component={MainLayout}/>
-            </Switch>
-        </Router>
-    </Provider>,
-    document.getElementById("root")
-);
+util.global.getSiteConfig()
+    .then((siteConfig) => {
 
-// registerServiceWorker(); // для работы standalone
+        ReactDOM.render(
+            <Provider store={store}>
+                <Router basename={siteConfig.routerBasename} history={routerHistory}>
+                    <Switch>
+                        <Route component={MainLayout}/>
+                    </Switch>
+                </Router>
+            </Provider>,
+            document.getElementById("root")
+        );
+
+        // registerServiceWorker(); // для работы standalone
+    });
