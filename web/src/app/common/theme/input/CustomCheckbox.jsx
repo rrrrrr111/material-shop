@@ -1,7 +1,7 @@
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Check from "@material-ui/icons/Check";
-import {primaryColor} from "app/common/style/styleConsts";
+import {checkRadioSwitchColor} from "app/common/style/styleConsts";
 import {withStyles} from "app/utils/functionUtil";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -12,7 +12,7 @@ const style = theme => ({
         padding: "14px"
     },
     checked: {
-        color: primaryColor + "!important"
+        color: checkRadioSwitchColor + "!important"
     },
     box: {
         position: "relative",

@@ -185,8 +185,18 @@ class FillOrderTab extends React.PureComponent {
                             </Grid>
                         </Grid>
                         <h5 className={classes.title}>Оплата</h5>
-                        <CustomRadio checked={true} label="Наличными курьеру"/>
-                        <CustomRadio disabled={true} label="По безналичному расчету"/>
+                        <CustomRadio label="Наличными курьеру"
+                                     value="CASH"
+                                     checked={paymentType === "CASH"}
+                                     onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
+                                     disabled={disabled}
+                        />
+                        <CustomRadio label="По безналичному расчету"
+                                     value="CASHLESS"
+                                     checked={paymentType === "CASHLESS"}
+                                     onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
+                                     disabled={disabled}
+                        />
                     </CardBody>
                 </Card>
             </form>

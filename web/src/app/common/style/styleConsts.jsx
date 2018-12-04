@@ -67,6 +67,8 @@ export const navPillsColor = ROSE_COLOR_KEY;  // swipable табы (профил
 export const tabHeaderColor = ROSE_COLOR_KEY;  // обычные табы
 export const accordionActiveColor = ROSE_COLOR_KEY; // выделенный элемент аккордиона
 export const circularProgressColor = ROSE_COLOR_KEY; // круглый значек загрузки  // todo разделить на цвета и классы
+export const checkRadioSwitchColor = roseColor; // чекбокс, свитч, радиобокс
+
 
 export const drawerWidth = 260;
 

@@ -1,7 +1,7 @@
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
-import {primaryColor} from "app/common/style/styleConsts";
+import {checkRadioSwitchColor} from "app/common/style/styleConsts";
 import {classNames, withStyles} from "app/utils/functionUtil";
 import PropTypes from "prop-types";
 import React from "react";
@@ -23,12 +23,12 @@ const style = theme => ({
         padding: "16px"
     },
     radio: {
-        color: primaryColor + "!important"
+        color: checkRadioSwitchColor + "!important"
     },
     radioChecked: {
         width: "16px",
         height: "16px",
-        border: "1px solid " + primaryColor,
+        border: "1px solid " + checkRadioSwitchColor,
         borderRadius: "50%"
     },
     radioUnchecked: {
