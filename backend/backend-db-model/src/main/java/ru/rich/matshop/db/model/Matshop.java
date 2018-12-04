@@ -15,7 +15,7 @@ import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
-import ru.rich.matshop.db.model.tables.AddressTable;
+import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
@@ -39,7 +39,7 @@ import ru.rich.matshop.db.model.tables.TechLogTable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Matshop extends SchemaImpl {
 
-    private static final long serialVersionUID = -1546052032;
+    private static final long serialVersionUID = -1147659016;
 
     /**
      * The reference instance of <code>matshop</code>
@@ -47,14 +47,14 @@ public class Matshop extends SchemaImpl {
     public static final Matshop MATSHOP = new Matshop();
 
     /**
-     * The table <code>matshop.address</code>.
-     */
-    public final AddressTable ADDRESS = ru.rich.matshop.db.model.tables.AddressTable.ADDRESS;
-
-    /**
      * The table <code>matshop.person</code>.
      */
     public final PersonTable PERSON = ru.rich.matshop.db.model.tables.PersonTable.PERSON;
+
+    /**
+     * The table <code>matshop.person_address</code>.
+     */
+    public final PersonAddressTable PERSON_ADDRESS = ru.rich.matshop.db.model.tables.PersonAddressTable.PERSON_ADDRESS;
 
     /**
      * The table <code>matshop.product</code>.
@@ -116,7 +116,7 @@ public class Matshop extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.ADDRESS_ID_SEQ,
+            Sequences.PERSON_ADDRESS_ID_SEQ,
             Sequences.PERSON_ID_SEQ,
             Sequences.PRODUCT_ID_SEQ,
             Sequences.SHOP_ORDER_GOODS_ID_SEQ,
@@ -135,8 +135,8 @@ public class Matshop extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            AddressTable.ADDRESS,
             PersonTable.PERSON,
+            PersonAddressTable.PERSON_ADDRESS,
             ProductTable.PRODUCT,
             ProductCosmeticTable.PRODUCT_COSMETIC,
             ShopOrderTable.SHOP_ORDER,

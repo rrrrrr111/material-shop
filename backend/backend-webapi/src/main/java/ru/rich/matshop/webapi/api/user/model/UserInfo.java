@@ -87,7 +87,7 @@ public class UserInfo extends Person implements UserDetails {
                 ", lastName='" + getLastName() + '\'' +
                 ", dateOfBirth=" + getDateOfBirth() +
                 ", sex='" + getSex() + '\'' +
-                ", agreementChecked=" + isAgreementChecked() +
+                ", agreementChecked=" + getAgreementChecked() +
                 ", locked=" + locked +
                 ", role=" + role +
                 ", editDate=" + getEditDate() +

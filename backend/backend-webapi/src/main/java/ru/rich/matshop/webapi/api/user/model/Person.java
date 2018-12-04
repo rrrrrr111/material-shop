@@ -2,6 +2,7 @@ package ru.rich.matshop.webapi.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
@@ -15,30 +16,31 @@ import java.util.Date;
 
 public class Person {
 
-
     @Null(groups = {OnSignup.class})
     @CurrentUserId(groups = {OnSave.class})
     private Long id;
-    @NotBlank(groups = {OnSignup.class, OnSave.class})
-    @Email(groups = {OnSignup.class, OnSave.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
+    @NotBlank(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class})
+    @Email(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = {OnSignup.class})
     private String password;
-    @NotBlank(groups = {OnSave.class})
-    @Pattern(groups = {OnSave.class}, regexp = "^\\d{10}$")
+    @NotBlank(groups = {OnSave.class, OnCreateOrder.class})
+    @Pattern(groups = {OnSave.class, OnCreateOrder.class}, regexp = "^\\d{10}$")
     private String phone;
-    @NotBlank(groups = {OnSignup.class, OnSave.class})
+    @NotBlank(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class})
     private String firstName;
     @NotBlank(groups = {OnSave.class})
     private String lastName;
     private Date dateOfBirth;
     private Sex sex;
-    @NotNull(groups = {OnSignup.class})
+    @NotNull(groups = {OnSignup.class, OnCreateOrder.class})
     private Boolean agreementChecked;
     @Null(groups = {OnSignup.class})
     @NotNull(groups = {OnSave.class})
     private Date editDate;
+    @NotNull(groups = {OnCreateOrder.class})
+    private PersonAddress address;
 
     public Long getId() {
         return id;
@@ -104,11 +106,11 @@ public class Person {
         this.sex = sex;
     }
 
-    public boolean isAgreementChecked() {
+    public Boolean getAgreementChecked() {
         return agreementChecked;
     }
 
-    public void setAgreementChecked(boolean agreementChecked) {
+    public void setAgreementChecked(Boolean agreementChecked) {
         this.agreementChecked = agreementChecked;
     }
 
@@ -118,6 +120,17 @@ public class Person {
 
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
+    }
+
+    public PersonAddress getAddress() {
+        if (address == null) {
+            address = new PersonAddress();
+        }
+        return address;
+    }
+
+    public void setAddress(PersonAddress address) {
+        this.address = address;
     }
 
     @Override

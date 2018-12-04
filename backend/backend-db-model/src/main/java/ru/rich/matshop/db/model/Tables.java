@@ -6,7 +6,7 @@ package ru.rich.matshop.db.model;
 
 import javax.annotation.Generated;
 
-import ru.rich.matshop.db.model.tables.AddressTable;
+import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
@@ -31,14 +31,14 @@ import ru.rich.matshop.db.model.tables.TechLogTable;
 public class Tables {
 
     /**
-     * The table <code>matshop.address</code>.
-     */
-    public static final AddressTable ADDRESS = ru.rich.matshop.db.model.tables.AddressTable.ADDRESS;
-
-    /**
      * The table <code>matshop.person</code>.
      */
     public static final PersonTable PERSON = ru.rich.matshop.db.model.tables.PersonTable.PERSON;
+
+    /**
+     * The table <code>matshop.person_address</code>.
+     */
+    public static final PersonAddressTable PERSON_ADDRESS = ru.rich.matshop.db.model.tables.PersonAddressTable.PERSON_ADDRESS;
 
     /**
      * The table <code>matshop.product</code>.

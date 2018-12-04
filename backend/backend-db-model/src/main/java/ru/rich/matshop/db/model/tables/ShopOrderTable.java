@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = -1074917076;
+    private static final long serialVersionUID = 1235861309;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -74,9 +74,9 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     public final TableField<ShopOrderRecord, Long> CLIENT_PERSON_ID = createField("client_person_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>matshop.shop_order.address_id</code>.
+     * The column <code>matshop.shop_order.person_address_id</code>.
      */
-    public final TableField<ShopOrderRecord, Long> ADDRESS_ID = createField("address_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<ShopOrderRecord, Long> PERSON_ADDRESS_ID = createField("person_address_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order.goods_amount</code>.
@@ -211,15 +211,15 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
      */
     @Override
     public List<ForeignKey<ShopOrderRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ShopOrderRecord, ?>>asList(Keys.SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY, Keys.SHOP_ORDER__SHOP_ORDER_ADDRESS_ID_FKEY, Keys.SHOP_ORDER__SHOP_ORDER_ASSIGNED_PERSON_ID_FKEY);
+        return Arrays.<ForeignKey<ShopOrderRecord, ?>>asList(Keys.SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY, Keys.SHOP_ORDER__SHOP_ORDER_PERSON_ADDRESS_ID_FKEY, Keys.SHOP_ORDER__SHOP_ORDER_ASSIGNED_PERSON_ID_FKEY);
     }
 
     public PersonTable shopOrder_ShopOrderClientPersonIdFkey() {
         return new PersonTable(this, Keys.SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY);
     }
 
-    public AddressTable address() {
-        return new AddressTable(this, Keys.SHOP_ORDER__SHOP_ORDER_ADDRESS_ID_FKEY);
+    public PersonAddressTable personAddress() {
+        return new PersonAddressTable(this, Keys.SHOP_ORDER__SHOP_ORDER_PERSON_ADDRESS_ID_FKEY);
     }
 
     public PersonTable shopOrder_ShopOrderAssignedPersonIdFkey() {

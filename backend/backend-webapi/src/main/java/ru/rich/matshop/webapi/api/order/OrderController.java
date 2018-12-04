@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.order;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,8 +10,10 @@ import ru.rich.matshop.webapi.api.order.create.CreateOrderRequest;
 import ru.rich.matshop.webapi.api.order.create.CreateOrderResponse;
 import ru.rich.matshop.webapi.api.order.list.OrderListRequest;
 import ru.rich.matshop.webapi.api.order.list.OrderListResponse;
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 
@@ -27,7 +30,7 @@ public class OrderController extends AbstractRestController {
     @PostMapping(ORDER_URL_PREFIX + "/create")
     @Transactional
     public CreateOrderResponse list(@RequestBody
-                                    @Valid
+                                    @Validated({OnCreateOrder.class, Default.class})
                                             CreateOrderRequest req) {
 
 

@@ -4,9 +4,13 @@ import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.order.model.ShopOrder;
 import ru.rich.matshop.webapi.api.user.model.Person;
 
+import javax.validation.constraints.NotNull;
+
 public class CreateOrderRequest extends AbstractRestRequest {
 
+    @NotNull
     private Person person;
+    @NotNull
     private ShopOrder order;
 
     public Person getPerson() {

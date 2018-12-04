@@ -4,15 +4,17 @@
 package ru.rich.matshop.db.model.tables.records;
 
 
+import java.util.Date;
+
+import javax.annotation.Generated;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record15;
 import org.jooq.Row15;
 import org.jooq.impl.UpdatableRecordImpl;
-import ru.rich.matshop.db.model.tables.ShopOrderTable;
 
-import javax.annotation.Generated;
-import java.util.Date;
+import ru.rich.matshop.db.model.tables.ShopOrderTable;
 
 
 /**
@@ -28,7 +30,7 @@ import java.util.Date;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implements Record15<Long, Integer, Long, Long, Long, Long, Long, String, String, Long, String, String, String, Date, Date> {
 
-    private static final long serialVersionUID = 891632377;
+    private static final long serialVersionUID = 2031009096;
 
     /**
      * Setter for <code>matshop.shop_order.id</code>.
@@ -73,16 +75,16 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
     }
 
     /**
-     * Setter for <code>matshop.shop_order.address_id</code>.
+     * Setter for <code>matshop.shop_order.person_address_id</code>.
      */
-    public void setAddressId(Long value) {
+    public void setPersonAddressId(Long value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>matshop.shop_order.address_id</code>.
+     * Getter for <code>matshop.shop_order.person_address_id</code>.
      */
-    public Long getAddressId() {
+    public Long getPersonAddressId() {
         return (Long) get(3);
     }
 
@@ -301,7 +303,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Field<Long> field4() {
-        return ShopOrderTable.SHOP_ORDER.ADDRESS_ID;
+        return ShopOrderTable.SHOP_ORDER.PERSON_ADDRESS_ID;
     }
 
     /**
@@ -421,7 +423,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Long component4() {
-        return getAddressId();
+        return getPersonAddressId();
     }
 
     /**
@@ -541,7 +543,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public Long value4() {
-        return getAddressId();
+        return getPersonAddressId();
     }
 
     /**
@@ -664,7 +666,7 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
      */
     @Override
     public ShopOrderRecord value4(Long value) {
-        setAddressId(value);
+        setPersonAddressId(value);
         return this;
     }
 
@@ -804,13 +806,13 @@ public class ShopOrderRecord extends UpdatableRecordImpl<ShopOrderRecord> implem
     /**
      * Create a detached, initialised ShopOrderRecord
      */
-    public ShopOrderRecord(Long id, Integer shopId, Long clientPersonId, Long addressId, Long goodsAmount, Long deliveryAmount, Long totalAmount, String deliveryType, String state, Long assignedPersonId, String serviceComment, String paymentInfo, String paymentType, Date createDate, Date editDate) {
+    public ShopOrderRecord(Long id, Integer shopId, Long clientPersonId, Long personAddressId, Long goodsAmount, Long deliveryAmount, Long totalAmount, String deliveryType, String state, Long assignedPersonId, String serviceComment, String paymentInfo, String paymentType, Date createDate, Date editDate) {
         super(ShopOrderTable.SHOP_ORDER);
 
         set(0, id);
         set(1, shopId);
         set(2, clientPersonId);
-        set(3, addressId);
+        set(3, personAddressId);
         set(4, goodsAmount);
         set(5, deliveryAmount);
         set(6, totalAmount);

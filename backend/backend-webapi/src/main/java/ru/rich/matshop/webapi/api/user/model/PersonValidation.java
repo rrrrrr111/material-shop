@@ -10,4 +10,7 @@ public interface PersonValidation {
 
     interface OnSave {
     }
+
+    interface OnCreateOrder {
+    }
 }

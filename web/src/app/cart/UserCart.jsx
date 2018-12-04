@@ -162,7 +162,7 @@ class UserCart extends React.PureComponent {
         return update(state, {
             ui: {
                 message: {
-                    $set: (clearValidation ? null : UserCart.getWizardMessage(state))
+                    $set: (clearValidation ? null : UserCart.determineMessage(state))
                 }
             },
             tabsState: {
@@ -187,7 +187,7 @@ class UserCart extends React.PureComponent {
         },);
     }
 
-    static getWizardMessage = (state) => {
+    static determineMessage = (state) => {
         const {
             goodsAmountValid,
             goodsFormValid, orderFormValid, paymentFormValid

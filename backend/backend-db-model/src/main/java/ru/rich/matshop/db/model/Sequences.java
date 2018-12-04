@@ -24,9 +24,9 @@ import org.jooq.impl.SequenceImpl;
 public class Sequences {
 
     /**
-     * The sequence <code>matshop.address_id_seq</code>
+     * The sequence <code>matshop.person_address_id_seq</code>
      */
-    public static final Sequence<Long> ADDRESS_ID_SEQ = new SequenceImpl<Long>("address_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<Long> PERSON_ADDRESS_ID_SEQ = new SequenceImpl<Long>("person_address_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.person_id_seq</code>

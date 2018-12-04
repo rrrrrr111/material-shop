@@ -11,7 +11,7 @@ import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 
-import ru.rich.matshop.db.model.tables.AddressTable;
+import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
@@ -20,7 +20,7 @@ import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
 import ru.rich.matshop.db.model.tables.ShopOrderTable;
 import ru.rich.matshop.db.model.tables.TaskTable;
 import ru.rich.matshop.db.model.tables.TechLogTable;
-import ru.rich.matshop.db.model.tables.records.AddressRecord;
+import ru.rich.matshop.db.model.tables.records.PersonAddressRecord;
 import ru.rich.matshop.db.model.tables.records.PersonRecord;
 import ru.rich.matshop.db.model.tables.records.ProductCosmeticRecord;
 import ru.rich.matshop.db.model.tables.records.ProductRecord;
@@ -49,8 +49,8 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
-    public static final Identity<AddressRecord, Long> IDENTITY_ADDRESS = Identities0.IDENTITY_ADDRESS;
     public static final Identity<PersonRecord, Long> IDENTITY_PERSON = Identities0.IDENTITY_PERSON;
+    public static final Identity<PersonAddressRecord, Long> IDENTITY_PERSON_ADDRESS = Identities0.IDENTITY_PERSON_ADDRESS;
     public static final Identity<ProductRecord, Long> IDENTITY_PRODUCT = Identities0.IDENTITY_PRODUCT;
     public static final Identity<ShopOrderRecord, Long> IDENTITY_SHOP_ORDER = Identities0.IDENTITY_SHOP_ORDER;
     public static final Identity<ShopOrderGoodsRecord, Long> IDENTITY_SHOP_ORDER_GOODS = Identities0.IDENTITY_SHOP_ORDER_GOODS;
@@ -62,8 +62,8 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<AddressRecord> ADDRESS_PKEY = UniqueKeys0.ADDRESS_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
+    public static final UniqueKey<PersonAddressRecord> PERSON_ADDRESS_PKEY = UniqueKeys0.PERSON_ADDRESS_PKEY;
     public static final UniqueKey<ProductRecord> PRODUCT_PKEY = UniqueKeys0.PRODUCT_PKEY;
     public static final UniqueKey<ProductCosmeticRecord> PRODUCT_COSMETIC_PKEY = UniqueKeys0.PRODUCT_COSMETIC_PKEY;
     public static final UniqueKey<ShopOrderRecord> SHOP_ORDER_PKEY = UniqueKeys0.SHOP_ORDER_PKEY;
@@ -76,10 +76,10 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<AddressRecord, PersonRecord> ADDRESS__ADDRESS_PERSON_ID_FKEY = ForeignKeys0.ADDRESS__ADDRESS_PERSON_ID_FKEY;
+    public static final ForeignKey<PersonAddressRecord, PersonRecord> PERSON_ADDRESS__PERSON_ADDRESS_PERSON_ID_FKEY = ForeignKeys0.PERSON_ADDRESS__PERSON_ADDRESS_PERSON_ID_FKEY;
     public static final ForeignKey<ProductCosmeticRecord, ProductRecord> PRODUCT_COSMETIC__PRODUCT_COSMETIC_PRODUCT_ID_FKEY = ForeignKeys0.PRODUCT_COSMETIC__PRODUCT_COSMETIC_PRODUCT_ID_FKEY;
     public static final ForeignKey<ShopOrderRecord, PersonRecord> SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY = ForeignKeys0.SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY;
-    public static final ForeignKey<ShopOrderRecord, AddressRecord> SHOP_ORDER__SHOP_ORDER_ADDRESS_ID_FKEY = ForeignKeys0.SHOP_ORDER__SHOP_ORDER_ADDRESS_ID_FKEY;
+    public static final ForeignKey<ShopOrderRecord, PersonAddressRecord> SHOP_ORDER__SHOP_ORDER_PERSON_ADDRESS_ID_FKEY = ForeignKeys0.SHOP_ORDER__SHOP_ORDER_PERSON_ADDRESS_ID_FKEY;
     public static final ForeignKey<ShopOrderRecord, PersonRecord> SHOP_ORDER__SHOP_ORDER_ASSIGNED_PERSON_ID_FKEY = ForeignKeys0.SHOP_ORDER__SHOP_ORDER_ASSIGNED_PERSON_ID_FKEY;
     public static final ForeignKey<ShopOrderGoodsRecord, ShopOrderRecord> SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_SHOP_ORDER_ID_FKEY = ForeignKeys0.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_SHOP_ORDER_ID_FKEY;
     public static final ForeignKey<ShopOrderGoodsRecord, ProductRecord> SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_PRODUCT_ID_FKEY = ForeignKeys0.SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_PRODUCT_ID_FKEY;
@@ -92,8 +92,8 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
-        public static Identity<AddressRecord, Long> IDENTITY_ADDRESS = Internal.createIdentity(AddressTable.ADDRESS, AddressTable.ADDRESS.ID);
         public static Identity<PersonRecord, Long> IDENTITY_PERSON = Internal.createIdentity(PersonTable.PERSON, PersonTable.PERSON.ID);
+        public static Identity<PersonAddressRecord, Long> IDENTITY_PERSON_ADDRESS = Internal.createIdentity(PersonAddressTable.PERSON_ADDRESS, PersonAddressTable.PERSON_ADDRESS.ID);
         public static Identity<ProductRecord, Long> IDENTITY_PRODUCT = Internal.createIdentity(ProductTable.PRODUCT, ProductTable.PRODUCT.ID);
         public static Identity<ShopOrderRecord, Long> IDENTITY_SHOP_ORDER = Internal.createIdentity(ShopOrderTable.SHOP_ORDER, ShopOrderTable.SHOP_ORDER.ID);
         public static Identity<ShopOrderGoodsRecord, Long> IDENTITY_SHOP_ORDER_GOODS = Internal.createIdentity(ShopOrderGoodsTable.SHOP_ORDER_GOODS, ShopOrderGoodsTable.SHOP_ORDER_GOODS.ID);
@@ -103,8 +103,8 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<AddressRecord> ADDRESS_PKEY = Internal.createUniqueKey(AddressTable.ADDRESS, "address_pkey", AddressTable.ADDRESS.ID);
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(PersonTable.PERSON, "person_pkey", PersonTable.PERSON.ID);
+        public static final UniqueKey<PersonAddressRecord> PERSON_ADDRESS_PKEY = Internal.createUniqueKey(PersonAddressTable.PERSON_ADDRESS, "person_address_pkey", PersonAddressTable.PERSON_ADDRESS.ID);
         public static final UniqueKey<ProductRecord> PRODUCT_PKEY = Internal.createUniqueKey(ProductTable.PRODUCT, "product_pkey", ProductTable.PRODUCT.ID);
         public static final UniqueKey<ProductCosmeticRecord> PRODUCT_COSMETIC_PKEY = Internal.createUniqueKey(ProductCosmeticTable.PRODUCT_COSMETIC, "product_cosmetic_pkey", ProductCosmeticTable.PRODUCT_COSMETIC.PRODUCT_ID);
         public static final UniqueKey<ShopOrderRecord> SHOP_ORDER_PKEY = Internal.createUniqueKey(ShopOrderTable.SHOP_ORDER, "shop_order_pkey", ShopOrderTable.SHOP_ORDER.ID);
@@ -115,10 +115,10 @@ public class Keys {
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<AddressRecord, PersonRecord> ADDRESS__ADDRESS_PERSON_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PERSON_PKEY, AddressTable.ADDRESS, "address__address_person_id_fkey", AddressTable.ADDRESS.PERSON_ID);
+        public static final ForeignKey<PersonAddressRecord, PersonRecord> PERSON_ADDRESS__PERSON_ADDRESS_PERSON_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PERSON_PKEY, PersonAddressTable.PERSON_ADDRESS, "person_address__person_address_person_id_fkey", PersonAddressTable.PERSON_ADDRESS.PERSON_ID);
         public static final ForeignKey<ProductCosmeticRecord, ProductRecord> PRODUCT_COSMETIC__PRODUCT_COSMETIC_PRODUCT_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PRODUCT_PKEY, ProductCosmeticTable.PRODUCT_COSMETIC, "product_cosmetic__product_cosmetic_product_id_fkey", ProductCosmeticTable.PRODUCT_COSMETIC.PRODUCT_ID);
         public static final ForeignKey<ShopOrderRecord, PersonRecord> SHOP_ORDER__SHOP_ORDER_CLIENT_PERSON_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PERSON_PKEY, ShopOrderTable.SHOP_ORDER, "shop_order__shop_order_client_person_id_fkey", ShopOrderTable.SHOP_ORDER.CLIENT_PERSON_ID);
-        public static final ForeignKey<ShopOrderRecord, AddressRecord> SHOP_ORDER__SHOP_ORDER_ADDRESS_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.ADDRESS_PKEY, ShopOrderTable.SHOP_ORDER, "shop_order__shop_order_address_id_fkey", ShopOrderTable.SHOP_ORDER.ADDRESS_ID);
+        public static final ForeignKey<ShopOrderRecord, PersonAddressRecord> SHOP_ORDER__SHOP_ORDER_PERSON_ADDRESS_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PERSON_ADDRESS_PKEY, ShopOrderTable.SHOP_ORDER, "shop_order__shop_order_person_address_id_fkey", ShopOrderTable.SHOP_ORDER.PERSON_ADDRESS_ID);
         public static final ForeignKey<ShopOrderRecord, PersonRecord> SHOP_ORDER__SHOP_ORDER_ASSIGNED_PERSON_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PERSON_PKEY, ShopOrderTable.SHOP_ORDER, "shop_order__shop_order_assigned_person_id_fkey", ShopOrderTable.SHOP_ORDER.ASSIGNED_PERSON_ID);
         public static final ForeignKey<ShopOrderGoodsRecord, ShopOrderRecord> SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_SHOP_ORDER_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.SHOP_ORDER_PKEY, ShopOrderGoodsTable.SHOP_ORDER_GOODS, "shop_order_goods__shop_order_goods_shop_order_id_fkey", ShopOrderGoodsTable.SHOP_ORDER_GOODS.SHOP_ORDER_ID);
         public static final ForeignKey<ShopOrderGoodsRecord, ProductRecord> SHOP_ORDER_GOODS__SHOP_ORDER_GOODS_PRODUCT_ID_FKEY = Internal.createForeignKey(ru.rich.matshop.db.model.Keys.PRODUCT_PKEY, ShopOrderGoodsTable.SHOP_ORDER_GOODS, "shop_order_goods__shop_order_goods_product_id_fkey", ShopOrderGoodsTable.SHOP_ORDER_GOODS.PRODUCT_ID);

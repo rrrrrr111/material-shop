@@ -10,7 +10,7 @@ import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
 
-import ru.rich.matshop.db.model.tables.AddressTable;
+import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
@@ -38,11 +38,11 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index ADDRESS_PKEY = Indexes0.ADDRESS_PKEY;
-    public static final Index IDX_ADR_PERSON_ID = Indexes0.IDX_ADR_PERSON_ID;
     public static final Index IDX_PER_EMAIL = Indexes0.IDX_PER_EMAIL;
     public static final Index IDX_PER_PHONE = Indexes0.IDX_PER_PHONE;
     public static final Index PERSON_PKEY = Indexes0.PERSON_PKEY;
+    public static final Index IDX_PAD_PERSON_ID = Indexes0.IDX_PAD_PERSON_ID;
+    public static final Index PERSON_ADDRESS_PKEY = Indexes0.PERSON_ADDRESS_PKEY;
     public static final Index IDX_PRO_EDIT_DATE = Indexes0.IDX_PRO_EDIT_DATE;
     public static final Index PRODUCT_PKEY = Indexes0.PRODUCT_PKEY;
     public static final Index IDX_PCS_CATEGORY = Indexes0.IDX_PCS_CATEGORY;
@@ -73,11 +73,11 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
-        public static Index ADDRESS_PKEY = Internal.createIndex("address_pkey", AddressTable.ADDRESS, new OrderField[] { AddressTable.ADDRESS.ID }, true);
-        public static Index IDX_ADR_PERSON_ID = Internal.createIndex("idx_adr_person_id", AddressTable.ADDRESS, new OrderField[] { AddressTable.ADDRESS.PERSON_ID }, false);
         public static Index IDX_PER_EMAIL = Internal.createIndex("idx_per_email", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.EMAIL }, true);
         public static Index IDX_PER_PHONE = Internal.createIndex("idx_per_phone", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.PHONE }, false);
         public static Index PERSON_PKEY = Internal.createIndex("person_pkey", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.ID }, true);
+        public static Index IDX_PAD_PERSON_ID = Internal.createIndex("idx_pad_person_id", PersonAddressTable.PERSON_ADDRESS, new OrderField[] { PersonAddressTable.PERSON_ADDRESS.PERSON_ID }, false);
+        public static Index PERSON_ADDRESS_PKEY = Internal.createIndex("person_address_pkey", PersonAddressTable.PERSON_ADDRESS, new OrderField[] { PersonAddressTable.PERSON_ADDRESS.ID }, true);
         public static Index IDX_PRO_EDIT_DATE = Internal.createIndex("idx_pro_edit_date", ProductTable.PRODUCT, new OrderField[] { ProductTable.PRODUCT.EDIT_DATE }, false);
         public static Index PRODUCT_PKEY = Internal.createIndex("product_pkey", ProductTable.PRODUCT, new OrderField[] { ProductTable.PRODUCT.ID }, true);
         public static Index IDX_PCS_CATEGORY = Internal.createIndex("idx_pcs_category", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.CATEGORY }, false);
@@ -86,7 +86,7 @@ public class Indexes {
         public static Index IDX_PCS_PRICE = Internal.createIndex("idx_pcs_price", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.PRICE }, false);
         public static Index PRODUCT_COSMETIC_PKEY = Internal.createIndex("product_cosmetic_pkey", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.PRODUCT_ID }, true);
         public static Index IDX_SOR_A_PERSON_ID = Internal.createIndex("idx_sor_a_person_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.ASSIGNED_PERSON_ID }, false);
-        public static Index IDX_SOR_ADDRESS_ID = Internal.createIndex("idx_sor_address_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.ADDRESS_ID }, false);
+        public static Index IDX_SOR_ADDRESS_ID = Internal.createIndex("idx_sor_address_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.PERSON_ADDRESS_ID }, false);
         public static Index IDX_SOR_C_PERSON_ID = Internal.createIndex("idx_sor_c_person_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.CLIENT_PERSON_ID }, false);
         public static Index IDX_SOR_STATE = Internal.createIndex("idx_sor_state", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.STATE, ShopOrderTable.SHOP_ORDER.EDIT_DATE }, false);
         public static Index SHOP_ORDER_PKEY = Internal.createIndex("shop_order_pkey", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.ID }, true);
