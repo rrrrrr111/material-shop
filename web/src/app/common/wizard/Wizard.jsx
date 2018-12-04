@@ -100,6 +100,9 @@ class Wizard extends React.Component {
 
     renderNextButton(classes, tabConfig) {
         const button = tabConfig.nextButton;
+        let isFinalStep = (
+            this.getTabConfig(this.props.tabsConfig.length - 1).key === tabConfig.key
+            || tabConfig.isFinalStep);
         return <Button color={buttonColor} className={classNames(classes.cardFooterButton, "right")}
                        aria-label={button.text}
                        aria-haspopup="false"
@@ -107,7 +110,7 @@ class Wizard extends React.Component {
                        onClick={this.handleClickNext}
         >
             {button.text}
-            {this.getTabConfig(this.props.tabsConfig.length - 1).key === tabConfig.key
+            {isFinalStep
                 ? null
                 : <AppIcon name="fas fa-arrow-right" className={classes.buttonRightIcon}/>
             }

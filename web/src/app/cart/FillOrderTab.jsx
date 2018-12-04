@@ -25,10 +25,6 @@ class FillOrderTab extends React.PureComponent {
         validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
     };
 
-    paymentTypeHandler = (validator, fieldName, event) => {
-        this.props.paymentTypeHandler(validator, fieldName, event);
-    };
-
     render() {
         const {classes, validatorRef} = this.props;
         const {

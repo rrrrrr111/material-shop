@@ -20,7 +20,6 @@ class UserCart extends React.PureComponent {
         this.goodsStepCheck = this.goodsStepCheck.bind(this);
         this.orderStepCheck = this.orderStepCheck.bind(this);
         this.paymentStepCheck = this.paymentStepCheck.bind(this);
-        this.paymentTypeHandler = this.paymentTypeHandler.bind(this);
         this.state = {
             data: {
                 person: UserCart.getPersonFromProps(props),
@@ -128,28 +127,6 @@ class UserCart extends React.PureComponent {
         return paymentType === "CASH";
     };
 
-    paymentTypeHandler(validator, fieldName, event) {
-        let nextButtonText;
-        let isFinalStep;
-        if ("CASH" === event.target.value) {
-            nextButtonText = "Подтвердить заказ";
-            isFinalStep = true;
-        } else {
-            nextButtonText = "Перейти к оплате";
-            isFinalStep = false;
-        }
-        this.setState(
-            update(this.state, {
-                tabsState: {
-                    1: {
-                        nextButton: {text: {$set: nextButtonText}},
-                        isFinalStep: {$set: isFinalStep}
-                    }
-                }
-            })
-        );
-    }
-
     goodsStepCheck = () => {
         let valid = true;
         this.setWizardState(this, this.state);
@@ -169,13 +146,32 @@ class UserCart extends React.PureComponent {
     };
 
     setWizardState(compRef, state) {
+        const {paymentType} = state.data;
         const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
+
+        const step2nextButtonText = paymentType === "CASH" ? "Подтвердить заказ" : "Перейти к оплате";
+        const step2isFinal = paymentType === "CASH";
+
         compRef.setState(
             update(state, {
                 tabsState: {
-                    0: {nextButton: {disabled: {$set: !goodsFormValid}}},
-                    1: {nextButton: {disabled: {$set: !orderFormValid}}},
-                    2: {nextButton: {disabled: {$set: !paymentFormValid}}}
+                    0: {
+                        nextButton: {
+                            disabled: {$set: !goodsFormValid}
+                        }
+                    },
+                    1: {
+                        nextButton: {
+                            disabled: {$set: !orderFormValid},
+                            text: {$set: step2nextButtonText}
+                        },
+                        isFinalStep: {$set: step2isFinal}
+                    },
+                    2: {
+                        nextButton: {
+                            disabled: {$set: !paymentFormValid}
+                        }
+                    }
                 },
                 message: {
                     $set: (!goodsFormValid || !orderFormValid || !paymentFormValid)
@@ -211,7 +207,6 @@ class UserCart extends React.PureComponent {
                                     url: "/cart/order",
                                     content: (
                                         <FillOrderTab
-                                            paymentTypeHandler={this.paymentTypeHandler}
                                             validatorRef={this.validator}
                                             userUi={userUi} data={data} ui={ui}
                                         />
