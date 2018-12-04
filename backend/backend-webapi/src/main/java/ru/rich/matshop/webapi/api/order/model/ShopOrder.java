@@ -9,8 +9,9 @@ public class ShopOrder {
     private Integer shopId;
     private Long clientPersonId;
     private Long addressId;
-    private Long amount;
+    private Long goodsAmount;
     private Long deliveryAmount;
+    private Long totalAmount;
     private ShopOrderDeliveryType deliveryType;
     private ShopOrderState state;
     private Long assignedPersonId;
@@ -51,12 +52,12 @@ public class ShopOrder {
         this.addressId = addressId;
     }
 
-    public Long getAmount() {
-        return amount;
+    public Long getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
+    public void setTotalAmount(Long totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Long getDeliveryAmount() {
@@ -123,6 +124,14 @@ public class ShopOrder {
         this.shopOrderGoodsList = shopOrderGoodsList;
     }
 
+    public Long getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public void setGoodsAmount(Long goodsAmount) {
+        this.goodsAmount = goodsAmount;
+    }
+
     @Override
     public String toString() {
         return "ShopOrder{" +
@@ -130,8 +139,9 @@ public class ShopOrder {
                 ", shopId=" + shopId +
                 ", clientPersonId=" + clientPersonId +
                 ", addressId=" + addressId +
-                ", amount=" + amount +
                 ", deliveryAmount=" + deliveryAmount +
+                ", goodsAmount=" + goodsAmount +
+                ", totalAmount=" + totalAmount +
                 ", deliveryType=" + deliveryType +
                 ", state=" + state +
                 ", assignedPersonId=" + assignedPersonId +

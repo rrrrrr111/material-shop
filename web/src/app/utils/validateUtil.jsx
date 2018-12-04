@@ -28,7 +28,7 @@ export const checkPhone = (phone) => {
 };
 
 const createValidator = (compRef, conf) => {
-    //conf.disabled = true;
+    conf.disabled = true;
     return new Validator(compRef, conf);
 };
 
@@ -88,7 +88,7 @@ class Validator {
 
     validate = () => {
         if (this.conf.disabled) {
-            return true;
+            return {formValid: true, state: this.compRef.state};
         }
         const context = this.initContext(false);
         const formValid = this.checkFields(context);

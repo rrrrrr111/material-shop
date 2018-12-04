@@ -57,22 +57,26 @@ class Wizard extends React.Component {
                 goNext = newIndex > currIndex,
                 goFinal = newIndex >= compRef.props.tabsConfig.length || (currTabConfig.isFinalStep && goNext);
 
-            if (goNext && currTabConfig.nextButton.canGo
-                && !currTabConfig.nextButton.canGo()) {
-                return;
-            }
-            if (goPrev && currTabConfig.prevButton.canGo
-                && !currTabConfig.prevButton.canGo()) {
-                return;
-            }
             let url;
             if (goFinal || goBack) {
                 url = compRef.props.finalUrl;
             } else {
                 url = compRef.getTabConfig(newIndex).url;
             }
-            util.navigate.goToUrl(url);
-            util.navigate.scrollUp();
+            const goCallback = () => {
+                util.navigate.goToUrl(url);
+                util.navigate.scrollUp();
+            };
+
+            if ((goNext || goFinal) && currTabConfig.nextButton.onClick) {
+                currTabConfig.nextButton.onClick(goCallback);
+                return;
+            }
+            if ((goBack || goPrev) && currTabConfig.prevButton.onClick) {
+                currTabConfig.prevButton.onClick(goCallback);
+                return;
+            }
+            goCallback();
         }, buttonDebounceTimeout, buttonDebounceRule);
 
     getTabIndex = (props) => {
@@ -175,12 +179,12 @@ class Wizard extends React.Component {
                 prevButton: PropTypes.shape({
                     text: PropTypes.string.isRequired,
                     disabled: PropTypes.bool,
-                    canGo: PropTypes.func,
+                    onClick: PropTypes.func,
                 }).isRequired,
                 nextButton: PropTypes.shape({
                     text: PropTypes.string.isRequired,
                     disabled: PropTypes.bool,
-                    canGo: PropTypes.func,
+                    onClick: PropTypes.func,
                 }).isRequired,
                 isFinalStep: PropTypes.bool,
             })

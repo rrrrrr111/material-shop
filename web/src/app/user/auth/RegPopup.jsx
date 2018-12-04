@@ -3,13 +3,13 @@ import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
 import Icon from "@material-ui/core/Icon/Icon";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Email, Face} from "@material-ui/icons";
 import AppIcon from "app/common/icon/AppIcon";
 import ErrorMessage from "app/common/message/ErrorMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import LocalLink from "app/common/misc/LocalLink";
+import Transition from "app/common/misc/Transition";
 import {buttonColor} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import Card from "app/common/theme/card/Card";
@@ -36,9 +36,6 @@ import React from "react";
 import {dispatch} from "store";
 import regPopupStyle from "./regPopupStyle";
 
-function Transition(props) {
-    return <Slide direction="down" {...props}/>;
-}
 
 class RegPopup extends React.PureComponent {
     constructor(props) {

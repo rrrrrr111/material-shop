@@ -5,6 +5,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CHANGE_QUANTITY = 'CHANGE_QUANTITY';
 
 export const START_ORDER_CREATE = 'START_ORDER_CREATE';
+export const STOP_ORDER_CREATE = 'STOP_ORDER_CREATE';
 export const ORDER_CREATED = 'ORDER_CREATED';
 
 const initialState = {
@@ -62,6 +63,9 @@ export const uiCartReducer = createReducer({
 }, {
     [START_ORDER_CREATE]: (state) => {
         return update(state, {loading: {$set: true}});
+    },
+    [STOP_ORDER_CREATE]: (state) => {
+        return update(state, {loading: {$set: false}});
     },
     [ORDER_CREATED]: (state) => {
         return update(state, {loading: {$set: false}});

@@ -4,8 +4,8 @@ import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
 import Icon from "@material-ui/core/Icon/Icon";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Transition from "app/common/misc/Transition";
 import Mail from "@material-ui/icons/Mail";
 import AppIcon from "app/common/icon/AppIcon";
 import ErrorMessage from "app/common/message/ErrorMessage";
@@ -20,7 +20,6 @@ import CustomInput from "app/common/theme/input/CustomInput";
 import SignoutComp from "app/user/auth/SignoutComp";
 import {mapUserToProps, USER_AUTH, USER_START_LOADING} from "app/user/reducer";
 import {ajaxDebounceTimeout, buttonDebounceRule, connect, debounce, updateUiField} from "app/utils/functionUtil";
-
 import util from "app/utils/util"
 import {
     checkEmail,
@@ -32,12 +31,8 @@ import {
 } from "app/utils/validateUtil";
 import React from "react";
 import {dispatch} from "store";
-
 import loginPopupStyle from "./loginPopupStyle";
 
-function Transition(props) {
-    return <Slide direction="down" {...props}/>;
-}
 
 class LoginPopup extends React.PureComponent {
     constructor(props) {

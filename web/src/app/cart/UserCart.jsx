@@ -2,16 +2,24 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import FillOrderTab from "app/cart/FillOrderTab";
 import GoodsTab from "app/cart/GoodsTab";
 import PaymentTab from "app/cart/PaymentTab";
-import {mapCartToProps} from "app/cart/reducer";
+import {mapCartToProps, ORDER_CREATED, START_ORDER_CREATE, STOP_ORDER_CREATE} from "app/cart/reducer";
 import userCartStyle from "app/cart/userCartStyle";
 import Clearfix from "app/common/misc/Clearfix";
 import Wizard from "app/common/wizard/Wizard";
 import UserDataLoader from "app/user/profile/UserDataLoader";
-import {connect, update} from "app/utils/functionUtil";
+import {
+    ajaxDebounceTimeout,
+    buttonDebounceRule,
+    connect,
+    debounce,
+    update,
+    updateUiField
+} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import {checkEmail, checkPhone, isBoolean, isNotBlank} from "app/utils/validateUtil";
 import classNames from "classnames";
 import React from "react";
+import {dispatch} from "store";
 
 const initialPersonUi = {
     firstNameValid: true,
@@ -35,9 +43,9 @@ const initialPersonUi = {
 class UserCart extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.goodsStepCheck = this.goodsStepCheck.bind(this);
-        this.orderStepCheck = this.orderStepCheck.bind(this);
-        this.paymentStepCheck = this.paymentStepCheck.bind(this);
+        this.goodsStepGoNext = this.goodsStepGoNext.bind(this);
+        this.orderStepGoNext = this.orderStepGoNext.bind(this);
+        this.paymentStepGoNext = this.paymentStepGoNext.bind(this);
 
         this.state = UserCart.getDerivedStateFromProps(props, {
             data: {
@@ -61,16 +69,16 @@ class UserCart extends React.PureComponent {
             tabsState: [
                 {
                     prevButton: {text: "Вернуться к покупкам"},
-                    nextButton: {text: "К оформлению заказа", canGo: this.goodsStepCheck},
+                    nextButton: {text: "К оформлению заказа", onClick: this.goodsStepGoNext},
                 },
                 {
                     prevButton: {text: "Назад"},
-                    nextButton: {text: "", canGo: this.orderStepCheck},
+                    nextButton: {text: "", onClick: this.orderStepGoNext},
                     isFinalStep: true
                 },
                 {
                     prevButton: {text: "Назад"},
-                    nextButton: {text: "Подтвердить заказ", canGo: this.paymentStepCheck},
+                    nextButton: {text: "Подтвердить заказ", onClick: this.paymentStepGoNext},
                 },
             ],
         });
@@ -221,22 +229,52 @@ class UserCart extends React.PureComponent {
         return paymentType === "CASH";
     };
 
-    goodsStepCheck = () => {
+    goodsStepGoNext = (goCallback) => {
         const {formValid, state} = this.goodsTabValidator.validate();
-        this.setWizardState(this, state);
-        return formValid;
+        if (!formValid) {
+            this.setWizardState(this, state);
+            return;
+        }
+        goCallback();
     };
 
-    orderStepCheck = () => {
+    orderStepGoNext = (goCallback) => {
         const {formValid, state} = this.orderTabValidator.validate();
-        this.setWizardState(this, state);
-        return formValid;
+        if (!formValid) {
+            this.setWizardState(this, state);
+            return;
+        }
+        if (this.state.data.paymentType === "CASH") {
+            this._debouncedCreateOrder(state, goCallback);
+        } else {
+            goCallback();
+        }
     };
 
-    paymentStepCheck = () => {
-        let valid = true;
-        this.setWizardState(this, this.state);
-        return valid;
+    _debouncedCreateOrder = debounce(
+        (state, goCallback) => {
+            const compRef = this;
+            updateUiField(compRef, state, "message", "");
+
+            dispatch(START_ORDER_CREATE)
+                .then(() => {
+                    return util.ajax.backendPost("order/create", {
+                        order: compRef.state.data
+                    });
+                })
+                .then((response) => {
+                    updateUiField(compRef, this.state, "message", response.message);
+                    if (response.success) {
+                        dispatch(ORDER_CREATED, response.order);
+                        util.notify.orderCreated(response.order.id);
+                        goCallback();
+                    } else {
+                        dispatch(STOP_ORDER_CREATE);
+                    }
+                });
+        }, ajaxDebounceTimeout, buttonDebounceRule);
+
+    paymentStepGoNext = (goCallback) => {
     };
 
     setWizardState(compRef, state) {

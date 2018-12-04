@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = 75428520;
+    private static final long serialVersionUID = -1074917076;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -79,14 +79,19 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     public final TableField<ShopOrderRecord, Long> ADDRESS_ID = createField("address_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>matshop.shop_order.amount</code>.
+     * The column <code>matshop.shop_order.goods_amount</code>.
      */
-    public final TableField<ShopOrderRecord, Long> AMOUNT = createField("amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<ShopOrderRecord, Long> GOODS_AMOUNT = createField("goods_amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order.delivery_amount</code>.
      */
     public final TableField<ShopOrderRecord, Long> DELIVERY_AMOUNT = createField("delivery_amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>matshop.shop_order.total_amount</code>.
+     */
+    public final TableField<ShopOrderRecord, Long> TOTAL_AMOUNT = createField("total_amount", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>matshop.shop_order.delivery_type</code>.
@@ -112,6 +117,11 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
      * The column <code>matshop.shop_order.payment_info</code>.
      */
     public final TableField<ShopOrderRecord, String> PAYMENT_INFO = createField("payment_info", org.jooq.impl.SQLDataType.VARCHAR(10000), this, "");
+
+    /**
+     * The column <code>matshop.shop_order.payment_type</code>.
+     */
+    public final TableField<ShopOrderRecord, String> PAYMENT_TYPE = createField("payment_type", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>matshop.shop_order.create_date</code>.

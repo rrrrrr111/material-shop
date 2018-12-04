@@ -34,6 +34,9 @@ const notify = {
     dataSaved() {
         showNotify("Данные сохранены");
     },
+    orderCreated(orderId) {
+        showNotify(`Заказ №${orderId} размещен, ожидайте звонка оператора для подтверждения`);
+    },
     passwordChanged() {
         showNotify("Ваш пароль изменен");
     },
