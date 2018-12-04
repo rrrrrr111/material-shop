@@ -1,12 +1,19 @@
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Check from "@material-ui/icons/Check";
+import {primaryColor} from "app/common/style/styleConsts";
 import {withStyles} from "app/utils/functionUtil";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
 const style = theme => ({
+    checkRoot: {
+        padding: "14px"
+    },
+    checked: {
+        color: primaryColor + "!important"
+    },
     box: {
         position: "relative",
         display: "block",
@@ -65,27 +72,28 @@ function CustomCheckbox(props) {
             <FormControlLabel
                 className={boxClass}
                 classes={{label: classes.label}}
+                disabled={disabled}
+                label={label}
                 control={
                     <Checkbox tabIndex={-1}
                               checked={checked}
                               onClick={onClick}
-                              checkedIcon={<Check
-                                  className={
-                                      classNames({
-                                          [classes.checkedIcon]: true,
-                                          [classes.disabledIcon]: disabled,
-                                          "redShadow": error
-                                      })}/>}
-                              icon={<Check
-                                  className={
-                                      classNames({
-                                          [classes.uncheckedIcon]: true,
-                                          [classes.disabledIcon]: disabled,
-                                          "redShadow": error
-                                      })}/>}
-                              disabled={disabled}/>
-                }
-                label={label}
+                              disabled={disabled}
+                              checkedIcon={<Check className={classNames({
+                                  [classes.checkedIcon]: true,
+                                  [classes.disabledIcon]: disabled,
+                                  "redShadow": error
+                              })}/>}
+                              icon={<Check className={classNames({
+                                  [classes.uncheckedIcon]: true,
+                                  [classes.disabledIcon]: disabled,
+                                  "redShadow": error
+                              })}/>}
+                              classes={{
+                                  checked: classes.checked,
+                                  root: classes.checkRoot
+                              }}
+                    />}
             />
         </div>
     );

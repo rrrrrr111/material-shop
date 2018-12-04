@@ -70,6 +70,8 @@ function CustomRadio(props) {
         <div className={classes.box}>
             <FormControlLabel
                 classes={{label: classes.label}}
+                disabled={disabled}
+                label={label}
                 control={
                     <Radio
                         checked={checked}
@@ -77,27 +79,22 @@ function CustomRadio(props) {
                         value={value}
                         name="radio-button"
                         aria-label="radio-button"
+                        disabled={disabled}
                         icon={<FiberManualRecord className={classNames({
                             [classes.radioUnchecked]: true,
                             [classes.disabled]: disabled,
                             "redShadow": error
-                        })}/>
-                        }
-                        checkedIcon={<FiberManualRecord
-                            className={
-                                classNames({
-                                    [classes.radioChecked]: true,
-                                    [classes.disabled]: disabled,
-                                    "redShadow": error
-                                })}
-                        />}
+                        })}/>}
+                        checkedIcon={<FiberManualRecord className={classNames({
+                            [classes.radioChecked]: true,
+                            [classes.disabled]: disabled,
+                            "redShadow": error
+                        })}/>}
                         classes={{
                             checked: classes.radio,
                             root: classes.radioRoot
                         }}
-                        disabled={disabled}
                     />}
-                label={label}
             />
         </div>
     );

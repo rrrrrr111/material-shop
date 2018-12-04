@@ -2,14 +2,7 @@ import {dangerColor, grayColor, primaryColor, roseColor} from "app/common/style/
 
 
 const customCheckboxRadioSwitch = {
-    checkRoot: {
-        padding: "14px"
-    },
 
-
-    checked: {
-        color: primaryColor + "!important"
-    },
 
 
     labelHorizontal: {
