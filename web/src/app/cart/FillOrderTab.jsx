@@ -46,6 +46,8 @@ class FillOrderTab extends React.PureComponent {
             paymentType,
         } = this.props.data;
         const {
+            deliveryTypeValid,
+            paymentTypeValid,
             orderFormValid
         } = this.props.ui;
         const courierDelivery = util.dictionary.deliveryTypeDict.getById(0);
@@ -188,12 +190,16 @@ class FillOrderTab extends React.PureComponent {
                         <CustomRadio label="Наличными курьеру"
                                      value="CASH"
                                      checked={paymentType === "CASH"}
+                                     error={!paymentTypeValid}
                                      onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
                                      disabled={disabled}
                         />
-                        <CustomRadio label="По безналичному расчету"
+                        <CustomRadio label={<span>По безналичному расчету&nbsp;&nbsp;&nbsp;
+                            <span className="errMess">Временно не доступно</span>
+                                            </span>}
                                      value="CASHLESS"
                                      checked={paymentType === "CASHLESS"}
+                                     error={!paymentTypeValid}
                                      onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
                                      disabled={disabled}
                         />
