@@ -1,9 +1,11 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Warning from "@material-ui/icons/Warning";
 import userCartStyle from "app/cart/userCartStyle";
 import DeliveryAddressRegion from "app/common/address/DeliveryAddressRegion";
 import DeliveryAddressStreet from "app/common/address/DeliveryAddressStreet";
 import GridContainer from "app/common/grid/GridContainer";
+import SnackbarContent from "app/common/message/colored/SnackbarContent";
 import LocalLink from "app/common/misc/LocalLink";
 import Price from "app/common/misc/Price";
 import {navPillsColor} from "app/common/style/styleConsts";
@@ -176,9 +178,14 @@ class FillOrderTab extends React.PureComponent {
                                         {
                                             pillText: postDelivery.description,
                                             content: (
-                                                <span>
-                                                    <h5>Сожалеем, доставка Почтой России временно не доступна.</h5>
-                                                </span>
+                                                <SnackbarContent
+                                                    message={
+                                                        <span>Сожалеем, доставка Почтой России временно не доступна</span>
+                                                    }
+                                                    close={false}
+                                                    color="warning"
+                                                    icon={Warning}
+                                                />
                                             )
                                         }
                                     ]}
