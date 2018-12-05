@@ -95,17 +95,15 @@ class RegPopup extends React.PureComponent {
             const compRef = this;
             updateUiField(compRef, state, "message", "");
 
-            const propsPerson = compRef.props.data;
-            const statePerson = compRef.state.data;
             dispatch(USER_START_LOADING)
                 .then(() => {
-                    return util.ajax.backendPost("auth/signup", {person: statePerson});
+                    return util.ajax.backendPost("auth/signup", {person: compRef.state.data});
                 })
                 .then((response) => {
                     const success = response.success;
                     let person = response.person;
                     if (!success) {
-                        person = {...propsPerson, ...statePerson}
+                        person = {...compRef.props.data, ...compRef.state.data}
                     }
                     dispatch(USER_AUTH, {person, success});
                     updateUiField(compRef, this.state, "message", response.message);

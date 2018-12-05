@@ -49,6 +49,24 @@ public class Person {
     @NotNull(groups = {OnCreateOrder.class})
     private PersonAddress address;
 
+    public Person() {
+    }
+
+    public Person(Person p) {
+        this.id = p.id;
+        this.email = p.email;
+        this.password = p.password;
+        this.phone = p.phone;
+        this.firstName = p.firstName;
+        this.lastName = p.lastName;
+        this.dateOfBirth = p.dateOfBirth;
+        this.sex = p.sex;
+        this.agreementChecked = p.agreementChecked;
+        this.role = p.role;
+        this.editDate = p.editDate;
+        this.address = p.address == null ? null : p.address.copy();
+    }
+
     public Long getId() {
         return id;
     }
@@ -144,12 +162,16 @@ public class Person {
         return address;
     }
 
+    public void setAddress(PersonAddress address) {
+        this.address = address;
+    }
+
     public boolean ableTo(Predicate<Role> predicate) {
         return predicate.test(getRole());
     }
 
-    public void setAddress(PersonAddress address) {
-        this.address = address;
+    public Person copy() {
+        return new Person(this);
     }
 
     @Override
@@ -164,6 +186,9 @@ public class Person {
                 ", dateOfBirth=" + dateOfBirth +
                 ", sex=" + sex +
                 ", agreementChecked=" + agreementChecked +
+                ", role=" + role +
+                ", editDate=" + editDate +
+                ", address=" + address +
                 '}';
     }
 }

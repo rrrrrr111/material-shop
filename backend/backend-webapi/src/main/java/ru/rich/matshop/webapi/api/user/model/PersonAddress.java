@@ -1,5 +1,7 @@
 package ru.rich.matshop.webapi.api.user.model;
 
+import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
@@ -8,12 +10,12 @@ public class PersonAddress {
 
     private Long id;
     private Long personId;
-    @NotBlank
+    @NotBlank(groups = {OnCreateOrder.class})
     private String region;
     private String town;
-    @NotBlank
+    @NotBlank(groups = {OnCreateOrder.class})
     private String street;
-    @NotBlank
+    @NotBlank(groups = {OnCreateOrder.class})
     private String house;
     private String housing;
     private String construction;
@@ -22,6 +24,25 @@ public class PersonAddress {
     private String intercom;
     private String addressComment;
     private Date editDate;
+
+    public PersonAddress() {
+    }
+
+    public PersonAddress(PersonAddress a) {
+        this.id = a.id;
+        this.personId = a.personId;
+        this.region = a.region;
+        this.town = a.town;
+        this.street = a.street;
+        this.house = a.house;
+        this.housing = a.housing;
+        this.construction = a.construction;
+        this.apartment = a.apartment;
+        this.entrance = a.entrance;
+        this.intercom = a.intercom;
+        this.addressComment = a.addressComment;
+        this.editDate = a.editDate;
+    }
 
     public Long getId() {
         return id;
@@ -145,6 +166,10 @@ public class PersonAddress {
     @Override
     public int hashCode() {
         return Objects.hash(region, town, street, house, housing, construction, apartment, entrance, intercom, addressComment);
+    }
+
+    public PersonAddress copy() {
+        return new PersonAddress(this);
     }
 
     @Override

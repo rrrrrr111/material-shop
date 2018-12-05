@@ -43,7 +43,7 @@ public class PersonService {
         checkEmailNotReserved(null, newPerson.getEmail());
 
         newPerson.setRole(Role.USER);
-        Person person = personDao.getByEmail(newPerson.getEmail());
+        Person person = personDao.getByEmail(newPerson.getEmail()).copy(); // избегаем мутации в кэше
 
         if (person == null) {
             return insert(newPerson);
@@ -52,7 +52,7 @@ public class PersonService {
         person.setRole(newPerson.getRole());
         person.setFirstName(newPerson.getFirstName());
         person.setEmail(newPerson.getEmail());
-        person.setPhone(newPerson.getPhone());
+        person.setPassword(newPerson.getPassword());
         person.setAgreementChecked(newPerson.getAgreementChecked());
 
         return update(person);
@@ -64,7 +64,7 @@ public class PersonService {
 
         checkEmailNotReserved(personId, newPerson.getEmail());
 
-        Person person = personDao.getById(personId);
+        Person person = personDao.getById(personId).copy();
 
         person.setFirstName(newPerson.getFirstName());
         person.setLastName(newPerson.getLastName());
@@ -79,7 +79,7 @@ public class PersonService {
         Long personId = Preconditions.checkNotNull(
                 pc.getPersonId(), "Person id must not be null");
 
-        Person person = personDao.getById(personId);
+        Person person = personDao.getById(personId).copy();
 
         if (!person.getPassword().equals(pc.getOldPassword())) {
             throw new UserException("Старый пароль указан не верно",
@@ -89,6 +89,7 @@ public class PersonService {
             throw new UserException("Новый пароль не может совпадать со старым",
                     String.format("New password equal to old, user id=%s", personId));
         }
+
         person.setPassword(pc.getNewPassword());
         person.setEditDate(pc.getPersonEditDate());
 
@@ -98,7 +99,7 @@ public class PersonService {
     public Date updateSettings(SettingsChange sc) {
         Preconditions.checkNotNull(sc.getPersonId(), "Person id must not be null");
 
-        Person person = personDao.getById(sc.getPersonId());
+        Person person = personDao.getById(sc.getPersonId()).copy();
 
         person.setAgreementChecked(sc.getAgreementChecked());
         person.setEditDate(sc.getPersonEditDate());
@@ -110,7 +111,7 @@ public class PersonService {
         String email = Preconditions.checkNotNull(orderPerson.getEmail(), "Person email must not be null");
 
         orderPerson.setRole(Role.ANONYMOUS);
-        Person person = getByEmail(email);
+        Person person = getByEmail(email).copy();
 
         if (person == null) {
             return insert(orderPerson);

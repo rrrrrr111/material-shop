@@ -33,6 +33,7 @@ dependencies {
     compile group: 'org.ehcache', name: 'ehcache', version: '3.6.2'
     compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0.1'
     compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+    compile group: 'xstream', name: 'xstream', version: '1.2.2'
 
     runtime("org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion")
     runtime("org.postgresql:postgresql:$postgreDriverVersion")

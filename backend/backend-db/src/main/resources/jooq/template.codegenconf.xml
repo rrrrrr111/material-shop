@@ -21,6 +21,9 @@
 
             <forcedTypes>
                 <forcedType>
+                    <enumConverter>true</enumConverter>
+                </forcedType>
+                <forcedType>
                     <userType>java.util.Date</userType>
                     <converter>ru.rich.matshop.db.converters.TimestampConverter</converter>
                     <expression>.*</expression>

@@ -108,6 +108,7 @@ public class UserController extends AbstractRestController {
     }
 
     public static Person toUi(Person p) {
+        p = p.copy();
         p.setPhone(defaultIfEmpty(p.getPhone(), ""));
         p.setEmail(defaultIfEmpty(p.getEmail(), ""));
         p.setFirstName(defaultIfEmpty(p.getFirstName(), ""));

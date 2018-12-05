@@ -89,7 +89,7 @@ public class RestEntryPoint extends AbstractRestController implements Authentica
     @ResponseBody
     public UserExceptionResponse handle(HttpServletResponse response,
                                         AuthenticationException ex) {
-        log.warn("Exception on authentication {}", ExceptionUtil.getAllErrorMessage(ex));
+        log.warn("Exception on authentication", ex);
 
         Pair<String, Integer> status = resolveResponseStatus(ex);
         response.setStatus(status.getRight());
