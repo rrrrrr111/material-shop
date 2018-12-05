@@ -257,7 +257,7 @@ class UserCart extends React.PureComponent {
             this.setWizardState(this, state);
             return;
         }
-        if (this.state.data.paymentType === "CASH") {
+        if (this.state.data.order.paymentType === "CASH") {
             this._debouncedCreateOrder(state, goCallback);
         } else {
             goCallback();

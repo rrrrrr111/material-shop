@@ -9,6 +9,7 @@ import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.common.security.AuthContext;
 import ru.rich.matshop.webapi.api.user.PersonService;
 import ru.rich.matshop.webapi.api.user.model.Person;
+import ru.rich.matshop.webapi.api.user.model.PersonAddress;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
 import ru.rich.matshop.webapi.api.user.profile.load.UserLoadResponse;
 import ru.rich.matshop.webapi.api.user.profile.password.ChangePasswordRequest;
@@ -91,6 +92,18 @@ public class UserController extends AbstractRestController {
         p.setFirstName(trimToNull(p.getFirstName()));
         p.setLastName(trimToNull(p.getLastName()));
         p.setPassword(defaultIfEmpty(p.getPassword(), null));
+
+        PersonAddress address = p.getAddress();
+        address.setRegion(trimToNull(address.getRegion()));
+        address.setTown(trimToNull(address.getTown()));
+        address.setStreet(trimToNull(address.getStreet()));
+        address.setHouse(trimToNull(address.getHouse()));
+        address.setHousing(trimToNull(address.getHousing()));
+        address.setConstruction(trimToNull(address.getConstruction()));
+        address.setApartment(trimToNull(address.getApartment()));
+        address.setEntrance(trimToNull(address.getEntrance()));
+        address.setIntercom(trimToNull(address.getIntercom()));
+        address.setAddressComment(trimToNull(address.getAddressComment()));
         return p;
     }
 
@@ -100,6 +113,18 @@ public class UserController extends AbstractRestController {
         p.setFirstName(defaultIfEmpty(p.getFirstName(), ""));
         p.setLastName(defaultIfEmpty(p.getLastName(), ""));
         p.setPassword(defaultIfEmpty(p.getPassword(), ""));
+
+        PersonAddress address = p.getAddress();
+        address.setRegion(defaultIfEmpty(address.getRegion(), ""));
+        address.setTown(defaultIfEmpty(address.getTown(), ""));
+        address.setStreet(defaultIfEmpty(address.getStreet(), ""));
+        address.setHouse(defaultIfEmpty(address.getHouse(), ""));
+        address.setHousing(defaultIfEmpty(address.getHousing(), ""));
+        address.setConstruction(defaultIfEmpty(address.getConstruction(), ""));
+        address.setApartment(defaultIfEmpty(address.getApartment(), ""));
+        address.setEntrance(defaultIfEmpty(address.getEntrance(), ""));
+        address.setIntercom(defaultIfEmpty(address.getIntercom(), ""));
+        address.setAddressComment(defaultIfEmpty(address.getAddressComment(), ""));
         return p;
     }
 }

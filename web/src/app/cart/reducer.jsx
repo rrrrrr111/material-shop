@@ -77,7 +77,7 @@ export const uiCartReducer = createReducer({
 });
 
 const updateCart = (state, product, foundCallback, notFoundCallback) => {
-    const index = state.cartGoodsList.findIndex((it) => (it.productId === product.productId));
+    const index = state.order.cartGoodsList.findIndex((it) => (it.productId === product.productId));
     let resState = state;
     if (index > -1 && foundCallback) {
         resState = foundCallback(state, index);
@@ -86,8 +86,8 @@ const updateCart = (state, product, foundCallback, notFoundCallback) => {
     }
     return update(resState, {
         order: {
-            goodsAmount: {$set: getCartGoodsAmount(resState.cartGoodsList)},
-            goodsQuantity: {$set: getCartGoodsQuantity(resState.cartGoodsList)}
+            goodsAmount: {$set: getCartGoodsAmount(resState.order.cartGoodsList)},
+            goodsQuantity: {$set: getCartGoodsQuantity(resState.order.cartGoodsList)}
         }
     });
 };
