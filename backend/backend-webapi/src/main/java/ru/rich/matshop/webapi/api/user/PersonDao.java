@@ -15,7 +15,7 @@ import static ru.rich.matshop.db.model.Tables.PERSON;
 import static ru.rich.matshop.webapi.util.DaoUtil.isOne;
 
 @Repository
-public class PersonDao {
+class PersonDao {
 
     private final DSLContext create;
 
@@ -31,16 +31,15 @@ public class PersonDao {
                 .fetchOneInto(UserInfo.class);
     }
 
-    @Cacheable(value = "personIdByEmail", key = "#email")
-    public Long getIdByEmail(String email) {
-        return create.select(PERSON.ID)
-                .from(PERSON)
+    @Cacheable(value = "personByEmail", key = "#email")
+    public UserInfo getByEmail(String email) {
+        return create.selectFrom(PERSON)
                 .where(PERSON.EMAIL.eq(email))
-                .fetchOneInto(Long.class);
+                .fetchOneInto(UserInfo.class);
     }
 
     @Caching(evict = {
-            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null")
+            @CacheEvict(value = {"personByEmail"}, key = "#p.email", condition = "#p.email != null")
     })
     public Long insert(Person p) {
         final var now = new Date();
@@ -56,9 +55,9 @@ public class PersonDao {
 
     @Caching(evict = {
             @CacheEvict(value = {"personById"}, key = "#p.id"),
-            @CacheEvict(value = {"personIdByEmail"}, key = "#p.email", condition = "#p.email != null")
+            @CacheEvict(value = {"personByEmail"}, key = "#p.email", condition = "#p.email != null")
     })
-    public Person updateProfile(Person p) {
+    public Date update(Person p) {
         Date now = new Date();
         int res = create.update(PERSON)
                 .set(PERSON.FIRST_NAME, p.getFirstName())
@@ -75,8 +74,6 @@ public class PersonDao {
                 )
                 .execute();
         isOne(res);
-
-        p.setEditDate(now);
-        return p;
+        return now;
     }
 }

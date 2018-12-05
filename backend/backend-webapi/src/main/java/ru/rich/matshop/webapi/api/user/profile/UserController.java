@@ -40,7 +40,7 @@ public class UserController extends AbstractRestController {
 
     @PostMapping(USER_URL_PREFIX + "/load")
     public UserLoadResponse load() {
-        Person respPerson = toUi(personService.get(AuthContext.getCurrentUserId()));
+        Person respPerson = toUi(personService.getById(AuthContext.getCurrentUserId()));
 
         var resp = prepareResponse(new UserLoadResponse());
         resp.setPerson(respPerson);
@@ -53,7 +53,7 @@ public class UserController extends AbstractRestController {
                                  @Validated({OnSave.class, Default.class})
                                          UserSaveRequest req) {
         Person reqPerson = fromUi(req.getPerson());
-        Person respPerson = toUi(personService.update(reqPerson));
+        Person respPerson = toUi(personService.updateProfile(reqPerson));
 
         var resp = prepareResponse(new UserSaveResponse());
         resp.setPerson(respPerson);

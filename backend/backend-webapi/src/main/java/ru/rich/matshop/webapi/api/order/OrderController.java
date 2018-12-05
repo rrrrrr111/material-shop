@@ -20,6 +20,8 @@ import javax.validation.groups.Default;
 
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 import static ru.rich.matshop.webapi.api.user.model.Role.Ability.AUTHENTICATE;
+import static ru.rich.matshop.webapi.api.user.profile.UserController.fromUi;
+import static ru.rich.matshop.webapi.api.user.profile.UserController.toUi;
 
 @RestController
 public class OrderController extends AbstractRestController {
@@ -39,20 +41,20 @@ public class OrderController extends AbstractRestController {
                                       @Validated({OnCreateOrder.class, Default.class})
                                               CreateOrderRequest req) {
 
-        Person reqPerson = req.getPerson();
+        Person reqPerson = fromUi(req.getPerson());
         ShopOrder reqOrder = req.getOrder();
 
-        Person person = personService.prepareOrderPerson(reqPerson);
+        Person person = toUi(personService.prepareOrderPerson(reqPerson));
         ShopOrder order = shopOrderService.createOrder(reqOrder);
 
         var resp = prepareResponse(new CreateOrderResponse());
-        resp.setAuthPersonUpdated(isUpdated(reqPerson, person));
+        resp.setAuthPersonUpdated(isAuthPersonUpdated(reqPerson, person));
         resp.setPerson(person);
         resp.setOrder(order);
         return resp;
     }
 
-    private boolean isUpdated(Person reqPerson, Person person) {
+    private boolean isAuthPersonUpdated(Person reqPerson, Person person) {
         return !person.getEditDate().equals(reqPerson.getEditDate())
                 && person.ableTo(AUTHENTICATE);
     }

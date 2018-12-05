@@ -9,7 +9,8 @@
     <!--<persistence directory="./cache"/>-->
     <!-- The caches we will created -->
     <cache alias="personById" uses-template="small-cache"/>
-    <cache alias="personIdByEmail" uses-template="small-cache"/>
+    <cache alias="personByEmail" uses-template="small-cache"/>
+    <cache alias="personAddressByPersonId" uses-template="small-cache"/>
     <!-- Config cache templates -->
     <cache-template name="small-cache">
         <expiry>
