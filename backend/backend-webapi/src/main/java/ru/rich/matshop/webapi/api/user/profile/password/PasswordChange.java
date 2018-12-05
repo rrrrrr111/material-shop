@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class PasswordChange {
 
+    @NotNull
     @CurrentUserId
     private Long personId;
     @NotBlank

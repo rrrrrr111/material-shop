@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class SettingsChange {
 
+    @NotNull
     @CurrentUserId
     private Long personId;
     @NotNull

@@ -11,19 +11,25 @@ import javax.validation.ConstraintValidatorContext;
 public class CurrentUserIdValidator implements ConstraintValidator<CurrentUserId, Long> {
     private static final Logger log = LoggerFactory.getLogger(CurrentUserIdValidator.class);
 
+    private CurrentUserId constraint;
+
     @Override
-    public void initialize(CurrentUserId constraintAnnotation) {
+    public void initialize(CurrentUserId constraint) {
+        this.constraint = constraint;
     }
 
     @Override
     public boolean isValid(Long userId, ConstraintValidatorContext context) {
+        if (userId == null) {
+            return true;
+        }
+        if (constraint.forAuthenticatedOnly() && !AuthContext.isAuthenticated()) {
+            return true;
+        }
         return checkUserId(userId);
     }
 
-    private static boolean checkUserId(Long userId) {
-        if (userId == null) {
-            return false;
-        }
+    private boolean checkUserId(Long userId) {
         Long currentUserId = AuthContext.getCurrentUserId();
         boolean valid = currentUserId.equals(userId);
         if (!valid) {

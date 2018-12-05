@@ -22,7 +22,10 @@ import React from "react";
 class FillOrderTab extends React.PureComponent {
 
     deliveryTypeHandler = (validator, fieldName, event, tabIndex) => {
-        validator.handleChange(fieldName, util.dictionary.deliveryTypeDict.getById(tabIndex).name);
+        const deliveryType = util.dictionary.deliveryTypeDict.getById(tabIndex);
+
+        validator.handleChange(fieldName, deliveryType.name);
+        validator.handleChange('order.deliveryAmount', deliveryType.coast);
     };
 
     render() {
@@ -38,16 +41,12 @@ class FillOrderTab extends React.PureComponent {
             address: uiAddress, firstNameValid, emailValid, phoneValid, agreementCheckedValid,
         } = this.props.ui.person;
         const {
-            deliveryAmount,
             deliveryType,
-            paymentInfo,
             paymentType,
-        } = this.props.data;
+        } = this.props.data.order;
         const {
-            deliveryTypeValid,
             paymentTypeValid,
-            orderFormValid
-        } = this.props.ui;
+        } = this.props.ui.order;
         const courierDelivery = util.dictionary.deliveryTypeDict.getById(0);
         const postDelivery = util.dictionary.deliveryTypeDict.getById(1);
 
@@ -149,7 +148,7 @@ class FillOrderTab extends React.PureComponent {
                                 <NavPills
                                     color={navPillsColor}
                                     activeTabIndex={util.dictionary.deliveryTypeDict.getByName(deliveryType).id}
-                                    onChange={prepareHandler(validatorRef, 'deliveryType', this.deliveryTypeHandler)}
+                                    onChange={prepareHandler(validatorRef, 'order.deliveryType', this.deliveryTypeHandler)}
                                     tabs={[
                                         {
                                             pillText: courierDelivery.description,
@@ -190,7 +189,7 @@ class FillOrderTab extends React.PureComponent {
                                      value="CASH"
                                      checked={paymentType === "CASH"}
                                      error={!paymentTypeValid}
-                                     onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
+                                     onChange={prepareHandler(validatorRef, 'order.paymentType', inputHandler)}
                                      disabled={disabled}
                         />
                         <CustomRadio label={<span>По безналичному расчету
@@ -201,7 +200,7 @@ class FillOrderTab extends React.PureComponent {
                                      value="CASHLESS"
                                      checked={paymentType === "CASHLESS"}
                                      error={!paymentTypeValid}
-                                     onChange={prepareHandler(validatorRef, 'paymentType', inputHandler)}
+                                     onChange={prepareHandler(validatorRef, 'order.paymentType', inputHandler)}
                                      disabled={disabled}
                         />
                     </CardBody>

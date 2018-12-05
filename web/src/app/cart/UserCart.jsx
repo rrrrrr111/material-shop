@@ -50,17 +50,21 @@ class UserCart extends React.PureComponent {
         this.state = UserCart.getDerivedStateFromProps(props, {
             data: {
                 person: null,
-                deliveryAmount: null,
-                deliveryType: "COURIER",
-                paymentInfo: null,
-                paymentType: "CASH",
-                totalAmount: 0,
+                order: {
+                    deliveryAmount: null,
+                    deliveryType: "COURIER",
+                    paymentInfo: null,
+                    paymentType: "CASH",
+                    totalAmount: 0,
+                },
             },
             ui: {
                 person: initialPersonUi,
-                goodsAmountValid: true,
-                deliveryTypeValid: true,
-                paymentTypeValid: true,
+                order: {
+                    goodsAmountValid: true,
+                    deliveryTypeValid: true,
+                    paymentTypeValid: true,
+                },
                 goodsFormValid: true,
                 orderFormValid: true,
                 paymentFormValid: true,
@@ -84,9 +88,12 @@ class UserCart extends React.PureComponent {
         });
         this.goodsTabValidator = util.validate.createValidator(this, {
                 checkers: {
-                    goodsAmount: this.checkGoodsAmount,
+                    order: {
+                        goodsAmount: this.checkGoodsAmount,
+                    },
                 },
                 formValidField: 'goodsFormValid',
+                stateSetter: this.setWizardState,
             }
         );
         this.orderTabValidator = util.validate.createValidator(this, {
@@ -103,9 +110,11 @@ class UserCart extends React.PureComponent {
                             house: isNotBlank,
                         },
                     },
-                    goodsAmount: this.checkGoodsAmount,
-                    deliveryType: this.checkDeliveryType,
-                    paymentType: this.checkPaymentType,
+                    order: {
+                        goodsAmount: this.checkGoodsAmount,
+                        deliveryType: this.checkDeliveryType,
+                        paymentType: this.checkPaymentType,
+                    },
                 },
                 formValidField: 'orderFormValid',
                 stateSetter: this.setWizardState,
@@ -122,13 +131,15 @@ class UserCart extends React.PureComponent {
             });
             changed |= true;
         }
-        if (state.data.cartGoodsList !== props.data.cartGoodsList) {
+        if (state.data.order.cartGoodsList !== props.data.order.cartGoodsList) {
             state = update(state, {
                 data: {
-                    cartGoodsList: {$set: props.data.cartGoodsList},
-                    goodsAmount: {$set: props.data.goodsAmount},
-                    goodsQuantity: {$set: props.data.goodsQuantity}
-                }
+                    order: {
+                        cartGoodsList: {$set: props.data.order.cartGoodsList},
+                        goodsAmount: {$set: props.data.order.goodsAmount},
+                        goodsQuantity: {$set: props.data.order.goodsQuantity}
+                    },
+                },
             });
             state = UserCart.getWizardState(state, true);
             changed |= true;
@@ -153,7 +164,7 @@ class UserCart extends React.PureComponent {
     }
 
     static getWizardState(state, clearValidation) {
-        const {paymentType} = state.data;
+        const {paymentType} = state.data.order;
         const {goodsFormValid, orderFormValid, paymentFormValid} = state.ui;
 
         const step2nextButtonText = paymentType === "CASH" ? "Подтвердить заказ" : "Перейти к оплате";
@@ -189,12 +200,14 @@ class UserCart extends React.PureComponent {
 
     static determineMessage = (state) => {
         const {
-            goodsAmountValid,
             goodsFormValid, orderFormValid, paymentFormValid
         } = state.ui;
         const {
+            goodsAmountValid
+        } = state.ui.order;
+        const {
             goodsAmount
-        } = state.data;
+        } = state.data.order;
 
         if (!goodsAmountValid) {
             const minAmount = util.global.getSiteConfigSync().minCartGoodsAmount;
@@ -258,9 +271,7 @@ class UserCart extends React.PureComponent {
 
             dispatch(START_ORDER_CREATE)
                 .then(() => {
-                    return util.ajax.backendPost("order/create", {
-                        order: compRef.state.data
-                    });
+                    return util.ajax.backendPost("order/create", compRef.state.data);
                 })
                 .then((response) => {
                     updateUiField(compRef, this.state, "message", response.message);

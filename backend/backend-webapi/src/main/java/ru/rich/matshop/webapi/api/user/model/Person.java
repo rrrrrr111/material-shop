@@ -17,6 +17,7 @@ import java.util.Date;
 public class Person {
 
     @Null(groups = {OnSignup.class})
+    @NotNull(groups = {OnSave.class})
     @CurrentUserId(groups = {OnSave.class})
     private Long id;
     @NotBlank(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class})

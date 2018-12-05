@@ -1,5 +1,6 @@
 package ru.rich.matshop.webapi.api.user.model;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,9 +8,12 @@ public class PersonAddress {
 
     private Long id;
     private Long personId;
+    @NotBlank
     private String region;
     private String town;
+    @NotBlank
     private String street;
+    @NotBlank
     private String house;
     private String housing;
     private String construction;

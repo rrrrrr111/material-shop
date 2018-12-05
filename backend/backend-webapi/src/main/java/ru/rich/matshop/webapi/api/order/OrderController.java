@@ -29,10 +29,9 @@ public class OrderController extends AbstractRestController {
 
     @PostMapping(ORDER_URL_PREFIX + "/create")
     @Transactional
-    public CreateOrderResponse list(@RequestBody
-                                    @Validated({OnCreateOrder.class, Default.class})
-                                            CreateOrderRequest req) {
-
+    public CreateOrderResponse create(@RequestBody
+                                      @Validated({OnCreateOrder.class, Default.class})
+                                              CreateOrderRequest req) {
 
         var resp = prepareResponse(new CreateOrderResponse());
         //resp.setPersonEditDate(editDate);
@@ -44,11 +43,8 @@ public class OrderController extends AbstractRestController {
     public OrderListResponse list(@RequestBody
                                   @Valid
                                           OrderListRequest req) {
-
-
         var resp = prepareResponse(new OrderListResponse());
         //resp.setPersonEditDate(editDate);
         return resp;
     }
-
 }

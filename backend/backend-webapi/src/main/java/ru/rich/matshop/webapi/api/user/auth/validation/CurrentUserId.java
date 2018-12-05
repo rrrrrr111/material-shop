@@ -24,4 +24,9 @@ public @interface CurrentUserId {
 
     Class<? extends Payload>[] payload() default {};
 
+    /**
+     * Проверять только если пользователь авторизован
+     */
+    boolean forAuthenticatedOnly() default false;
+
 }

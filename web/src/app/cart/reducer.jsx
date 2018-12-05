@@ -9,9 +9,11 @@ export const STOP_ORDER_CREATE = 'STOP_ORDER_CREATE';
 export const ORDER_CREATED = 'ORDER_CREATED';
 
 const initialState = {
-    cartGoodsList: [],
-    goodsAmount: 0,
-    goodsQuantity: 0,
+    order: {
+        cartGoodsList: [],
+        goodsAmount: 0,
+        goodsQuantity: 0,
+    },
 };
 export const dataCartReducer = createReducer(
     initialState, {
@@ -20,19 +22,21 @@ export const dataCartReducer = createReducer(
             return updateCart(state, value,
                 (state, index) => {
                     return update(state, {
-                        cartGoodsList: {
-                            [index]: {
-                                quantity: {
-                                    $apply: ((q) => {
-                                        return q + 1;
-                                    })
+                        order: {
+                            cartGoodsList: {
+                                [index]: {
+                                    quantity: {
+                                        $apply: ((q) => {
+                                            return q + 1;
+                                        })
+                                    }
                                 }
                             }
                         }
                     });
                 },
                 (state) => {
-                    return update(state, {cartGoodsList: {$push: [{...value, quantity: 1}]}});
+                    return update(state, {order: {cartGoodsList: {$push: [{...value, quantity: 1}]}}});
                 }
             );
         },
@@ -40,7 +44,7 @@ export const dataCartReducer = createReducer(
         [CHANGE_QUANTITY]: (state, value) => {
             return updateCart(state, value,
                 (state, index) => {
-                    return update(state, {cartGoodsList: {[index]: {quantity: {$set: value.quantity}}}});
+                    return update(state, {order: {cartGoodsList: {[index]: {quantity: {$set: value.quantity}}}}});
                 }
             );
         },
@@ -48,7 +52,7 @@ export const dataCartReducer = createReducer(
         [REMOVE_FROM_CART]: (state, value) => {
             return updateCart(state, value,
                 (state, index) => {
-                    return update(state, {cartGoodsList: {$splice: [[index, 1]]}});
+                    return update(state, {order: {cartGoodsList: {$splice: [[index, 1]]}}});
                 }
             );
         },
@@ -81,8 +85,10 @@ const updateCart = (state, product, foundCallback, notFoundCallback) => {
         resState = notFoundCallback(state);
     }
     return update(resState, {
-        goodsAmount: {$set: getCartGoodsAmount(resState.cartGoodsList)},
-        goodsQuantity: {$set: getCartGoodsQuantity(resState.cartGoodsList)}
+        order: {
+            goodsAmount: {$set: getCartGoodsAmount(resState.cartGoodsList)},
+            goodsQuantity: {$set: getCartGoodsQuantity(resState.cartGoodsList)}
+        }
     });
 };
 

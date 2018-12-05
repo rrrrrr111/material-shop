@@ -4,8 +4,11 @@ import ru.rich.matshop.webapi.api.common.paging.PageRequest;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
 
+import javax.validation.constraints.NotNull;
+
 public class OrderListRequest extends AbstractRestRequest {
 
+    @NotNull
     @CurrentUserId
     private Long personId;
     private PageRequest pageRequest;

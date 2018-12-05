@@ -56,7 +56,7 @@ class GoodsTab extends React.PureComponent {
     };
 
     getCartGoodsList() {
-        return this.props.data.cartGoodsList;
+        return this.props.data.order.cartGoodsList;
     }
 
     changeQuantity(index, newQuantity) {
@@ -72,11 +72,11 @@ class GoodsTab extends React.PureComponent {
 
     render() {
         const {classes} = this.props;
-        const cartGoodsList = this.getCartGoodsList();
         const {
+            cartGoodsList,
             goodsAmount,
             goodsQuantity
-        } = this.props.data;
+        } = this.props.data.order;
 
         if (!goodsQuantity) {
             return (
