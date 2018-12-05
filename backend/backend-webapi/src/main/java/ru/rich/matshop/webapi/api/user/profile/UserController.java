@@ -87,23 +87,23 @@ public class UserController extends AbstractRestController {
     }
 
     public static Person fromUi(Person p) {
-        p.setPhone(defaultIfEmpty(p.getPhone(), null));
-        p.setEmail(defaultIfEmpty(p.getEmail(), null));
+        p.setPhone(trimToNull(p.getPhone()));
+        p.setEmail(trimToNull(p.getEmail()));
         p.setFirstName(trimToNull(p.getFirstName()));
         p.setLastName(trimToNull(p.getLastName()));
         p.setPassword(defaultIfEmpty(p.getPassword(), null));
 
-        PersonAddress address = p.getAddress();
-        address.setRegion(trimToNull(address.getRegion()));
-        address.setTown(trimToNull(address.getTown()));
-        address.setStreet(trimToNull(address.getStreet()));
-        address.setHouse(trimToNull(address.getHouse()));
-        address.setHousing(trimToNull(address.getHousing()));
-        address.setConstruction(trimToNull(address.getConstruction()));
-        address.setApartment(trimToNull(address.getApartment()));
-        address.setEntrance(trimToNull(address.getEntrance()));
-        address.setIntercom(trimToNull(address.getIntercom()));
-        address.setAddressComment(trimToNull(address.getAddressComment()));
+        PersonAddress a = p.getAddress();
+        a.setRegion(trimToNull(a.getRegion()));
+        a.setTown(trimToNull(a.getTown()));
+        a.setStreet(trimToNull(a.getStreet()));
+        a.setHouse(trimToNull(a.getHouse()));
+        a.setHousing(trimToNull(a.getHousing()));
+        a.setConstruction(trimToNull(a.getConstruction()));
+        a.setApartment(trimToNull(a.getApartment()));
+        a.setEntrance(trimToNull(a.getEntrance()));
+        a.setIntercom(trimToNull(a.getIntercom()));
+        a.setAddressComment(trimToNull(a.getAddressComment()));
         return p;
     }
 
@@ -114,17 +114,17 @@ public class UserController extends AbstractRestController {
         p.setLastName(defaultIfEmpty(p.getLastName(), ""));
         p.setPassword(defaultIfEmpty(p.getPassword(), ""));
 
-        PersonAddress address = p.getAddress();
-        address.setRegion(defaultIfEmpty(address.getRegion(), ""));
-        address.setTown(defaultIfEmpty(address.getTown(), ""));
-        address.setStreet(defaultIfEmpty(address.getStreet(), ""));
-        address.setHouse(defaultIfEmpty(address.getHouse(), ""));
-        address.setHousing(defaultIfEmpty(address.getHousing(), ""));
-        address.setConstruction(defaultIfEmpty(address.getConstruction(), ""));
-        address.setApartment(defaultIfEmpty(address.getApartment(), ""));
-        address.setEntrance(defaultIfEmpty(address.getEntrance(), ""));
-        address.setIntercom(defaultIfEmpty(address.getIntercom(), ""));
-        address.setAddressComment(defaultIfEmpty(address.getAddressComment(), ""));
+        PersonAddress a = p.getAddress();
+        a.setRegion(defaultIfEmpty(a.getRegion(), ""));
+        a.setTown(defaultIfEmpty(a.getTown(), ""));
+        a.setStreet(defaultIfEmpty(a.getStreet(), ""));
+        a.setHouse(defaultIfEmpty(a.getHouse(), ""));
+        a.setHousing(defaultIfEmpty(a.getHousing(), ""));
+        a.setConstruction(defaultIfEmpty(a.getConstruction(), ""));
+        a.setApartment(defaultIfEmpty(a.getApartment(), ""));
+        a.setEntrance(defaultIfEmpty(a.getEntrance(), ""));
+        a.setIntercom(defaultIfEmpty(a.getIntercom(), ""));
+        a.setAddressComment(defaultIfEmpty(a.getAddressComment(), ""));
         return p;
     }
 }

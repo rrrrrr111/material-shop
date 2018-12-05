@@ -7,10 +7,7 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 import ru.rich.matshop.db.model.tables.PersonTable;
 import ru.rich.matshop.webapi.api.user.model.Person;
-import ru.rich.matshop.webapi.api.user.model.Role;
 import ru.rich.matshop.webapi.api.user.model.UserInfo;
-import ru.rich.matshop.webapi.api.user.profile.password.PasswordChange;
-import ru.rich.matshop.webapi.api.user.profile.settings.SettingsChange;
 
 import java.util.Date;
 
@@ -52,7 +49,6 @@ public class PersonDao {
                 .set(PERSON.EDIT_DATE, now)
                 .set(PERSON.LAST_VISIT, now)
                 .set(PERSON.LOCKED, false)
-                .set(PERSON.ROLE, Role.USER.toString())
                 .returning(PERSON.ID)
                 .fetchOne()
                 .getId();
@@ -69,6 +65,9 @@ public class PersonDao {
                 .set(PERSON.LAST_NAME, p.getLastName())
                 .set(PERSON.EMAIL, p.getEmail())
                 .set(PERSON.PHONE, p.getPhone())
+                .set(PERSON.AGREEMENT_CHECKED, p.getAgreementChecked())
+                .set(PERSON.PASSWORD, p.getPassword())
+                .set(PERSON.ROLE, p.getRole().toString())
                 .set(PERSON.EDIT_DATE, now)
                 .where(
                         PERSON.ID.eq(p.getId())
@@ -79,38 +78,5 @@ public class PersonDao {
 
         p.setEditDate(now);
         return p;
-    }
-
-    @Caching(evict = {
-            @CacheEvict(value = {"personById"}, key = "#pc.personId")
-    })
-    public Date updatePassword(PasswordChange pc) {
-        Date now = new Date();
-        int res = create.update(PERSON)
-                .set(PERSON.PASSWORD, pc.getNewPassword())
-                .set(PERSON.EDIT_DATE, now)
-                .where(
-                        PERSON.ID.eq(pc.getPersonId())
-                                .and(PERSON.EDIT_DATE.eq(pc.getPersonEditDate()))
-                                .and(PERSON.PASSWORD.eq(pc.getOldPassword()))
-                ).execute();
-        isOne(res);
-        return now;
-    }
-
-    @Caching(evict = {
-            @CacheEvict(value = {"personById"}, key = "#sc.personId")
-    })
-    public Date updateSettings(SettingsChange sc) {
-        Date now = new Date();
-        int res = create.update(PERSON)
-                .set(PERSON.AGREEMENT_CHECKED, sc.getAgreementChecked())
-                .set(PERSON.EDIT_DATE, now)
-                .where(
-                        PERSON.ID.eq(sc.getPersonId())
-                                .and(PERSON.EDIT_DATE.eq(sc.getPersonEditDate()))
-                ).execute();
-        isOne(res);
-        return now;
     }
 }

@@ -3,11 +3,19 @@ package ru.rich.matshop.webapi.api.user.model;
 import java.util.List;
 import java.util.Set;
 
-import static ru.rich.matshop.webapi.api.user.model.Role.Ability.SEE_ORDER_LIST;
+import static ru.rich.matshop.webapi.api.user.model.Role.Ability.AUTHENTICATE;
+import static ru.rich.matshop.webapi.api.user.model.Role.Ability.SEE_OWN_ORDER_LIST;
 
 public enum Role {
 
-    USER(SEE_ORDER_LIST);
+    /**
+     * Анонимный пользоватль, создавал заказ, но не регистрировался в системе
+     */
+    ANONYMOUS(),
+    /**
+     * Зарегистрированный пользоватль
+     */
+    USER(AUTHENTICATE, SEE_OWN_ORDER_LIST);
 
     public static final List<Role> LIST = List.of(values());
     private final Set<UserAbility> abilities;
@@ -28,7 +36,14 @@ public enum Role {
      * Возможности клиентских пользователей на основе их ролей
      */
     public enum Ability implements UserAbility {
-        SEE_ORDER_LIST;
+        /**
+         * Может логиниться в системе
+         */
+        AUTHENTICATE,
+        /**
+         * Может видеть собственный список заказов
+         */
+        SEE_OWN_ORDER_LIST;
 
         @Override
         public boolean test(Role role) {

@@ -1,5 +1,6 @@
 package ru.rich.matshop.webapi.api.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.function.Predicate;
 
 
 public class Person {
@@ -37,6 +39,8 @@ public class Person {
     private Sex sex;
     @NotNull(groups = {OnSignup.class, OnCreateOrder.class})
     private Boolean agreementChecked;
+    @JsonIgnore
+    private Role role;
     @Null(groups = {OnSignup.class})
     @NotNull(groups = {OnSave.class})
     private Date editDate;
@@ -123,11 +127,23 @@ public class Person {
         this.editDate = editDate;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public PersonAddress getAddress() {
         if (address == null) {
             address = new PersonAddress();
         }
         return address;
+    }
+
+    public boolean ableTo(Predicate<Role> predicate) {
+        return predicate.test(getRole());
     }
 
     public void setAddress(PersonAddress address) {

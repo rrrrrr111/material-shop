@@ -13,8 +13,6 @@ public class UserInfo extends Person implements UserDetails {
     private Date lastVisit;
     @JsonIgnore
     private boolean locked;
-    @JsonIgnore
-    private Role role;
 
     public boolean isLocked() {
         return locked;
@@ -22,14 +20,6 @@ public class UserInfo extends Person implements UserDetails {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Date getLastVisit() {
@@ -43,7 +33,7 @@ public class UserInfo extends Person implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAbilities();
+        return getRole().getAbilities();
     }
 
     @Override
@@ -89,7 +79,7 @@ public class UserInfo extends Person implements UserDetails {
                 ", sex='" + getSex() + '\'' +
                 ", agreementChecked=" + getAgreementChecked() +
                 ", locked=" + locked +
-                ", role=" + role +
+                ", role=" + getRole() +
                 ", editDate=" + getEditDate() +
                 ", lastVisit=" + lastVisit +
                 '}';
