@@ -282,7 +282,7 @@ class UserCart extends React.PureComponent {
                 .then((response) => {
                     updateUiField(compRef, this.state, "message", response.message);
                     if (response.success) {
-                        dispatch(ORDER_CREATED, response.order);
+                        dispatch(ORDER_CREATED, response);
                         util.notify.orderCreated(response.order.id);
                         goCallback();
                     } else {

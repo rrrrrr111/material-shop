@@ -34,6 +34,9 @@ public class ShopOrder {
     private Long assignedPersonId;
     @JsonIgnore
     private String serviceComment;
+    private String paymentInfo;
+    @NotNull
+    private ShopOrderPaymentType paymentType;
     @Null
     private Date createDate;
     @JsonIgnore
@@ -157,20 +160,38 @@ public class ShopOrder {
         this.shopIdentity = shopIdentity;
     }
 
+    public String getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(String paymentInfo) {
+        this.paymentInfo = paymentInfo;
+    }
+
+    public ShopOrderPaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(ShopOrderPaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
     @Override
     public String toString() {
         return "ShopOrder{" +
                 "id=" + id +
-                ", shopIdentity=" + shopIdentity +
+                ", shopIdentity='" + shopIdentity + '\'' +
                 ", clientPersonId=" + clientPersonId +
                 ", personAddressId=" + personAddressId +
-                ", deliveryAmount=" + deliveryAmount +
                 ", goodsAmount=" + goodsAmount +
+                ", deliveryAmount=" + deliveryAmount +
                 ", totalAmount=" + totalAmount +
                 ", deliveryType=" + deliveryType +
                 ", state=" + state +
                 ", assignedPersonId=" + assignedPersonId +
                 ", serviceComment='" + serviceComment + '\'' +
+                ", paymentInfo='" + paymentInfo + '\'' +
+                ", paymentType='" + paymentType + '\'' +
                 ", createDate=" + createDate +
                 ", editDate=" + editDate +
                 ", cartGoodsList=" + cartGoodsList +

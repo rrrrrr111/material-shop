@@ -1,3 +1,4 @@
+import {ORDER_CREATED} from "app/cart/reducer";
 import {createReducer} from "app/utils/functionUtil";
 import update from 'immutability-helper';
 
@@ -35,14 +36,17 @@ let initialState = {
 export const dataUserReducer = createReducer(
     initialState, {
         [USER_DATA]: (state, value = initialState) => {
-            return {...initialState, ...value}; // todo
+            return value;
         },
         [USER_AUTH]: (state, value) => {
-            return value.success ? {...initialState, ...value.person} : state; // todo
+            return value.success ? value.person : state; // todo
         },
         [USER_LOGGED_OUT]: () => {
             return initialState;
         },
+        [ORDER_CREATED]: (state, value) => {
+            return value.authPersonUpdated ? value.person : state;
+        }
     });
 
 export const uiUserReducer = createReducer({

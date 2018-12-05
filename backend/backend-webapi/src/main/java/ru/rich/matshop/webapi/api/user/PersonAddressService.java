@@ -43,6 +43,7 @@ public class PersonAddressService {
             personAddressDao.update(address); // обновится только EDIT_DATE, чтобы адрес стал последним актуальным
             return;
         }
+        address.setId(null);
         personAddressDao.insert(address);
     }
 }
