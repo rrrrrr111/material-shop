@@ -2,9 +2,11 @@ package ru.rich.matshop.webapi.api.order.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +38,9 @@ public class ShopOrder {
     private Date createDate;
     @JsonIgnore
     private Date editDate;
+    @Valid
     @NotEmpty
-    private List<ShopOrderGoods> shopOrderGoodsList;
+    private List<ShopOrderGoods> cartGoodsList;
 
     public Long getId() {
         return id;
@@ -127,12 +130,15 @@ public class ShopOrder {
         this.editDate = editDate;
     }
 
-    public List<ShopOrderGoods> getShopOrderGoodsList() {
-        return shopOrderGoodsList;
+    public List<ShopOrderGoods> getCartGoodsList() {
+        if (cartGoodsList == null) {
+            return Collections.emptyList();
+        }
+        return cartGoodsList;
     }
 
-    public void setShopOrderGoodsList(List<ShopOrderGoods> shopOrderGoodsList) {
-        this.shopOrderGoodsList = shopOrderGoodsList;
+    public void setCartGoodsList(List<ShopOrderGoods> cartGoodsList) {
+        this.cartGoodsList = cartGoodsList;
     }
 
     public Long getGoodsAmount() {
@@ -167,7 +173,7 @@ public class ShopOrder {
                 ", serviceComment='" + serviceComment + '\'' +
                 ", createDate=" + createDate +
                 ", editDate=" + editDate +
-                ", shopOrderGoodsList=" + shopOrderGoodsList +
+                ", cartGoodsList=" + cartGoodsList +
                 '}';
     }
 }

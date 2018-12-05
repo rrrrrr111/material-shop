@@ -1,4 +1,5 @@
 import Grid from "@material-ui/core/Grid";
+import {moscowName, piterName} from "app/cart/UserCart";
 import CustomInput from "app/common/theme/input/CustomInput";
 import SelectInput from "app/common/theme/input/SelectInput";
 import util from "app/utils/util";
@@ -18,7 +19,7 @@ class DeliveryAddressRegion extends React.PureComponent {
     regionHandler = (compRef, fieldName, event) => {
         const value = event.target.value;
         let isTownEditable;
-        if (value === '77' || value === '78') {
+        if (value === moscowName || value === piterName) {
             inputHandler(compRef, 'person.address.town', {target: {value: ""}});
             isTownEditable = false;
         } else {
@@ -45,6 +46,7 @@ class DeliveryAddressRegion extends React.PureComponent {
                         labelText="Регион"
                         fakeItemText="Выберите регион"
                         value={region}
+                        valueField="name"
                         onChange={prepareHandler(validatorRef, 'person.address.region', this.regionHandler)}
                         error={!regionValid}
                         options={util.dictionary.regionDict.values}

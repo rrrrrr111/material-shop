@@ -40,6 +40,9 @@ const initialPersonUi = {
     },
 };
 
+export const moscowName = util.dictionary.regionDict.getById("77").name;
+export const piterName = util.dictionary.regionDict.getById("78").name;
+
 class UserCart extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -47,14 +50,17 @@ class UserCart extends React.PureComponent {
         this.orderStepGoNext = this.orderStepGoNext.bind(this);
         this.paymentStepGoNext = this.paymentStepGoNext.bind(this);
 
+        const defaultDelivery = util.dictionary.deliveryTypeDict.getById(0);
+        const defaultPaymentType = "CASH";
+
         this.state = UserCart.getDerivedStateFromProps(props, {
             data: {
                 person: null,
                 order: {
-                    deliveryAmount: null,
-                    deliveryType: "COURIER",
+                    deliveryAmount: defaultDelivery.coast,
+                    deliveryType: defaultDelivery.name,
                     paymentInfo: null,
-                    paymentType: "CASH",
+                    paymentType: defaultPaymentType,
                     totalAmount: 0,
                 },
             },
@@ -158,7 +164,7 @@ class UserCart extends React.PureComponent {
             agreementChecked: true,
             address: {
                 ...props.userData.address,
-                region: (props.userData.address.region ? props.userData.address.region : "77")
+                region: (props.userData.address.region ? props.userData.address.region : moscowName)
             },
         };
     }
@@ -224,9 +230,9 @@ class UserCart extends React.PureComponent {
     checkTown = (town, data) => {
         let region = data.person.address.region;
         return (
-            (region !== '77' && region !== '78' && isNotBlank(town))
+            (region !== moscowName && region !== piterName && isNotBlank(town))
             ||
-            ((region === '77' || region === '78') && !isNotBlank(town))
+            ((region === moscowName || region === piterName) && !isNotBlank(town))
         );
     };
 

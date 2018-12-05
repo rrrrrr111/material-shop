@@ -119,7 +119,7 @@ class MenuBar extends React.PureComponent {
         );
     }
 
-    static defaultProp = {
+    static defaultProps = {
         color: WHITE_COLOR_KEY
     };
 

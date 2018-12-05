@@ -8,19 +8,27 @@ import ru.rich.matshop.webapi.api.order.model.ShopOrderState;
 public class ShopOrderService {
 
     private final ShopOrderDao shopOrderDao;
+    private final ShopOrderGoodsDao shopOrderGoodsDao;
 
-    ShopOrderService(ShopOrderDao shopOrderDao) {
+    ShopOrderService(ShopOrderDao shopOrderDao, ShopOrderGoodsDao shopOrderGoodsDao) {
         this.shopOrderDao = shopOrderDao;
+        this.shopOrderGoodsDao = shopOrderGoodsDao;
     }
 
     public ShopOrder createOrder(ShopOrder order) {
 
         order.setState(ShopOrderState.NEW);
         Long orderId = shopOrderDao.insert(order);
+        order.getCartGoodsList().forEach(og -> {
+            og.setShopOrderId(orderId);
+            shopOrderGoodsDao.insert(og);
+        });
         return getById(orderId);
     }
 
     private ShopOrder getById(Long id) {
-        return shopOrderDao.getById(id);
+        ShopOrder order = shopOrderDao.getById(id);
+        order.setCartGoodsList(shopOrderGoodsDao.getByOrderId(id));
+        return order;
     }
 }

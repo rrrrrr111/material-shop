@@ -14,6 +14,8 @@ class SelectInput extends React.PureComponent {
             labelText,
             fakeItemText,
             value,
+            valueField,
+            displayField,
             onChange,
             options,
             classes
@@ -49,9 +51,9 @@ class SelectInput extends React.PureComponent {
                                           root: classes.selectMenuItem,
                                           selected: classes.selectMenuItemSelected
                                       }}
-                                      value={item.id}
+                                      value={item[valueField]}
                             >
-                                {item.name}
+                                {item[displayField]}
                             </MenuItem>
                         );
                     })}
@@ -60,12 +62,19 @@ class SelectInput extends React.PureComponent {
         );
     }
 
+    static defaultProps = {
+        valueField: "id",
+        displayField: "name",
+    };
+
     static propTypes = {
         classes: PropTypes.object.isRequired,
         id: PropTypes.string.isRequired,
         labelText: PropTypes.string.isRequired,
         fakeItemText: PropTypes.string.isRequired,
-        value: PropTypes.string,
+        value: PropTypes.string.isRequired,
+        valueField: PropTypes.string.isRequired,
+        displayField: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
         options: PropTypes.arrayOf(PropTypes.object).isRequired,
     };

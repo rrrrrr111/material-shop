@@ -7,6 +7,7 @@ import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSignup;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,7 @@ public class Person {
     @Null(groups = {OnSignup.class})
     @NotNull(groups = {OnSave.class})
     private Date editDate;
+    @Valid
     @NotNull(groups = {OnCreateOrder.class})
     private PersonAddress address;
 

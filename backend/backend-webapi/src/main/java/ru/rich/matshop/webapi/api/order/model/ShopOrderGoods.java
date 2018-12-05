@@ -1,11 +1,19 @@
 package ru.rich.matshop.webapi.api.order.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
 public class ShopOrderGoods {
 
+    @Null
     private Long id;
+    @Null
     private Long shopOrderId;
+    @NotNull
     private Long productId;
+    @NotNull
     private Integer quantity;
+    @NotNull
     private Long price;
 
     public Long getId() {
