@@ -5,7 +5,7 @@ public class EmptyRequest extends AbstractRestRequest {
     @Override
     public String toString() {
         return "EmptyRequest{" +
-                "shopId=" + getShopId() +
+                "shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

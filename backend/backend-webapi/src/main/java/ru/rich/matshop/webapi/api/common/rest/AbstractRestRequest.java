@@ -8,13 +8,13 @@ import javax.validation.constraints.NotBlank;
 public abstract class AbstractRestRequest {
 
     @NotBlank
-    private String shopId;
+    private String shopIdentity;
 
-    public String getShopId() {
-        return shopId;
+    public String getShopIdentity() {
+        return shopIdentity;
     }
 
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
+    public void setShopIdentity(String shopIdentity) {
+        this.shopIdentity = shopIdentity;
     }
 }

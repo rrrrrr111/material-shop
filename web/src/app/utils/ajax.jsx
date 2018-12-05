@@ -71,7 +71,7 @@ const backendPost = (urlTail, request) => {
         .then((backend) => {
             return backend.axiosInstance.post(urlTail, {
                 ...request,
-                shopId: backend.siteConfig.shopId
+                shopIdentity: backend.siteConfig.shopIdentity
             });
         }).then(handleResponse, handleError);
 };
@@ -83,7 +83,7 @@ const backendSignin = (loginData) => {
                 url: "auth/login-processing",
                 baseURL: siteConfig.backendApiUrl,
                 params: {
-                    shopId: siteConfig.shopId
+                    shopIdentity: siteConfig.shopIdentity
                 },
                 method: 'get',
                 auth: {
@@ -104,7 +104,7 @@ const backendSignout = () => {
                 url: "auth/signout",
                 baseURL: siteConfig.backendApiUrl,
                 params: {
-                    shopId: siteConfig.shopId
+                    shopIdentity: siteConfig.shopIdentity
                 },
                 method: 'get',
                 headers: {

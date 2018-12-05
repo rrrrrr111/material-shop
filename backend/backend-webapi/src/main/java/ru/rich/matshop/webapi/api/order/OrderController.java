@@ -45,6 +45,9 @@ public class OrderController extends AbstractRestController {
         ShopOrder reqOrder = req.getOrder();
 
         Person person = toUi(personService.prepareOrderPerson(reqPerson));
+        reqOrder.setShopIdentity(req.getShopIdentity());
+        reqOrder.setClientPersonId(person.getId());
+        reqOrder.setPersonAddressId(person.getAddress().getId());
         ShopOrder order = shopOrderService.createOrder(reqOrder);
 
         var resp = prepareResponse(new CreateOrderResponse());

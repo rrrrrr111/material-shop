@@ -43,7 +43,7 @@ import ru.rich.matshop.db.model.tables.records.ShopOrderRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
 
-    private static final long serialVersionUID = 1235861309;
+    private static final long serialVersionUID = -1348679330;
 
     /**
      * The reference instance of <code>matshop.shop_order</code>
@@ -64,9 +64,9 @@ public class ShopOrderTable extends TableImpl<ShopOrderRecord> {
     public final TableField<ShopOrderRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('shop_order_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>matshop.shop_order.shop_id</code>.
+     * The column <code>matshop.shop_order.shop_identity</code>.
      */
-    public final TableField<ShopOrderRecord, Integer> SHOP_ID = createField("shop_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ShopOrderRecord, String> SHOP_IDENTITY = createField("shop_identity", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>matshop.shop_order.client_person_id</code>.

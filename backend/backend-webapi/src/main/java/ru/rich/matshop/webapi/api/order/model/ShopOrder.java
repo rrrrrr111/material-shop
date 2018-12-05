@@ -1,23 +1,42 @@
 package ru.rich.matshop.webapi.api.order.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.List;
 
 public class ShopOrder {
 
+    @Null
     private Long id;
-    private Integer shopId;
+    @JsonIgnore
+    private String shopIdentity;
+    @Null
     private Long clientPersonId;
-    private Long addressId;
+    @Null
+    private Long personAddressId;
+    @NotNull
     private Long goodsAmount;
+    @NotNull
     private Long deliveryAmount;
+    @NotNull
     private Long totalAmount;
+    @NotNull
     private ShopOrderDeliveryType deliveryType;
+    @Null
     private ShopOrderState state;
+    @JsonIgnore
     private Long assignedPersonId;
+    @JsonIgnore
     private String serviceComment;
+    @Null
     private Date createDate;
+    @JsonIgnore
     private Date editDate;
+    @NotEmpty
     private List<ShopOrderGoods> shopOrderGoodsList;
 
     public Long getId() {
@@ -28,14 +47,6 @@ public class ShopOrder {
         this.id = id;
     }
 
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
-
     public Long getClientPersonId() {
         return clientPersonId;
     }
@@ -44,12 +55,12 @@ public class ShopOrder {
         this.clientPersonId = clientPersonId;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getPersonAddressId() {
+        return personAddressId;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setPersonAddressId(Long personAddressId) {
+        this.personAddressId = personAddressId;
     }
 
     public Long getTotalAmount() {
@@ -132,13 +143,21 @@ public class ShopOrder {
         this.goodsAmount = goodsAmount;
     }
 
+    public String getShopIdentity() {
+        return shopIdentity;
+    }
+
+    public void setShopIdentity(String shopIdentity) {
+        this.shopIdentity = shopIdentity;
+    }
+
     @Override
     public String toString() {
         return "ShopOrder{" +
                 "id=" + id +
-                ", shopId=" + shopId +
+                ", shopIdentity=" + shopIdentity +
                 ", clientPersonId=" + clientPersonId +
-                ", addressId=" + addressId +
+                ", personAddressId=" + personAddressId +
                 ", deliveryAmount=" + deliveryAmount +
                 ", goodsAmount=" + goodsAmount +
                 ", totalAmount=" + totalAmount +

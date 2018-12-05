@@ -34,7 +34,7 @@ public class CreateOrderRequest extends AbstractRestRequest {
         return "CreateOrderRequest{" +
                 "person=" + person +
                 ", order=" + order +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

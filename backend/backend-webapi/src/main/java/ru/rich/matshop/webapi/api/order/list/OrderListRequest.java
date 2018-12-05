@@ -34,7 +34,7 @@ public class OrderListRequest extends AbstractRestRequest {
         return "OrderListRequest{" +
                 "personId=" + personId +
                 ", pageRequest=" + pageRequest +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

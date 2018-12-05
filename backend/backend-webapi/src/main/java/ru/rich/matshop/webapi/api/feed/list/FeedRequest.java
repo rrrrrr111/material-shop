@@ -33,7 +33,7 @@ public class FeedRequest extends AbstractRestRequest {
         return "FeedRequest{" +
                 "pageRequest=" + pageRequest +
                 ", feedProductFilter=" + feedProductFilter +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

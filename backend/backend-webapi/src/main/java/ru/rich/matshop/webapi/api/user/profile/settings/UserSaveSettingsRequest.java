@@ -23,7 +23,7 @@ public class UserSaveSettingsRequest extends AbstractRestRequest {
     public String toString() {
         return "UserSaveSettingsRequest{" +
                 "settingsChange=" + settingsChange +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

@@ -23,7 +23,7 @@ public class ChangePasswordRequest extends AbstractRestRequest {
     public String toString() {
         return "ChangePasswordRequest{" +
                 "passwordChange=" + passwordChange +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }

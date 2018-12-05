@@ -24,7 +24,7 @@ public class UserSaveRequest extends AbstractRestRequest {
     public String toString() {
         return "EmptyRequest{" +
                 "person=" + person +
-                ", shopId=" + getShopId() +
+                ", shopIdentity=" + getShopIdentity() +
                 '}';
     }
 }
