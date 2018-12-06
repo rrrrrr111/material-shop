@@ -15,9 +15,12 @@ import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
+import ru.rich.matshop.db.model.tables.PCosmeticTable;
+import ru.rich.matshop.db.model.tables.PTestTable;
 import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
-import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
+import ru.rich.matshop.db.model.tables.ProductFeatureTable;
+import ru.rich.matshop.db.model.tables.ProductPricingTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
 import ru.rich.matshop.db.model.tables.ShopOrderGoodsTable;
 import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
@@ -39,12 +42,22 @@ import ru.rich.matshop.db.model.tables.TechLogTable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Matshop extends SchemaImpl {
 
-    private static final long serialVersionUID = -1147659016;
+    private static final long serialVersionUID = -382626471;
 
     /**
      * The reference instance of <code>matshop</code>
      */
     public static final Matshop MATSHOP = new Matshop();
+
+    /**
+     * The table <code>matshop.p_cosmetic</code>.
+     */
+    public final PCosmeticTable P_COSMETIC = ru.rich.matshop.db.model.tables.PCosmeticTable.P_COSMETIC;
+
+    /**
+     * The table <code>matshop.p_test</code>.
+     */
+    public final PTestTable P_TEST = ru.rich.matshop.db.model.tables.PTestTable.P_TEST;
 
     /**
      * The table <code>matshop.person</code>.
@@ -62,9 +75,14 @@ public class Matshop extends SchemaImpl {
     public final ProductTable PRODUCT = ru.rich.matshop.db.model.tables.ProductTable.PRODUCT;
 
     /**
-     * The table <code>matshop.product_cosmetic</code>.
+     * The table <code>matshop.product_feature</code>.
      */
-    public final ProductCosmeticTable PRODUCT_COSMETIC = ru.rich.matshop.db.model.tables.ProductCosmeticTable.PRODUCT_COSMETIC;
+    public final ProductFeatureTable PRODUCT_FEATURE = ru.rich.matshop.db.model.tables.ProductFeatureTable.PRODUCT_FEATURE;
+
+    /**
+     * The table <code>matshop.product_pricing</code>.
+     */
+    public final ProductPricingTable PRODUCT_PRICING = ru.rich.matshop.db.model.tables.ProductPricingTable.PRODUCT_PRICING;
 
     /**
      * The table <code>matshop.shop_order</code>.
@@ -118,7 +136,9 @@ public class Matshop extends SchemaImpl {
         return Arrays.<Sequence<?>>asList(
             Sequences.PERSON_ADDRESS_ID_SEQ,
             Sequences.PERSON_ID_SEQ,
+            Sequences.PRODUCT_FEATURE_ID_SEQ,
             Sequences.PRODUCT_ID_SEQ,
+            Sequences.PRODUCT_PRICING_ID_SEQ,
             Sequences.SHOP_ORDER_GOODS_ID_SEQ,
             Sequences.SHOP_ORDER_HISTORY_ID_SEQ,
             Sequences.SHOP_ORDER_ID_SEQ,
@@ -135,10 +155,13 @@ public class Matshop extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            PCosmeticTable.P_COSMETIC,
+            PTestTable.P_TEST,
             PersonTable.PERSON,
             PersonAddressTable.PERSON_ADDRESS,
             ProductTable.PRODUCT,
-            ProductCosmeticTable.PRODUCT_COSMETIC,
+            ProductFeatureTable.PRODUCT_FEATURE,
+            ProductPricingTable.PRODUCT_PRICING,
             ShopOrderTable.SHOP_ORDER,
             ShopOrderGoodsTable.SHOP_ORDER_GOODS,
             ShopOrderHistoryTable.SHOP_ORDER_HISTORY,

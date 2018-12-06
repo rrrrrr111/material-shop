@@ -6,9 +6,12 @@ package ru.rich.matshop.db.model;
 
 import javax.annotation.Generated;
 
+import ru.rich.matshop.db.model.tables.PCosmeticTable;
+import ru.rich.matshop.db.model.tables.PTestTable;
 import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
-import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
+import ru.rich.matshop.db.model.tables.ProductFeatureTable;
+import ru.rich.matshop.db.model.tables.ProductPricingTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
 import ru.rich.matshop.db.model.tables.ShopOrderGoodsTable;
 import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
@@ -31,6 +34,16 @@ import ru.rich.matshop.db.model.tables.TechLogTable;
 public class Tables {
 
     /**
+     * The table <code>matshop.p_cosmetic</code>.
+     */
+    public static final PCosmeticTable P_COSMETIC = ru.rich.matshop.db.model.tables.PCosmeticTable.P_COSMETIC;
+
+    /**
+     * The table <code>matshop.p_test</code>.
+     */
+    public static final PTestTable P_TEST = ru.rich.matshop.db.model.tables.PTestTable.P_TEST;
+
+    /**
      * The table <code>matshop.person</code>.
      */
     public static final PersonTable PERSON = ru.rich.matshop.db.model.tables.PersonTable.PERSON;
@@ -46,9 +59,14 @@ public class Tables {
     public static final ProductTable PRODUCT = ru.rich.matshop.db.model.tables.ProductTable.PRODUCT;
 
     /**
-     * The table <code>matshop.product_cosmetic</code>.
+     * The table <code>matshop.product_feature</code>.
      */
-    public static final ProductCosmeticTable PRODUCT_COSMETIC = ru.rich.matshop.db.model.tables.ProductCosmeticTable.PRODUCT_COSMETIC;
+    public static final ProductFeatureTable PRODUCT_FEATURE = ru.rich.matshop.db.model.tables.ProductFeatureTable.PRODUCT_FEATURE;
+
+    /**
+     * The table <code>matshop.product_pricing</code>.
+     */
+    public static final ProductPricingTable PRODUCT_PRICING = ru.rich.matshop.db.model.tables.ProductPricingTable.PRODUCT_PRICING;
 
     /**
      * The table <code>matshop.shop_order</code>.

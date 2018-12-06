@@ -4,15 +4,17 @@
 package ru.rich.matshop.db.model.tables.records;
 
 
+import java.util.Date;
+
+import javax.annotation.Generated;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record15;
 import org.jooq.Row15;
 import org.jooq.impl.UpdatableRecordImpl;
-import ru.rich.matshop.db.model.tables.ShopOrderTable;
 
-import javax.annotation.Generated;
-import java.util.Date;
+import ru.rich.matshop.db.model.tables.ShopOrderTable;
 
 
 /**

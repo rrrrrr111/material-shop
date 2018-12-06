@@ -10,9 +10,12 @@ import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
 
+import ru.rich.matshop.db.model.tables.PCosmeticTable;
+import ru.rich.matshop.db.model.tables.PTestTable;
 import ru.rich.matshop.db.model.tables.PersonAddressTable;
 import ru.rich.matshop.db.model.tables.PersonTable;
-import ru.rich.matshop.db.model.tables.ProductCosmeticTable;
+import ru.rich.matshop.db.model.tables.ProductFeatureTable;
+import ru.rich.matshop.db.model.tables.ProductPricingTable;
 import ru.rich.matshop.db.model.tables.ProductTable;
 import ru.rich.matshop.db.model.tables.ShopOrderGoodsTable;
 import ru.rich.matshop.db.model.tables.ShopOrderHistoryTable;
@@ -38,18 +41,28 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index IDX_PCS_CATEGORY = Indexes0.IDX_PCS_CATEGORY;
+    public static final Index IDX_PCS_NAME = Indexes0.IDX_PCS_NAME;
+    public static final Index IDX_PCS_POPULARITY = Indexes0.IDX_PCS_POPULARITY;
+    public static final Index IDX_PCS_PRICE = Indexes0.IDX_PCS_PRICE;
+    public static final Index P_COSMETIC_PKEY = Indexes0.P_COSMETIC_PKEY;
+    public static final Index IDX_PTS_CATEGORY = Indexes0.IDX_PTS_CATEGORY;
+    public static final Index IDX_PTS_NAME = Indexes0.IDX_PTS_NAME;
+    public static final Index IDX_PTS_POPULARITY = Indexes0.IDX_PTS_POPULARITY;
+    public static final Index IDX_PTS_PRICE = Indexes0.IDX_PTS_PRICE;
+    public static final Index P_TEST_PKEY = Indexes0.P_TEST_PKEY;
     public static final Index IDX_PER_EMAIL = Indexes0.IDX_PER_EMAIL;
     public static final Index IDX_PER_PHONE = Indexes0.IDX_PER_PHONE;
     public static final Index PERSON_PKEY = Indexes0.PERSON_PKEY;
     public static final Index IDX_PAD_PERSON_ID = Indexes0.IDX_PAD_PERSON_ID;
     public static final Index PERSON_ADDRESS_PKEY = Indexes0.PERSON_ADDRESS_PKEY;
     public static final Index IDX_PRO_EDIT_DATE = Indexes0.IDX_PRO_EDIT_DATE;
+    public static final Index IDX_PRO_NAME = Indexes0.IDX_PRO_NAME;
     public static final Index PRODUCT_PKEY = Indexes0.PRODUCT_PKEY;
-    public static final Index IDX_PCS_CATEGORY = Indexes0.IDX_PCS_CATEGORY;
-    public static final Index IDX_PCS_NAME = Indexes0.IDX_PCS_NAME;
-    public static final Index IDX_PCS_POPULARITY = Indexes0.IDX_PCS_POPULARITY;
-    public static final Index IDX_PCS_PRICE = Indexes0.IDX_PCS_PRICE;
-    public static final Index PRODUCT_COSMETIC_PKEY = Indexes0.PRODUCT_COSMETIC_PKEY;
+    public static final Index IDX_CAT_KEY = Indexes0.IDX_CAT_KEY;
+    public static final Index IDX_CAT_NAME = Indexes0.IDX_CAT_NAME;
+    public static final Index PRODUCT_FEATURE_PKEY = Indexes0.PRODUCT_FEATURE_PKEY;
+    public static final Index PRODUCT_PRICING_PKEY = Indexes0.PRODUCT_PRICING_PKEY;
     public static final Index IDX_SOR_A_PERSON_ID = Indexes0.IDX_SOR_A_PERSON_ID;
     public static final Index IDX_SOR_ADDRESS_ID = Indexes0.IDX_SOR_ADDRESS_ID;
     public static final Index IDX_SOR_C_PERSON_ID = Indexes0.IDX_SOR_C_PERSON_ID;
@@ -73,18 +86,28 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index IDX_PCS_CATEGORY = Internal.createIndex("idx_pcs_category", PCosmeticTable.P_COSMETIC, new OrderField[] { PCosmeticTable.P_COSMETIC.BRAND }, false);
+        public static Index IDX_PCS_NAME = Internal.createIndex("idx_pcs_name", PCosmeticTable.P_COSMETIC, new OrderField[] { PCosmeticTable.P_COSMETIC.DISCOUNT }, false);
+        public static Index IDX_PCS_POPULARITY = Internal.createIndex("idx_pcs_popularity", PCosmeticTable.P_COSMETIC, new OrderField[] { PCosmeticTable.P_COSMETIC.POPULARITY }, false);
+        public static Index IDX_PCS_PRICE = Internal.createIndex("idx_pcs_price", PCosmeticTable.P_COSMETIC, new OrderField[] { PCosmeticTable.P_COSMETIC.PRICE }, false);
+        public static Index P_COSMETIC_PKEY = Internal.createIndex("p_cosmetic_pkey", PCosmeticTable.P_COSMETIC, new OrderField[] { PCosmeticTable.P_COSMETIC.PRODUCT_ID }, true);
+        public static Index IDX_PTS_CATEGORY = Internal.createIndex("idx_pts_category", PTestTable.P_TEST, new OrderField[] { PTestTable.P_TEST.BRAND }, false);
+        public static Index IDX_PTS_NAME = Internal.createIndex("idx_pts_name", PTestTable.P_TEST, new OrderField[] { PTestTable.P_TEST.DISCOUNT }, false);
+        public static Index IDX_PTS_POPULARITY = Internal.createIndex("idx_pts_popularity", PTestTable.P_TEST, new OrderField[] { PTestTable.P_TEST.POPULARITY }, false);
+        public static Index IDX_PTS_PRICE = Internal.createIndex("idx_pts_price", PTestTable.P_TEST, new OrderField[] { PTestTable.P_TEST.PRICE }, false);
+        public static Index P_TEST_PKEY = Internal.createIndex("p_test_pkey", PTestTable.P_TEST, new OrderField[] { PTestTable.P_TEST.PRODUCT_ID }, true);
         public static Index IDX_PER_EMAIL = Internal.createIndex("idx_per_email", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.EMAIL }, true);
         public static Index IDX_PER_PHONE = Internal.createIndex("idx_per_phone", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.PHONE }, false);
         public static Index PERSON_PKEY = Internal.createIndex("person_pkey", PersonTable.PERSON, new OrderField[] { PersonTable.PERSON.ID }, true);
         public static Index IDX_PAD_PERSON_ID = Internal.createIndex("idx_pad_person_id", PersonAddressTable.PERSON_ADDRESS, new OrderField[] { PersonAddressTable.PERSON_ADDRESS.PERSON_ID }, false);
         public static Index PERSON_ADDRESS_PKEY = Internal.createIndex("person_address_pkey", PersonAddressTable.PERSON_ADDRESS, new OrderField[] { PersonAddressTable.PERSON_ADDRESS.ID }, true);
         public static Index IDX_PRO_EDIT_DATE = Internal.createIndex("idx_pro_edit_date", ProductTable.PRODUCT, new OrderField[] { ProductTable.PRODUCT.EDIT_DATE }, false);
+        public static Index IDX_PRO_NAME = Internal.createIndex("idx_pro_name", ProductTable.PRODUCT, new OrderField[] { ProductTable.PRODUCT.NAME }, false);
         public static Index PRODUCT_PKEY = Internal.createIndex("product_pkey", ProductTable.PRODUCT, new OrderField[] { ProductTable.PRODUCT.ID }, true);
-        public static Index IDX_PCS_CATEGORY = Internal.createIndex("idx_pcs_category", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.CATEGORY }, false);
-        public static Index IDX_PCS_NAME = Internal.createIndex("idx_pcs_name", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.NAME }, false);
-        public static Index IDX_PCS_POPULARITY = Internal.createIndex("idx_pcs_popularity", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.POPULARITY }, false);
-        public static Index IDX_PCS_PRICE = Internal.createIndex("idx_pcs_price", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.PRICE }, false);
-        public static Index PRODUCT_COSMETIC_PKEY = Internal.createIndex("product_cosmetic_pkey", ProductCosmeticTable.PRODUCT_COSMETIC, new OrderField[] { ProductCosmeticTable.PRODUCT_COSMETIC.PRODUCT_ID }, true);
+        public static Index IDX_CAT_KEY = Internal.createIndex("idx_cat_key", ProductFeatureTable.PRODUCT_FEATURE, new OrderField[] { ProductFeatureTable.PRODUCT_FEATURE.KEY, ProductFeatureTable.PRODUCT_FEATURE.SHOP_ID }, false);
+        public static Index IDX_CAT_NAME = Internal.createIndex("idx_cat_name", ProductFeatureTable.PRODUCT_FEATURE, new OrderField[] { ProductFeatureTable.PRODUCT_FEATURE.NAME, ProductFeatureTable.PRODUCT_FEATURE.SHOP_ID }, false);
+        public static Index PRODUCT_FEATURE_PKEY = Internal.createIndex("product_feature_pkey", ProductFeatureTable.PRODUCT_FEATURE, new OrderField[] { ProductFeatureTable.PRODUCT_FEATURE.ID }, true);
+        public static Index PRODUCT_PRICING_PKEY = Internal.createIndex("product_pricing_pkey", ProductPricingTable.PRODUCT_PRICING, new OrderField[] { ProductPricingTable.PRODUCT_PRICING.ID }, true);
         public static Index IDX_SOR_A_PERSON_ID = Internal.createIndex("idx_sor_a_person_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.ASSIGNED_PERSON_ID }, false);
         public static Index IDX_SOR_ADDRESS_ID = Internal.createIndex("idx_sor_address_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.PERSON_ADDRESS_ID }, false);
         public static Index IDX_SOR_C_PERSON_ID = Internal.createIndex("idx_sor_c_person_id", ShopOrderTable.SHOP_ORDER, new OrderField[] { ShopOrderTable.SHOP_ORDER.CLIENT_PERSON_ID }, false);

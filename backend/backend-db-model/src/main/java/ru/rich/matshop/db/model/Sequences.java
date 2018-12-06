@@ -34,9 +34,19 @@ public class Sequences {
     public static final Sequence<Long> PERSON_ID_SEQ = new SequenceImpl<Long>("person_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
+     * The sequence <code>matshop.product_feature_id_seq</code>
+     */
+    public static final Sequence<Long> PRODUCT_FEATURE_ID_SEQ = new SequenceImpl<Long>("product_feature_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+
+    /**
      * The sequence <code>matshop.product_id_seq</code>
      */
     public static final Sequence<Long> PRODUCT_ID_SEQ = new SequenceImpl<Long>("product_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+
+    /**
+     * The sequence <code>matshop.product_pricing_id_seq</code>
+     */
+    public static final Sequence<Long> PRODUCT_PRICING_ID_SEQ = new SequenceImpl<Long>("product_pricing_id_seq", Matshop.MATSHOP, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
 
     /**
      * The sequence <code>matshop.shop_order_goods_id_seq</code>

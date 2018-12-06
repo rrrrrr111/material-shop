@@ -1,15 +1,15 @@
-package ru.rich.matshop.webapi.api.feed;
+package ru.rich.matshop.webapi.api.product;
 
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 import org.springframework.stereotype.Repository;
-import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
+import ru.rich.matshop.webapi.api.product.model.FeedProduct;
 
 import java.util.List;
 
 import static ru.rich.matshop.db.model.Tables.PRODUCT;
-import static ru.rich.matshop.db.model.Tables.PRODUCT_COSMETIC;
+import static ru.rich.matshop.db.model.Tables.P_COSMETIC;
 
 @Repository
 class FeedProductDao {
@@ -22,7 +22,7 @@ class FeedProductDao {
 
     List<FeedProduct> getFeedList() {
 
-        var pc = PRODUCT_COSMETIC.as("pc");
+        var pc = P_COSMETIC.as("pc");
         var p = PRODUCT.as("p");
 
         return create.select()
@@ -38,7 +38,7 @@ class FeedProductDao {
                         p.setImage("000/000/000[3]");
                         p.setLink("spring_jacasdf_asdf_asdf_aket_p-1");
                         p.setName("This is Java Product");
-                        p.setPrice(r.get(PRODUCT_COSMETIC.PRICE));
+                        p.setPrice(r.get(P_COSMETIC.PRICE));
                         return p;
                     }
                 });

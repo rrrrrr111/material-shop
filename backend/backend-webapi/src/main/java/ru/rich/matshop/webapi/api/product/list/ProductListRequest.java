@@ -1,16 +1,16 @@
-package ru.rich.matshop.webapi.api.feed.list;
+package ru.rich.matshop.webapi.api.product.list;
 
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestRequest;
 import ru.rich.matshop.webapi.api.common.paging.PageRequest;
-import ru.rich.matshop.webapi.api.feed.model.FeedProductFilter;
+import ru.rich.matshop.webapi.api.product.model.ProductFilter;
 
 /**
  *
  */
-public class FeedRequest extends AbstractRestRequest {
+public class ProductListRequest extends AbstractRestRequest {
 
     private PageRequest pageRequest;
-    private FeedProductFilter feedProductFilter;
+    private ProductFilter productFilter;
 
     public PageRequest getPageRequest() {
         return pageRequest;
@@ -20,19 +20,19 @@ public class FeedRequest extends AbstractRestRequest {
         this.pageRequest = pageRequest;
     }
 
-    public FeedProductFilter getFeedProductFilter() {
-        return feedProductFilter;
+    public ProductFilter getProductFilter() {
+        return productFilter;
     }
 
-    public void setFeedProductFilter(FeedProductFilter feedProductFilter) {
-        this.feedProductFilter = feedProductFilter;
+    public void setProductFilter(ProductFilter productFilter) {
+        this.productFilter = productFilter;
     }
 
     @Override
     public String toString() {
-        return "FeedRequest{" +
+        return "ProductListRequest{" +
                 "pageRequest=" + pageRequest +
-                ", feedProductFilter=" + feedProductFilter +
+                ", productFilter=" + productFilter +
                 ", shopIdentity=" + getShopIdentity() +
                 '}';
     }

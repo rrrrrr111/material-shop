@@ -1,16 +1,16 @@
-package ru.rich.matshop.webapi.api.feed;
+package ru.rich.matshop.webapi.api.product;
 
 import org.springframework.stereotype.Service;
-import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
+import ru.rich.matshop.webapi.api.product.model.FeedProduct;
 
 import java.util.List;
 
 @Service
-class FeedService {
+class ProductService {
 
     private final FeedProductDao feedProductDao;
 
-    FeedService(FeedProductDao feedProductDao) {
+    ProductService(FeedProductDao feedProductDao) {
         this.feedProductDao = feedProductDao;
     }
 

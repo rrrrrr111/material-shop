@@ -1,15 +1,15 @@
-package ru.rich.matshop.webapi.api.feed.list;
+package ru.rich.matshop.webapi.api.product.list;
 
 import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestResponse;
-import ru.rich.matshop.webapi.api.feed.model.FeedProduct;
+import ru.rich.matshop.webapi.api.product.model.FeedProduct;
 
 import java.util.List;
 
 /**
  *
  */
-public class FeedResponse extends AbstractRestResponse {
+public class ProductListResponse extends AbstractRestResponse {
 
     private PageResponse pageResponse;
     private List<FeedProduct> products;
@@ -32,7 +32,7 @@ public class FeedResponse extends AbstractRestResponse {
 
     @Override
     public String toString() {
-        return "FeedResponse{" +
+        return "ProductListResponse{" +
                 "pageResponse=" + pageResponse +
                 ", products=" + products +
                 ", serverId=" + getServerId() +
