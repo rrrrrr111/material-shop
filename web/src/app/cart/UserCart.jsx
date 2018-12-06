@@ -237,7 +237,7 @@ class UserCart extends React.PureComponent {
     };
 
     checkGoodsAmount = (goodsAmount) => {
-        return goodsAmount > util.global.getSiteConfigSync().minCartGoodsAmount;
+        return goodsAmount >= util.global.getSiteConfigSync().minCartGoodsAmount;
     };
 
     checkDeliveryType = (deliveryType) => {

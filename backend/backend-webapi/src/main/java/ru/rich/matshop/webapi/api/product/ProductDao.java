@@ -12,15 +12,15 @@ import static ru.rich.matshop.db.model.Tables.PRODUCT;
 import static ru.rich.matshop.db.model.Tables.P_COSMETIC;
 
 @Repository
-class FeedProductDao {
+class ProductDao {
 
     private final DSLContext create;
 
-    FeedProductDao(DSLContext create) {
+    ProductDao(DSLContext create) {
         this.create = create;
     }
 
-    List<FeedProduct> getFeedList() {
+    List<FeedProduct> getList() {
 
         var pc = P_COSMETIC.as("pc");
         var p = PRODUCT.as("p");

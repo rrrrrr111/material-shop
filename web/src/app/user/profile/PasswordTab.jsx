@@ -69,27 +69,29 @@ class PasswordTab extends React.PureComponent {
         ((state) => {
             const compRef = this;
             updateUiField(compRef, state, "message", "");
-            dispatch(USER_START_LOADING);
-
-            util.ajax.backendPost("user/change-password", {
-                passwordChange: {
-                    personId: compRef.props.userData.id,
-                    oldPassword: compRef.state.data.oldPassword,
-                    newPassword: compRef.state.data.newPassword1,
-                    personEditDate: compRef.props.userData.editDate,
-                }
-            }).then((response) => {
-                updateUiField(compRef, this.state, "message", response.message);
-                if (response.success) {
-                    dispatch(USER_DATA, {
-                        ...compRef.props.userData,
-                        editDate: response.personEditDate,
-                    });
-                    util.notify.passwordChanged();
-                } else {
-                    dispatch(USER_STOP_LOADING);
-                }
-            });
+            dispatch(USER_START_LOADING)
+                .then(() => {
+                    return util.ajax.backendPost("user/change-password", {
+                        passwordChange: {
+                            personId: compRef.props.userData.id,
+                            oldPassword: compRef.state.data.oldPassword,
+                            newPassword: compRef.state.data.newPassword1,
+                            personEditDate: compRef.props.userData.editDate,
+                        }
+                    })
+                })
+                .then((response) => {
+                    updateUiField(compRef, compRef.state, "message", response.message);
+                    if (response.success) {
+                        dispatch(USER_DATA, {
+                            ...compRef.props.userData,
+                            editDate: response.personEditDate,
+                        });
+                        util.notify.passwordChanged();
+                    } else {
+                        dispatch(USER_STOP_LOADING);
+                    }
+                });
         }), ajaxDebounceTimeout, buttonDebounceRule);
 
     render() {

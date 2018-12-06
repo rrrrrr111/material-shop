@@ -113,7 +113,7 @@ public class UserController extends AbstractRestController {
         p.setEmail(defaultIfEmpty(p.getEmail(), ""));
         p.setFirstName(defaultIfEmpty(p.getFirstName(), ""));
         p.setLastName(defaultIfEmpty(p.getLastName(), ""));
-        p.setPassword(defaultIfEmpty(p.getPassword(), ""));
+        p.setPassword("");
 
         PersonAddress a = p.getAddress();
         a.setRegion(defaultIfEmpty(a.getRegion(), ""));

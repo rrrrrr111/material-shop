@@ -5,6 +5,8 @@ import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PersonAddress {
 
@@ -146,6 +148,21 @@ public class PersonAddress {
 
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
+    }
+
+    public String asString() {
+        return Stream.of(
+                region,
+                town == null ? null : "г. " + town,
+                street == null ? null : "ул. " + street,
+                house == null ? null : "д. " + house,
+                housing == null ? null : "к. " + housing,
+                construction == null ? null : "стр. " + construction,
+                apartment == null ? null : "кв. " + apartment,
+                entrance == null ? null : "подъезд " + entrance,
+                intercom == null ? null : "домофон " + intercom
+        ).filter(Objects::nonNull)
+                .collect(Collectors.joining(", "));
     }
 
     @Override

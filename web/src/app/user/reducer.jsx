@@ -39,7 +39,7 @@ export const dataUserReducer = createReducer(
             return value;
         },
         [USER_AUTH]: (state, value) => {
-            return value.success ? value.person : state; // todo
+            return value.success ? value.person : state;
         },
         [USER_LOGGED_OUT]: () => {
             return initialState;

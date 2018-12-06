@@ -1,10 +1,13 @@
 package ru.rich.matshop.webapi.api.order;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.rich.matshop.webapi.api.common.paging.PageRequest;
+import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 import ru.rich.matshop.webapi.api.common.rest.AbstractRestController;
 import ru.rich.matshop.webapi.api.order.create.CreateOrderRequest;
 import ru.rich.matshop.webapi.api.order.create.CreateOrderResponse;
@@ -17,6 +20,7 @@ import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 
 import javax.validation.Valid;
 import javax.validation.groups.Default;
+import java.util.List;
 
 import static ru.rich.matshop.webapi.WebSecurityConfig.WebApiSecurityConfig.API_URL_PREFIX;
 import static ru.rich.matshop.webapi.api.user.model.Role.Ability.AUTHENTICATE;
@@ -67,8 +71,14 @@ public class OrderController extends AbstractRestController {
     public OrderListResponse list(@RequestBody
                                   @Valid
                                           OrderListRequest req) {
+
+        PageRequest pageReq = req.getPageRequest();
+        Long personId = req.getPersonId();
+        Pair<List<ShopOrder>, Boolean> ordersInfo = shopOrderService.getList(personId, pageReq);
+
         var resp = prepareResponse(new OrderListResponse());
-        //resp.setPersonEditDate(editDate);
+        resp.setOrders(ordersInfo.getLeft());
+        resp.setPageResponse(new PageResponse(pageReq, ordersInfo.getRight()));
         return resp;
     }
 }

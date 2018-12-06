@@ -43,12 +43,13 @@ public class PersonService {
         checkEmailNotReserved(null, newPerson.getEmail());
 
         newPerson.setRole(Role.USER);
-        Person person = personDao.getByEmail(newPerson.getEmail()).copy(); // избегаем мутации в кэше
+        Person person = personDao.getByEmail(newPerson.getEmail());
 
         if (person == null) {
             return insert(newPerson);
         }
 
+        person = person.copy(); // избегаем мутации в кэше
         person.setRole(newPerson.getRole());
         person.setFirstName(newPerson.getFirstName());
         person.setEmail(newPerson.getEmail());
@@ -111,7 +112,7 @@ public class PersonService {
         String email = Preconditions.checkNotNull(orderPerson.getEmail(), "Person email must not be null");
 
         orderPerson.setRole(Role.ANONYMOUS);
-        Person person = getByEmail(email).copy();
+        Person person = getByEmail(email);
 
         if (person == null) {
             return insert(orderPerson);
@@ -119,6 +120,7 @@ public class PersonService {
 
         if (isPersonChanges(orderPerson, person)) {
 
+            person = person.copy();
             person.setFirstName(orderPerson.getFirstName());
             person.setEmail(orderPerson.getEmail());
             person.setPhone(orderPerson.getPhone());

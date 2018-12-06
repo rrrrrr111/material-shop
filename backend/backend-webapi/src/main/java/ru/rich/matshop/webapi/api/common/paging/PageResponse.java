@@ -3,7 +3,7 @@ package ru.rich.matshop.webapi.api.common.paging;
 /**
  * Данные запрошенной страницы (пэйджинг)
  */
-public class PageResponse {
+public class PageResponse extends PageRequest {
 
     /**
      * Есть ли еще страницы
@@ -13,7 +13,8 @@ public class PageResponse {
     public PageResponse() {
     }
 
-    public PageResponse(Boolean hasMore) {
+    public PageResponse(PageRequest pageReq, Boolean hasMore) {
+        super(pageReq);
         this.hasMore = hasMore;
     }
 
@@ -28,7 +29,10 @@ public class PageResponse {
     @Override
     public String toString() {
         return "PageResponse{" +
-                "hasMore=" + hasMore +
-                "} " + super.toString();
+                "page=" + getPage() +
+                ", count=" + getCount() +
+                ", sorting='" + getSorting() + '\'' +
+                ", hasMore=" + hasMore +
+                '}';
     }
 }

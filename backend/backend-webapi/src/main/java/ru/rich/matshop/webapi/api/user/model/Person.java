@@ -1,7 +1,6 @@
 package ru.rich.matshop.webapi.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rich.matshop.webapi.api.user.auth.validation.CurrentUserId;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnCreateOrder;
 import ru.rich.matshop.webapi.api.user.model.PersonValidation.OnSave;
@@ -26,7 +25,6 @@ public class Person {
     @NotBlank(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class})
     @Email(groups = {OnSignup.class, OnSave.class, OnCreateOrder.class}, regexp = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = {OnSignup.class})
     private String password;
     @NotBlank(groups = {OnSave.class, OnCreateOrder.class})

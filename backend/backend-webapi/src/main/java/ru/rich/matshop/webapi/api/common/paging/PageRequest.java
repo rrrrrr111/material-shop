@@ -1,53 +1,59 @@
 package ru.rich.matshop.webapi.api.common.paging;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
 /**
  * Данные запрашиваемой страницы (пэйджинг)
  */
 public class PageRequest {
 
-    private Long offset;
-    private Long count;
-    private String sortField;
+    @NotNull
+    @Max(100)
+    private Integer count;
+    @NotNull
+    private Integer page;
+    private String sorting;
 
     public PageRequest() {
     }
 
     public PageRequest(PageRequest req) {
-        this.offset = req.getOffset();
+        this.page = req.getPage();
         this.count = req.getCount();
-        this.sortField = req.getSortField();
+        this.sorting = req.getSorting();
     }
 
-    public long getOffset() {
-        return offset;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setOffset(Long offset) {
-        this.offset = offset;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public String getSortField() {
-        return sortField;
+    public String getSorting() {
+        return sorting;
     }
 
-    public void setSortField(String sortField) {
-        this.sortField = sortField;
+    public void setSorting(String sorting) {
+        this.sorting = sorting;
     }
 
     @Override
     public String toString() {
         return "PageRequest{" +
-                "offset=" + offset +
+                "page=" + page +
                 ", count=" + count +
-                ", sortField='" + sortField + '\'' +
+                ", sorting='" + sorting + '\'' +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ import {dataCartReducer, uiCartReducer} from "app/cart/reducer";
 import {notifyReducer} from "app/common/message/notify/reducer";
 import {dataFeedReducer, uiFeedReducer} from "app/feed/reducer";
 import {dataUserReducer, uiUserReducer} from "app/user/reducer";
+import {dataUserOrdersReducer, uiUserOrdersReducer} from "app/user/userOrdersReducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
 
@@ -11,6 +12,10 @@ export const store = applyMiddleware(thunk)(createStore)(
         user: combineReducers({
             data: dataUserReducer,
             ui: uiUserReducer,
+        }),
+        userOrders: combineReducers({
+            data: dataUserOrdersReducer,
+            ui: uiUserOrdersReducer,
         }),
         feed: combineReducers({
             data: dataFeedReducer,

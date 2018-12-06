@@ -28,7 +28,7 @@ export const checkPhone = (phone) => {
 };
 
 const createValidator = (compRef, conf) => {
-    conf.disabled = true;
+    //conf.disabled = true;
     return new Validator(compRef, conf);
 };
 

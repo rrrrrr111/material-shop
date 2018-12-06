@@ -1,6 +1,7 @@
 package ru.rich.matshop.webapi.api.product;
 
 import org.springframework.stereotype.Service;
+import ru.rich.matshop.webapi.api.common.paging.PageRequest;
 import ru.rich.matshop.webapi.api.product.model.FeedProduct;
 
 import java.util.List;
@@ -8,15 +9,15 @@ import java.util.List;
 @Service
 class ProductService {
 
-    private final FeedProductDao feedProductDao;
+    private final ProductDao productDao;
 
-    ProductService(FeedProductDao feedProductDao) {
-        this.feedProductDao = feedProductDao;
+    ProductService(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
-    public List<FeedProduct> getFeedList() {
+    public List<FeedProduct> getList(PageRequest pageReq) {
 
-        var products = feedProductDao.getFeedList();
+        var products = productDao.getList();
         return products;
     }
 }

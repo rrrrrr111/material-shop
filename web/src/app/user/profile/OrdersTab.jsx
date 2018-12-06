@@ -1,34 +1,80 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
+import ErrorMessage from "app/common/message/ErrorMessage";
+import NeedLoginMessage from "app/common/message/NeedLoginMessage";
+import CircularLoading from "app/common/misc/CircularLoading";
 import Price from "app/common/misc/Price";
 import {iconButtonColor} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
+import CardFooter from "app/common/theme/card/CardFooter";
 import Table from "app/common/theme/table/CustomTable";
 import userProfileStyle from "app/user/profile/userProfileStyle";
+import {
+    mapUserOrdersToProps,
+    USER_ORDERS_DATA,
+    USER_ORDERS_LOADING_ERROR,
+    USER_ORDERS_START_LOADING
+} from "app/user/userOrdersReducer";
+import {connect, jacksonStrToDateStr, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
-import fill from 'lodash/fill';
 import React from "react";
+import {dispatch} from "store";
 
 class OrdersTab extends React.PureComponent {
-    orders = fill(Array(3), {
-        date: "18.02.2018",
-        address: "Адрес , город городддддд ыф фыавфы вфывфывфы4545",
-        goods: [
-            {name: "Колонка JBL Masters 1200 Kb", quantity: 2, price: 1500},
-            {name: "dsf asd fasdf", quantity: 1, price: 1800},
-            {
-                name: "sdfasdf asdf asdf asdf sdf asdfa sdfasd asdf sdf dsf gsdfgsdfgsdfg sdf",
-                quantity: 56,
-                price: 322
-            },
-        ],
-        amount: 19912,
-        deliveryAmount: 300,
-        state: "new",
-        deliveryType: "COURIER"
-    });
+    constructor(props) {
+        super(props);
+        this.state = {
+            ui: {
+                message: "",
+            }
+        }
+    }
+
+    componentDidMount() {
+        this.checkStateAndReload();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.checkStateAndReload();
+    }
+
+    checkStateAndReload() {
+        const {userUi} = this.props;
+        const {loading, loaded} = this.props.ui;
+        const message = this.state.ui.message;
+
+        if (userUi.loaded
+            && !loaded && !loading && !message) {
+            this.reloadUserOrdersData();
+        }
+    }
+
+    reloadUserOrdersData = () => {
+
+        const compRef = this,
+            userData = compRef.props.userData,
+            paging = compRef.props.ui.paging,
+            pageRequest = {...paging, page: paging.page};
+
+        updateUiField(compRef, compRef.state, "message", "");
+        dispatch(USER_ORDERS_START_LOADING)
+            .then(() => {
+                return util.ajax.backendPost("order/list", {
+                    personId: userData.id,
+                    pageRequest,
+                });
+            })
+            .then((response) => {
+                updateUiField(compRef, compRef.state, "message", response.message);
+                if (response.success) {
+                    dispatch(USER_ORDERS_DATA, response);
+                } else {
+                    dispatch(USER_ORDERS_LOADING_ERROR);
+                }
+            });
+    };
 
     rowActionButtons = [1].map((prop, key) => {
         return (
@@ -40,12 +86,15 @@ class OrdersTab extends React.PureComponent {
 
     asGoodsList = (item) => {
         return (<ul>{
-            item.goods.map((item, index) => {
+            item.cartGoodsList.map((item, index) => {
                 return item.quantity > 1
-                    ? <li key={index}>{item.quantity} x {item.name} ({item.price}p)</li>
-                    : <li key={index}>{item.name} ({item.price}p)</li>
+                    ? <li key={index}>{item.quantity} x {item.productName} ({item.price}p.)</li>
+                    : <li key={index}>{item.productName} ({item.price}p.)</li>
             })}
-            <li>Доставка {util.dictionary.deliveryTypeDict.getByName(item.deliveryType).name} ({item.deliveryAmount}p)</li>
+            <li>Доставка {
+                util.dictionary.deliveryTypeDict.getByName(item.deliveryType).description
+            } ({item.deliveryAmount}p.)
+            </li>
         </ul>);
     };
 
@@ -63,32 +112,60 @@ class OrdersTab extends React.PureComponent {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, userUi} = this.props;
+        const {
+            loaded: userLoaded, loading: userLoading
+        } = userUi;
+        const {
+            orders
+        } = this.props.data;
+        const {
+            loading: dataLoading
+        } = this.props.ui;
+        const {
+            message
+        } = this.state.ui;
+
+        const showLoading = userLoading || dataLoading,
+            userNotAuth = !userLoaded && !userLoading;
+
+        const content = (orders.length === 0 && !showLoading && !message && !userNotAuth)
+            ? <div className={classes.textCenter}>
+                <h4>Заказы не найдены</h4>
+            </div>
+            : <Table
+                tableHead={[
+                    "№", "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
+                ]}
+                tableData={orders.map((item) => {
+                    return [
+                        item.id,
+                        jacksonStrToDateStr(item.createDate),
+                        item.personAddress,
+                        this.asGoodsList(item),
+                        <Price value={item.totalAmount}/>,
+                        this.asUserState(item.state),
+                        this.rowActionButtons];
+                })}
+                customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                customClassesForCells={[1, 4, 5, 6]}
+                customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                customHeadClassesForCells={[1, 4, 5, 6]}
+            />;
+
         return (
             <Card className={classes.ordersTab}>
-                <CardBody>
-                    <Table
-                        tableHead={[
-                            "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
-                        ]}
-                        tableData={this.orders.map((item) => {
-                            return [
-                                item.date,
-                                item.address,
-                                this.asGoodsList(item),
-                                <Price value={item.amount}/>,
-                                this.asUserState(item.state),
-                                this.rowActionButtons];
-                        })}
-                        customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                        customClassesForCells={[0, 3, 4, 5]}
-                        customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                        customHeadClassesForCells={[0, 3, 4, 5]}
-                    />
-                </CardBody>
+                <CardBody>{content}</CardBody>
+                <CardFooter>
+                    <div className={classes.width100}>
+                        <CircularLoading show={showLoading}/>
+                        <ErrorMessage>{message}</ErrorMessage>
+                        <NeedLoginMessage show={userNotAuth}/>
+                    </div>
+                </CardFooter>
             </Card>
         );
     }
 }
 
-export default withStyles(userProfileStyle)(OrdersTab);
+export default connect(mapUserOrdersToProps)(withStyles(userProfileStyle)(OrdersTab));

@@ -71,8 +71,8 @@ class ProfileTab extends React.PureComponent {
     _debouncedSave = debounce(
         (state) => {
             const compRef = this;
-            updateUiField(compRef, state, "message", "");
 
+            updateUiField(compRef, state, "message", "");
             dispatch(USER_START_LOADING)
                 .then(() => {
                     return util.ajax.backendPost("user/save", {person: compRef.state.data});
