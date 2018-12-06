@@ -156,7 +156,7 @@ public class PersonAddress {
                 town == null ? null : "г. " + town,
                 street == null ? null : "ул. " + street,
                 house == null ? null : "д. " + house,
-                housing == null ? null : "к. " + housing,
+                housing == null ? null : "корп. " + housing,
                 construction == null ? null : "стр. " + construction,
                 apartment == null ? null : "кв. " + apartment,
                 entrance == null ? null : "подъезд " + entrance,

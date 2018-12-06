@@ -9,7 +9,7 @@ export const USER_DATA = 'USER_DATA';
 export const USER_AUTH = 'USER_AUTH';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 
-let initialState = {
+const initialUserData = {
     id: null,
     email: "",
     password: "",
@@ -34,33 +34,34 @@ let initialState = {
     editDate: null,
 };
 export const dataUserReducer = createReducer(
-    initialState, {
-        [USER_DATA]: (state, value = initialState) => {
+    initialUserData, {
+        [USER_DATA]: (state, value = initialUserData) => {
             return value;
         },
         [USER_AUTH]: (state, value) => {
             return value.success ? value.person : state;
         },
         [USER_LOGGED_OUT]: () => {
-            return initialState;
+            return initialUserData;
         },
         [ORDER_CREATED]: (state, value) => {
             return value.authPersonUpdated ? value.person : state;
         }
     });
 
-export const uiUserReducer = createReducer({
+const initialUserUi = {
     loaded: false, // загружены ли уже данные, если true, юзер успешно авторизован
     loading: false, // данные в процессе загрузки
-}, {
+};
+export const uiUserReducer = createReducer(initialUserUi, {
     [USER_DATA]: (state) => {
         return update(state, {loading: {$set: false}});
     },
     [USER_AUTH]: (state, value) => {
         return update(state, {loading: {$set: false}, loaded: {$set: value.success}});
     },
-    [USER_LOGGED_OUT]: (state) => {
-        return update(state, {loading: {$set: false}, loaded: {$set: false}});
+    [USER_LOGGED_OUT]: () => {
+        return initialUserUi;
     },
     [USER_START_LOADING]: (state) => {
         return update(state, {loading: {$set: true}});

@@ -70,42 +70,47 @@ public class ShopOrderDao {
                         )
                 )
         )
-                .from(so)
+                .from(
+                        create.select(so.fields())
+                                .from(so)
+                                .where(so.CLIENT_PERSON_ID.eq(personId))
+                                .offset(offset).limit(limit)
+                                .asTable().as("so")
+                )
                 .leftJoin(pa).on(pa.ID.eq(so.PERSON_ADDRESS_ID))
                 .leftJoin(sog).on(sog.SHOP_ORDER_ID.eq(so.ID))
                 .leftJoin(prod).on(prod.ID.eq(sog.PRODUCT_ID))
-                .where(so.CLIENT_PERSON_ID.eq(personId))
                 .orderBy(asOrderField(pageReq.getSorting(), so))
-                .offset(offset).limit(limit)
-                .fetch((RecordMapper<Record, ShopOrder>) record -> {
+                .fetch(
+                        (RecordMapper<Record, ShopOrder>) record -> {
 
-                    Long orderId = record.get(so.ID);
-                    ShopOrderInfo order = resMap.get(orderId);
-                    if (order == null) {
-                        order = record
-                                .into(so.fields())
-                                .into(ShopOrderInfo.class);
-                        resMap.put(orderId, order);
-                        order.setCartGoodsList(new ArrayList<>());
+                            Long orderId = record.get(so.ID);
+                            ShopOrderInfo order = resMap.get(orderId);
+                            if (order == null) {
+                                order = record
+                                        .into(so.fields())
+                                        .into(ShopOrderInfo.class);
+                                resMap.put(orderId, order);
+                                order.setCartGoodsList(new ArrayList<>());
 
-                        PersonAddress address = record
-                                .into(pa.fields())
-                                .into(PersonAddress.class);
+                                PersonAddress address = record
+                                        .into(pa.fields())
+                                        .into(PersonAddress.class);
 
-                        if (address.getId() != null) {
-                            order.setPersonAddress(address.asString());
-                        }
-                    }
-                    ShopOrderGoods orderGoods = record
-                            .into(addAll(
-                                    sog.fields(), prod.NAME.as("product_name")
-                            ))
-                            .into(ShopOrderGoodsInfo.class);
-                    if (orderGoods.getId() != null) {
-                        order.getCartGoodsList().add(orderGoods);
-                    }
-                    return null;
-                });
+                                if (address.getId() != null) {
+                                    order.setPersonAddress(address.asString());
+                                }
+                            }
+                            ShopOrderGoods orderGoods = record
+                                    .into(addAll(
+                                            sog.fields(), prod.NAME.as("product_name")
+                                    ))
+                                    .into(ShopOrderGoodsInfo.class);
+                            if (orderGoods.getId() != null) {
+                                order.getCartGoodsList().add(orderGoods);
+                            }
+                            return null;
+                        });
         return new ArrayList<>(resMap.values());
     }
 }
