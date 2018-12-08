@@ -1,19 +1,10 @@
-// ##############################
-// // // Pagination component styles
-// #############################
+import {dangerColor, grayColor, infoColor, primaryColor, successColor, warningColor} from "app/common/style/styleConsts";
 
-import {
-    dangerColor,
-    grayColor,
-    infoColor,
-    primaryColor,
-    successColor,
-    warningColor
-} from "app/common/style/styleConsts";
 
 const paginationStyle = {
     pagination: {
         display: "flex",
+        justifyContent: "center",
         paddingLeft: "0",
         listStyle: "none",
         borderRadius: "0.25rem"

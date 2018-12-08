@@ -4,19 +4,15 @@ import ErrorMessage from "app/common/message/ErrorMessage";
 import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import Price from "app/common/misc/Price";
-import {iconButtonColor} from "app/common/style/styleConsts";
+import {iconButtonColor, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
 import CardFooter from "app/common/theme/card/CardFooter";
+import Paging from "app/common/theme/paging/Paging";
 import Table from "app/common/theme/table/CustomTable";
 import userProfileStyle from "app/user/profile/userProfileStyle";
-import {
-    mapUserOrdersToProps,
-    USER_ORDERS_DATA,
-    USER_ORDERS_LOADING_ERROR,
-    USER_ORDERS_START_LOADING
-} from "app/user/userOrdersReducer";
+import {mapUserOrdersToProps, USER_ORDERS_DATA, USER_ORDERS_LOADING_ERROR, USER_ORDERS_START_LOADING} from "app/user/userOrdersReducer";
 import {connect, jacksonStrToDateStr, updateUiField} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import React from "react";
@@ -120,7 +116,7 @@ class OrdersTab extends React.PureComponent {
             orders
         } = this.props.data;
         const {
-            loading: dataLoading
+            loading: dataLoading, paging
         } = this.props.ui;
         const {
             message
@@ -133,26 +129,31 @@ class OrdersTab extends React.PureComponent {
             ? <div className={classes.textCenter}>
                 <h4>Заказы не найдены</h4>
             </div>
-            : <Table
-                tableHead={[
-                    "№", "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
-                ]}
-                tableData={orders.map((item) => {
-                    return [
-                        item.id,
-                        jacksonStrToDateStr(item.createDate),
-                        item.personAddress,
-                        this.asGoodsList(item),
-                        <Price value={item.totalAmount}/>,
-                        this.asUserState(item.state),
-                        this.rowActionButtons];
-                })}
-                customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                customClassesForCells={[1, 4, 5, 6]}
-                customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                customHeadClassesForCells={[1, 4, 5, 6]}
-            />;
-
+            :
+            <div>
+                <Table
+                    tableHead={[
+                        "№", "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
+                    ]}
+                    tableData={orders.map((item) => {
+                        return [
+                            item.id,
+                            jacksonStrToDateStr(item.createDate),
+                            item.personAddress,
+                            this.asGoodsList(item),
+                            <Price value={item.totalAmount}/>,
+                            this.asUserState(item.state),
+                            this.rowActionButtons];
+                    })}
+                    customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                    customClassesForCells={[1, 4, 5, 6]}
+                    customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                    customHeadClassesForCells={[1, 4, 5, 6]}
+                />
+                <Paging class color={PRIMARY_COLOR_KEY}
+                        paging={paging}
+                />
+            </div>;
         return (
             <Card className={classes.ordersTab}>
                 <CardBody>{content}</CardBody>

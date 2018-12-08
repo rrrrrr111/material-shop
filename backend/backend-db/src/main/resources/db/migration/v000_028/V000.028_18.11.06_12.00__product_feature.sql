@@ -18,8 +18,8 @@ values (NULL, 'id', 'Идентификатор', 'SERVICE'),
        (NULL, 'name', 'Название', 'SERVICE'),
        (NULL, 'description', 'Описание', 'SERVICE'),
        (NULL, 'brand', 'Брэнд', 'SERVICE'),
-       (NULL, 'image', 'Cсылка на изображения', 'SERVICE'),
-       (NULL, 'link', 'Cсылка карточки продукта', 'SERVICE'),
+       (NULL, 'image', 'Ссылка на изображения', 'SERVICE'),
+       (NULL, 'link', 'Ссылка карточки продукта', 'SERVICE'),
        (NULL, 'googleProductCategory', 'Категория товара в Google', 'SERVICE'),
        (NULL, 'price', 'Цена', 'SERVICE');
 
