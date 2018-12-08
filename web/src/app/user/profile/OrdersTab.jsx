@@ -4,7 +4,7 @@ import ErrorMessage from "app/common/message/ErrorMessage";
 import NeedLoginMessage from "app/common/message/NeedLoginMessage";
 import CircularLoading from "app/common/misc/CircularLoading";
 import Price from "app/common/misc/Price";
-import {iconButtonColor, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
+import {iconButtonColor, PRIMARY_COLOR_KEY, TRANSPARENT_COLOR_KEY} from "app/common/style/styleConsts";
 import Button from "app/common/theme/button/Button";
 import Card from "app/common/theme/card/Card.jsx";
 import CardBody from "app/common/theme/card/CardBody.jsx";
@@ -21,6 +21,7 @@ import {dispatch} from "store";
 class OrdersTab extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.reloadUserOrdersData = this.reloadUserOrdersData.bind(this);
         this.state = {
             ui: {
                 message: "",
@@ -29,30 +30,30 @@ class OrdersTab extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.checkStateAndReload();
+        this.checkStateAndReload(1);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.checkStateAndReload();
+        this.checkStateAndReload(1);
     }
 
-    checkStateAndReload() {
+    checkStateAndReload(page) {
         const {userUi} = this.props;
         const {loading, loaded} = this.props.ui;
         const message = this.state.ui.message;
 
         if (userUi.loaded
             && !loaded && !loading && !message) {
-            this.reloadUserOrdersData();
+            this.reloadUserOrdersData(page);
         }
     }
 
-    reloadUserOrdersData = () => {
+    reloadUserOrdersData = (page) => {
 
         const compRef = this,
             userData = compRef.props.userData,
             paging = compRef.props.ui.paging,
-            pageRequest = {...paging, page: paging.page};
+            pageRequest = {...paging, page: page};
 
         updateUiField(compRef, compRef.state, "message", "");
         dispatch(USER_ORDERS_START_LOADING)
@@ -108,58 +109,62 @@ class OrdersTab extends React.PureComponent {
     }
 
     render() {
-        const {classes, userUi} = this.props;
-        const {
-            loaded: userLoaded, loading: userLoading
-        } = userUi;
-        const {
-            orders
-        } = this.props.data;
-        const {
-            loading: dataLoading, paging
-        } = this.props.ui;
-        const {
-            message
-        } = this.state.ui;
+        const {classes, userUi} = this.props,
+            {
+                loaded: userLoaded, loading: userLoading
+            } = userUi,
+            {
+                orders
+            } = this.props.data,
+            {
+                loading: dataLoading, paging
+            } = this.props.ui,
+            {
+                message
+            } = this.state.ui,
+            showLoading = userLoading || dataLoading,
+            userNotAuth = !userLoaded && !userLoading,
+            ordersNotFound = orders.length === 0,
+            disabled = showLoading || userNotAuth;
 
-        const showLoading = userLoading || dataLoading,
-            userNotAuth = !userLoaded && !userLoading;
-
-        const content = (orders.length === 0 && !showLoading && !message && !userNotAuth)
+        const content = (ordersNotFound && !showLoading && !message && !userNotAuth)
             ? <div className={classes.textCenter}>
                 <h4>Заказы не найдены</h4>
             </div>
-            :
-            <div>
-                <Table
-                    tableHead={[
-                        "№", "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
-                    ]}
-                    tableData={orders.map((item) => {
-                        return [
-                            item.id,
-                            jacksonStrToDateStr(item.createDate),
-                            item.personAddress,
-                            this.asGoodsList(item),
-                            <Price value={item.totalAmount}/>,
-                            this.asUserState(item.state),
-                            this.rowActionButtons];
-                    })}
-                    customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                    customClassesForCells={[1, 4, 5, 6]}
-                    customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
-                    customHeadClassesForCells={[1, 4, 5, 6]}
-                />
-                <Paging class color={PRIMARY_COLOR_KEY}
-                        paging={paging}
-                />
-            </div>;
+            : showLoading
+                ? <CircularLoading show={showLoading}/>
+                : <div>
+                    <Table className={classes.ordersTable}
+                           tableHeaderColor={TRANSPARENT_COLOR_KEY}
+                           tableHead={[
+                               "№", "Дата", "Адрес доставки", "Товары", "Сумма", "Статус", ""
+                           ]}
+                           tableData={orders.map((item) => {
+                               return [
+                                   item.id,
+                                   jacksonStrToDateStr(item.createDate),
+                                   item.personAddress,
+                                   this.asGoodsList(item),
+                                   <Price value={item.totalAmount}/>,
+                                   this.asUserState(item.state),
+                                   this.rowActionButtons];
+                           })}
+                           customCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                           customClassesForCells={[1, 4, 5, 6]}
+                           customHeadCellClasses={[classes.textCenter, classes.textRight, classes.textCenter, classes.textCenter]}
+                           customHeadClassesForCells={[1, 4, 5, 6]}
+                    />
+                </div>;
         return (
             <Card className={classes.ordersTab}>
-                <CardBody>{content}</CardBody>
-                <CardFooter>
+                <CardBody className={classes.ordersCardBody}>
+                    {content}
+                </CardBody>
+                <CardFooter className={classes.ordersCardFooter}>
                     <div className={classes.width100}>
-                        <CircularLoading show={showLoading}/>
+                        <Paging color={PRIMARY_COLOR_KEY} disabled={disabled}
+                                paging={paging} onPageClick={this.reloadUserOrdersData}
+                        />
                         <ErrorMessage>{message}</ErrorMessage>
                         <NeedLoginMessage show={userNotAuth}/>
                     </div>

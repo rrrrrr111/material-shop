@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 
-function Paginations(props) {
+const Paginations = (props) => {
     const {classes, pages, color, className} = props;
     const paginationClasses = classNames(classes.pagination, className);
     return (
@@ -20,29 +20,17 @@ function Paginations(props) {
                 });
                 return (
                     <li className={classes.paginationItem} key={key}>
-                        {prop.onClick !== undefined ? (
-                            <Button
-                                onClick={prop.onClick}
+                        <Button onClick={prop.onClick}
                                 className={paginationLink}
-                                disabled={prop.disabled}
-                            >
-                                {prop.text}
-                            </Button>
-                        ) : (
-                            <Button
-                                onClick={() => console.log("you've clicked " + prop.text)}
-                                className={paginationLink}
-                                disabled={prop.disabled}
-                            >
-                                {prop.text}
-                            </Button>
-                        )}
+                                disabled={prop.disabled}>
+                            {prop.text}
+                        </Button>
                     </li>
                 );
             })}
         </ul>
     );
-}
+};
 
 Paginations.defaultProps = {
     color: PRIMARY_COLOR_KEY
@@ -54,8 +42,7 @@ Paginations.propTypes = {
         PropTypes.shape({
             active: PropTypes.bool,
             disabled: PropTypes.bool,
-            text: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-                .isRequired,
+            text: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]).isRequired,
             onClick: PropTypes.func
         })
     ).isRequired,

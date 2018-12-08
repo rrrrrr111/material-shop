@@ -4,8 +4,9 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-
-import style from "app/common/theme/table/tableStyle.jsx";
+import {MAIN_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
+import tableStyle from "app/common/theme/table/tableStyle";
+import {classNames} from "app/utils/functionUtil";
 import cx from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -13,6 +14,7 @@ import React from "react";
 function CustomTable(props) {
     const {
         classes,
+        className,
         tableHead,
         tableData,
         tableFooter,
@@ -28,7 +30,10 @@ function CustomTable(props) {
         customHeadClassesForCells
     } = props;
     return (
-        <div className={classes.tableResponsive}>
+        <div className={classNames({
+            [classes.tableResponsive]: true,
+            [className]: className
+        })}>
             <Table className={classes.table}>
                 {tableHead !== undefined ? (
                     <TableHead className={classes[tableHeaderColor]}>
@@ -57,8 +62,8 @@ function CustomTable(props) {
                 ) : null}
                 <TableBody>
                     {tableData.map((prop, key) => {
-                        var rowColor = "";
-                        var rowColored = false;
+                        let rowColor = "";
+                        let rowColored = false;
                         if (prop.color !== undefined) {
                             rowColor = prop.color;
                             rowColored = true;
@@ -158,7 +163,7 @@ function CustomTable(props) {
 }
 
 CustomTable.defaultProps = {
-    tableHeaderColor: "gray",
+    tableHeaderColor: PRIMARY_COLOR_KEY,
     hover: false,
     colorsColls: [],
     coloredColls: [],
@@ -171,15 +176,8 @@ CustomTable.defaultProps = {
 
 CustomTable.propTypes = {
     classes: PropTypes.object.isRequired,
-    tableHeaderColor: PropTypes.oneOf([
-        "warning",
-        "primary",
-        "danger",
-        "success",
-        "info",
-        "rose",
-        "gray"
-    ]),
+    className: PropTypes.string,
+    tableHeaderColor: PropTypes.oneOf(MAIN_COLOR_KEYS),
     tableHead: PropTypes.arrayOf(PropTypes.string),
     // Of(PropTypes.arrayOf(PropTypes.node)) || Of(PropTypes.object),
     tableData: PropTypes.array,
@@ -197,4 +195,4 @@ CustomTable.propTypes = {
     tableShopping: PropTypes.bool
 };
 
-export default withStyles(style)(CustomTable);
+export default withStyles(tableStyle)(CustomTable);

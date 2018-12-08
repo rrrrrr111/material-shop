@@ -1,8 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-
-
-import cardHeaderStyle from "app/common/theme/card/cardHeaderStyle.jsx";
 import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
+import cardHeaderStyle from "app/common/theme/card/cardHeaderStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -28,7 +26,7 @@ function CardHeader(props) {
         [classes.cardHeaderContact]: contact,
         [classes.cardHeaderSignup]: signup,
         [classes.noShadow]: noShadow,
-        [className]: className !== undefined
+        [className]: className
     });
     return (
         <div className={cardHeaderClasses} {...rest}>

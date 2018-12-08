@@ -1,13 +1,10 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-
-
-import cardStyle from "app/common/theme/card/cardStyle.jsx";
 import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
-
+import cardStyle from "app/common/theme/card/cardStyle.jsx";
 import classNames from "classnames";
-
 import PropTypes from "prop-types";
 import React from "react";
+
 
 function Card(props) {
     const {

@@ -25,7 +25,7 @@ function CardBody(props) {
         [classes.cardPricing]: pricing,
         [classes.cardSignup]: signup,
         [classes.cardBodyColor]: color,
-        [className]: className !== undefined
+        [className]: className
     });
     return (
         <div className={cardBodyClasses} {...rest}>

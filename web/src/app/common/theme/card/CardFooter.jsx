@@ -1,6 +1,4 @@
 import withStyles from "@material-ui/core/styles/withStyles";
-
-
 import cardFooterStyle from "app/common/theme/card/cardFooterStyle.jsx";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -23,7 +21,7 @@ function CardFooter(props) {
         [classes.cardFooterProfile]: profile || testimonial,
         [classes.cardFooterPricing]: pricing,
         [classes.cardFooterTestimonial]: testimonial,
-        [className]: className !== undefined
+        [className]: className
     });
     return (
         <div className={cardFooterClasses} {...rest}>

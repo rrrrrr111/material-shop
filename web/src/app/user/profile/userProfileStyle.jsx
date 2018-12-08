@@ -29,7 +29,16 @@ const userProfileStyle = theme => ({
     },
     ordersTab: {
         ...commonTabStyle(theme),
-        maxWidth: 800,
+        maxWidth: 800
+    },
+    ordersTable: {
+        height: 500,
+    },
+    ordersCardBody: {
+        height: 510,
+    },
+    ordersCardFooter: {
+        margin: 20,
     },
     settingsTab: {
         ...commonTabStyle(theme),
