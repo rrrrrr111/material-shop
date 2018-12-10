@@ -57,7 +57,7 @@ export const boldFont = '"Roboto Slab", "Times New Roman", serif';
 
 export const menuInitialColor = TRANSPARENT_COLOR_KEY;
 export const menuAfterScrollColor = ROSE_COLOR_KEY;
-export const dropdownHoverColor = menuAfterScrollColor;  // пункт меню при наведении
+export const mainMenuHoverColor = menuAfterScrollColor;  // пункт меню при наведении
 export const headerParallaxFilterColor = ROSE_COLOR_KEY;
 
 export const popupHeaderColor = ROSE_COLOR_KEY; // заголовок попапа

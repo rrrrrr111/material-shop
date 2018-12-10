@@ -4,11 +4,15 @@ export class Dictionary {
     }
 
     getById = ((id) => {
-        return this.values.find((it) => (it.id === id))
+        return this.values.find((it) => (it.id === id));
     });
 
     getByName = ((name) => {
-        return this.values.find((it) => (it.name === name))
+        return this.values.find((it) => (it.name === name));
+    });
+
+    getBy = ((prop, value) => {
+        return this.values.find((it) => (it[prop] === value));
     });
 }
 

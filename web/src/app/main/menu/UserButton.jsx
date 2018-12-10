@@ -1,6 +1,6 @@
 import Zoom from "@material-ui/core/Zoom/Zoom";
 import AppIcon from "app/common/icon/AppIcon";
-import {dropdownHoverColor} from "app/common/style/styleConsts";
+import {mainMenuHoverColor} from "app/common/style/styleConsts";
 import MenuButton from "app/common/theme/menu/MenuButton";
 import MenuDropdown from "app/common/theme/menu/MenuDropdown";
 import mainMenuListStyle from "app/main/menu/mainMenuListStyle";
@@ -44,7 +44,7 @@ class UserButton extends React.PureComponent {
                         <MenuDropdown
                             noLiPadding
                             navDropdown
-                            hoverColor={dropdownHoverColor}
+                            hoverColor={mainMenuHoverColor}
                             buttonProps={buttonProps}
                             buttonIcon={<AppIcon name="account_circle"/>}
                             dropdownList={menuItems}

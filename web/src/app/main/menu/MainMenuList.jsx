@@ -2,7 +2,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import {ALL_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
+import {ALL_COLOR_KEYS} from "app/common/style/styleConsts";
 import MenuDropdown from "app/common/theme/menu/MenuDropdown.jsx";
 import CartButton from "app/main/menu/CartButton";
 import mainMenuListStyle from "app/main/menu/mainMenuListStyle.jsx";
@@ -48,12 +48,8 @@ const MainMenuList = (props) => {
     )
 };
 
-MainMenuList.defaultProps = {
-    dropdownHoverColor: PRIMARY_COLOR_KEY
-};
-
 MainMenuList.propTypes = {
-    dropdownHoverColor: PropTypes.oneOf(ALL_COLOR_KEYS)
+    dropdownHoverColor: PropTypes.oneOf(ALL_COLOR_KEYS).isRequired
 };
 
 const MainMenuListWithMenuLoader = (props) => (

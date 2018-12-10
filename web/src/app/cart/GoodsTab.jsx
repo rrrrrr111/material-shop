@@ -16,25 +16,11 @@ import Table from "app/common/theme/table/CustomTable";
 import util from "app/utils/util"
 import toNumber from 'lodash/toNumber'
 import React from "react";
-import {withRouter} from "react-router";
 import {dispatch} from "store";
 
 class GoodsTab extends React.PureComponent {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     cartGoodsList: [
-        //         {
-        //             productId: 1,
-        //             image: "000/000/000[2:jpg, 3]",
-        //             link: "/goods/spring_jacasdf_asdf_asdf_aket_p-1",
-        //             name: "Spring Jacket",
-        //             quantity: 1,
-        //             price: 1093232
-        //         }
-        //     ]
-        //};
-
         this.handleClickMinus = this.handleClickMinus.bind(this);
         this.handleClickPlus = this.handleClickPlus.bind(this);
         this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
@@ -175,4 +161,4 @@ class GoodsTab extends React.PureComponent {
     }
 }
 
-export default (withStyles(userCartStyle)(withRouter(GoodsTab)));
+export default (withStyles(userCartStyle)(GoodsTab));
