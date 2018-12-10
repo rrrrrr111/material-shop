@@ -2,9 +2,6 @@
   "items": [
     {
       "id": "userRoot",
-      "name": "Профиль пользователя",
-      "to": "/user/profile",
-      "icon": "face",
       "parentId": null
     },
     {
@@ -36,6 +33,46 @@
       "to": "/auth/signout",
       "icon": "fas fa-sign-out-alt",
       "parentId": "userRoot"
+    },
+    {
+      "id": "catalogRoot",
+      "parentId": null
+    },
+    {
+      "name": "Презентация",
+      "to": "/",
+      "icon": null,
+      "parentId": "catalogRoot"
+    },
+    {
+      "name": "Дазайн",
+      "to": "/design",
+      "icon": "apps",
+      "parentId": "catalogRoot"
+    },
+    {
+      "name": "Длинное наименовение меню",
+      "to": "/long",
+      "icon": "account_circle",
+      "parentId": "catalogRoot"
+    },
+    {
+      "name": "Длинное наименовение меню",
+      "to": "/long",
+      "icon": "account_circle",
+      "parentId": "catalogRoot"
+    },
+    {
+      "name": "Еще более длинное наименование меню",
+      "to": "/very-long",
+      "icon": "fingerprint",
+      "parentId": "catalogRoot"
+    },
+    {
+      "name": "Совсем, совсем при совсем, очень длинное придлинное наименование меню, трали вали трали вали трали вали вали валилилилилии",
+      "to": "/very-very-very-loooooong",
+      "icon": "shopping_cart",
+      "parentId": "catalogRoot"
     }
   ]
 }

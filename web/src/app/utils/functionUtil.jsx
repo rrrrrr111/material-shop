@@ -44,4 +44,4 @@ export const updateUiField = (componentRef, state, fieldName, value) => {
 
 export const jacksonStrToDateStr = (str) => {
     return str.substr(0, 10);
-}
+};

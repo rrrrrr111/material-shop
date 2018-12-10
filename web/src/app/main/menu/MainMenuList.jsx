@@ -5,8 +5,9 @@ import AppIcon from "app/common/icon/AppIcon";
 import {ALL_COLOR_KEYS, PRIMARY_COLOR_KEY} from "app/common/style/styleConsts";
 import MenuDropdown from "app/common/theme/menu/MenuDropdown.jsx";
 import CartButton from "app/main/menu/CartButton";
-import UserButton from "app/main/menu/UserButton";
 import mainMenuListStyle from "app/main/menu/mainMenuListStyle.jsx";
+import MenuDataLoader from "app/main/menu/MenuDataLoader";
+import UserButton from "app/main/menu/UserButton";
 import {classNames} from "app/utils/functionUtil";
 import PropTypes from "prop-types";
 import React from "react";
@@ -14,7 +15,9 @@ import {withRouter} from "react-router";
 
 const MainMenuList = (props) => {
 
-    const {classes, dropdownHoverColor} = props;
+    const {classes, dropdownHoverColor, menuData, menuUi} = props,
+        rootItem = menuData.getById("catalogRoot"),
+        menuItems = rootItem ? rootItem.childs : [];
 
     return (
         <List className={classNames({
@@ -32,11 +35,11 @@ const MainMenuList = (props) => {
                         color: "transparent"
                     }}
                     buttonIcon={<AppIcon name="apps"/>}
-                    dropdownList={MainMenuList.catalogMenuItems}
+                    dropdownList={menuItems}
                 />
             </ListItem>
             <ListItem className={classes.listItem}>
-                <UserButton/>
+                <UserButton menuData={menuData} menuUi={menuUi}/>
             </ListItem>
             <ListItem className={classes.listItem}>
                 <CartButton/>
@@ -53,20 +56,10 @@ MainMenuList.propTypes = {
     dropdownHoverColor: PropTypes.oneOf(ALL_COLOR_KEYS)
 };
 
-MainMenuList.catalogMenuItems = [
-    {id: 0, name: "Презентация", to: "/", icon: null, link: true},
-    {id: 1, name: "Дазайн", to: "/design", icon: "apps", link: true},
-    {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle", link: true},
-    {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle", link: true},
-    {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle", link: true},
-    {id: 2, name: "Длинное наименовение меню", to: "/long", icon: "account_circle", link: true},
-    {id: 3, name: "Еще более длинное наименование меню", to: "/very-long", icon: "fingerprint", link: true},
-    {
-        id: 4, name: "Совсем, совсем при совсем, очень длинное придлинное наименование " +
-            "меню, трали вали трали вали трали вали вали валилилилилии",
-        to: "/very-very-very-loooooong",
-        icon: "shopping_cart", link: true
-    },
-];
+const MainMenuListWithMenuLoader = (props) => (
+    <MenuDataLoader>
+        <MainMenuList {...props}/>
+    </MenuDataLoader>
+);
 
-export default withStyles(mainMenuListStyle)(withRouter(MainMenuList));
+export default withStyles(mainMenuListStyle)(withRouter(MainMenuListWithMenuLoader));
