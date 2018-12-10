@@ -122,7 +122,7 @@ const backendSignout = () => {
 };
 
 const localGet = (url, config) => {
-    return axios.get(url, config)
+    return axios.get("/configurable" + url, config)
         .then(handleResponse, handleError)
 };
 

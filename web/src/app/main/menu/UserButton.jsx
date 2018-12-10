@@ -34,10 +34,8 @@ class UserButton extends React.PureComponent {
                 className: classes.rootMenuItemButton,
                 color: "transparent"
             },
-            menuItems = this.props.menuData.getChilds("userRoot");
-
-        console.log(">>>>", menuItems);
-
+            rootItem = this.props.menuData.getById("userRoot"),
+            menuItems = rootItem ? rootItem.childs : [];
 
         return ( // специфекты не для всех компонент отрабатывают, потому обрачиваем в div
             <Zoom in={true} timeout={1000}>
