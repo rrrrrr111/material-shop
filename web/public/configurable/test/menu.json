@@ -1,0 +1,41 @@
+{
+  "items": [
+    {
+      "id": "userRoot",
+      "name": "Профиль пользователя",
+      "to": "/user/profile",
+      "icon": "face",
+      "parentId": null
+    },
+    {
+      "name": "Профиль пользователя",
+      "to": "/user/profile",
+      "icon": "face",
+      "parentId": "userRoot"
+    },
+    {
+      "name": "История заказов",
+      "to": "/user/orders",
+      "icon": "history",
+      "parentId": "userRoot"
+    },
+    {
+      "name": "Настройки",
+      "to": "/user/settings",
+      "icon": "settings",
+      "parentId": "userRoot"
+    },
+    {
+      "name": "Смена пароля",
+      "to": "/user/password",
+      "icon": "fingerprint",
+      "parentId": "userRoot"
+    },
+    {
+      "name": "Выход",
+      "to": "/auth/signout",
+      "icon": "fas fa-sign-out-alt",
+      "parentId": "userRoot"
+    }
+  ]
+}

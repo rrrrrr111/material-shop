@@ -3,15 +3,15 @@ import AppIcon from "app/common/icon/AppIcon";
 import {dropdownHoverColor} from "app/common/style/styleConsts";
 import MenuButton from "app/common/theme/menu/MenuButton";
 import MenuDropdown from "app/common/theme/menu/MenuDropdown";
-import menuStyle from "app/main/header/menuStyle";
+import mainMenuListStyle from "app/main/menu/mainMenuListStyle";
+import MenuDataLoader from "app/main/menu/MenuDataLoader";
 import {mapUserToProps} from "app/user/reducer";
 import {connect, withStyles} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import React from "react";
 
 const styles = theme => ({
-    rootMenuItemButton: menuStyle(theme).rootMenuItemButton,
-
+    rootMenuItemButton: mainMenuListStyle(theme).rootMenuItemButton,
 });
 
 class UserButton extends React.PureComponent {
@@ -24,24 +24,21 @@ class UserButton extends React.PureComponent {
         util.navigate.goToUrl("/auth/signin");
     }
 
-    static userMenuItems = [
-        {id: 0, name: "Профиль пользователя", to: "/user/profile", icon: "face", link: true},
-        {id: 2, name: "История заказов", to: "/user/orders", icon: "history", link: true},
-        {id: 3, name: "Настройки", to: "/user/settings", icon: "settings", link: true},
-        {id: 4, name: "Смена пароля", to: "/user/password", icon: "fingerprint", link: true},
-        {id: 5, name: "Выход", to: "/auth/signout", icon: "fas fa-sign-out-alt", link: true},
-    ];
-
     isUserLoggedIn() {
         return this.props.ui.loaded;
     }
 
     render = () => {
-        const {classes} = this.props;
-        const buttonProps = {
-            className: classes.rootMenuItemButton,
-            color: "transparent"
-        };
+        const {classes} = this.props,
+            buttonProps = {
+                className: classes.rootMenuItemButton,
+                color: "transparent"
+            },
+            menuItems = this.props.menuData.getChilds("userRoot");
+
+        console.log(">>>>", menuItems);
+
+
         return ( // специфекты не для всех компонент отрабатывают, потому обрачиваем в div
             <Zoom in={true} timeout={1000}>
                 <div>
@@ -52,7 +49,7 @@ class UserButton extends React.PureComponent {
                             hoverColor={dropdownHoverColor}
                             buttonProps={buttonProps}
                             buttonIcon={<AppIcon name="account_circle"/>}
-                            dropdownList={UserButton.userMenuItems}
+                            dropdownList={menuItems}
                         />
                         :
                         <MenuButton
@@ -67,4 +64,10 @@ class UserButton extends React.PureComponent {
     };
 }
 
-export default connect(mapUserToProps)(withStyles(styles)(UserButton));
+const UserButtonWithUserLoader = (props) => (
+    <MenuDataLoader>
+        <UserButton {...props}/>
+    </MenuDataLoader>
+);
+
+export default connect(mapUserToProps)(withStyles(styles)(UserButtonWithUserLoader));

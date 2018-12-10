@@ -1,7 +1,7 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppIcon from "app/common/icon/AppIcon";
-import dropdownStyle from "app/common/theme/menu/dropdownStyle";
 import LocalLink from "app/common/misc/LocalLink";
+import dropdownStyle from "app/common/theme/menu/dropdownStyle";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -9,7 +9,7 @@ const MenuItemContent = (props) => {
 
     const {itemInfo, classes} = props;
     return (
-        itemInfo.link ?
+        itemInfo.to ?
             <LocalLink to={itemInfo.to} className={classes.dropdownLink}>
                 <AppIcon name={itemInfo.icon} className={classes.dropdownIcons}/>
                 {itemInfo.name}
@@ -29,8 +29,7 @@ MenuItemContent.propTypes = {
     itemInfo: PropTypes.shape({
         to: PropTypes.string,
         icon: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-        name: PropTypes.string,
-        link: PropTypes.bool
+        name: PropTypes.string
     }),
 };
 

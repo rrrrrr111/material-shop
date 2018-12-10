@@ -58,7 +58,6 @@ public class ShopOrderDao {
         var sog = SHOP_ORDER_GOODS.as("sog");
         var prod = PRODUCT.as("prod");
 
-
         var resMap = new LinkedHashMap<Long, ShopOrderInfo>();
         create.select(
                 addAll(

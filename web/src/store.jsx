@@ -1,6 +1,7 @@
 import {dataCartReducer, uiCartReducer} from "app/cart/reducer";
 import {notifyReducer} from "app/common/message/notify/reducer";
 import {dataFeedReducer, uiFeedReducer} from "app/feed/reducer";
+import {dataMenuReducer, uiMenuReducer} from "app/main/menu/reducer";
 import {dataUserReducer, uiUserReducer} from "app/user/reducer";
 import {dataUserOrdersReducer, uiUserOrdersReducer} from "app/user/userOrdersReducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
@@ -17,13 +18,17 @@ export const store = applyMiddleware(thunk)(createStore)(
             data: dataUserOrdersReducer,
             ui: uiUserOrdersReducer,
         }),
-        feed: combineReducers({
-            data: dataFeedReducer,
-            ui: uiFeedReducer,
-        }),
         cart: combineReducers({
             data: dataCartReducer,
             ui: uiCartReducer,
+        }),
+        menu: combineReducers({
+            data: dataMenuReducer,
+            ui: uiMenuReducer,
+        }),
+        feed: combineReducers({
+            data: dataFeedReducer,
+            ui: uiFeedReducer,
         }),
         notify: notifyReducer
     }));

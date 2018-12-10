@@ -3,6 +3,7 @@ package ru.rich.matshop.webapi.api.order;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import ru.rich.matshop.webapi.api.common.paging.PageRequest;
+import ru.rich.matshop.webapi.api.common.paging.PageResponse;
 import ru.rich.matshop.webapi.api.order.model.ShopOrder;
 import ru.rich.matshop.webapi.api.order.model.ShopOrderState;
 
@@ -30,14 +31,14 @@ public class ShopOrderService {
         return getById(orderId);
     }
 
-    public Pair<List<ShopOrder>, Boolean> getList(Long personId, PageRequest pageReq) {
+    public Pair<List<ShopOrder>, PageResponse> getList(Long personId, PageRequest pageReq) {
         List<ShopOrder> list = shopOrderDao.getByPersonId(personId, pageReq);
 
         boolean hasMore = list.size() > pageReq.getCount();
         if (hasMore) {
             list.remove(list.size() - 1);
         }
-        return Pair.of(list, hasMore);
+        return Pair.of(list, new PageResponse(pageReq, hasMore));
     }
 
     private ShopOrder getById(Long id) {

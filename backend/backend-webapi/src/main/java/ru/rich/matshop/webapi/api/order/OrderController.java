@@ -67,18 +67,17 @@ public class OrderController extends AbstractRestController {
     }
 
     @PostMapping(ORDER_URL_PREFIX + "/list")
-    @Transactional
     public OrderListResponse list(@RequestBody
                                   @Valid
                                           OrderListRequest req) {
 
         PageRequest pageReq = req.getPageRequest();
         Long personId = req.getPersonId();
-        Pair<List<ShopOrder>, Boolean> ordersInfo = shopOrderService.getList(personId, pageReq);
+        Pair<List<ShopOrder>, PageResponse> ordersInfo = shopOrderService.getList(personId, pageReq);
 
         var resp = prepareResponse(new OrderListResponse());
         resp.setOrders(ordersInfo.getLeft());
-        resp.setPageResponse(new PageResponse(pageReq, ordersInfo.getRight()));
+        resp.setPageResponse(ordersInfo.getRight());
         return resp;
     }
 }

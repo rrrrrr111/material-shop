@@ -4,13 +4,13 @@ import {mapCartToProps} from "app/cart/reducer";
 import AppIcon from "app/common/icon/AppIcon";
 import {roseColor} from "app/common/style/styleConsts";
 import MenuButton from "app/common/theme/menu/MenuButton";
-import menuStyle from "app/main/header/menuStyle";
+import mainMenuListStyle from "app/main/menu/mainMenuListStyle";
 import {connect, NumberFormat, withStyles} from "app/utils/functionUtil";
 import util from "app/utils/util";
 import React from "react";
 
 const styles = theme => ({
-    rootMenuItemButton: menuStyle(theme).rootMenuItemButton,
+    rootMenuItemButton: mainMenuListStyle(theme).rootMenuItemButton,
     badge: {
         top: -14,
         right: -8,

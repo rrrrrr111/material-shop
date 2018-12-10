@@ -1,4 +1,4 @@
-class Dictionary {
+export class Dictionary {
     constructor(values) {
         this.values = values;
     }
@@ -9,6 +9,10 @@ class Dictionary {
 
     getByName = ((name) => {
         return this.values.find((it) => (it.name === name))
+    });
+
+    getChilds = ((parentId) => {
+        return this.values.filter((it) => (it.parentId === parentId))
     });
 }
 

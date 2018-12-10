@@ -3,21 +3,17 @@ import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-
 import withStyles from "@material-ui/core/styles/withStyles";
 import Toolbar from "@material-ui/core/Toolbar";
 import CloseIcon from "@material-ui/icons/Close";
-
 import MenuIcon from "@material-ui/icons/Menu";
 import LocalLink from "app/common/misc/LocalLink";
 import {ALL_COLOR_KEYS, WHITE_COLOR_KEY} from "app/common/style/styleConsts";
-
-import menuBarStyle from "app/main/header/menuBarStyle.jsx";
-
+import menuBarStyle from "app/main/menu/menuBarStyle.jsx";
 import classNames from "classnames";
-
 import PropTypes from "prop-types";
 import React from "react";
+
 
 class MenuBar extends React.PureComponent {
     constructor(props) {

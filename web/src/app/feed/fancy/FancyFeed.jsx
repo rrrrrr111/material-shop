@@ -39,7 +39,7 @@ class FancyFeed extends React.PureComponent {
                     Вам также могут быть интересны:
                 </h3>
                 <GridContainer>
-                    {this.state.products.map((product, index) => {
+                    {this.state.menu.map((product, index) => {
                         return (
                             <GridItem sm={6} md={3} key={index}>
                                 <FancyProductCard product={product}/>

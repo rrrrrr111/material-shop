@@ -6,8 +6,8 @@ import {
     menuInitialColor
 } from "app/common/style/styleConsts";
 import headerStyle from "app/main/header/headerStyle.jsx";
-import MainMenu from "app/main/header/MainMenu.jsx";
-import MenuBar from "app/main/header/MenuBar.jsx";
+import MainMenu from "app/main/menu/MainMenuList.jsx";
+import MenuBar from "app/main/menu/MenuBar.jsx";
 import Parallax from "app/common/theme/parallax/Parallax.jsx";
 import React from "react";
 

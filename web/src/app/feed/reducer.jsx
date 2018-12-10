@@ -3,28 +3,34 @@ import update from 'immutability-helper';
 
 
 export const MAIN_FEED_DATA = 'MAIN_FEED_DATA';
-let initialState = {
+export const START_RELOAD_MAIN_FEED = 'START_RELOAD_MAIN_FEED';
+
+const initialFeedDataState = {
     products: [],
 };
 export const dataFeedReducer = createReducer(
-    initialState, {
-        [MAIN_FEED_DATA]: (state, value = initialState.products) => {
+    initialFeedDataState, {
+        [MAIN_FEED_DATA]: (state, value = initialFeedDataState) => {
             return update(state, {products: {$set: value.products}});
         }
     });
 
-export const START_RELOAD_MAIN_FEED = 'START_RELOAD_MAIN_FEED';
-export const uiFeedReducer = createReducer({
+const initialFeedUiState = {
     loading: false,
     loaded: false,
-    message: false,
-    filter: null,
-}, {
+    message: "",
+    filter: {},
+};
+export const uiFeedReducer = createReducer(initialFeedUiState, {
     [START_RELOAD_MAIN_FEED]: (state) => {
         return update(state, {loading: {$set: true}, message: {$set: ""}});
     },
     [MAIN_FEED_DATA]: (state, value) => {
-        return update(state, {loading: {$set: false}, loaded: {$set: true}, message: {$set: value.message}});
+        return update(state, {
+            loading: {$set: false},
+            loaded: {$set: value.success},
+            message: {$set: value.message}
+        });
     }
 });
 

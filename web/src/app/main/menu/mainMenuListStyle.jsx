@@ -1,7 +1,7 @@
 import tooltipStyle from "app/common/theme/tooltip/tooltipStyle.jsx";
 import {mlAuto} from "app/common/style/themeStyles.jsx";
 
-const menuStyle = theme => ({
+const mainMenuListStyle = theme => ({
     ...tooltipStyle(theme),
 
     list: {
@@ -174,4 +174,4 @@ const menuStyle = theme => ({
     mlAuto
 });
 
-export default menuStyle;
+export default mainMenuListStyle;
