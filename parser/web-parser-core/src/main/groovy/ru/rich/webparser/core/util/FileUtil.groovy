@@ -1,7 +1,11 @@
 package ru.rich.webparser.core.util
 
+import org.apache.commons.io.IOUtils
 import org.apache.commons.lang3.StringUtils
+import org.springframework.core.io.ClassPathResource
 
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 
 class FileUtil {
@@ -21,5 +25,19 @@ class FileUtil {
 
     static String toAbsolutePath(String filePath) {
         Paths.get(filePath).toAbsolutePath().toString()
+    }
+    /**
+     * Загрузка файла из Classpath в UTF-8
+     */
+    static String readClasspathFile(String pathName) {
+        return readClasspathFile(pathName, StandardCharsets.UTF_8)
+    }
+
+    /**
+     * Загрузка файла из Classpath в указанной кодировке
+     */
+    static String readClasspathFile(String pathName, Charset charset) {
+        def is = new ClassPathResource(pathName).getInputStream()
+        return IOUtils.toString(is, charset)
     }
 }

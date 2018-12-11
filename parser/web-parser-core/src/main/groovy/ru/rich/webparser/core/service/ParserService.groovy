@@ -13,7 +13,7 @@ class ParserService {
     final CollectorService collectorService
     final CanonicalizationService canonicalizationService
 
-    Collector parse(Configuration configuration) {
+    Collector parse(Configuration conf) {
 
         def c = new Collector()
 
