@@ -2,9 +2,9 @@ package ru.rich.webparser.core.collector
 
 class Collector {
 
-    List<String> values
-    List<List<String>> lists
-    List<Map<String, String>> maps
+    Map<String, String> values
+    Map<String, List<String>> lists
+    Map<String, Map<String, String>> maps
 
     @Override
     String toString() {

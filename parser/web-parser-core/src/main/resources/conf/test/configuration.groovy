@@ -1,0 +1,6 @@
+parser {
+
+    page {
+        url = ""
+    }
+}

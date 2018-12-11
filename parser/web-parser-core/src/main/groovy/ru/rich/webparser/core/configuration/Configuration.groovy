@@ -5,5 +5,5 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class Configuration {
 
-    List<Page> pages
+    ConfigObject config
 }

@@ -26,16 +26,16 @@ class ParserConfig {
     ParserService parserService
 
     static void main(String[] args) {
+        log.info 'Started parser'
         SpringApplication.run(ParserConfig.class, args)
-
-        log.info 'Parser started'
+        log.info 'Parser finished'
     }
 
     @Bean
-    CommandLineRunner loggingCommandLineRunner(ApplicationContext ctx) {
+    CommandLineRunner run(ApplicationContext ctx) {
         return { args ->
 
-            Configuration conf = configurationService.readConfig "test/configuration.groovy"
+            Configuration conf = configurationService.readConfig "conf/test/configuration.groovy"
             Collector collector = parserService.parse(conf)
 
             log.info collector.toString()
