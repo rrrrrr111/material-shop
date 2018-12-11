@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import ru.rich.webparser.core.collector.Collector
-import ru.rich.webparser.core.configuration.Configuration
+import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.service.ParserService
 
@@ -26,7 +26,7 @@ class ParserConfig {
     ParserService parserService
 
     static void main(String[] args) {
-        log.info 'Started parser'
+        log.info 'Parser starting'
         SpringApplication.run(ParserConfig.class, args)
         log.info 'Parser finished'
     }

@@ -3,6 +3,7 @@ package ru.rich.webparser.core.configuration
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Service
+import ru.rich.webparser.core.configuration.model.Configuration
 
 import static ru.rich.webparser.core.util.FileUtil.findFile
 import static ru.rich.webparser.core.util.FileUtil.toAbsolutePath
@@ -21,10 +22,10 @@ class ConfigurationService {
             confFilePath = findFile(filePath)
         }
         confFilePath = toAbsolutePath(confFilePath)
-        ConfigObject config = new ConfigSlurper().parse(new URL("file:///$confFilePath"))
+        ConfigObject configObject = new ConfigSlurper().parse(new URL("file:///$confFilePath"))
 
-        log.info "Configuration from $confFilePath loaded"
-
-        new Configuration(config: config)
+        def conf = (Configuration) configObject.configuration
+        log.info "Configuration from $confFilePath loaded $conf"
+        conf
     }
 }

@@ -1,4 +1,4 @@
-package ru.rich.webparser.core.configuration
+package ru.rich.webparser.core.configuration.model
 
 import groovy.transform.CompileStatic
 

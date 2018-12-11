@@ -1,6 +1,11 @@
-parser {
+import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.configuration.model.PageType
 
-    page {
-        url = ""
-    }
+configuration {
+    pages = [
+            new Page(
+                    url: "",
+                    type: PageType.XML
+            )
+    ]
 }

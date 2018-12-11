@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.collector.CollectorService
-import ru.rich.webparser.core.configuration.Configuration
+import ru.rich.webparser.core.configuration.model.Configuration
 
 @Service
 @CompileStatic
