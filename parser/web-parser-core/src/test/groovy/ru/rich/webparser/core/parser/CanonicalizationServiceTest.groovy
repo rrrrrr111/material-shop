@@ -9,7 +9,7 @@ import ru.rich.webparser.core.util.FileUtil
 @Test
 class CanonicalizationServiceTest {
 
-    private def folder = "ru/rich/webparser/core/service"
+    private def folder = "ru/rich/webparser/core/parser"
     private def subj = new CanonicalizationService()
 
     @DataProvider

@@ -1,14 +1,16 @@
 apply plugin: 'groovy'
 
 dependencies {
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4'
     compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-validation:$springBootVersion")
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
-
+    
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 }

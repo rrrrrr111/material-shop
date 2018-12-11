@@ -6,7 +6,7 @@ import ru.rich.webparser.core.configuration.model.PageType
 
 import java.nio.CharBuffer
 
-import static ru.rich.webparser.core.service.CanonicalizationService.CharType.SPACE
+import static ru.rich.webparser.core.parser.CanonicalizationService.CharType.SPACE
 
 @Service
 @CompileStatic
