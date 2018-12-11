@@ -6,6 +6,8 @@ import ru.rich.webparser.core.configuration.model.PageType
 
 import java.nio.CharBuffer
 
+import static ru.rich.webparser.core.service.CanonicalizationService.CharType.SPACE
+
 @Service
 @CompileStatic
 class CanonicalizationService {
@@ -23,25 +25,34 @@ class CanonicalizationService {
     private String normaliseXml(String text) {
         CharBuffer buff = CharBuffer.allocate(text.length())
 
-        boolean space = false
+        CharType prevCharType = null
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i)
 
             if (Character.isWhitespace(c)) {
-                if (!space) {
+                if (prevCharType != SPACE) {
                     buff.put(' ')
-                    space = true
                 }
-                continue
+
+                prevCharType = SPACE
             } else if (c == '<' as char) {
+                if (prevCharType == SPACE) {
+                    buff.position(buff.position() - 1)
+                }
                 buff.put('\r\n')
                         .put(c)
+
+                prevCharType = null
             } else {
                 buff.put(c)
-            }
 
-            space = false
+                prevCharType = null
+            }
         }
         new String(buff.array()).trim()
+    }
+
+    private enum CharType {
+        SPACE;
     }
 }

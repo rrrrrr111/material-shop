@@ -27,6 +27,6 @@ class CanonicalizationServiceTest {
 
         String res = subj.normalise(srcHtml, PageType.XML)
 
-        assert Assert.assertEquals(res, dstHtml)
+        Assert.assertEquals(res, dstHtml)
     }
 }
