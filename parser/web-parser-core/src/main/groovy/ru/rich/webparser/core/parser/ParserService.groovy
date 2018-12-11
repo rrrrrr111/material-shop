@@ -1,4 +1,4 @@
-package ru.rich.webparser.core.service
+package ru.rich.webparser.core.parser
 
 import groovy.transform.CompileStatic
 import org.springframework.stereotype.Service

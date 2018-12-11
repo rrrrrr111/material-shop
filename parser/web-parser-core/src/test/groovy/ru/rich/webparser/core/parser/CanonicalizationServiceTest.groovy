@@ -1,4 +1,4 @@
-package ru.rich.webparser.core.service
+package ru.rich.webparser.core.parser
 
 import org.testng.Assert
 import org.testng.annotations.DataProvider
