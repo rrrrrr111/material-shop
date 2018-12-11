@@ -43,6 +43,13 @@ class CanonicalizationService {
                         .put(c)
 
                 prevCharType = null
+            } else if (c == '>' as char) {
+                if (prevCharType == SPACE) {
+                    buff.position(buff.position() - 1)
+                }
+                buff.put(c)
+
+                prevCharType = null
             } else {
                 buff.put(c)
 
