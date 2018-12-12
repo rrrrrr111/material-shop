@@ -10,6 +10,7 @@ class Page {
     String url
     PageType type
     String template
+    boolean printToLog
 
     @Override
     String toString() {
