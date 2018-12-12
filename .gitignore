@@ -7,6 +7,7 @@
 /out/
 /logs/
 /conf/local/
+/parser/pages/
 
 ### IntelliJ IDEA ###
 *.iws

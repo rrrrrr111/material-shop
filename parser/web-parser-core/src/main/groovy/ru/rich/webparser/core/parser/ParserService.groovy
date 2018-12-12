@@ -2,6 +2,7 @@ package ru.rich.webparser.core.parser
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -11,6 +12,7 @@ import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.httpclient.HttpClientSupport
 
+import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
 @Service
@@ -25,6 +27,8 @@ class ParserService {
     @Autowired
     CanonicalizationService canonicalizationService
 
+    private final Charset CHARSET = StandardCharsets.UTF_8
+
     Collector parse(Configuration conf) {
 
         def c = new Collector()
@@ -32,11 +36,16 @@ class ParserService {
         for (Page p in conf.pages) {
 
             httpClientSupport.executeGetMethod(p.url) { is ->
-                char[] html = IOUtils.toCharArray(is, StandardCharsets.UTF_8)
+
+                char[] html = IOUtils.toCharArray(is, CHARSET)
                 String normalisedHtml = canonicalizationService.normalise(html, p.type)
 
                 if (p.printToLog) {
                     log.info("Page loaded: \n{}", normalisedHtml)
+                }
+                if (p.dropToDisk) {
+                    def pageName = p.template.substring(0, p.template.indexOf('.'))
+                    FileUtils.writeStringToFile(new File("parser\\pages\\${pageName}.html"), normalisedHtml, CHARSET)
                 }
             }
         }

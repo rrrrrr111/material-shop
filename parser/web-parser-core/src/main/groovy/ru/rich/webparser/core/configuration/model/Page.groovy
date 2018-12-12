@@ -11,6 +11,7 @@ class Page {
     PageType type
     String template
     boolean printToLog
+    boolean dropToDisk
 
     @Override
     String toString() {

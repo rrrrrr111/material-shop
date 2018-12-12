@@ -7,7 +7,7 @@ configuration {
                     url: "https://market.yandex.ru/product--progulochnaia-koliaska-mr-sandman-traveler/13890612",
                     type: PageType.XML,
                     template: "page1.template",
-                    printToLog: true
+                    dropToDisk: true
             )
     ]
 }
