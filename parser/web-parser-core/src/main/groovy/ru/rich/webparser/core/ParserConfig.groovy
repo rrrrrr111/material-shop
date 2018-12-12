@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import ru.rich.webparser.core.collector.Collector
-import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.ConfigurationService
+import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.parser.ParserService
 
 @SpringBootApplication(
@@ -35,7 +35,9 @@ class ParserConfig {
     CommandLineRunner run(ApplicationContext ctx) {
         return { args ->
 
-            Configuration conf = configurationService.readConfig "conf/test/configuration.groovy"
+            def projectName = "test"
+
+            Configuration conf = configurationService.readConfig(projectName, "configuration.groovy")
             Collector collector = parserService.parse(conf)
 
             log.info collector.toString()

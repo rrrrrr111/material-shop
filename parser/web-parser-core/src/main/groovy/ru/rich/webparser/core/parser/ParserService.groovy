@@ -38,14 +38,14 @@ class ParserService {
             httpClientSupport.executeGetMethod(p.url) { is ->
 
                 char[] html = IOUtils.toCharArray(is, CHARSET)
-                String normalisedHtml = canonicalizationService.normalise(html, p.type)
+                String normalisedHtml = canonicalizationService.normalise(html, p)
 
                 if (p.printToLog) {
                     log.info("Page loaded: \n{}", normalisedHtml)
                 }
                 if (p.dropToDisk) {
                     def pageName = p.template.substring(0, p.template.indexOf('.'))
-                    FileUtils.writeStringToFile(new File("parser\\pages\\${pageName}.html"), normalisedHtml, CHARSET)
+                    FileUtils.writeStringToFile(new File("parser\\pages\\${conf.projectName}\\${pageName}.html"), normalisedHtml, CHARSET)
                 }
             }
         }

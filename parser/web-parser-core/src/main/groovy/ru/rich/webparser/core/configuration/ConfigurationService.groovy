@@ -13,8 +13,9 @@ import static ru.rich.webparser.core.util.FileUtil.toAbsolutePath
 @CompileStatic
 class ConfigurationService {
 
-    Configuration readConfig(String filePath) {
+    Configuration readConfig(String projectName, String filePath) {
 
+        filePath = "conf/$projectName/$filePath"
         def confFilePath
         try {
             confFilePath = findFile("parser/web-parser-core/src/main/resources/$filePath")
@@ -25,6 +26,8 @@ class ConfigurationService {
         ConfigObject configObject = new ConfigSlurper().parse(new URL("file:///$confFilePath"))
 
         def conf = (Configuration) configObject.configuration
+        conf.setProjectName(projectName)
+
         log.info "Configuration from $confFilePath loaded $conf"
         conf
     }

@@ -3,6 +3,7 @@ package ru.rich.webparser.core.parser
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
+import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.PageType
 import ru.rich.webparser.core.util.FileUtil
 
@@ -10,7 +11,9 @@ import ru.rich.webparser.core.util.FileUtil
 class CanonicalizationServiceTest {
 
     private def folder = "ru/rich/webparser/core/parser"
-    private def subj = new CanonicalizationService()
+    private def subj = new CanonicalizationService(
+            addToReadingBuffInPercents: 15
+    )
 
     @DataProvider
     Object[][] filesProvider() {
@@ -25,7 +28,8 @@ class CanonicalizationServiceTest {
         String srcHtml = FileUtil.readClasspathFile(folder + "/" + srcFileName)
         String dstHtml = FileUtil.readClasspathFile(folder + "/" + dstFileName)
 
-        String res = subj.normalise(srcHtml, PageType.XML)
+        String res = subj.normalise(srcHtml.toCharArray(),
+                [url: "http://my.com", type: PageType.XML] as Page)
 
         Assert.assertEquals(res, dstHtml)
     }

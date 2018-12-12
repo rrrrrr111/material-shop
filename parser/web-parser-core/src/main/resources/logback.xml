@@ -15,13 +15,9 @@
     </appender>
 
     <logger name="ru.rich.matshop" level="TRACE"/>
-    <!-- SQL -->
-    <logger name="org.springframework.jdbc" level="DEBUG"/>
-    <logger name="org.jooq" level="DEBUG"/>
-    <!-- Web -->
-    <logger name="org.springframework.web" level="DEBUG"/>
-    <!-- Spring security -->
-    <logger name="org.springframework.security" level="DEBUG"/>
+
+    <!-- Убираем варнинг Invalid cookie header: "Set-Cookie: visits ... -->
+    <logger name="org.apache.http.client.protocol.ResponseProcessCookies" level="ERROR"/>
 
     <root level="INFO">
         <!--<appender-ref ref="FILE"/>-->
