@@ -1,19 +1,42 @@
 package ru.rich.webparser.core.collector
 
-class Collector {
+import groovy.transform.CompileStatic
 
-    Map<String, String> values
-    Map<String, List<String>> lists
-    Map<String, Map<String, String>> maps
+
+@CompileStatic
+class Collector implements Collectable {
+
+    List<Value> values
+    List<ValuesList> lists
+    List<ValuesMap> maps
+    List<Collector> collectors
+
+    Value getValue(name) {
+        values.find { c -> c.name == name }
+    }
+
+    ValuesList getList(name) {
+        lists.find { c -> c.name == name }
+    }
+
+    ValuesMap getMap(name) {
+        maps.find { c -> c.name == name }
+    }
+
+    Collector getCollector(name) {
+        collectors.find { c -> c.name == name }
+    }
 
     @Override
     String toString() {
-        return "Collector{\n" +
+        return "Collector{name=" + name + "\n" +
                 "values=" + values +
                 ",\n" +
                 "lists=" + lists +
                 ",\n" +
                 "maps=" + maps +
+                ",\n" +
+                "collectors=" + collectors +
                 '\n}'
     }
 }

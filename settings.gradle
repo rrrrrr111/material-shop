@@ -4,9 +4,11 @@ include 'backend-webapi'
 include 'backend-db'
 include 'backend-db-model'
 include 'web-parser-core'
+include 'material-shop-util'
 
 project(":backend-webapi").projectDir = "$rootDir/backend/backend-webapi" as File
 project(":backend-db").projectDir = "$rootDir/backend/backend-db" as File
 project(":backend-db-model").projectDir = "$rootDir/backend/backend-db-model" as File
 
 project(":web-parser-core").projectDir = "$rootDir/parser/web-parser-core" as File
+project(":material-shop-util").projectDir = "$rootDir/lib/material-shop-util" as File

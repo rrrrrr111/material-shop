@@ -17,6 +17,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools:$springBootVersion")
     developmentOnly(files("$confLocalDir"))
     
+    compile project(":material-shop-util")
     compile project(":backend-db-model")
     compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")

@@ -9,6 +9,7 @@ class Page {
 
     String url
     PageType type
+    String template
 
     @Override
     String toString() {

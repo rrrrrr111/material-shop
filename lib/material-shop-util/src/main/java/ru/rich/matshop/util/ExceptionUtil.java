@@ -1,4 +1,4 @@
-package ru.rich.matshop.webapi.util;
+package ru.rich.matshop.util;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;

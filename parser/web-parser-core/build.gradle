@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
 
 dependencies {
+    compile project(":material-shop-util")
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4'
     compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.rich.matshop.webapi.util.ExceptionUtil;
+import ru.rich.matshop.util.ExceptionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ import static org.apache.commons.lang3.tuple.Pair.of;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static ru.rich.matshop.webapi.util.ExceptionUtil.findExceptionOfType;
+import static ru.rich.matshop.util.ExceptionUtil.findExceptionOfType;
 
 @ControllerAdvice
 public class RestEntryPoint extends AbstractRestController implements AuthenticationEntryPoint {

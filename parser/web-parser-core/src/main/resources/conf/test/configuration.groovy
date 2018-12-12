@@ -5,7 +5,8 @@ configuration {
     pages = [
             new Page(
                     url: "",
-                    type: PageType.XML
+                    type: PageType.XML,
+                    template: "page1.template"
             )
     ]
 }

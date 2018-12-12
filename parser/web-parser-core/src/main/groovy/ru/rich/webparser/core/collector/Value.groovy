@@ -1,17 +1,18 @@
-package ru.rich.webparser.core.configuration.model
+package ru.rich.webparser.core.collector
 
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
 @CompileStatic
-class Configuration {
+class Value implements Collectable {
 
-    List<Page> pages
+    String value
 
     @Override
     String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("pages", pages)
+                .add("name", name)
+                .add("value", value)
                 .toString()
     }
 }
