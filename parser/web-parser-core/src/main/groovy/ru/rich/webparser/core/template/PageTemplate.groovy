@@ -8,5 +8,12 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class PageTemplate {
 
+    /**
+     * Регионы текста для последовательного поиска
+     */
     List<SearchableRegion> sequenceRegions = []
+    /**
+     * Регионы текста для независимого поиска
+     */
+    List<SearchableRegion> independentRegions = []
 }

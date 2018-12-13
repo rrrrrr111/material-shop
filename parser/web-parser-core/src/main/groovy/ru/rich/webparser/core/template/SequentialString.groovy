@@ -17,6 +17,16 @@ class SequentialString implements SearchableRegion {
         this.string = string
     }
 
+    @Override
+    RuleType getType() {
+        return RuleType.STRING
+    }
+
+    @Override
+    String getSearchableString() {
+        return string
+    }
+
     boolean equals(o) {
         if (this.is(o)) return true
         if (!(o instanceof SequentialString)) return false

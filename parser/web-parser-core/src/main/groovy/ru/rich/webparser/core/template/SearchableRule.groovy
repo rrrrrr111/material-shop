@@ -3,6 +3,8 @@ package ru.rich.webparser.core.template
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
+import static org.apache.commons.lang3.StringUtils.defaultIfBlank
+
 
 /**
  * Считываемое из текста значение
@@ -22,8 +24,13 @@ class SearchableRule implements SearchableRegion {
         this.type = type
         this.name = name
         this.flags = flags as List
-        this.textBefore = textBefore
-        this.textAfter = textAfter
+        this.textBefore = defaultIfBlank(textBefore, null)
+        this.textAfter = defaultIfBlank(textAfter, null)
+    }
+
+    @Override
+    String getSearchableString() {
+        return textBefore ?: textAfter
     }
 
     boolean equals(o) {

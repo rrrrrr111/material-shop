@@ -9,4 +9,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface SearchableRegion {
 
+    RuleType getType()
+
+    String getSearchableString()
 }

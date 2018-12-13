@@ -67,8 +67,9 @@ class CanonicalizationService {
 
         buff.put("<url>").put(url).put("\r\n</url>")
 
+        char c
         for (int i = 0; i < text.length; i++) {
-            char c = text[i]
+            c = text[i]
 
             if (Character.isWhitespace((char) c)) {
                 ctx.newChar = ' ' as char

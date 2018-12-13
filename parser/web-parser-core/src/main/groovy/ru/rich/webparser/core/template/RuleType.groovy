@@ -1,14 +1,18 @@
 package ru.rich.webparser.core.template
 
+import groovy.transform.CompileStatic
+
 /**
  * Рулы шаблонов
  */
+@CompileStatic
 enum RuleType {
 
     VAL("val"),
     LIST("list"),
     MAP("map"),
-    MULTIMAP("multiMap")
+    MULTIMAP("multiMap"),
+    STRING(null),
 
     private final String alias
 
