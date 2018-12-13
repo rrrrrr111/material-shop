@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.template
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
@@ -30,17 +31,18 @@ class TemplateParserService {
         }
     }
 
-    private prepareTemplate(Page p, String template) {
+    @PackageScope
+    def prepareTemplate(Page p, String template) {
 
         String[] regions = template.split(/\s*[.][.][.]\s*/)
         log.info "Parsing template ${p.templateFileName}, ${regions.length} regions found"
 
+        int counter = 0
         def tpl = new PageTemplate()
         p.pageTemplate = tpl
 
         for (String r in regions) {
 
-            SearchableRegion s
             switch (r) {
                 case ~/^\s*(.+)\s*[\r\n]{1,2}[$][$](\w+)\((\w+)\)([.\w]*)\s*[\r\n]{1,2}\s*(.+)\s*$/:
 
@@ -53,16 +55,15 @@ class TemplateParserService {
                     def flags = StringUtils.split(flagsStr, '.' as char)
                     def type = RuleType.fromAlias(typeStr)
 
-                    s = new SearchableRule(type, name, textBefore, textAfter, flags)
+                    tpl.sequenceRegions << new SearchableRule(++counter, type, name, textBefore, textAfter, flags)
                     break
                 default:
+                    if (!r) continue
                     assert !r.contains(/$$/): "Rule $r ignored by RegExp"
-                    s = new SequentialString(r)
+                    tpl.sequenceRegions << new SequentialString(++counter, r)
                     break
             }
-
-            log.info "Region qualified as $s"
-            tpl.sequenceRegions << s
+            log.info "Region qualified as ${tpl.sequenceRegions.last()}"
         }
     }
 }
