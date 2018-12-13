@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.configuration.model
 
 import groovy.transform.CompileStatic
+import ru.rich.webparser.core.template.PageTemplate
 
 import static com.google.common.base.MoreObjects.toStringHelper
 
@@ -9,19 +10,21 @@ class Page {
 
     String url
     PageType type
-    String template
-    boolean printToLog
+    String templateFileName
     boolean dropRowToDisk
+    boolean printNormalisedToLog
     boolean dropNormalisedToDisk
+
+    PageTemplate pageTemplate
 
     @Override
     String toString() {
         return toStringHelper(this)
                 .add("url", url)
                 .add("type", type)
-                .add("template", template)
-                .add("printToLog", printToLog)
+                .add("templateFileName", templateFileName)
                 .add("dropRowToDisk", dropRowToDisk)
+                .add("printNormalisedToLog", printNormalisedToLog)
                 .add("dropNormalisedToDisk", dropNormalisedToDisk)
                 .toString()
     }

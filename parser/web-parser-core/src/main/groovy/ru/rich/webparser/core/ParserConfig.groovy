@@ -8,10 +8,10 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.parser.ParserService
+import ru.rich.webparser.core.template.TemplateParserService
 
 @SpringBootApplication(
         scanBasePackageClasses = [ParserConfig.class]
@@ -24,6 +24,8 @@ class ParserConfig {
     ConfigurationService configurationService
     @Autowired
     ParserService parserService
+    @Autowired
+    TemplateParserService templateParserService
 
     static void main(String[] args) {
         log.info 'Parser starting'
@@ -38,9 +40,11 @@ class ParserConfig {
             def projectName = "test"
 
             Configuration conf = configurationService.readConfig(projectName, "configuration.groovy")
-            Collector collector = parserService.parse(conf)
+            templateParserService.prepareTemplates(conf.path, conf.pages)
 
-            log.info collector.toString()
+            //Collector collector = parserService.parse(conf)
+
+            //log.info collector.toString()
 
         } as CommandLineRunner
     }

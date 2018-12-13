@@ -8,12 +8,14 @@ class Configuration {
 
     String projectName
     List<Page> pages
+    String path
 
     @Override
     String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("projectName", projectName)
                 .add("pages", pages)
+                .add("path", path)
                 .toString()
     }
 }

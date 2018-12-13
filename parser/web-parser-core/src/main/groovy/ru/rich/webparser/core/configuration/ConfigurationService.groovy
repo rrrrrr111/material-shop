@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
 
+import static org.apache.commons.io.FilenameUtils.getFullPath
 import static ru.rich.webparser.core.util.FileUtil.findFile
 import static ru.rich.webparser.core.util.FileUtil.toAbsolutePath
 
@@ -26,7 +27,8 @@ class ConfigurationService {
         ConfigObject configObject = new ConfigSlurper().parse(new URL("file:///$confFilePath"))
 
         def conf = (Configuration) configObject.configuration
-        conf.setProjectName(projectName)
+        conf.projectName = projectName
+        conf.path = getFullPath(confFilePath)
 
         log.info "Configuration from $confFilePath loaded $conf"
         conf

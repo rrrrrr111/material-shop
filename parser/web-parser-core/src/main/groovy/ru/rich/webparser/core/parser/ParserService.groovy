@@ -32,29 +32,35 @@ class ParserService {
     Collector parse(Configuration conf) {
 
         def c = new Collector()
+        conf.pages.each { p ->
+            parsePage(conf, c, p)
+        }
+        return c
+    }
 
-        for (Page p in conf.pages) {
+    private Collector parsePage(Configuration conf, Collector c, Page p) {
+        httpClientSupport.executeGetMethod(p.url) { is ->
 
-            httpClientSupport.executeGetMethod(p.url) { is ->
+            char[] html = IOUtils.toCharArray(is, CHARSET)
+            def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
 
-                char[] html = IOUtils.toCharArray(is, CHARSET)
-                def pageName = p.template.substring(0, p.template.indexOf('.'))
+            if (p.dropRowToDisk) {
+                FileUtils.writeStringToFile(
+                        new File("parser\\pages\\${conf.projectName}\\${pageName}_row.html"),
+                        new String(html), CHARSET)
+            }
 
-                if (p.dropRowToDisk) {
-                    FileUtils.writeStringToFile(new File("parser\\pages\\${conf.projectName}\\${pageName}row_.html"), new String(html), CHARSET)
-                }
+            String normalisedHtml = canonicalizationService.normalise(html, p)
 
-                String normalisedHtml = canonicalizationService.normalise(html, p)
+            if (p.printNormalisedToLog) {
+                log.info("Page loaded: \n{}", normalisedHtml)
+            }
 
-                if (p.printToLog) {
-                    log.info("Page loaded: \n{}", normalisedHtml)
-                }
-                if (p.dropNormalisedToDisk) {
-                    FileUtils.writeStringToFile(new File("parser\\pages\\${conf.projectName}\\${pageName}normalised_.html"), normalisedHtml, CHARSET)
-                }
+            if (p.dropNormalisedToDisk) {
+                FileUtils.writeStringToFile(
+                        new File("parser\\pages\\${conf.projectName}\\${pageName}_normalised.html"),
+                        normalisedHtml, CHARSET)
             }
         }
-
-        return c
     }
 }
