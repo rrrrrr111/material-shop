@@ -8,6 +8,9 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 
+/**
+ * Утилиты для работы с файлами
+ */
 class FileUtil {
 
     /**

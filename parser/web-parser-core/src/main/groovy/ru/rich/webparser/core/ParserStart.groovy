@@ -8,28 +8,29 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
+import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.parser.ParserService
-import ru.rich.webparser.core.template.TemplateParserService
-
+/**
+ * Конфигурация Spring и стартовый метод
+ */
 @SpringBootApplication(
-        scanBasePackageClasses = [ParserConfig.class]
+        scanBasePackageClasses = [ParserStart.class]
 )
 @Slf4j
 @CompileStatic
-class ParserConfig {
+class ParserStart {
 
     @Autowired
     ConfigurationService configurationService
     @Autowired
     ParserService parserService
-    @Autowired
-    TemplateParserService templateParserService
+
 
     static void main(String[] args) {
         log.info 'Parser starting'
-        SpringApplication.run(ParserConfig.class, args)
+        SpringApplication.run(ParserStart.class, args)
         log.info 'Parser finished'
     }
 
@@ -40,9 +41,7 @@ class ParserConfig {
             def projectName = "test"
 
             Configuration conf = configurationService.readConfig(projectName, "configuration.groovy")
-            templateParserService.prepareTemplates(conf.path, conf.pages)
-
-            //Collector collector = parserService.parse(conf)
+            Collector collector = parserService.parse(conf)
 
             //log.info collector.toString()
 

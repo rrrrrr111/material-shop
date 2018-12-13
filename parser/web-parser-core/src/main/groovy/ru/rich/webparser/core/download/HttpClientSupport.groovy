@@ -1,6 +1,7 @@
-package ru.rich.webparser.core.httpclient
+package ru.rich.webparser.core.download
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import org.apache.http.Header
 import org.apache.http.HttpResponse
 import org.apache.http.NoHttpResponseException
@@ -34,6 +35,7 @@ import static ru.rich.matshop.util.ExceptionUtil.getAllErrorMessage
  */
 @Service
 @CompileStatic
+@PackageScope
 class HttpClientSupport {
     private static final Logger log = LoggerFactory.getLogger(HttpClientSupport.class)
 

@@ -3,6 +3,9 @@ package ru.rich.webparser.core.configuration.model
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
+/**
+ *
+ */
 @CompileStatic
 class Configuration {
 

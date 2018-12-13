@@ -1,5 +1,8 @@
 package ru.rich.webparser.core.template
 
+/**
+ * Рулы шаблонов
+ */
 enum RuleType {
 
     VAL("val"),

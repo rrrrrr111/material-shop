@@ -3,6 +3,9 @@ package ru.rich.webparser.core.collector
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
+/**
+ *
+ */
 @CompileStatic
 class ValuesList implements Collectable {
 

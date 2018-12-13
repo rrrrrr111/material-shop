@@ -5,6 +5,9 @@ import ru.rich.webparser.core.template.PageTemplate
 
 import static com.google.common.base.MoreObjects.toStringHelper
 
+/**
+ *
+ */
 @CompileStatic
 class Page {
 

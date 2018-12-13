@@ -9,24 +9,26 @@ import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Page
 
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.util.regex.Matcher
 
-import static java.nio.charset.StandardCharsets.UTF_8
-
+/**
+ * Подготовка шаблонов для парсинга страниц
+ */
 @Service
 @CompileStatic
 @Slf4j
 class TemplateParserService {
 
-    /**
-     * Подготовка шаблонов для парсинга страниц
-     */
+    public static final Charset TEMPLATE_CHARSET = StandardCharsets.UTF_8
+
     def prepareTemplates(String dir, List<Page> pages) {
 
         pages.each { p ->
 
             String templatePath = FilenameUtils.concat(dir, p.templateFileName)
-            String template = FileUtils.readFileToString(new File(templatePath), UTF_8)
+            String template = FileUtils.readFileToString(new File(templatePath), TEMPLATE_CHARSET)
             prepareTemplate(p, template)
         }
     }

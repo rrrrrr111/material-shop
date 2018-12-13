@@ -2,19 +2,21 @@ package ru.rich.webparser.core.parser
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import org.apache.commons.io.FileUtils
-import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.collector.CollectorService
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
-import ru.rich.webparser.core.httpclient.HttpClientSupport
+import ru.rich.webparser.core.download.LoadHtmlService
+import ru.rich.webparser.core.normalise.CanonicalizationService
+import ru.rich.webparser.core.template.TemplateParserService
 
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 
+/**
+ * Парсер HTML страниц
+ *
+ */
 @Service
 @CompileStatic
 @Slf4j
@@ -23,44 +25,29 @@ class ParserService {
     @Autowired
     CollectorService collectorService
     @Autowired
-    HttpClientSupport httpClientSupport
+    LoadHtmlService loadHtmlService
+    @Autowired
+    TemplateParserService templateParserService
     @Autowired
     CanonicalizationService canonicalizationService
 
-    private final Charset CHARSET = StandardCharsets.UTF_8
-
     Collector parse(Configuration conf) {
+        templateParserService.prepareTemplates(conf.path, conf.pages)
 
         def c = new Collector()
         conf.pages.each { p ->
-            parsePage(conf, c, p)
+            parsePage(conf, p, c)
         }
         return c
     }
 
-    private Collector parsePage(Configuration conf, Collector c, Page p) {
-        httpClientSupport.executeGetMethod(p.url) { is ->
+    private Collector parsePage(Configuration conf, Page p, Collector c) {
+        char[] html = loadHtmlService.loadHtml(conf, p)
+        char[] normalisedHtml = canonicalizationService.normalise(conf, p, html)
 
-            char[] html = IOUtils.toCharArray(is, CHARSET)
-            def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
-
-            if (p.dropRowToDisk) {
-                FileUtils.writeStringToFile(
-                        new File("parser\\pages\\${conf.projectName}\\${pageName}_row.html"),
-                        new String(html), CHARSET)
-            }
-
-            String normalisedHtml = canonicalizationService.normalise(html, p)
-
-            if (p.printNormalisedToLog) {
-                log.info("Page loaded: \n{}", normalisedHtml)
-            }
-
-            if (p.dropNormalisedToDisk) {
-                FileUtils.writeStringToFile(
-                        new File("parser\\pages\\${conf.projectName}\\${pageName}_normalised.html"),
-                        normalisedHtml, CHARSET)
-            }
-        }
+        //parse()
+        c
     }
+
+
 }

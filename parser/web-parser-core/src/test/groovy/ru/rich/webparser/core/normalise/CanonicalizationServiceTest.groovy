@@ -1,16 +1,18 @@
-package ru.rich.webparser.core.parser
+package ru.rich.webparser.core.normalise
 
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
+import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.PageType
+import ru.rich.webparser.core.normalise.CanonicalizationService
 import ru.rich.webparser.core.util.FileUtil
 
 @Test
 class CanonicalizationServiceTest {
 
-    private def folder = "ru/rich/webparser/core/parser"
+    private def folder = "ru/rich/webparser/core/normalise"
     private def subj = new CanonicalizationService(
             addToReadingBuffInPercents: 15
     )
@@ -28,8 +30,10 @@ class CanonicalizationServiceTest {
         String srcHtml = FileUtil.readClasspathFile(folder + "/" + srcFileName)
         String dstHtml = FileUtil.readClasspathFile(folder + "/" + dstFileName)
 
-        String res = subj.normalise(srcHtml.toCharArray(),
-                [url: "http://my.com", type: PageType.XML] as Page)
+        def page = [url: "http://my.com", type: PageType.XML] as Page
+        def conf = [projectName: "test"] as Configuration
+
+        String res = subj.normalise(conf, page, srcHtml.toCharArray())
 
         Assert.assertEquals(res, dstHtml)
     }

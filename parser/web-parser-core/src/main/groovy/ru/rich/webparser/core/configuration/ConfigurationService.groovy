@@ -9,6 +9,9 @@ import static org.apache.commons.io.FilenameUtils.getFullPath
 import static ru.rich.webparser.core.util.FileUtil.findFile
 import static ru.rich.webparser.core.util.FileUtil.toAbsolutePath
 
+/**
+ * Загрузка конфигурации
+ */
 @Service
 @Slf4j
 @CompileStatic

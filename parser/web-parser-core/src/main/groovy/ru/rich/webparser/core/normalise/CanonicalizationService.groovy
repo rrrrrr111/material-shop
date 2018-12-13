@@ -1,15 +1,24 @@
-package ru.rich.webparser.core.parser
+package ru.rich.webparser.core.normalise
 
 import groovy.transform.CompileStatic
+import groovy.util.logging.Slf4j
+import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.PageType
+import ru.rich.webparser.core.download.LoadHtmlService
 
 import java.nio.CharBuffer
 
+/**
+ * Форматирование HTML старницы
+ *
+ */
 @Service
 @CompileStatic
+@Slf4j
 class CanonicalizationService {
 
     public static final List<String> REPLACE_FROM = [
@@ -23,17 +32,32 @@ class CanonicalizationService {
     private Integer addToReadingBuffInPercents
 
 
-    String normalise(char[] text, Page page) {
+    char[] normalise(Configuration conf, Page p, char[] text) {
 
-        switch (page.type) {
+        char[] normalisedHtml
+        switch (p.type) {
             case PageType.XML:
-                return normaliseXml(text, page.url)
+                normalisedHtml = normaliseXml(text, p.url)
+                break
             default:
-                return text
+                throw new UnsupportedOperationException("${p.type} not supported")
         }
+
+        if (p.printNormalisedToLog) {
+            log.info("Page loaded: \n{}", new String(normalisedHtml))
+        }
+
+        if (p.dropNormalisedToDisk) {
+            def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
+
+            FileUtils.writeStringToFile(
+                    new File("parser\\pages\\${conf.projectName}\\${pageName}_normalised.html"),
+                    new String(normalisedHtml), LoadHtmlService.PAGE_CHARSET)
+        }
+        normalisedHtml
     }
 
-    private String normaliseXml(char[] text, String url) {
+    private char[] normaliseXml(char[] text, String url) {
         CharBuffer buff = CharBuffer.allocate(
                 text.length
                         + (int) (text.length / 100 * addToReadingBuffInPercents) // добавляем места на символы новой строки
@@ -100,7 +124,7 @@ class CanonicalizationService {
             ctx.prevChar = ctx.newChar
         }
         def res = new String(buff.array()).trim()
-        res
+        res.chars
     }
 
     private class Context {
