@@ -56,34 +56,42 @@ class ParserService {
         final Iterator<SearchableRegion> sequence = p.pageTemplate.sequenceRegions.iterator()
         addNext(candidates, sequence)
 
-        final ParserListener listener = new CollectingListener(collector: collector)
+        final ParserListener listener = new CollectingListener(collector: collector, html: html)
         char c
 
         for (int i = 0; i < html.length; i++) {
             c = html[i]
 
             candidates.each {
-                def index = it.value
+                def index = it.value.intValue()
                 def searchableString = it.key.searchableString
+                def charMatches = searchableString.charAt(index) == c
+                def maxIndex = searchableString.length() - 1
 
-                if (searchableString.charAt(index.value) == c
-                        && index.value < searchableString.length() - 1) {
-                    index.increment()
-                } else if (index.value == searchableString.length() - 1) {
+                if (index < maxIndex) {
+                    if (charMatches) {
+                        it.value.increment()
+                    } else if (index > 0) {
+                        it.value.setValue(0)
+                    }
 
-                    listener.onFound(it.key)
-                    index.value = 0
+                } else if (charMatches && index == maxIndex) {
+                    log.info "End of ${it.key} found at $i position"
+
+                    listener.onFound(it.key, i)
+                    candidates.remove(it.key)
+                    addNext(candidates, sequence)
                 }
             }
-
-
         }
     }
 
-    private void addNext(
+    private static void addNext(
             Map<SearchableRegion, MutableInt> candidates,
             Iterator<SearchableRegion> sequence) {
 
-        candidates += sequence.hasNext() ? [(sequence.next()): new MutableInt(0)] : [:]
+        if (sequence.hasNext()) {
+            candidates.put(sequence.next(), new MutableInt(0))
+        }
     }
 }

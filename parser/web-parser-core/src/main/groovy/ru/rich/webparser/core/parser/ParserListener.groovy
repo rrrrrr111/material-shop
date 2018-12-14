@@ -9,5 +9,5 @@ import ru.rich.webparser.core.template.SearchableRegion;
 @CompileStatic
 interface ParserListener {
 
-    void onFound(SearchableRegion region)
+    void onFound(SearchableRegion region, int endIndex)
 }

@@ -10,6 +10,8 @@ import groovy.transform.CompileStatic
 interface SearchableRegion {
 
     RuleType getType()
-
+    /**
+     * Искомая в тексте строка
+     */
     String getSearchableString()
 }

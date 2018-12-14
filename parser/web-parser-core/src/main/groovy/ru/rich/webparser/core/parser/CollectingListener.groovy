@@ -11,9 +11,10 @@ import ru.rich.webparser.core.template.SearchableRegion
 class CollectingListener implements ParserListener {
 
     Collector collector
+    char[] html
 
     @Override
-    void onFound(SearchableRegion region) {
+    void onFound(SearchableRegion region, int endIndex) {
 
     }
 }
