@@ -1,8 +1,9 @@
 package ru.rich.webparser.core.collector
 
 import com.google.common.base.MoreObjects
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import groovy.transform.CompileStatic
-import org.testng.collections.ListMultiMap
 
 /**
  *
@@ -10,7 +11,7 @@ import org.testng.collections.ListMultiMap
 @CompileStatic
 class ValuesMultiMap implements Collectable {
 
-    ListMultiMap<String, String> multiMap = ListMultiMap.create()
+    ListMultimap<String, String> multiMap = ArrayListMultimap.create()
 
     @Override
     String toString() {
