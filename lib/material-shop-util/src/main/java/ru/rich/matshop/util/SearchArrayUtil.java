@@ -43,7 +43,7 @@ public class SearchArrayUtil {
         next:
         for (int i = fromIndex; i <= limit; i++) {
             for (int j = 0; j < subArray.length; j++) {
-                if (subArray[j] == (array[i + j])) {
+                if (subArray[j] != (array[i + j])) {
                     continue next;
                 }
             }
@@ -78,7 +78,7 @@ public class SearchArrayUtil {
         next:
         for (int i = fromIndex; i >= 0; i--) {
             for (int j = 0; j < subArray.length; j++) {
-                if (subArray[j] == (array[i + j])) {
+                if (subArray[j] != (array[i + j])) {
                     continue next;
                 }
             }

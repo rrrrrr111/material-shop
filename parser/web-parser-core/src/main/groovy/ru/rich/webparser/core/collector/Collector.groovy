@@ -23,28 +23,28 @@ class Collector implements Collectable {
     }
 
     ValuesMap getValuesMap(name) {
-        maps.find { c -> c.name == name }
+        maps.find { it.name == name }
     }
 
     ValuesMultiMap getValuesMultiMap(name) {
-        multiMaps.find { c -> c.name == name }
+        multiMaps.find { it.name == name }
     }
 
     Collector getCollector(name) {
-        collectors.find { Collectable c -> c.name == name }
+        collectors.find { it.name == name }
     }
 
     void putValue(String name, String value) {
-        values.add(new Value(name: name, value: value))
+        values << new Value(name: name, value: value)
     }
 
     void putToList(String name, String value) {
         def valuesList = getValuesList(name)
         if (!valuesList) {
             valuesList = new ValuesList(name: name)
-            lists.add(valuesList)
+            lists << valuesList
         }
-        valuesList.list.add(value)
+        valuesList.list << value
     }
 
     @Override

@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import org.apache.commons.lang3.mutable.MutableInt
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import ru.rich.matshop.util.SearchArrayUtil
 import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.collector.CollectorService
 import ru.rich.webparser.core.configuration.model.Configuration
@@ -12,7 +13,11 @@ import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.download.LoadHtmlService
 import ru.rich.webparser.core.normalise.CanonicalizationService
 import ru.rich.webparser.core.template.SearchableRegion
+import ru.rich.webparser.core.template.SearchableRule
+import ru.rich.webparser.core.template.SequentialString
 import ru.rich.webparser.core.template.TemplateParserService
+
+import static org.apache.commons.lang3.ArrayUtils.subarray
 
 /**
  * Парсер HTML страниц
@@ -53,12 +58,13 @@ class ParserService {
         final Map<SearchableRegion, MutableInt> candidates = p.pageTemplate.independentRegions.collectEntries {
             [(it): new MutableInt(0)]
         }
-        final Iterator<SearchableRegion> sequence = p.pageTemplate.sequenceRegions.iterator()
+        def sequence = p.pageTemplate.sequenceRegions.iterator()
         addNext(candidates, sequence)
 
-        final ParserListener listener = new RulesListener(collector, html)
-        char c
+        final List<ParserListener> listeners = []
+        listeners << new CollectingListener(collector, html)
 
+        char c
         for (int i = 0; i < html.length; i++) {
             c = html[i]
 
@@ -77,11 +83,34 @@ class ParserService {
 
                 } else if (charMatches && index == maxIndex) {
 
-                    listener.onFound(it.key, i)
+                    onFound(it.key, listeners, html, i - searchableString.length())
+
                     candidates.remove(it.key)
                     addNext(candidates, sequence)
                 }
             }
+        }
+    }
+
+    private void onFound(SearchableRegion region, List<ParserListener> listeners, char[] html, int index) {
+
+        if (region.type.isRule) {
+            SearchableRule rule = (SearchableRule) region
+
+            int start = index + rule.textBefore.length() + 1,
+                end = SearchArrayUtil.indexOfArray(html, start, rule.textAfter.toCharArray())
+
+            if (end < 0) {
+                log.warn "textAfter not found for rule $rule"
+                return
+            }
+
+            def val = new String(subarray(html, start, end)).trim()
+            listeners.each { it.onRuleFound(rule, val, start) }
+        } else {
+            SequentialString str = (SequentialString) region
+
+            listeners.each { it.onStringFound(str, index) }
         }
     }
 
@@ -95,6 +124,8 @@ class ParserService {
     }
 
     static interface ParserListener {
-        void onFound(SearchableRegion region, int endIndex)
+        void onRuleFound(SearchableRule rule, String value, int index)
+
+        void onStringFound(SequentialString str, int index)
     }
 }
