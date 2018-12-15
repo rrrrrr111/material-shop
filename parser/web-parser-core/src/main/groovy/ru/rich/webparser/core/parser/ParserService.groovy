@@ -2,7 +2,6 @@ package ru.rich.webparser.core.parser
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import org.apache.commons.lang3.mutable.MutableInt
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.rich.matshop.util.SearchArrayUtil
@@ -55,41 +54,58 @@ class ParserService {
 
     private parseHtml(char[] html, Page p, Collector collector) {
 
-        final Map<SearchableRegion, MutableInt> candidates = p.pageTemplate.independentRegions.collectEntries {
-            [(it): new MutableInt(0)]
-        }
-        def sequence = p.pageTemplate.sequenceRegions.iterator()
-        addNext(candidates, sequence)
+        Map<SearchableRegion, Integer> regionsMap = searchRegions(p, html)
 
         final List<ParserListener> listeners = []
         listeners << new CollectingListener(collector, html)
+
+        regionsMap.each {
+
+            onFound(it.key, listeners, html, it.value)
+        }
+    }
+
+    private Map<SearchableRegion, Integer> searchRegions(Page p, char[] html) {
+        final Map<SearchableRegion, SearchContext> candidates = [:]
+        final Map<SearchableRegion, Integer> result = [:]
+        candidates.putAll(
+                p.pageTemplate.independentRegions.collectEntries {
+                    [(it): new SearchContext()]
+                }
+        )
+        def sequence = p.pageTemplate.sequenceRegions.iterator()
+        addNext(candidates, sequence)
 
         char c
         for (int i = 0; i < html.length; i++) {
             c = html[i]
 
             candidates.each {
-                def index = it.value.intValue()
-                def searchableString = it.key.searchableString
+                def index = it.value.matchingIndex
+                def region = it.key
+                def searchableString = region.searchableString
                 def charMatches = searchableString.charAt(index) == c
                 def maxIndex = searchableString.length() - 1
 
                 if (index < maxIndex) {
                     if (charMatches) {
-                        it.value.increment()
+                        it.value.matchingIndex++
                     } else if (index > 0) {
-                        it.value.setValue(0)
+                        it.value.matchingIndex = 0
                     }
 
                 } else if (charMatches && index == maxIndex) {
 
-                    onFound(it.key, listeners, html, i - searchableString.length())
+                    def foundIndex = i - searchableString.length()
+                    result << [(it.key): foundIndex]
+                    log.info "${region.type} entry found at index ${foundIndex}"
 
                     candidates.remove(it.key)
                     addNext(candidates, sequence)
                 }
             }
         }
+        result
     }
 
     private void onFound(SearchableRegion region, List<ParserListener> listeners, char[] html, int index) {
@@ -107,6 +123,7 @@ class ParserService {
 
             def val = new String(subarray(html, start, end)).trim()
             listeners.each { it.onRuleFound(rule, val, start) }
+
         } else {
             SequentialString str = (SequentialString) region
 
@@ -115,12 +132,16 @@ class ParserService {
     }
 
     private static void addNext(
-            Map<SearchableRegion, MutableInt> candidates,
+            Map<SearchableRegion, SearchContext> candidates,
             Iterator<SearchableRegion> sequence) {
 
         if (sequence.hasNext()) {
-            candidates.put(sequence.next(), new MutableInt(0))
+            candidates.put(sequence.next(), new SearchContext())
         }
+    }
+
+    private static class SearchContext {
+        int matchingIndex = 0
     }
 
     static interface ParserListener {

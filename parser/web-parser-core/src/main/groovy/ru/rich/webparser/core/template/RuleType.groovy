@@ -8,27 +8,27 @@ import groovy.transform.CompileStatic
 @CompileStatic
 enum RuleType {
 
-    VAL("val"),
-    LIST("list"),
-    MAP("map"),
-    MULTIMAP("multiMap"),
-    STRING(),
+    VAL("val", false),
+    LIST("list", true),
+    MAP("map", true),
+    MULTIMAP("multiMap", true),
+    STRING();
 
-    private String alias
-    private boolean isRule
+    final String alias
+    final boolean isRule
+    /** Может появляться в шаблоне несколько раз */
+    final boolean pluralEntry
 
-    RuleType(String alias) {
+    RuleType(String alias, boolean pluralEntry) {
         this.alias = alias
         this.isRule = true
+        this.pluralEntry = pluralEntry
     }
 
     RuleType() {
         this.alias = null
         this.isRule = false
-    }
-
-    boolean getIsRule() {
-        return isRule
+        this.pluralEntry = false
     }
 
     static RuleType fromAlias(alias) {
