@@ -56,7 +56,7 @@ class ParserService {
         final Iterator<SearchableRegion> sequence = p.pageTemplate.sequenceRegions.iterator()
         addNext(candidates, sequence)
 
-        final ParserListener listener = new CollectingListener(collector: collector, html: html)
+        final ParserListener listener = new RulesListener(collector, html)
         char c
 
         for (int i = 0; i < html.length; i++) {
@@ -76,7 +76,6 @@ class ParserService {
                     }
 
                 } else if (charMatches && index == maxIndex) {
-                    log.info "End of ${it.key} found at $i position"
 
                     listener.onFound(it.key, i)
                     candidates.remove(it.key)
@@ -93,5 +92,9 @@ class ParserService {
         if (sequence.hasNext()) {
             candidates.put(sequence.next(), new MutableInt(0))
         }
+    }
+
+    static interface ParserListener {
+        void onFound(SearchableRegion region, int endIndex)
     }
 }

@@ -9,7 +9,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ValuesList implements Collectable {
 
-    List<String> list
+    List<String> list = new ArrayList<>()
 
     @Override
     String toString() {

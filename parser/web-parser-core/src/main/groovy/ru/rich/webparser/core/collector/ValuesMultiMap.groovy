@@ -2,20 +2,21 @@ package ru.rich.webparser.core.collector
 
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
+import org.testng.collections.ListMultiMap
 
 /**
  *
  */
 @CompileStatic
-class ValuesMap implements Collectable {
+class ValuesMultiMap implements Collectable {
 
-    Map<String, String> map = new LinkedHashMap<>()
+    ListMultiMap<String, String> multiMap = ListMultiMap.create()
 
     @Override
     String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("name", name)
-                .add("map", map)
+                .add("multiMap", multiMap)
                 .toString()
     }
 }

@@ -43,7 +43,7 @@ class ParserStart {
             Configuration conf = configurationService.readConfig(projectName, "configuration.groovy")
             Collector collector = parserService.parse(conf)
 
-            //log.info collector.toString()
+            log.info collector.toString()
 
         } as CommandLineRunner
     }

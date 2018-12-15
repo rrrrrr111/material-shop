@@ -20,7 +20,10 @@ import java.util.GregorianCalendar;
  */
 public class XgcUtil {
 
-    private static DatatypeFactory df = null;
+    private static DatatypeFactory df;
+
+    private XgcUtil() {
+    }
 
     static {
         try {

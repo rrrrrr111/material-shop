@@ -8,25 +8,43 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class Collector implements Collectable {
 
-    List<Value> values
-    List<ValuesList> lists
-    List<ValuesMap> maps
-    List<Collector> collectors
+    List<Value> values = []
+    List<ValuesList> lists = []
+    List<ValuesMap> maps = []
+    List<ValuesMultiMap> multiMaps = []
+    List<Collector> collectors = []
 
     Value getValue(name) {
-        values.find { c -> c.name == name }
+        values.find { it.name == name }
     }
 
-    ValuesList getList(name) {
-        lists.find { c -> c.name == name }
+    ValuesList getValuesList(name) {
+        lists.find { it.name == name }
     }
 
-    ValuesMap getMap(name) {
+    ValuesMap getValuesMap(name) {
         maps.find { c -> c.name == name }
     }
 
+    ValuesMultiMap getValuesMultiMap(name) {
+        multiMaps.find { c -> c.name == name }
+    }
+
     Collector getCollector(name) {
-        collectors.find { c -> c.name == name }
+        collectors.find { Collectable c -> c.name == name }
+    }
+
+    void putValue(String name, String value) {
+        values.add(new Value(name: name, value: value))
+    }
+
+    void putToList(String name, String value) {
+        def valuesList = getValuesList(name)
+        if (!valuesList) {
+            valuesList = new ValuesList(name: name)
+            lists.add(valuesList)
+        }
+        valuesList.list.add(value)
     }
 
     @Override
@@ -37,6 +55,8 @@ class Collector implements Collectable {
                 "lists=" + lists +
                 ",\n" +
                 "maps=" + maps +
+                ",\n" +
+                "multiMaps=" + multiMaps +
                 ",\n" +
                 "collectors=" + collectors +
                 '\n}'

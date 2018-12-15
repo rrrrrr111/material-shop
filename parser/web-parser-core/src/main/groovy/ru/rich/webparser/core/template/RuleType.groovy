@@ -12,16 +12,29 @@ enum RuleType {
     LIST("list"),
     MAP("map"),
     MULTIMAP("multiMap"),
-    STRING(null),
+    STRING(),
 
-    private final String alias
+    private String alias
+    private boolean isRule
 
     RuleType(String alias) {
         this.alias = alias
+        this.isRule = true
+    }
+
+    RuleType() {
+        this.alias = null
+        this.isRule = false
+    }
+
+    boolean getIsRule() {
+        return isRule
     }
 
     static RuleType fromAlias(alias) {
-        def v = values().find { it.alias == alias }
+        def v = values().find { RuleType it ->
+            it.alias == alias
+        }
         assert v: "Unknown alias $alias"
         v
     }
