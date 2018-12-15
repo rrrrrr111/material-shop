@@ -1,6 +1,6 @@
 package ru.rich.webparser.core.parser
 
-import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.LinkedListMultimap
 import com.google.common.collect.ListMultimap
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
@@ -58,11 +58,11 @@ class ParserService {
 
         log.info "Searching sequence regions, list size: ${p.pageTemplate.sequenceRegions.size()}"
         ListMultimap<SearchableRegion, SearchContext> foundRegions = searchSequenceRegions(html, p.pageTemplate.sequenceRegions)
+        foundRegions.putAll(searchPlurals(html, foundRegions))
 
         log.info "Searching independent regions, list size: ${p.pageTemplate.independentRegions.size()}"
         foundRegions.putAll(searchIndependentRegions(html, p.pageTemplate.independentRegions))
 
-        foundRegions.putAll(searchPlurals(html, foundRegions))
 
         for (Map.Entry<SearchableRegion, SearchContext> entry in foundRegions.entries()) {
             collectData(html, collector, entry.key, entry.value)
@@ -71,7 +71,7 @@ class ParserService {
 
     private ListMultimap<SearchableRegion, SearchContext> searchSequenceRegions(char[] html,
                                                                                 List<SearchableRegion> regions) {
-        final ListMultimap<SearchableRegion, SearchContext> result = ArrayListMultimap.create()
+        final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
         final Map<SearchableRegion, SearchContext> candidates = [:]
         def sequence = regions.iterator()
         addNext(candidates, sequence)
@@ -113,7 +113,8 @@ class ParserService {
                                                                                    List<SearchableRegion> regions,
                                                                                    int fromIndex = 0,
                                                                                    int toIndex = html.length - 1) {
-        final ListMultimap<SearchableRegion, SearchContext> result = ArrayListMultimap.create()
+        assert fromIndex < toIndex
+        final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
         final Map<SearchableRegion, SearchContext> candidates = [:]
         candidates.putAll(
                 regions.collectEntries {
@@ -173,7 +174,7 @@ class ParserService {
 
     private ListMultimap<SearchableRegion, SearchContext> searchPlurals(char[] html,
                                                                         ListMultimap<SearchableRegion, SearchContext> foundRegions) {
-        final ListMultimap<SearchableRegion, SearchContext> result = ArrayListMultimap.create()
+        final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
 
         def list = new ArrayList<Map.Entry<SearchableRegion, SearchContext>>(foundRegions.entries())
         def iterator = list.listIterator()
@@ -226,21 +227,6 @@ class ParserService {
         int matchingIndex = 0
         Integer foundIndex
         String extractedValue
-
-        boolean equals(o) {
-            if (this.is(o)) return true
-            if (!(o instanceof SearchContext)) return false
-
-            SearchContext that = (SearchContext) o
-
-            if (extractedValue != that.extractedValue) return false
-
-            return true
-        }
-
-        int hashCode() {
-            return (extractedValue != null ? extractedValue.hashCode() : 0)
-        }
     }
 
     static interface ParserListener {
