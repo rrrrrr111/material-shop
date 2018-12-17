@@ -14,7 +14,7 @@ $$list(colors)
 <div class="n-product-spec-wrap__body">
 ...
 <h2 class="title title_size_18">
-$$table(features).col
+$$table(features).col.seq
 <
 ...
 <span class="n-product-spec__name-inner">

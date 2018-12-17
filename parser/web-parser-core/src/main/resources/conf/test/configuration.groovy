@@ -36,7 +36,7 @@ configuration {
                     type: PageType.XML,
                     templateFileName: "page2.template",
                     dropRowToDisk: false,
-                    dropNormalisedToDisk: false
+                    dropNormalisedToDisk: true
             )
     ]
 }

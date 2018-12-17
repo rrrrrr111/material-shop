@@ -27,6 +27,11 @@ class SequentialString implements SearchableRegion {
         return string
     }
 
+    @Override
+    boolean isBoundWith(SearchableRegion region) {
+        return false
+    }
+
     boolean equals(o) {
         if (this.is(o)) return true
         if (!(o instanceof SequentialString)) return false

@@ -10,11 +10,11 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class Collector implements Collectable {
 
-    private List<Value> values = []
-    private List<ValuesList> lists = []
-    private List<ValuesMap> maps = []
-    private List<ValuesTable> tables = []
-    private List<Collector> collectors = []
+    private final List<Value> values = []
+    private final List<ValuesList> lists = []
+    private final List<ValuesMap> maps = []
+    private final List<ValuesTable> tables = []
+    private final List<Collector> collectors = []
 
     Value getValue(String name) {
         values.find { it.name == name }
@@ -88,6 +88,10 @@ class Collector implements Collectable {
 
     void putTableVal(String name, String val) {
         getValuesTable(name).putVal(val)
+    }
+
+    void setTableIsSequential(String name) {
+        getValuesTable(name).setSequential(true)
     }
 
     void checkOnFinish() {

@@ -14,18 +14,19 @@ class Value implements Collectable {
     private String value
 
     void setVal(String value) {
-        ++valCounter
+        ++valIndex
         this.value = value
+        log.info "Value $name ='$value' collected, valIndex:$valIndex"
     }
 
     @Override
     void checkOnFinish() {
         boolean norm = false
-        if (valCounter == -1) {
+        if (valIndex == -1) {
             log.warn "Value $name has no any value received"
             norm &= false
         }
-        if (valCounter > 1) {
+        if (valIndex > 1) {
             log.warn "Value $name received more then one value"
             norm &= false
         }

@@ -12,6 +12,8 @@ import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.parser.ParserService
+
+
 /**
  * Конфигурация Spring и стартовый метод
  */

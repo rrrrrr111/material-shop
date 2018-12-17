@@ -11,17 +11,18 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ValuesList implements Collectable {
 
-    private List<String> list = new ArrayList<>()
+    private final List<String> list = new ArrayList<>()
 
     void addVal(String val) {
-        ++valCounter
+        ++valIndex
         list << val
+        log.info "List '$name' collected, value:'$val', valIndex:$valIndex"
     }
 
     @Override
     void checkOnFinish() {
         boolean norm = false
-        if (valCounter == -1) {
+        if (valIndex == -1) {
             log.warn "List $name has no any value received"
             norm &= false
         }

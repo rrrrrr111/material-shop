@@ -38,6 +38,16 @@ class SearchableRule implements SearchableRegion {
         return textBefore ?: textAfter
     }
 
+    @Override
+    boolean isBoundWith(SearchableRegion region) {
+        if (this.is(region)) return false
+        if (!(region instanceof SearchableRule)) return false
+        SearchableRule that = (SearchableRule) region
+        if (name != that.name) return false
+        if (type != that.type) return false
+        return true
+    }
+
     boolean equals(o) {
         if (this.is(o)) return true
         if (!(o instanceof SearchableRule)) return false

@@ -52,11 +52,9 @@ class CollectingListener implements ParserListener {
 
     private void onValFound(SearchableRule rule, String value, int index) {
         def name = rule.name
-        log.info "Value $name ='$value' collected, index:$index"
-
         Value v = collector.getValue(name)
         if (v) {
-            log.warn "Value '$name' found twice, last at index $index, value:'$value', collection ignored"
+            log.warn "Value '$name' found twice, last at index $index, value:'$value', value ignored"
             return
         }
         collector.putValue(name, value)
@@ -64,35 +62,31 @@ class CollectingListener implements ParserListener {
 
     private void onListFound(SearchableRule rule, String value, int index) {
         def name = rule.name
-        log.info "List '$name' collected, value:'$value', index:$index"
-
         collector.addToList(name, value)
     }
 
     private void onMapFound(SearchableRule rule, String value, int index) {
         def name = rule.name
         if (rule.flags.contains("key")) {
-            log.info "Map '$name' collected, key:'$value', index:$index"
             collector.putMapKey(name, value)
 
         } else if (rule.flags.contains("val")) {
-            log.info "Map '$name' collected, val:'$value', index:$index"
             collector.putMapVal(name, value)
         }
     }
 
     private void onTableFound(SearchableRule rule, String value, int index) {
         def name = rule.name
+        if (rule.flags.contains("seq")) {
+            collector.setTableIsSequential(name)
+        }
         if (rule.flags.contains("key")) {
-            log.info "Table '$name' collected, key:'$value', index:$index"
             collector.putTableKey(name, value)
 
         } else if (rule.flags.contains("col")) {
-            log.info "Table '$name' collected, col:'$value', index:$index"
             collector.putTableCol(name, value)
 
         } else if (rule.flags.contains("val")) {
-            log.info "Table '$name' collected, val:'$value', index:$index"
             collector.putTableVal(name, value)
         }
     }

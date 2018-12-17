@@ -11,32 +11,34 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ValuesMap implements Collectable {
 
-    private Map<String, String> map = new LinkedHashMap<>()
-    private List<String> keys = []
+    private final Map<String, String> map = new LinkedHashMap<>()
+    private final List<String> keys = []
 
     void putKey(String key) {
         if (keys.contains(key)) {
             log.warn "Map $name allready contains key: $key at index: ${keys.indexOf(key)}, the key will be overridden"
         }
         keys.add(key)
+        log.info "Map '$name' collected, key: '$key', keyIndex:${keys.size() - 1}"
     }
 
     void putVal(String val) {
-        def keyNum = ++valCounter
+        def keyNum = ++valIndex
         if (keys.size() >= keyNum) {
             map.put(keys[keyNum], val)
+            log.info "Map '$name' collected, val:'$val', valIndex:$valIndex"
         } else {
-            log.warn "Map $name has no key for value: $val, with index $valCounter"
+            log.warn "Map $name has no key for value: $val, value with valIndex $valIndex ignored"
         }
     }
 
     @Override
     void checkOnFinish() {
         boolean norm = false
-        if (keys.size() - 1 > valCounter) {
-            log.warn "Map $name finished, but keys left: ${keys.subList(valCounter + 1, keys.size())}"
+        if (keys.size() - 1 > valIndex) {
+            log.warn "Map $name finished, but keys left: ${keys.subList(valIndex + 1, keys.size())}"
         }
-        if (valCounter == -1) {
+        if (valIndex == -1) {
             log.warn "Map $name has no any value received"
             norm &= false
         }

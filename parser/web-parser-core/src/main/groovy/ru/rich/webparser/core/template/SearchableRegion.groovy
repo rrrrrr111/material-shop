@@ -14,4 +14,9 @@ interface SearchableRegion {
      * Искомая в тексте строка
      */
     String getSearchableString()
+
+    /**
+     * @return true если передан связанный регион
+     */
+    boolean isBoundWith(SearchableRegion region)
 }

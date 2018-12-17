@@ -65,10 +65,21 @@ class ParserService {
         log.info "Searching independent regions, list size: ${p.pageTemplate.independentRegions.size()}"
         foundRegions.putAll(searchIndependentRegions(html, p.pageTemplate.independentRegions))
 
+        final List<ParserListener> listeners = []
+        listeners << new CollectingListener(collector, html)
 
         for (Map.Entry<SearchableRegion, SearchContext> entry in foundRegions.entries()) {
-            collectData(html, collector, entry.key, entry.value)
+            if (entry.key.type.isRule) {
+                SearchableRule rule = (SearchableRule) entry.key
+                listeners.each { it.onRuleFound(rule, entry.value.extractedValue, entry.value.foundIndex) }
+
+            } else {
+                SequentialString str = (SequentialString) entry.key
+                listeners.each { it.onStringFound(str, entry.value.foundIndex) }
+            }
         }
+
+        listeners.each { it.onFinish() }
     }
 
     private ListMultimap<SearchableRegion, SearchContext> searchSequenceRegions(char[] html,
@@ -180,42 +191,47 @@ class ParserService {
 
         def list = new ArrayList<Map.Entry<SearchableRegion, SearchContext>>(foundRegions.entries())
         def iterator = list.listIterator()
+        def searched = []
+
         while (iterator.hasNext()) {
             Map.Entry<SearchableRegion, SearchContext> e = iterator.next()
 
-            if (e.key.type.pluralEntry) {
+            if (e.key.type.pluralEntry && !searched.contains(e.key)) {
 
+                def regionsToSearch = findBound(list, e.key)
                 int fromIndex = e.value.foundIndex + e.value.extractedValue.length()
-                int toIndex = (
-                        iterator.hasNext()
-                                ? list[iterator.nextIndex()].value.foundIndex
-                                : html.length - 1
-                )
+                int toIndex = findNextRegionIndex(list, regionsToSearch.last(), html)
 
-                def plurals = searchIndependentRegions(html, [e.key], fromIndex, toIndex)
+                def plurals = searchIndependentRegions(html, regionsToSearch, fromIndex, toIndex)
                 log.info "Searched plurals for ${e.key}, ${plurals.size()} found in [$fromIndex->$toIndex]"
                 result.putAll(plurals)
+
+                searched.addAll(regionsToSearch)
             }
         }
 
         result
     }
 
-    private void collectData(char[] html, Collector collector, SearchableRegion region, SearchContext context) {
+    List<SearchableRegion> findBound(List<Map.Entry<SearchableRegion, SearchContext>> list,
+                                     SearchableRegion region) {
+        [region] + list
+                .findAll({ it.key.isBoundWith(region) })
+                .collect { it.key }
+    }
 
-        final List<ParserListener> listeners = []
-        listeners << new CollectingListener(collector, html)
-
-        if (region.type.isRule) {
-            SearchableRule rule = (SearchableRule) region
-            listeners.each { it.onRuleFound(rule, context.extractedValue, context.foundIndex) }
-
-        } else {
-            SequentialString str = (SequentialString) region
-            listeners.each { it.onStringFound(str, context.foundIndex) }
+    private int findNextRegionIndex(List<Map.Entry<SearchableRegion, SearchContext>> list,
+                                    SearchableRegion region,
+                                    char[] html) {
+        for (int i = 0; i < list.size(); i++) {
+            if (region == list.get(i).key) {
+                if (i == list.size() - 1) {
+                    return html.length - 1
+                }
+                return list.get(i + 1).value.foundIndex
+            }
         }
-
-        listeners.each { it.onFinish() }
+        assert false: "Region $region not found in list"
     }
 
     private static void addNext(
