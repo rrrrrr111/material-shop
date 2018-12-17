@@ -3,8 +3,7 @@ package ru.rich.webparser.core.template
 import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
-import static org.apache.commons.lang3.StringUtils.defaultIfBlank
-
+import static org.apache.commons.lang3.StringUtils.trimToNull
 
 /**
  * Считываемое из текста значение
@@ -20,12 +19,18 @@ class SearchableRule implements SearchableRegion {
     final String textAfter
 
     SearchableRule(int num, RuleType type, String name, String textBefore, String textAfter, String... flags) {
+        assert num
+        assert type
+        assert name
+        assert textBefore
+        assert textAfter
+
         this.num = num
         this.type = type
         this.name = name
         this.flags = flags as List
-        this.textBefore = defaultIfBlank(textBefore, null)
-        this.textAfter = defaultIfBlank(textAfter, null)
+        this.textBefore = trimToNull(textBefore)
+        this.textAfter = trimToNull(textAfter)
     }
 
     @Override
@@ -64,8 +69,8 @@ class SearchableRule implements SearchableRegion {
                 .add("type", type)
                 .add("name", name)
                 .add("flags", flags)
-                .add("textBefore", textBefore)
-                .add("textAfter", textAfter)
+                .add("textBefore", "'$textBefore'")
+                .add("textAfter", "'$textAfter'")
                 .toString()
     }
 }

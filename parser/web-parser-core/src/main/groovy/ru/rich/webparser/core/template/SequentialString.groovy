@@ -47,7 +47,7 @@ class SequentialString implements SearchableRegion {
     String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("num", num)
-                .add("string", string)
+                .add("string", "'$string'")
                 .toString()
     }
 }

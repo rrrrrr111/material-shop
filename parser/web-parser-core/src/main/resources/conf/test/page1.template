@@ -8,6 +8,7 @@ $$val(name)
 ...
 <div class="n-gallery__image-container">
 ...
+ImageObject">
 <meta itemprop="url" content="
 $$list(pics)
 "/>
