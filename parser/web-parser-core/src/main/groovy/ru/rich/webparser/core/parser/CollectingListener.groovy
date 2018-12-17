@@ -38,7 +38,7 @@ class CollectingListener implements ParserListener {
             case RuleType.MAP:
                 onMapFound(rule, value, index)
                 break
-            case RuleType.MULTIMAP:
+            case RuleType.TABLE:
                 onMultiMapFound(rule, value, index)
                 break
             default:
@@ -48,36 +48,34 @@ class CollectingListener implements ParserListener {
 
     @Override
     void onStringFound(SequentialString str, int index) {
-        log.trace "${str} found at index $index"
     }
 
     private void onValFound(SearchableRule rule, String value, int index) {
         def name = rule.name
-        log.info "Value $name found at index $index"
+        log.info "Value $name ='$value' collected, index:$index"
 
         Value v = collector.getValue(name)
         if (v) {
-            log.warn "Value '$name' found twice, last at index $index"
+            log.warn "Value '$name' found twice, last at index $index, value:'$value', collection ignored"
             return
         }
-
         collector.putValue(name, value)
     }
 
     private void onListFound(SearchableRule rule, String value, int index) {
         def name = rule.name
-        log.info "List '$name' found at index $index"
+        log.info "List '$name' collected, value:'$value', index:$index"
 
         collector.putToList(name, value)
     }
 
     private void onMapFound(SearchableRule rule, String value, int index) {
-        log.info "Map '${rule.name}' found at index $index"
+        log.info "Map '${rule.name}' collected, value:'$value', index:$index"
 
     }
 
     private void onMultiMapFound(SearchableRule rule, String value, int index) {
-        log.info "MultiMap '${rule.name}' found at index $index"
+        log.info "MultiMap '${rule.name}' collected, value:'$value', index:$index"
 
     }
 }

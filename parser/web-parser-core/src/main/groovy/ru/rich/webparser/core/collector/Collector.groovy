@@ -11,7 +11,7 @@ class Collector implements Collectable {
     List<Value> values = []
     List<ValuesList> lists = []
     List<ValuesMap> maps = []
-    List<ValuesMultiMap> multiMaps = []
+    List<ValuesTable> tables = []
     List<Collector> collectors = []
 
     Value getValue(name) {
@@ -26,8 +26,8 @@ class Collector implements Collectable {
         maps.find { it.name == name }
     }
 
-    ValuesMultiMap getValuesMultiMap(name) {
-        multiMaps.find { it.name == name }
+    ValuesTable getValuesTable(name) {
+        tables.find { it.name == name }
     }
 
     Collector getCollector(name) {
@@ -39,12 +39,30 @@ class Collector implements Collectable {
     }
 
     void putToList(String name, String value) {
-        def valuesList = getValuesList(name)
-        if (!valuesList) {
-            valuesList = new ValuesList(name: name)
-            lists << valuesList
+        def vl = getValuesList(name)
+        if (!vl) {
+            vl = new ValuesList(name: name)
+            lists << vl
         }
-        valuesList.list << value
+        vl.list << value
+    }
+
+    void putToMap(String name, String key, String value) {
+        def vm = getValuesMap(name)
+        if (!vm) {
+            vm = new ValuesMap(name: name)
+            maps << vm
+        }
+        vm.map[key] = value
+    }
+
+    void putToTable(String name, String key, String col, String value) {
+        def vt = getValuesTable(name)
+        if (!vt) {
+            vt = new ValuesTable(name: name)
+            tables << vt
+        }
+        vt.table.put(key, col, value)
     }
 
     @Override
@@ -56,7 +74,7 @@ class Collector implements Collectable {
                 ",\n" +
                 "maps=" + maps +
                 ",\n" +
-                "multiMaps=" + multiMaps +
+                "tables=" + tables +
                 ",\n" +
                 "collectors=" + collectors +
                 '\n}'

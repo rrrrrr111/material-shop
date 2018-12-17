@@ -29,7 +29,7 @@ $$map(feat).val
 tratra
 ...
 lala
-$$multiMap(feat).val
+$$table(feat).val
 tratra
 ...
 summary

@@ -26,7 +26,7 @@ class TemplateParserServiceTest {
                         new SequentialString(++counter, "n-gallery"),
                         new SearchableRule(++counter, RuleType.MAP, "feat", "<tratra/>\r\nlala>", "tratra", "key"),
                         new SearchableRule(++counter, RuleType.MAP, "feat", "lala", "tratra", "val"),
-                        new SearchableRule(++counter, RuleType.MULTIMAP, "feat", "lala", "tratra", "val"),
+                        new SearchableRule(++counter, RuleType.TABLE, "feat", "lala", "tratra", "val"),
                         new SequentialString(++counter, "summary"),
                 ]
                 ]

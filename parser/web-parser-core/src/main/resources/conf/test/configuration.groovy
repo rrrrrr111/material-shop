@@ -9,9 +9,9 @@ import ru.rich.webparser.core.configuration.model.PageType
  -  $$list(listName)
  -  $$map(mapName).key
  -  $$map(mapName).val
- -  $$multiMap(mapName).col
- -  $$multiMap(mapName).key
- -  $$multiMap(mapName).val
+ -  $$table(mapName).col
+ -  $$table(mapName).key
+ -  $$table(mapName).val
 
  Чтение значений из коллектора
  -  @@val(variableName)

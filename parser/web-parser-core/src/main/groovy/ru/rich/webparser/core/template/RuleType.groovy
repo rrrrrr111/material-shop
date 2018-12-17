@@ -11,7 +11,7 @@ enum RuleType {
     VAL("val", false),
     LIST("list", true),
     MAP("map", true),
-    MULTIMAP("multiMap", true),
+    TABLE("table", true),
     STRING();
 
     final String alias

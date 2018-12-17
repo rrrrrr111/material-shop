@@ -14,15 +14,15 @@ $$list(colors)
 <div class="n-product-spec-wrap__body">
 ...
 <h2 class="title title_size_18">
-$$multiMap(features).col
+$$table(features).col
 <
 ...
 <span class="n-product-spec__name-inner">
-$$multiMap(features).key
+$$table(features).key
 <
 ...
 <span class="n-product-spec__value-inner">
-$$multiMap(features).val
+$$table(features).val
 <
 ...
 <div class="n-product-specs__warnings">

@@ -48,6 +48,8 @@ class ParserService {
     }
 
     private Collector parsePage(Configuration conf, Page p, Collector c) {
+        log.info "Parsing page $p"
+
         char[] html = loadHtmlService.loadHtml(conf, p)
         char[] normalisedHtml = canonicalizationService.normalise(conf, p, html)
         parseHtml(normalisedHtml, p, c)
