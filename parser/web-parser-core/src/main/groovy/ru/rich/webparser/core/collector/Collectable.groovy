@@ -9,4 +9,7 @@ import groovy.transform.CompileStatic
 trait Collectable {
 
     String name
+    int valCounter = -1
+
+    void checkOnFinish() {}
 }

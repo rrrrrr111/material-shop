@@ -146,8 +146,8 @@ class ParserService {
 
                     enrichContext(html, it.key, it.value, i)
                     result.put(it.key, it.value)
-                    log.info "Independent ${region.type} entry found at index ${it.value.foundIndex} " +
-                            "beetwin $fromIndex and $toIndex, extracted value: ${it.value.extractedValue}"
+                    log.info "Independent ${region.type} entry found at ${it.value.foundIndex} " +
+                            "in [$fromIndex->$toIndex], extracted: ${it.value.extractedValue}"
 
                     candidates.put(it.key, new SearchContext())
                 }
@@ -193,7 +193,7 @@ class ParserService {
                 )
 
                 def plurals = searchIndependentRegions(html, [e.key], fromIndex, toIndex)
-                log.info "Searching plurals for ${e.key}, ${plurals.size()} found, fromIndex: $fromIndex, toIndex: $toIndex"
+                log.info "Searched plurals for ${e.key}, ${plurals.size()} found in [$fromIndex->$toIndex]"
                 result.putAll(plurals)
             }
         }
@@ -214,6 +214,8 @@ class ParserService {
             SequentialString str = (SequentialString) region
             listeners.each { it.onStringFound(str, context.foundIndex) }
         }
+
+        listeners.each { it.onFinish() }
     }
 
     private static void addNext(
@@ -235,5 +237,7 @@ class ParserService {
         void onRuleFound(SearchableRule rule, String value, int index)
 
         void onStringFound(SequentialString str, int index)
+
+        void onFinish()
     }
 }

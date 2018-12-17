@@ -39,7 +39,7 @@ class CollectingListener implements ParserListener {
                 onMapFound(rule, value, index)
                 break
             case RuleType.TABLE:
-                onMultiMapFound(rule, value, index)
+                onTableFound(rule, value, index)
                 break
             default:
                 throw new IllegalStateException("Unknown rule ${rule.type}")
@@ -66,16 +66,38 @@ class CollectingListener implements ParserListener {
         def name = rule.name
         log.info "List '$name' collected, value:'$value', index:$index"
 
-        collector.putToList(name, value)
+        collector.addToList(name, value)
     }
 
     private void onMapFound(SearchableRule rule, String value, int index) {
-        log.info "Map '${rule.name}' collected, value:'$value', index:$index"
+        def name = rule.name
+        if (rule.flags.contains("key")) {
+            log.info "Map '$name' collected, key:'$value', index:$index"
+            collector.putMapKey(name, value)
 
+        } else if (rule.flags.contains("val")) {
+            log.info "Map '$name' collected, val:'$value', index:$index"
+            collector.putMapVal(name, value)
+        }
     }
 
-    private void onMultiMapFound(SearchableRule rule, String value, int index) {
-        log.info "MultiMap '${rule.name}' collected, value:'$value', index:$index"
+    private void onTableFound(SearchableRule rule, String value, int index) {
+        def name = rule.name
+        if (rule.flags.contains("key")) {
+            log.info "Table '$name' collected, key:'$value', index:$index"
+            collector.putTableKey(name, value)
 
+        } else if (rule.flags.contains("col")) {
+            log.info "Table '$name' collected, col:'$value', index:$index"
+            collector.putTableCol(name, value)
+
+        } else if (rule.flags.contains("val")) {
+            log.info "Table '$name' collected, val:'$value', index:$index"
+            collector.putTableVal(name, value)
+        }
+    }
+
+    void onFinish() {
+        collector.checkOnFinish()
     }
 }
