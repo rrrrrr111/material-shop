@@ -1,8 +1,8 @@
 package ru.rich.webparser.core.collector
 
 import com.google.common.base.MoreObjects
+import com.google.common.collect.HashBasedTable
 import com.google.common.collect.Table
-import com.google.common.collect.TreeBasedTable
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -13,13 +13,13 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ValuesTable implements Collectable {
 
-    private final Table<String, String, String> table = TreeBasedTable.create()
+    private final Table<String, String, String> table = HashBasedTable.create()
 
     private final List<String> cols = []
     private final List<String> keys = []
     /**
      * Последовательная таблица, колонки добавляются вперемешку с ключами и значениями,
-     * кол-во колонок != значения / ключи
+     * кол-во колонок != кол-во значений / кол-во ключей
      */
     private boolean sequential = false
 
@@ -45,11 +45,11 @@ class ValuesTable implements Collectable {
 
         if (keys.size() > keyNum && cols.size() > colNum) {
             table.put(keys[keyNum], cols[colNum], val)
-            log.info "Table '$name' collected, val: '$val'"
+            log.info "Table $name collected, val: '$val'"
         } else if (cols.size() <= colNum) {
-            log.warn "Table $name has no column for value: $val, with valIndex $valIndex ignored"
+            log.warn "Table $name has no column for value: '$val', with valIndex $valIndex ignored"
         } else if (keys.size() <= keyNum) {
-            log.warn "Table $name has no keys for value: $val, with valIndex $valIndex ignored"
+            log.warn "Table $name has no keys for value: '$val', with valIndex $valIndex ignored"
         }
     }
 
