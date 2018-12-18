@@ -1,3 +1,6 @@
+<url>
+$$val(url)
+</url>
 ...
 <meta name="description" content="
 $$val(name)
@@ -5,6 +8,10 @@ $$val(name)
 ...
 зорах, видео и обсуждениях."/>
 <link rel="shortcut icon" href="//yastatic.net/market-export/_/i/favicon.ico"/>
+...
+<title>
+$$val(title)
+</title>
 ...
 <div class="n-gallery__image-container">
 ...

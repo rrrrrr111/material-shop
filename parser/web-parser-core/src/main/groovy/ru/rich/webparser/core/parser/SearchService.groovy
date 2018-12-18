@@ -23,7 +23,7 @@ class SearchService {
 
     ListMultimap<SearchableRegion, SearchContext> searchSequenceRegions(char[] text,
                                                                         List<SearchableRegion> regions) {
-        log.info "Searching sequence regions, list size: ${regions.size()}"
+        log.info "Searching ${regions.size()} sequence regions"
 
         final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
         final Map<SearchableRegion, SearchContext> candidates = [:]
@@ -60,6 +60,35 @@ class SearchService {
                 }
             }
         }
+        if (regions.size() > result.size()) {
+            log.warn "Searched ${regions.size()} sequence regions, but found ${result.size()}"
+        }
+        result
+    }
+
+    ListMultimap<SearchableRegion, SearchContext> searchPlurals(char[] text,
+                                                                ListMultimap<SearchableRegion, SearchContext> regions) {
+        log.info "Searching plurals for ${regions.size()} regions"
+
+        final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
+        final def list = new ArrayList<Map.Entry<SearchableRegion, SearchContext>>(regions.entries())
+        final def iterator = list.listIterator()
+        final def searched = []
+
+        while (iterator.hasNext()) {
+            Map.Entry<SearchableRegion, SearchContext> e = iterator.next()
+
+            if (e.key.type.pluralEntry && !searched.contains(e.key)) {
+
+                def regionsToSearch = findBound(list, e.key)
+                int fromIndex = e.value.foundIndex + e.value.extractedValue.length()
+                int toIndex = findNextRegionIndex(list, regionsToSearch.last(), text)
+
+                def plurals = searchIndependentRegions(text, regionsToSearch, fromIndex, toIndex)
+                result.putAll(plurals)
+                searched.addAll(regionsToSearch)
+            }
+        }
         result
     }
 
@@ -67,7 +96,7 @@ class SearchService {
                                                                            List<SearchableRegion> regions,
                                                                            int fromIndex = 0,
                                                                            int toIndex = text.length - 1) {
-        log.info "Searching independent regions, list size: ${regions.size()} in [$fromIndex->$toIndex]"
+        log.info "Searching ${regions.size()} independent regions in [$fromIndex->$toIndex]"
 
         assert fromIndex < toIndex
         final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
@@ -118,40 +147,12 @@ class SearchService {
 
             int start = context.foundIndex + region.searchableString.length(),
                 end = SearchArrayUtil.indexOfArray(text, start, rule.textAfter.toCharArray())
-
             if (end < 0) {
                 log.warn "textAfter not found for rule $rule"
                 return
             }
-
             context.extractedValue = new String(subarray(text, start, end)).trim()
         }
-    }
-
-    ListMultimap<SearchableRegion, SearchContext> searchPlurals(char[] text,
-                                                                ListMultimap<SearchableRegion, SearchContext> foundRegions) {
-        log.info "Searching plural regions, list size: ${foundRegions.size()}"
-
-        final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
-        final def list = new ArrayList<Map.Entry<SearchableRegion, SearchContext>>(foundRegions.entries())
-        final def iterator = list.listIterator()
-        final def searched = []
-
-        while (iterator.hasNext()) {
-            Map.Entry<SearchableRegion, SearchContext> e = iterator.next()
-
-            if (e.key.type.pluralEntry && !searched.contains(e.key)) {
-
-                def regionsToSearch = findBound(list, e.key)
-                int fromIndex = e.value.foundIndex + e.value.extractedValue.length()
-                int toIndex = findNextRegionIndex(list, regionsToSearch.last(), text)
-
-                def plurals = searchIndependentRegions(text, regionsToSearch, fromIndex, toIndex)
-                result.putAll(plurals)
-                searched.addAll(regionsToSearch)
-            }
-        }
-        result
     }
 
     private List<SearchableRegion> findBound(List<Map.Entry<SearchableRegion, SearchContext>> list,

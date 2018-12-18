@@ -28,7 +28,7 @@ configuration {
                     type: PageType.XML,
                     templateFileName: "page1.template",
                     dropRowToDisk: false,
-                    dropNormalisedToDisk: false
+                    dropNormalisedToDisk: true
             ),
             new Page(
 //                    url: "@@val(url)/spec",

@@ -30,7 +30,8 @@ class CanonicalizationService {
 
     @Value('${webParser.canonicalization.addToReadingBuffInPercents:15}')
     private Integer addToReadingBuffInPercents
-
+    @Value('${webParser.workDir:parser/web-parser-core/build}')
+    private String workDir
 
     char[] normalise(Configuration conf, Page p, char[] text) {
 
@@ -51,7 +52,7 @@ class CanonicalizationService {
             def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
 
             FileUtils.writeStringToFile(
-                    new File("parser\\pages\\${conf.projectName}\\${pageName}_normalised.html"),
+                    new File("$workDir/pages/${conf.projectName}/${pageName}_normalised.html"),
                     new String(normalisedHtml), LoadHtmlService.PAGE_CHARSET)
         }
         normalisedHtml

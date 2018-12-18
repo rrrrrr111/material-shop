@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
@@ -20,6 +21,8 @@ import java.nio.charset.StandardCharsets
 class LoadHtmlService {
     final static Charset PAGE_CHARSET = StandardCharsets.UTF_8
 
+    @Value('${webParser.workDir:parser/web-parser-core/build}')
+    String workDir
     @Autowired
     HttpClientSupport httpClientSupport
 
@@ -32,7 +35,7 @@ class LoadHtmlService {
 
                 def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
                 FileUtils.writeStringToFile(
-                        new File("parser\\pages\\${conf.projectName}\\${pageName}_row.html"),
+                        new File("$workDir/pages/${conf.projectName}/${pageName}_row.html"),
                         new String(html),
                         PAGE_CHARSET
                 )

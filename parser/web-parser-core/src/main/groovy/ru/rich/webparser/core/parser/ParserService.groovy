@@ -44,7 +44,7 @@ class ParserService {
     }
 
     private Collector parsePage(Configuration conf, Page p, Collector c) {
-        log.info "Parsing page $p"
+        log.info "Parsing $p"
 
         char[] html = loadHtmlService.loadHtml(conf, p)
         char[] normalisedHtml = canonicalizationService.normalise(conf, p, html)
@@ -52,14 +52,14 @@ class ParserService {
         c
     }
 
-    private parseHtml(char[] html, Page p, Collector collector) {
+    private parseHtml(char[] html, Page p, Collector c) {
 
         def foundRegions = searchService.searchSequenceRegions(html, p.pageTemplate.sequenceRegions)
         foundRegions.putAll(searchService.searchPlurals(html, foundRegions))
         foundRegions.putAll(searchService.searchIndependentRegions(html, p.pageTemplate.independentRegions))
 
         final List<ParserListener> listeners = []
-        listeners << new CollectingListener(collector, html)
+        listeners << new CollectingListener(c, html)
 
         for (def entry in foundRegions.entries()) {
 
