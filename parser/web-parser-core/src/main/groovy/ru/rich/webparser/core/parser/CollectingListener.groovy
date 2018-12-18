@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.parser
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import ru.rich.webparser.core.collector.Collector
 import ru.rich.webparser.core.collector.Value
@@ -15,6 +16,7 @@ import static ru.rich.webparser.core.parser.ParserService.ParserListener
  */
 @CompileStatic
 @Slf4j
+@PackageScope
 class CollectingListener implements ParserListener {
 
     final Collector collector
