@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import ru.rich.webparser.core.collector.Collector
-import ru.rich.webparser.core.collector.Value
 import ru.rich.webparser.core.template.RuleType
 import ru.rich.webparser.core.template.SearchableRule
 import ru.rich.webparser.core.template.SequentialString
 
 import static ru.rich.webparser.core.parser.ParserService.ParserListener
+
 
 /**
  *
@@ -32,16 +32,16 @@ class CollectingListener implements ParserListener {
 
         switch (rule.type) {
             case RuleType.VAL:
-                onValFound(rule, value, index)
+                onValFound(rule, value)
                 break
             case RuleType.LIST:
-                onListFound(rule, value, index)
+                onListFound(rule, value)
                 break
             case RuleType.MAP:
-                onMapFound(rule, value, index)
+                onMapFound(rule, value)
                 break
             case RuleType.TABLE:
-                onTableFound(rule, value, index)
+                onTableFound(rule, value)
                 break
             default:
                 throw new IllegalStateException("Unknown rule ${rule.type}")
@@ -52,22 +52,17 @@ class CollectingListener implements ParserListener {
     void onStringFound(SequentialString str, int index) {
     }
 
-    private void onValFound(SearchableRule rule, String value, int index) {
+    private void onValFound(SearchableRule rule, String value) {
         def name = rule.name
-        Value v = collector.getValue(name)
-        if (v) {
-            log.warn "Value '$name' found twice, last at index $index, value:'$value', value ignored"
-            return
-        }
         collector.putValue(name, value)
     }
 
-    private void onListFound(SearchableRule rule, String value, int index) {
+    private void onListFound(SearchableRule rule, String value) {
         def name = rule.name
         collector.addToList(name, value)
     }
 
-    private void onMapFound(SearchableRule rule, String value, int index) {
+    private void onMapFound(SearchableRule rule, String value) {
         def name = rule.name
         if (rule.flags.contains("key")) {
             collector.putMapKey(name, value)
@@ -77,7 +72,7 @@ class CollectingListener implements ParserListener {
         }
     }
 
-    private void onTableFound(SearchableRule rule, String value, int index) {
+    private void onTableFound(SearchableRule rule, String value) {
         def name = rule.name
         if (rule.flags.contains("seq")) {
             collector.setTableIsSequential(name)

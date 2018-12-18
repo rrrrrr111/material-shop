@@ -59,7 +59,7 @@ class Collector implements Collectable {
     void putValue(String name, String value) {
         def v = values.find { it.name == name }
         if (v) {
-            log.warn "Duplicate value $name, value: $value put to collector"
+            log.warn "Duplicate value $name: $value put to collector, value overriden"
         }
         v = new Value(name: name)
         v.setVal(value)
