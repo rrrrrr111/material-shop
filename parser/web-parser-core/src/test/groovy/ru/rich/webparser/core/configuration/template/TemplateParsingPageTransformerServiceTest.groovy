@@ -3,7 +3,6 @@ package ru.rich.webparser.core.configuration.template
 import groovy.transform.CompileStatic
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.util.FileUtil
 
 @Test
@@ -38,10 +37,9 @@ class TemplateParsingPageTransformerServiceTest {
     void testPrepareTemplate(String srcFileName, List<SearchableRegion> dstRegions) {
 
         String srcTemplate = FileUtil.readClasspathFile(folder + "/" + srcFileName)
-        def p = new Page(templateFileName: srcFileName)
-        subj.prepareTemplate(p, srcTemplate)
+        def tpl = subj.parseTemplate(srcFileName, srcTemplate)
 
-        def regions = p.pageTemplate.sequenceRegions
+        def regions = tpl.sequenceRegions
         assert regions == dstRegions
     }
 }

@@ -19,10 +19,13 @@ class FunctionProcessorTest {
     def init() {
 
         collector.putValue("valtral", "myval")
+        collector.putValue("absUrl", "http://mynahost.pro/trali/vali?p=yopy&gijo=picas")
+
         collector.addToList("urls", "/u0")
         collector.addToList("urls", "/u1")
         collector.addToList("urls", "valtral")
         collector.addToList("urls", "/u3")
+
         collector.putMapKey("myMap", "keyMa")
         collector.putMapVal("myMap", "valva")
     }
@@ -34,6 +37,11 @@ class FunctionProcessorTest {
                 ["@@list(urls, index)", "/u1", new FunctionContext(collector, 1)],
                 ["@@val(@@list(urls, index))", "myval", new FunctionContext(collector, 2)],
                 ["@@map(myMap, keyMa)", "valva", new FunctionContext(collector)],
+                ["""
+                    @@ADD_URL_PART( 
+                                        @@val(absUrl), '/sub-part'
+                                   )
+                        """, "http://mynahost.pro/trali/vali/sub-part?p=yopy&gijo=picas", new FunctionContext(collector)],
         ] as Object[][]
     }
 

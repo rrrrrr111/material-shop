@@ -8,6 +8,7 @@ import org.apache.commons.io.FilenameUtils
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.mutable.MutableInt
 import org.springframework.stereotype.Service
+import ru.rich.webparser.core.configuration.model.ListingPage
 import ru.rich.webparser.core.configuration.model.Page
 
 import java.nio.charset.Charset
@@ -26,22 +27,34 @@ class TemplateParserService {
     void prepareTemplates(String dir, List<Page> pages) {
 
         pages.each { p ->
-
-            String templatePath = FilenameUtils.concat(dir, p.templateFileName)
-            String template = FileUtils.readFileToString(new File(templatePath), TEMPLATE_CHARSET)
-            prepareTemplate(p, template)
+            switch (p) {
+                case { it instanceof ListingPage }:
+                    loadListingPageTemplate(dir, (ListingPage) p)
+                    break
+                default:
+                    loadSimplePageTemplate(dir, p)
+            }
         }
     }
 
-    @PackageScope
-    void prepareTemplate(Page p, String template) {
+    private void loadListingPageTemplate(String dir, ListingPage listingPage) {
+        loadSimplePageTemplate(dir, listingPage)
+        prepareTemplates(dir, listingPage.subPages)
+    }
 
-        String[] regions = template.split(/\s*[.][.][.]\s*/)
-        log.info "Parsing template ${p.templateFileName}, ${regions.length} regions found"
+    private void loadSimplePageTemplate(String dir, Page page) {
+        String templateSource = loadTemplateSource(dir, page.templateFileName)
+        page.pageTemplate = parseTemplate(page.templateFileName, templateSource)
+    }
+
+    @PackageScope
+    PageTemplate parseTemplate(String templateFileName, String templateStr) {
+
+        String[] regions = templateStr.split(/\s*[.][.][.]\s*/)
+        log.info "Parsing template ${templateFileName}, ${regions.length} regions found"
 
         def counter = new MutableInt()
         def tpl = new PageTemplate()
-        p.pageTemplate = tpl
 
         for (String region in regions) {
             if (region.contains(/$$/)) {
@@ -51,6 +64,13 @@ class TemplateParserService {
                 log.info "String region found in template ${tpl.sequenceRegions.last()}"
             }
         }
+        tpl
+    }
+
+    private String loadTemplateSource(String dir, String templateFileName) {
+
+        String templatePath = FilenameUtils.concat(dir, templateFileName)
+        FileUtils.readFileToString(new File(templatePath), TEMPLATE_CHARSET)
     }
 
     private List<SearchableRule> extractRules(String region, MutableInt counter) {

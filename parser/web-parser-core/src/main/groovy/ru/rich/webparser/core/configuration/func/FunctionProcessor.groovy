@@ -2,9 +2,13 @@ package ru.rich.webparser.core.configuration.func
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import org.apache.commons.lang3.StringUtils
+import org.apache.http.client.utils.URIBuilder
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.transform.collector.Collector
+
+import static org.apache.commons.lang3.StringUtils.countMatches
+import static org.apache.commons.lang3.StringUtils.strip
+
 
 /**
  * Обработка функций в файлах конфигурации
@@ -15,6 +19,8 @@ import ru.rich.webparser.core.transform.collector.Collector
 class FunctionProcessor {
 
     String process(String funcStr, FunctionContext fc) {
+        funcStr = funcStr.trim()
+
         if (!funcStr.contains("@@")) {
             return funcStr
         }
@@ -25,7 +31,7 @@ class FunctionProcessor {
         String name = funcStr.substring(2, oc)
         List<String> params = (
                 splitFuncParams(funcStr.substring(oc + 1, cc))
-        ).collect { process(it, fc).trim() }
+        ).collect { process(it, fc) }
 
         processFunc(name, params, fc)
     }
@@ -60,6 +66,12 @@ class FunctionProcessor {
             case "map":
                 return processMapFunc(params, fc)
                 break
+            case "TO_ABSOLUTE_URL":
+                return processToAbsoluteUrlFunc(params, fc)
+                break
+            case "ADD_URL_PART":
+                return processAddUrlPartFunc(params, fc)
+                break
             default:
                 assert false: "Unknown function $name"
         }
@@ -73,7 +85,7 @@ class FunctionProcessor {
 
     String processListFunc(List<String> params, FunctionContext fc) {
         assert params.size() == 2
-        assert fc.index
+        assert fc.index != null
 
         fc.collector.getValuesList(params[0]).values[fc.index]
     }
@@ -86,13 +98,28 @@ class FunctionProcessor {
         map[params[1]]
     }
 
+    String processToAbsoluteUrlFunc(List<String> params, FunctionContext fc) {
+        assert params.size() == 2
+
+        def url = new URL(params[1])
+        url.protocol + '://' + url.authority + params[0]
+    }
+
+    String processAddUrlPartFunc(List<String> params, FunctionContext fc) {
+        assert params.size() == 2
+
+        def b = new URIBuilder(params[0])
+        b.path = b.path + strip(params[1], "'")
+        b.toString()
+    }
+
     void check(String funcStr, FunctionContext fc) {
 
         assert fc
 
-        int oc = StringUtils.countMatches(funcStr, '(' as char)
-        int cc = StringUtils.countMatches(funcStr, ')' as char)
-        int dd = StringUtils.countMatches(funcStr, "@@")
+        int oc = countMatches(funcStr, '(' as char)
+        int cc = countMatches(funcStr, ')' as char)
+        int dd = countMatches(funcStr, "@@")
 
         assert oc == cc
         assert oc == dd

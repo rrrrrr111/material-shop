@@ -70,7 +70,7 @@ class EtlService {
                 c.putCollector(subCollector)
 
                 p.subPages.each { Page page ->
-                    page.url = functionProcessor.process(page.url, new FunctionContext(subCollector, index))
+                    page.url = functionProcessor.process(page.url, new FunctionContext(c, index))
                     processPage(conf, page, subCollector)
                 }
         }

@@ -40,8 +40,13 @@ configuration {
                                     dropNormalisedToDisk: false
                             ),
                             new Page(
-                                    url: "@@ADD_URL_PART(" +
-                                            "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url)), '/spec')",
+                                    url: """
+                                        @@ADD_URL_PART(
+                                                @@TO_ABSOLUTE_URL(
+                                                    @@list(urls, index), @@val(url)
+                                                 ), '/spec'
+                                            )
+                                            """,
                                     type: HTML,
                                     templateFileName: "page2.template",
                                     dropNormalisedToDisk: false
