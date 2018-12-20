@@ -24,7 +24,7 @@
 - Генерируемые Jooq сущности (Record) не кладутся в ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...)
 
 #### Используется
-* [Java](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Java](https://www.oracle.com/technetwork/java/javase/loads/index.html)
 * [Gradle](https://docs.gradle.org/current/userguide)
 * [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle)
 * [Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/gradle-plugin/reference/html/)

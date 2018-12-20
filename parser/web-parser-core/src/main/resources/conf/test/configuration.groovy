@@ -25,7 +25,7 @@ configuration {
     pages = [
             new Page(
                     url: "https://market.yandex.ru/product--progulochnaia-koliaska-mr-sandman-traveler/13890612",
-                    type: PageType.XML,
+                    type: PageType.HTML,
                     templateFileName: "page1.template",
                     dropRowToDisk: false,
                     dropNormalisedToDisk: true
@@ -33,7 +33,7 @@ configuration {
             new Page(
 //                    url: "@@val(url)/spec",
                     url: "https://market.yandex.ru/product--progulochnaia-koliaska-mr-sandman-traveler/13890612/spec",
-                    type: PageType.XML,
+                    type: PageType.HTML,
                     templateFileName: "page2.template",
                     dropRowToDisk: false,
                     dropNormalisedToDisk: true

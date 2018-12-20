@@ -8,11 +8,9 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import ru.rich.webparser.core.collector.Collector
+import ru.rich.webparser.core.transform.collector.Collector
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.configuration.model.Configuration
-import ru.rich.webparser.core.parser.ParserService
-
 
 /**
  * Конфигурация Spring и стартовый метод
@@ -27,26 +25,23 @@ class ParserStart {
     @Autowired
     ConfigurationService configurationService
     @Autowired
-    ParserService parserService
-
+    EtlService etlService
 
     static void main(String[] args) {
-        log.info 'Parser starting'
         SpringApplication.run(ParserStart.class, args)
-        log.info 'Parser finished'
     }
 
     @Bean
     CommandLineRunner run(ApplicationContext ctx) {
         return { args ->
+            log.info 'Parser starting'
 
             def projectName = "test"
 
-            Configuration conf = configurationService.readConfig(projectName, "configuration.groovy")
-            Collector collector = parserService.parse(conf)
+            Configuration conf = configurationService.readFileConfig(projectName, "configuration.groovy")
+            Collector collector = etlService.execute(conf)
 
-            log.info collector.toString()
-
+            log.info "Parser finished, collected data: $collector"
         } as CommandLineRunner
     }
 }

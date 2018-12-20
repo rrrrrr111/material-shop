@@ -1,7 +1,7 @@
 package ru.rich.webparser.core.configuration.model
 
 import groovy.transform.CompileStatic
-import ru.rich.webparser.core.template.PageTemplate
+import ru.rich.webparser.core.configuration.template.PageTemplate
 
 import static com.google.common.base.MoreObjects.toStringHelper
 

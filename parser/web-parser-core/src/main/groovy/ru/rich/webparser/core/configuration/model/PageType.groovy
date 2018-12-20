@@ -9,9 +9,9 @@ import groovy.transform.CompileStatic
 enum PageType {
 
     /**
-     * XML и HTML
+     * HTML и XML
      */
-    XML,
+    HTML,
     JSON
 
 }
