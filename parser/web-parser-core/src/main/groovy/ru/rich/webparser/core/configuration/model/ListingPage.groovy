@@ -15,6 +15,10 @@ class ListingPage extends Page {
      * Имя листа со списком URL
      */
     String urlListName
+    /**
+     * Ограничение по кол-ву загружаемых старниц
+     */
+    Integer limit
 
     @Override
     String toString() {

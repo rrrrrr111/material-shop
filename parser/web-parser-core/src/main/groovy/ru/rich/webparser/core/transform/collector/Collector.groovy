@@ -16,11 +16,17 @@ class Collector implements Collectable {
     private final List<ValuesTable> tables = []
     private final List<Collector> collectors = []
 
+    Collector() {}
+
+    Collector(String name) {
+        this.name = name
+    }
+
     Value getValue(String name) {
         values.find { it.name == name }
     }
 
-    ValuesList getValuesList(String name) {
+    def getValuesList = { String name ->
         def vl = lists.find { it.name == name }
         if (!vl) {
             vl = new ValuesList(name: name)

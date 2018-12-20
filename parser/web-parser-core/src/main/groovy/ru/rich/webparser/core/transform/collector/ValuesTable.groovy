@@ -30,7 +30,7 @@ class ValuesTable implements Collectable {
 
     void putKey(String key) {
         keys.add(key)
-        log.info "Table '$name' collected, key: '$key'"
+        log.trace "Table '$name' collected, key: '$key'"
     }
 
     void putCol(String col) {
@@ -41,7 +41,7 @@ class ValuesTable implements Collectable {
             log.warn "Table $name allready contains col: '$col' at index: ${cols.indexOf(col)}, the col will be overridden"
         }
         cols << col
-        log.info "Table '$name' collected, col: '$col'"
+        log.trace "Table '$name' collected, col: '$col'"
     }
 
     void putVal(String val) {
@@ -50,7 +50,7 @@ class ValuesTable implements Collectable {
 
         if (keys.size() > keyNum && cols.size() > colNum) {
             table.put(keys[keyNum], cols[colNum], val)
-            log.info "Table $name collected, val: '$val'"
+            log.trace "Table $name collected, val: '$val'"
         } else if (cols.size() <= colNum) {
             log.warn "Table $name has no column for value: '$val', with valIndex $valIndex ignored"
         } else if (keys.size() <= keyNum) {
@@ -89,7 +89,7 @@ class ValuesTable implements Collectable {
             }
         }
         if (norm) {
-            log.info "Table $name finished normally"
+            log.trace "Table $name finished normally"
         }
     }
 

@@ -18,10 +18,20 @@ class Page {
     boolean printNormalisedToLog
     boolean dropNormalisedToDisk
 
+    private String urlFunc
     PageTemplate pageTemplate
 
     String getName() {
         templateFileName.substring(0, templateFileName.indexOf('.'))
+    }
+
+    void setUrl(String url) {
+        this.url = url
+        this.urlFunc = url
+    }
+
+    String getUrlFunc() {
+        return urlFunc
     }
 
     @Override

@@ -26,12 +26,13 @@ import static ru.rich.webparser.core.configuration.model.PageType.HTML
 configuration {
     pages = [
             new ListingPage(
-                    url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=4&onstock=1&local-offers-first=0",
+                    url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=1&onstock=1&local-offers-first=0",
                     type: HTML,
                     templateFileName: "page0.template",
                     dropRowToDisk: false,
                     dropNormalisedToDisk: true,
                     urlListName: "urls",
+                    limit: 2,
                     subPages: [
                             new Page(
                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",

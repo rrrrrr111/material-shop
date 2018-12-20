@@ -25,7 +25,7 @@ class Value implements Collectable {
     void setVal(String value) {
         ++valIndex
         this.value = value
-        log.info "Value $name ='$value' collected, valIndex:$valIndex"
+        log.trace "Value $name ='$value' collected, valIndex:$valIndex"
     }
 
     @Override
@@ -40,7 +40,7 @@ class Value implements Collectable {
             norm &= false
         }
         if (norm) {
-            log.info "Value $name finished normally"
+            log.trace "Value $name finished normally"
         }
     }
 

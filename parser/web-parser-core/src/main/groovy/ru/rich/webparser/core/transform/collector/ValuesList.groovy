@@ -17,7 +17,7 @@ class ValuesList implements Collectable {
     void addVal(String val) {
         ++valIndex
         list << val
-        log.info "List '$name' collected, value:'$val', valIndex:$valIndex"
+        log.trace "List '$name' collected, value:'$val', valIndex:$valIndex"
     }
 
     List<String> getValues() {
@@ -32,7 +32,7 @@ class ValuesList implements Collectable {
             norm &= false
         }
         if (norm) {
-            log.info "List $name finished normally"
+            log.trace "List $name finished normally"
         }
     }
 

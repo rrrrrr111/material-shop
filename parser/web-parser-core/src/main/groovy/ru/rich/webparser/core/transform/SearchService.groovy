@@ -23,7 +23,7 @@ class SearchService {
 
     ListMultimap<SearchableRegion, SearchContext> searchSequenceRegions(char[] text,
                                                                         List<SearchableRegion> regions) {
-        log.info "Searching ${regions.size()} sequence regions"
+        log.trace "Searching ${regions.size()} sequence regions"
 
         final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
         final Map<SearchableRegion, SearchContext> candidates = [:]
@@ -52,7 +52,7 @@ class SearchService {
 
                     enrichContext(text, it.key, it.value, i)
                     result.put(it.key, it.value)
-                    log.info "Sequential '${region.type}' entry found at index ${it.value.foundIndex}, " +
+                    log.trace "Sequential '${region.type}' entry found at index ${it.value.foundIndex}, " +
                             "extracted value: ${it.value.extractedValue}"
 
                     candidates.remove(it.key)
@@ -68,7 +68,7 @@ class SearchService {
 
     ListMultimap<SearchableRegion, SearchContext> searchPlurals(char[] text,
                                                                 ListMultimap<SearchableRegion, SearchContext> regions) {
-        log.info "Searching plurals for ${regions.size()} regions"
+        log.trace "Searching plurals for ${regions.size()} regions"
 
         final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
         final def list = new ArrayList<Map.Entry<SearchableRegion, SearchContext>>(regions.entries())
@@ -96,7 +96,7 @@ class SearchService {
                                                                            List<SearchableRegion> regions,
                                                                            int fromIndex = 0,
                                                                            int toIndex = text.length - 1) {
-        log.info "Searching ${regions.size()} independent regions in [$fromIndex->$toIndex]"
+        log.trace "Searching ${regions.size()} independent regions in [$fromIndex->$toIndex]"
 
         assert fromIndex < toIndex
         final ListMultimap<SearchableRegion, SearchContext> result = LinkedListMultimap.create()
@@ -129,7 +129,7 @@ class SearchService {
 
                     enrichContext(text, it.key, it.value, i)
                     result.put(it.key, it.value)
-                    log.info "Independent ${region.type} entry found at ${it.value.foundIndex} " +
+                    log.trace "Independent ${region.type} entry found at ${it.value.foundIndex} " +
                             "in [$fromIndex->$toIndex], extracted: ${it.value.extractedValue}"
 
                     candidates.put(it.key, new SearchContext())
@@ -181,7 +181,7 @@ class SearchService {
             Iterator<SearchableRegion> sequence) {
 
         if (sequence.hasNext()) {
-            candidates.put(sequence.next(), new SearchContext())
+            candidates[sequence.next()] = new SearchContext()
         }
     }
 

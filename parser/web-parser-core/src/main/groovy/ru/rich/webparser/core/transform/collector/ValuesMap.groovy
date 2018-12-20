@@ -24,14 +24,14 @@ class ValuesMap implements Collectable {
             log.warn "Map $name allready contains key: $key at index: ${keys.indexOf(key)}, the key will be overridden"
         }
         keys.add(key)
-        log.info "Map '$name' collected, key: '$key', keyIndex:${keys.size() - 1}"
+        log.trace "Map '$name' collected, key: '$key', keyIndex:${keys.size() - 1}"
     }
 
     void putVal(String val) {
         def keyNum = ++valIndex
         if (keys.size() >= keyNum) {
             map.put(keys[keyNum], val)
-            log.info "Map '$name' collected, val:'$val', valIndex:$valIndex"
+            log.trace "Map '$name' collected, val:'$val', valIndex:$valIndex"
         } else {
             log.warn "Map $name has no key for value: $val, value with valIndex $valIndex ignored"
         }
@@ -48,7 +48,7 @@ class ValuesMap implements Collectable {
             norm &= false
         }
         if (norm) {
-            log.info "Map $name finished normally"
+            log.trace "Map $name finished normally"
         }
     }
 
