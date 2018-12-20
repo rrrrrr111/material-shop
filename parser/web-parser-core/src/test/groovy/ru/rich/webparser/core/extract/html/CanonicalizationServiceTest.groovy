@@ -1,5 +1,6 @@
 package ru.rich.webparser.core.extract.html
 
+import groovy.transform.CompileStatic
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
@@ -9,10 +10,11 @@ import ru.rich.webparser.core.configuration.model.PageType
 import ru.rich.webparser.core.util.FileUtil
 
 @Test
+@CompileStatic
 class CanonicalizationServiceTest {
 
-    private def folder = "ru/rich/webparser/core/extract/html"
-    private def subj = new CanonicalizationService(
+    private String folder = "ru/rich/webparser/core/extract/html"
+    private CanonicalizationService subj = new CanonicalizationService(
             addToReadingBuffInPercents: 15
     )
 
@@ -20,7 +22,7 @@ class CanonicalizationServiceTest {
     Object[][] filesProvider() {
         [
                 ["test_file_01_src.html", "test_file_01_dst.html"]
-        ]
+        ] as Object[][]
     }
 
     @Test(dataProvider = "filesProvider")

@@ -13,6 +13,15 @@ class Value implements Collectable {
 
     private String value
 
+    String getVal() {
+        return value
+    }
+
+    String getValRequired() {
+        assert value
+        return value
+    }
+
     void setVal(String value) {
         ++valIndex
         this.value = value

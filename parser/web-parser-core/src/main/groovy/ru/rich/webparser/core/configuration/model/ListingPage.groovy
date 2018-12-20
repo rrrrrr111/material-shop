@@ -1,28 +1,20 @@
 package ru.rich.webparser.core.configuration.model
 
 import groovy.transform.CompileStatic
-import ru.rich.webparser.core.configuration.template.PageTemplate
 
 import static com.google.common.base.MoreObjects.toStringHelper
 
 /**
- * Обычная страница
+ * Старница для множественной загрузки по списку URL
  */
 @CompileStatic
-class Page {
+class ListingPage extends Page {
 
-    String url
-    PageType type
-    String templateFileName
-    boolean dropRowToDisk
-    boolean printNormalisedToLog
-    boolean dropNormalisedToDisk
-
-    PageTemplate pageTemplate
-
-    String getName() {
-        templateFileName.substring(0, templateFileName.indexOf('.'))
-    }
+    List<Page> subPages = []
+    /**
+     * Имя листа со списком URL
+     */
+    String urlListName
 
     @Override
     String toString() {
@@ -33,6 +25,7 @@ class Page {
                 .add("dropRowToDisk", dropRowToDisk)
                 .add("printNormalisedToLog", printNormalisedToLog)
                 .add("dropNormalisedToDisk", dropNormalisedToDisk)
+                .add("subPages.size", subPages.size())
                 .toString()
     }
 }

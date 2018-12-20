@@ -2,6 +2,7 @@ package ru.rich.webparser.core.transform.collector
 
 import com.google.common.base.MoreObjects
 import com.google.common.collect.HashBasedTable
+import com.google.common.collect.ImmutableTable
 import com.google.common.collect.Table
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
@@ -22,6 +23,10 @@ class ValuesTable implements Collectable {
      * кол-во колонок != кол-во значений / кол-во ключей
      */
     private boolean sequential = false
+
+    Table<String, String, String> getValues() {
+        ImmutableTable.copyOf(table)
+    }
 
     void putKey(String key) {
         keys.add(key)

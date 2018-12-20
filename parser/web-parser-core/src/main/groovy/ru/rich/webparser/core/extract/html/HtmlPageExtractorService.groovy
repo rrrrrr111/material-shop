@@ -47,9 +47,8 @@ class HtmlPageExtractorService implements PageExtractor {
 
             if (p.dropRowToDisk) {
 
-                def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
                 FileUtils.writeStringToFile(
-                        new File("$workDir/pages/${conf.projectName}/${pageName}_row.html"),
+                        new File("$workDir/pages/${conf.projectName}/${p.name}_row.html"),
                         new String(html),
                         PAGE_CHARSET
                 )

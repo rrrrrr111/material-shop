@@ -1,16 +1,17 @@
 package ru.rich.webparser.core.configuration.template
 
-
+import groovy.transform.CompileStatic
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.util.FileUtil
 
 @Test
+@CompileStatic
 class TemplateParsingPageTransformerServiceTest {
 
-    private def folder = "ru/rich/webparser/core/configuration/template"
-    private def subj = new TemplateParserService()
+    private String folder = "ru/rich/webparser/core/configuration/template"
+    private TemplateParserService subj = new TemplateParserService()
 
     @DataProvider
     Object[][] filesProvider() {
@@ -30,7 +31,7 @@ class TemplateParsingPageTransformerServiceTest {
                         new SequentialString(++counter, "summary"),
                 ]
                 ]
-        ]
+        ] as Object[][]
     }
 
     @Test(dataProvider = "filesProvider")

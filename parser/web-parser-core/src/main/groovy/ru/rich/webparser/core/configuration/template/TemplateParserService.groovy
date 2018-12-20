@@ -23,7 +23,7 @@ class TemplateParserService {
 
     public static final Charset TEMPLATE_CHARSET = StandardCharsets.UTF_8
 
-    def prepareTemplates(String dir, List<Page> pages) {
+    void prepareTemplates(String dir, List<Page> pages) {
 
         pages.each { p ->
 
@@ -34,7 +34,7 @@ class TemplateParserService {
     }
 
     @PackageScope
-    def prepareTemplate(Page p, String template) {
+    void prepareTemplate(Page p, String template) {
 
         String[] regions = template.split(/\s*[.][.][.]\s*/)
         log.info "Parsing template ${p.templateFileName}, ${regions.length} regions found"

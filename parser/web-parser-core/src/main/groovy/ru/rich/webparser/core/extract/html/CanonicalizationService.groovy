@@ -49,10 +49,8 @@ class CanonicalizationService {
         }
 
         if (p.dropNormalisedToDisk) {
-            def pageName = p.templateFileName.substring(0, p.templateFileName.indexOf('.'))
-
             FileUtils.writeStringToFile(
-                    new File("$workDir/pages/${conf.projectName}/${pageName}_normalised.html"),
+                    new File("$workDir/pages/${conf.projectName}/${p.name}_normalised.html"),
                     new String(normalisedHtml), HtmlPageExtractorService.PAGE_CHARSET)
         }
         normalisedHtml

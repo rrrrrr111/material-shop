@@ -94,6 +94,10 @@ class Collector implements Collectable {
         getValuesTable(name).setSequential(true)
     }
 
+    def putCollector(Collector c) {
+        collectors << c
+    }
+
     void checkOnFinish() {
         values.each { it.checkOnFinish() }
         lists.each { it.checkOnFinish() }

@@ -1,0 +1,10 @@
+<url>
+$$val(url)
+</url>
+...
+</div>
+<div class="n-snippet-card2__part n-snippet-card2__part_type_left">
+<a class="n-snippet-card2__image link" href="
+$$list(urls)
+" title="
+...

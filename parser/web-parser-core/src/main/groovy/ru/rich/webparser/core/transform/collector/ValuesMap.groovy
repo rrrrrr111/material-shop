@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.transform.collector
 
 import com.google.common.base.MoreObjects
+import com.google.common.collect.ImmutableMap
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -13,6 +14,10 @@ class ValuesMap implements Collectable {
 
     private final Map<String, String> map = new LinkedHashMap<>()
     private final List<String> keys = []
+
+    Map<String, String> getValues() {
+        ImmutableMap.copyOf(map)
+    }
 
     void putKey(String key) {
         if (keys.contains(key)) {

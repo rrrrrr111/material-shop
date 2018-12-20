@@ -13,5 +13,4 @@ enum PageType {
      */
     HTML,
     JSON
-
 }

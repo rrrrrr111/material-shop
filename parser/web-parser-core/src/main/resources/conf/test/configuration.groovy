@@ -1,5 +1,7 @@
+import ru.rich.webparser.core.configuration.model.ListingPage
 import ru.rich.webparser.core.configuration.model.Page
-import ru.rich.webparser.core.configuration.model.PageType
+
+import static ru.rich.webparser.core.configuration.model.PageType.HTML
 
 /**
  Конфигурация парсера
@@ -23,20 +25,28 @@ import ru.rich.webparser.core.configuration.model.PageType
 
 configuration {
     pages = [
-            new Page(
-                    url: "https://market.yandex.ru/product--progulochnaia-koliaska-mr-sandman-traveler/13890612",
-                    type: PageType.HTML,
-                    templateFileName: "page1.template",
+            new ListingPage(
+                    url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=4&onstock=1&local-offers-first=0",
+                    type: HTML,
+                    templateFileName: "page0.template",
                     dropRowToDisk: false,
-                    dropNormalisedToDisk: true
-            ),
-            new Page(
-//                    url: "@@val(url)/spec",
-                    url: "https://market.yandex.ru/product--progulochnaia-koliaska-mr-sandman-traveler/13890612/spec",
-                    type: PageType.HTML,
-                    templateFileName: "page2.template",
-                    dropRowToDisk: false,
-                    dropNormalisedToDisk: true
+                    dropNormalisedToDisk: true,
+                    urlListName: "urls",
+                    subPages: [
+                            new Page(
+                                    url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
+                                    type: HTML,
+                                    templateFileName: "page1.template",
+                                    dropNormalisedToDisk: false
+                            ),
+                            new Page(
+                                    url: "@@ADD_URL_PART(" +
+                                            "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url)), '/spec')",
+                                    type: HTML,
+                                    templateFileName: "page2.template",
+                                    dropNormalisedToDisk: false
+                            )
+                    ]
             )
     ]
 }

@@ -39,7 +39,7 @@ class ParserStart {
             def projectName = "test"
 
             Configuration conf = configurationService.readFileConfig(projectName, "configuration.groovy")
-            Collector collector = etlService.execute(conf)
+            Collector collector = etlService.process(conf)
 
             log.info "Parser finished, collected data: $collector"
         } as CommandLineRunner

@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.transform.collector
 
 import com.google.common.base.MoreObjects
+import com.google.common.collect.ImmutableList
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -11,12 +12,16 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ValuesList implements Collectable {
 
-    private final List<String> list = new ArrayList<>()
+    private final List<String> list = []
 
     void addVal(String val) {
         ++valIndex
         list << val
         log.info "List '$name' collected, value:'$val', valIndex:$valIndex"
+    }
+
+    List<String> getValues() {
+        ImmutableList.copyOf(list)
     }
 
     @Override
