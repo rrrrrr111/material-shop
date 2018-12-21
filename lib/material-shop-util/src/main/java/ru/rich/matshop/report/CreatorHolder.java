@@ -51,21 +51,6 @@ public abstract class CreatorHolder<C extends Creator> {
 
         ReportForm reportForm = createReportForm(creator, data);
 
-        log.info("Report form {} created", reportForm.getFileName());
-        return reportForm;
-    }
-
-    /**
-     * Формирование печатной формы с помощью определенного креатора с заданным именем
-     */
-
-    <D> ReportForm create(String reportFormCreatorId, D data, String formFilename) {
-        C creator = idToCreator.get(reportFormCreatorId);
-        log.trace("Starting report form creator, reportFormCreatorId {}, creator {}, outputFormat {}",
-                reportFormCreatorId, creator, creator.getOutputFormat());
-
-        ReportForm reportForm = createReportForm(creator, data, formFilename);
-
         log.info("Report form {} created, size {}Kb", reportForm.getFileName(), reportForm.getData().length / 1024);
         return reportForm;
     }
@@ -73,7 +58,6 @@ public abstract class CreatorHolder<C extends Creator> {
     /**
      * В наследниках реализовать подготовку данных и формирование печатной формы с помощью креатора
      */
-    protected abstract <D> ReportForm createReportForm(C creator, D data, String formFilename);
     protected abstract <D> ReportForm createReportForm(C creator, D data);
 
     protected InputStream loadClasspathFile(String filePath) {

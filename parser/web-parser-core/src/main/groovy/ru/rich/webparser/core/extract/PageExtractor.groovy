@@ -6,7 +6,7 @@ import ru.rich.webparser.core.configuration.model.Page
 
 
 /**
- * Загрузка данных страницы
+ * Загрузка данных страницы, 1 этап в ETL
  */
 @CompileStatic
 interface PageExtractor {

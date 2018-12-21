@@ -1,5 +1,6 @@
 package ru.rich.webparser.core.transform.collector
 
+import com.google.common.collect.ImmutableList
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -60,6 +61,10 @@ class Collector implements Collectable {
             collectors << c
         }
         c
+    }
+
+    List<Collector> getCollectors() {
+        ImmutableList.copyOf(collectors)
     }
 
     void putValue(String name, String value) {

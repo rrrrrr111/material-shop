@@ -9,7 +9,6 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +18,7 @@ import java.util.Date;
  * <p/>
  * Примеры работы с POI https://poi.apache.org/spreadsheet/examples.html
  */
-public class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements ExcelBuilder {
+class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements ExcelBuilder {
     private static final Logger log = LoggerFactory.getLogger(ExcelPoiBuilder.class);
 
     public ExcelPoiBuilder(InputStream template, PropertyPlaceholderHelper placeholderHelper) {
@@ -88,7 +87,7 @@ public class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implemen
     }
 
     @Override
-    public ExcelBuilder applyDataModelPropertyPlaceholders(String keyPrefix, final Serializable dataModel) {
+    public ExcelBuilder applyDataModelPropertyPlaceholders(String keyPrefix, final Object dataModel) {
         placeholdersSupport.applyDataModelPropertyPlaceholders(keyPrefix, dataModel);
         return this;
     }

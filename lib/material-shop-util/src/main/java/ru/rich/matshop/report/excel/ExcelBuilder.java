@@ -1,7 +1,5 @@
 package ru.rich.matshop.report.excel;
 
-import java.io.Serializable;
-
 /**
  * Наполняет Excel шаблон данными.
  * <p/>
@@ -77,7 +75,7 @@ public interface ExcelBuilder extends BasicBuilder<ExcelBuilder> {
      *                  шаблоне нужно писать без префикса, например ${name}
      * @param dataModel модель данных
      */
-    ExcelBuilder applyDataModelPropertyPlaceholders(String keyPrefix, Serializable dataModel);
+    ExcelBuilder applyDataModelPropertyPlaceholders(String keyPrefix, Object dataModel);
 
     /**
      * Очистка значения указанной ячейки

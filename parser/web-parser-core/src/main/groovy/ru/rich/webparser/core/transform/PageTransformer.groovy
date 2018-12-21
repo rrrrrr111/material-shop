@@ -1,11 +1,11 @@
 package ru.rich.webparser.core.transform
 
 import groovy.transform.CompileStatic
-import ru.rich.webparser.core.transform.collector.Collector
 import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.transform.collector.Collector
 
 /**
- * Преобразование данных страницы
+ * Преобразование данных страницы, 2 этап в ETL
  */
 @CompileStatic
 interface PageTransformer {

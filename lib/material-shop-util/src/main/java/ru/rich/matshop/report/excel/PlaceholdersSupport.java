@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -31,7 +30,7 @@ class PlaceholdersSupport {
         this.placeholderHelper = placeholderHelper;
     }
 
-    void applyDataModelPropertyPlaceholders(String keyPrefix, final Serializable dataModel) {
+    void applyDataModelPropertyPlaceholders(String keyPrefix, final Object dataModel) {
         final BeanUtilsBean bub = new BeanUtilsBean();
         applyPlaceholders(keyPrefix, true, (rowNum, cellNum, key) -> {
             try {

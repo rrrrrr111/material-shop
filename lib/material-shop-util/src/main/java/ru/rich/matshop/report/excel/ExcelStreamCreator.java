@@ -11,7 +11,7 @@ public interface ExcelStreamCreator<D> extends TemplateBasedCreator<D> {
     /**
      * формирование печатной формы
      */
-    void create(ExcelStreamBuilder efb, D dataModel);
+    void create(ExcelStreamBuilder esb, D dataModel);
 
     /**
      * Возвращает PropertyPlaceholderHelper

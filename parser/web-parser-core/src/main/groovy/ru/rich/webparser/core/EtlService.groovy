@@ -11,6 +11,8 @@ import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.PageType
 import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.extract.html.HtmlPageExtractorService
+import ru.rich.webparser.core.load.CollectorLoader
+import ru.rich.webparser.core.load.excel.CollectorToExcelLoader
 import ru.rich.webparser.core.transform.PageTransformer
 import ru.rich.webparser.core.transform.ParsingPageTransformerService
 import ru.rich.webparser.core.transform.collector.Collector
@@ -32,6 +34,8 @@ class EtlService {
     ParsingPageTransformerService parsingPageTransformerService
     @Autowired
     FunctionProcessor functionProcessor
+    @Autowired
+    CollectorToExcelLoader collectorToExcelLoader
 
     Collector process(Configuration conf) {
 
@@ -39,6 +43,7 @@ class EtlService {
         conf.pages.each { p ->
             processPage(conf, p, c)
         }
+        getLoader(conf).load(conf, c)
         return c
     }
 
@@ -93,5 +98,9 @@ class EtlService {
 
     private PageTransformer getTransformer(PageType type) {
         parsingPageTransformerService
+    }
+
+    private CollectorLoader getLoader(Configuration conf) {
+        collectorToExcelLoader
     }
 }

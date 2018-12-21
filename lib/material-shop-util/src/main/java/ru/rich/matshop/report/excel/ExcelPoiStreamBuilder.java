@@ -22,7 +22,7 @@ import java.util.Map;
  * <p/>
  * Примеры работы http://poi.apache.org/spreadsheet/how-to.html#sxssf
  */
-public class ExcelPoiStreamBuilder extends AbstractExcelBuilder<ExcelStreamBuilder> implements ExcelStreamBuilder {
+class ExcelPoiStreamBuilder extends AbstractExcelBuilder<ExcelStreamBuilder> implements ExcelStreamBuilder {
     private static final Logger log = LoggerFactory.getLogger(ExcelPoiStreamBuilder.class);
 
     private final ExcelPoiBuilder eb;
