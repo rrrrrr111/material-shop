@@ -26,7 +26,7 @@ class Collector implements Collectable {
         values.find { it.name == name }
     }
 
-    def getValuesList = { String name ->
+    ValuesList getValuesList(String name) {
         def vl = lists.find { it.name == name }
         if (!vl) {
             vl = new ValuesList(name: name)

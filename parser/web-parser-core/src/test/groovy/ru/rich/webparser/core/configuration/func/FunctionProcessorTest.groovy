@@ -47,7 +47,7 @@ class FunctionProcessorTest {
 
     @Test(dataProvider = "provider")
     void testProcess(String src, String expected, FunctionContext fc) {
-        def result = subj.process(src, fc)
+        def result = subj.interpolate(src, fc)
         assert result == expected
     }
 }

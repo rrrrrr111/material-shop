@@ -18,7 +18,7 @@ import static org.apache.commons.lang3.StringUtils.strip
 @CompileStatic
 class FunctionProcessor {
 
-    String process(String funcStr, FunctionContext fc) {
+    String interpolate(String funcStr, FunctionContext fc) {
         funcStr = funcStr.trim()
 
         if (!funcStr.contains("@@")) {
@@ -31,7 +31,7 @@ class FunctionProcessor {
         String name = funcStr.substring(2, oc)
         List<String> params = (
                 splitFuncParams(funcStr.substring(oc + 1, cc))
-        ).collect { process(it, fc) }
+        ).collect { interpolate(it, fc) }
 
         processFunc(name, params, fc)
     }

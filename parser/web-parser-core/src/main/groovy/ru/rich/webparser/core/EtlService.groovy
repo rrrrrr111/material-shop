@@ -35,9 +35,8 @@ class EtlService {
 
     Collector process(Configuration conf) {
 
-        def c = new Collector()
+        def c = new Collector("main")
         conf.pages.each { p ->
-            preProcessFunctions(p, new FunctionContext(c))
             processPage(conf, p, c)
         }
         return c
@@ -54,6 +53,8 @@ class EtlService {
     }
 
     private void processSimplePage(Configuration conf, Page p, Collector c) {
+        interpolateFunctions(p, new FunctionContext(c))
+
         char[] data = getExtractor(p.type).extract(conf, p)
         getTransformer(p.type).transform(p, c, data)
     }
@@ -62,22 +63,23 @@ class EtlService {
         processSimplePage(conf, p, c)
         c.getValuesList(p.urlListName).values.eachWithIndex {
             String url, int index ->
-                if (p.limit && index == p.limit) {
+                if (p.limit && index >= p.limit) {
                     return
                 }
-
-                def sc = new Collector("${p.name}_sub_$index")
+                def sc = new Collector("c_${p.name}_sub_$index")
                 c.putCollector(sc)
 
                 p.subPages.each { Page page ->
-                    preProcessFunctions(page, new FunctionContext(c, index))
+                    page = page.copy()
+                    page.name += "_sub_$index"
+                    interpolateFunctions(page, new FunctionContext(c, index))
                     processPage(conf, page, sc)
                 }
         }
     }
 
-    private void preProcessFunctions(Page page, FunctionContext fc) {
-        page.url = functionProcessor.process(page.urlFunc, fc)
+    private void interpolateFunctions(Page page, FunctionContext fc) {
+        page.url = functionProcessor.interpolate(page.url, fc)
     }
 
     private PageExtractor getExtractor(PageType type) {

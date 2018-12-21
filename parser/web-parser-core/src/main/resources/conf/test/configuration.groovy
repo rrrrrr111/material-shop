@@ -26,7 +26,7 @@ import static ru.rich.webparser.core.configuration.model.PageType.HTML
 configuration {
     pages = [
             new ListingPage(
-                    url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=1&onstock=1&local-offers-first=0",
+                    url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=0",
                     type: HTML,
                     templateFileName: "page0.template",
                     dropRowToDisk: false,
@@ -38,7 +38,7 @@ configuration {
                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
                                     type: HTML,
                                     templateFileName: "page1.template",
-                                    dropNormalisedToDisk: false
+                                    dropNormalisedToDisk: true
                             ),
                             new Page(
                                     url: """
@@ -50,7 +50,7 @@ configuration {
                                             """,
                                     type: HTML,
                                     templateFileName: "page2.template",
-                                    dropNormalisedToDisk: false
+                                    dropNormalisedToDisk: true
                             )
                     ]
             )

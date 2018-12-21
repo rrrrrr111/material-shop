@@ -18,25 +18,41 @@ class Page {
     boolean printNormalisedToLog
     boolean dropNormalisedToDisk
 
-    private String urlFunc
+    private String name
     PageTemplate pageTemplate
 
+    Page() {
+    }
+
+    Page(Page page) {
+        this.url = page.url
+        this.type = page.type
+        this.templateFileName = page.templateFileName
+        this.dropRowToDisk = page.dropRowToDisk
+        this.printNormalisedToLog = page.printNormalisedToLog
+        this.dropNormalisedToDisk = page.dropNormalisedToDisk
+        this.pageTemplate = page.pageTemplate
+    }
+
+    String setName(String name) {
+        this.name = name
+    }
+
     String getName() {
-        templateFileName.substring(0, templateFileName.indexOf('.'))
+        if (!name) {
+            name = templateFileName.substring(0, templateFileName.indexOf('.'))
+        }
+        name
     }
 
-    void setUrl(String url) {
-        this.url = url
-        this.urlFunc = url
-    }
-
-    String getUrlFunc() {
-        return urlFunc
+    Page copy() {
+        new Page(this)
     }
 
     @Override
     String toString() {
         return toStringHelper(this)
+                .add("name", getName())
                 .add("url", url)
                 .add("type", type)
                 .add("templateFileName", templateFileName)

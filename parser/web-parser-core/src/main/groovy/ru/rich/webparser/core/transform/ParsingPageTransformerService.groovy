@@ -27,7 +27,7 @@ class ParsingPageTransformerService implements PageTransformer {
     SearchService searchService
 
     void transform(Page p, Collector c, char[] text) {
-        log.info "Transforming page: $p"
+        log.info "Transforming page: $p, collector ${c.name} used"
 
         def foundRegions = searchService.searchSequenceRegions(text, p.pageTemplate.sequenceRegions)
         foundRegions.putAll(searchService.searchPlurals(text, foundRegions))
