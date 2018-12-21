@@ -8,9 +8,11 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import ru.rich.webparser.core.transform.collector.Collector
+import org.springframework.context.annotation.Import
+import ru.rich.matshop.report.ReportConfig
 import ru.rich.webparser.core.configuration.ConfigurationService
 import ru.rich.webparser.core.configuration.model.Configuration
+import ru.rich.webparser.core.transform.collector.Collector
 
 /**
  * Конфигурация Spring и стартовый метод
@@ -20,6 +22,7 @@ import ru.rich.webparser.core.configuration.model.Configuration
 )
 @Slf4j
 @CompileStatic
+@Import(ReportConfig.class)
 class ParserStart {
 
     @Autowired

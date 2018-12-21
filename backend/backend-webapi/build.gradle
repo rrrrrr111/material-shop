@@ -28,8 +28,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jooq:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-cache:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-validation:$springBootVersion")
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
-    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
     compile group: 'javax.cache', name: 'cache-api', version: '1.1.0'
     compile group: 'org.ehcache', name: 'ehcache', version: '3.6.2'
     compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0.1'
