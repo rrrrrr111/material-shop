@@ -83,6 +83,9 @@ class ProductRegistryCreator extends AbstractTemplateBasedCreator<ExcelLoaderDat
                                         .setNextCell(item.getValue("title").val)
                                         .setNextCell(item.getValuesList("pics").values.toString())
                                         .setNextCell(item.getValuesList("description").values.toString())
+                                        .setNextCell(item.getValuesList("colors").values.toString())
+                                        .setNextCell(item.getValue("video").val)
+                                        .setNextCell(item.getValuesTable("features").values.toString())
                             }
                         })
                 return null

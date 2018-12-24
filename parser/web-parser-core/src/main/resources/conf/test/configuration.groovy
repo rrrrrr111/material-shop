@@ -45,7 +45,7 @@ configuration {
                                     url: "@@list(searchUrls, index)",
                                     templateFileName: "list_res_page0.template",
                                     urlListName: "urls",
-                                    limit: 2,
+                                    limit: 3,
                                     subPages: [
                                             new ResourcePage(
                                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",

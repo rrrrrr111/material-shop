@@ -20,7 +20,7 @@ class ListResourcePage extends ResourcePage implements WithSubPages {
 
     ListResourcePage(ListResourcePage p) {
         super(p)
-        this.limit = limit
+        this.limit = p.limit
         this.subPages = p.subPages
         this.urlListName = p.urlListName
     }
