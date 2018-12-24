@@ -7,7 +7,6 @@ import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
-import ru.rich.webparser.core.configuration.model.PageType
 import ru.rich.webparser.core.configuration.model.ResourcePage
 
 import java.nio.CharBuffer
@@ -35,14 +34,7 @@ class CanonicalizationService {
 
     char[] normalise(Configuration conf, ResourcePage p, char[] text) {
 
-        char[] normalisedHtml
-        switch (p.type) {
-            case PageType.HTML:
-                normalisedHtml = normaliseXml(text, p.url)
-                break
-            default:
-                throw new UnsupportedOperationException("${p.type} not supported")
-        }
+        char[] normalisedHtml = normaliseXml(text, p.url)
 
         if (p.printNormalisedToLog) {
             log.info("Page loaded: \n{}", new String(normalisedHtml))

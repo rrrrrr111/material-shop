@@ -6,7 +6,6 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.ResourcePage
-import ru.rich.webparser.core.configuration.model.PageType
 import ru.rich.webparser.core.util.FileUtil
 
 @Test
@@ -31,7 +30,7 @@ class CanonicalizationServiceTest {
         String srcHtml = FileUtil.readClasspathFile(folder + "/" + srcFileName)
         String dstHtml = FileUtil.readClasspathFile(folder + "/" + dstFileName)
 
-        def page = [url: "http://my.com", type: PageType.HTML] as ResourcePage
+        def page = [url: "http://my.com"] as ResourcePage
         def conf = [projectName: "test"] as Configuration
 
         String res = subj.normalise(conf, page, srcHtml.toCharArray())

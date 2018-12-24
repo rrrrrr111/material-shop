@@ -24,7 +24,6 @@ class ListResourcePage extends ResourcePage {
     String toString() {
         return toStringHelper(this)
                 .add("url", url)
-                .add("type", type)
                 .add("templateFileName", templateFileName)
                 .add("dropRowToDisk", dropRowToDisk)
                 .add("printNormalisedToLog", printNormalisedToLog)

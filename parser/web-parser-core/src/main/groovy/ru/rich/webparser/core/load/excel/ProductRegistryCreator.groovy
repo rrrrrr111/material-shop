@@ -1,7 +1,7 @@
 package ru.rich.webparser.core.load.excel
 
 import groovy.transform.CompileStatic
-import groovy.transform.PackageScope
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.rich.matshop.report.AbstractTemplateBasedCreator
 import ru.rich.matshop.report.ReportFileFormat
@@ -11,6 +11,7 @@ import ru.rich.matshop.report.excel.ExcelStreamBuilder
 import ru.rich.matshop.report.excel.ExcelStreamCreator
 import ru.rich.matshop.report.excel.ItemWriter
 import ru.rich.matshop.report.excel.KeyMapper
+import ru.rich.matshop.util.FileUtil
 import ru.rich.webparser.core.transform.collector.Collector
 
 /**
@@ -18,11 +19,13 @@ import ru.rich.webparser.core.transform.collector.Collector
  */
 @Service
 @CompileStatic
-@PackageScope
-class ProductRegistryCreator extends AbstractTemplateBasedCreator<Collector>
-        implements ExcelStreamCreator<Collector> {
+class ProductRegistryCreator extends AbstractTemplateBasedCreator<ExcelLoaderData>
+        implements ExcelStreamCreator<ExcelLoaderData> {
 
     static final String ID = this.class.toString()
+
+    @Value('${webParser.confDir:conf}')
+    String confDir
 
     @Override
     String getId() {
@@ -35,21 +38,21 @@ class ProductRegistryCreator extends AbstractTemplateBasedCreator<Collector>
     }
 
     @Override
-    String getTemplatePath(Collector mainCollector) {
-        return "conf/test/product_registry_tpl.xlsx"
+    String getTemplatePath(ExcelLoaderData data) {
+        return "$confDir/${data.conf.projectName}/${data.conf.loaderConf.excelTemplateName}"
     }
 
     @Override
-    String getOutputFileName(Collector mainCollector) {
-        return super.getOutputFileName(mainCollector)
+    String getOutputFileName(ExcelLoaderData data) {
+        return FileUtil.generateFileName(data.conf.loaderConf.reportPrefix, getOutputFormat().getExtension())
     }
 
     @Override
-    void create(final ExcelStreamBuilder esb, final Collector model) {
+    void create(final ExcelStreamBuilder esb, final ExcelLoaderData data) {
 
         ExcelBuilder eb = esb.getTemplateBuilder()
 
-        buildTable(esb, model)
+        buildTable(esb, data.collector)
 
         int tableEndRowNum = eb.toRelativeRow(1).getRowNum()
         esb.copyRowsFromTemplate(tableEndRowNum, eb.getLastRowNum())

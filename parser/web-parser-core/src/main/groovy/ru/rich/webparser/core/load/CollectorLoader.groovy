@@ -2,6 +2,7 @@ package ru.rich.webparser.core.load
 
 import groovy.transform.CompileStatic
 import ru.rich.webparser.core.configuration.model.Configuration
+import ru.rich.webparser.core.configuration.model.LoaderConf
 import ru.rich.webparser.core.transform.collector.Collector
 
 /**
@@ -11,4 +12,6 @@ import ru.rich.webparser.core.transform.collector.Collector
 interface CollectorLoader {
 
     void load(Configuration conf, Collector collector)
+
+    boolean isApplicable(LoaderConf loaderConf)
 }

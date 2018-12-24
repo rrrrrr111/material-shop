@@ -8,7 +8,8 @@
     </appender>
 
     <logger name="ru.rich.webparser" level="TRACE"/>
-    <logger name="ru.rich.webparser.core.transform.collector" level="DEBUG"/>
+    <!-- Парсинг -->
+    <logger name="ru.rich.webparser.core.transform" level="DEBUG"/>
 
     <!-- Убираем варнинг Invalid cookie header: "Set-Cookie: visits ... -->
     <logger name="org.apache.http.client.protocol.ResponseProcessCookies" level="ERROR"/>

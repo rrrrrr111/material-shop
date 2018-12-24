@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service
 import ru.rich.matshop.report.ReportForm
 import ru.rich.matshop.report.ReportFormService
 import ru.rich.webparser.core.configuration.model.Configuration
+import ru.rich.webparser.core.configuration.model.LoaderConf
 import ru.rich.webparser.core.load.CollectorLoader
 import ru.rich.webparser.core.transform.collector.Collector
-
-import static ru.rich.webparser.core.load.excel.ProductRegistryCreator.ID
 
 /**
  * Формирует итоговый Excel файл
@@ -29,10 +28,23 @@ class CollectorToExcelLoader implements CollectorLoader {
 
     @Override
     void load(Configuration conf, Collector mainCollector) {
-        ReportForm form = reportFormService.create(ID, mainCollector)
 
+        ReportForm form = reportFormService.create(
+                conf.loaderConf.creatorId,
+                new ExcelLoaderData(conf: conf, collector: mainCollector)
+        )
+
+        writeToDisc(conf, form)
+    }
+
+    private void writeToDisc(Configuration conf, ReportForm form) {
         FileUtils.writeByteArrayToFile(
                 new File("$workDir/pages/${conf.projectName}/${form.fileName}"),
                 form.data)
+    }
+
+    @Override
+    boolean isApplicable(LoaderConf loaderConf) {
+        return true
     }
 }

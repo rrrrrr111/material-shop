@@ -1,7 +1,7 @@
 import ru.rich.webparser.core.configuration.model.ListResourcePage
+import ru.rich.webparser.core.configuration.model.LoaderConf
 import ru.rich.webparser.core.configuration.model.ResourcePage
-
-import static ru.rich.webparser.core.configuration.model.PageType.HTML
+import ru.rich.webparser.core.load.excel.ProductRegistryCreator
 
 /**
  Конфигурация парсера
@@ -27,7 +27,6 @@ configuration {
     pages = [
             new ListResourcePage(
                     url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=0",
-                    type: HTML,
                     templateFileName: "page0.template",
                     dropRowToDisk: false,
                     dropNormalisedToDisk: true,
@@ -36,7 +35,6 @@ configuration {
                     subPages: [
                             new ResourcePage(
                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
-                                    type: HTML,
                                     templateFileName: "page1.template",
                                     dropNormalisedToDisk: true
                             ),
@@ -48,11 +46,15 @@ configuration {
                                                  ), '/spec'
                                             )
                                             """,
-                                    type: HTML,
                                     templateFileName: "page2.template",
                                     dropNormalisedToDisk: true
                             )
                     ]
             )
     ]
+    loaderConf = new LoaderConf(
+            excelTemplateName: "product_registry_tpl.xlsx",
+            creatorId: ProductRegistryCreator.ID,
+            reportPrefix: "product_registry_"
+    )
 }

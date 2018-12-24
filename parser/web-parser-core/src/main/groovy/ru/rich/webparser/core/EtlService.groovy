@@ -5,10 +5,10 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
+import ru.rich.webparser.core.configuration.model.LoaderConf
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.load.CollectorLoader
-import ru.rich.webparser.core.load.excel.CollectorToExcelLoader
 import ru.rich.webparser.core.transform.PageTransformer
 import ru.rich.webparser.core.transform.collector.Collector
 
@@ -25,7 +25,7 @@ class EtlService {
     @Autowired
     List<PageTransformer<? extends Page>> transformers
     @Autowired
-    CollectorToExcelLoader collectorToExcelLoader
+    List<CollectorLoader> loaders
 
     Collector process(Configuration conf) {
 
@@ -51,7 +51,7 @@ class EtlService {
     }
 
     void load(Configuration conf, Collector c) {
-        getLoader(conf).load(conf, c)
+        getLoader(conf.loaderConf).load(conf, c)
     }
 
     private <P extends Page> PageExtractor<P> getExtractor(P page) {
@@ -72,7 +72,12 @@ class EtlService {
         throw new IllegalStateException("Unknown page type: $page, transformer not found")
     }
 
-    private CollectorLoader getLoader(Configuration conf) {
-        collectorToExcelLoader
+    private CollectorLoader getLoader(LoaderConf loaderConf) {
+        for (CollectorLoader loader in loaders) {
+            if (loader.isApplicable(loaderConf)) {
+                return loader
+            }
+        }
+        throw new IllegalStateException("Unknown loader config: $loaderConf, loader not found")
     }
 }

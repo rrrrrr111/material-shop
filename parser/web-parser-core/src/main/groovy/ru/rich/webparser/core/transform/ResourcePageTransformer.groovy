@@ -15,7 +15,7 @@ import ru.rich.webparser.core.transform.collector.CollectorService
 import ru.rich.webparser.core.transform.parser.SearchService
 
 /**
- * Парсер HTML страниц
+ * Трансформация страниц типа {@link ResourcePage}
  */
 @Service
 @CompileStatic
@@ -56,7 +56,7 @@ class ResourcePageTransformer implements PageTransformer<ResourcePage> {
 
     @Override
     boolean isApplicable(Page p) {
-        return true
+        return p.class.isAssignableFrom(ResourcePage.class)
     }
 
     static interface ParserListener {

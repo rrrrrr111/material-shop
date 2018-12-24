@@ -3,6 +3,7 @@ package ru.rich.webparser.core.configuration
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.template.TemplateParserService
@@ -19,6 +20,8 @@ import static ru.rich.webparser.core.util.FileUtil.toAbsolutePath
 @CompileStatic
 class ConfigurationService {
 
+    @Value('${webParser.confDir:conf}')
+    String confDir
     @Autowired
     TemplateParserService templateParserService
 
@@ -31,7 +34,7 @@ class ConfigurationService {
     }
 
     private Configuration loadFileConfig(String projectName, String filePath) {
-        filePath = "conf/$projectName/$filePath"
+        filePath = "$confDir/$projectName/$filePath"
         def confFilePath
         try {
             confFilePath = findFile("parser/web-parser-core/src/main/resources/$filePath")
