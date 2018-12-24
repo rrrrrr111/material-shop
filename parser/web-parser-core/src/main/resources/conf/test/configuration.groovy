@@ -44,15 +44,12 @@ configuration {
                             new ListResourcePage(
                                     url: "@@list(searchUrls, index)",
                                     templateFileName: "list_res_page0.template",
-                                    dropRowToDisk: false,
-                                    dropNormalisedToDisk: true,
                                     urlListName: "urls",
                                     limit: 2,
                                     subPages: [
                                             new ResourcePage(
                                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
                                                     templateFileName: "page1.template",
-                                                    dropNormalisedToDisk: true
                                             ),
                                             new ResourcePage(
                                                     url: """
@@ -63,7 +60,7 @@ configuration {
                                             )
                                             """,
                                                     templateFileName: "page2.template",
-                                                    dropNormalisedToDisk: true
+                                                    dropNormalisedToDisk: false
                                             )
                                     ]
                             )
