@@ -23,6 +23,9 @@ class Value implements Collectable {
     }
 
     void setVal(String value) {
+        if (valIndex > -1) {
+            log.warn "Duplicate value $name: $value put to collector, value overriden"
+        }
         ++valIndex
         this.value = value
         log.trace "Value $name ='$value' collected, valIndex:$valIndex"

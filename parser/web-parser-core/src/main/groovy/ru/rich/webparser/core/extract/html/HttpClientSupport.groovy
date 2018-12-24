@@ -42,6 +42,8 @@ class HttpClientSupport {
     private static final String HTTP_HEADER_ACCEPT_LANGUAGE = "Accept-Language"
     private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding"
     private static final String HTTP_HEADER_CONTENT_ENCODING = "Content-Encoding"
+    private static final String HTTP_HEADER_USER_AGENT_NAME = "User-Agent"
+    private static final String HTTP_HEADER_USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
     private static final String ENCODING_GZIP = "gzip"
 
     @Value('${webParser.httpClient.maxConnectionCount:100}')
@@ -173,6 +175,7 @@ class HttpClientSupport {
     }
 
     private <T extends HttpRequestBase> T prepareMethod(T method) {
+        method.addHeader(HTTP_HEADER_USER_AGENT_NAME, HTTP_HEADER_USER_AGENT_VALUE)
         if (httpClient instanceof Configurable) {
             method.setConfig(((Configurable) httpClient).getConfig())
         }
@@ -227,7 +230,7 @@ class HttpClientSupport {
     /**
      * Колбек для чтения данных из потока ответа на HTTP запрос
      *
-     * @param < T >    - читаемый тип
+     * @param < T >     - читаемый тип
      */
     interface ReadingResponseCallback<T> {
         T read(InputStream response)

@@ -24,7 +24,12 @@ class Collector implements Collectable {
     }
 
     Value getValue(String name) {
-        values.find { it.name == name }
+        def v = values.find { it.name == name }
+        if (!v) {
+            v = new Value(name: name)
+            values << v
+        }
+        v
     }
 
     ValuesList getValuesList(String name) {
@@ -68,13 +73,7 @@ class Collector implements Collectable {
     }
 
     void putValue(String name, String value) {
-        def v = values.find { it.name == name }
-        if (v) {
-            log.warn "Duplicate value $name: $value put to collector, value overriden"
-        }
-        v = new Value(name: name)
-        v.setVal(value)
-        values << v
+        getValue(name).val = value
     }
 
     void addToList(String name, String value) {
