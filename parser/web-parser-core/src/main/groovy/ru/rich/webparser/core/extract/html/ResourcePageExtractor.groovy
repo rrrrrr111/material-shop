@@ -7,7 +7,8 @@ import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import ru.rich.webparser.core.configuration.func.FunctionProcessor
+import ru.rich.webparser.core.configuration.func.FunctionContext
+import ru.rich.webparser.core.configuration.func.InterpolationHelper
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.ResourcePage
@@ -16,8 +17,6 @@ import ru.rich.webparser.core.transform.collector.Collector
 
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
-
-import static ru.rich.webparser.core.configuration.func.FunctionProcessor.FunctionContext
 
 /**
  * Загрузка данных страниц
@@ -35,13 +34,13 @@ class ResourcePageExtractor implements PageExtractor<ResourcePage> {
     @Autowired
     CanonicalizationService canonicalizationService
     @Autowired
-    FunctionProcessor functionProcessor
+    InterpolationHelper interpolationHelper
 
     @Override
     char[] extract(Configuration conf, ResourcePage p, Collector c) {
         log.info "Extracting page: $p"
 
-        interpolateFunctions(p, new FunctionContext(c))
+        interpolationHelper.interpolateFunctions(p, new FunctionContext(c))
 
         char[] html = loadHtml(conf, p)
         char[] normalisedHtml = canonicalizationService.normalise(conf, p, html)
@@ -68,9 +67,5 @@ class ResourcePageExtractor implements PageExtractor<ResourcePage> {
     @Override
     boolean isApplicable(Page p) {
         return p instanceof ResourcePage
-    }
-
-    void interpolateFunctions(ResourcePage page, FunctionContext fc) {
-        page.url = functionProcessor.interpolate(page.url, fc)
     }
 }

@@ -1,14 +1,13 @@
 package ru.rich.webparser.core.configuration.func
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.apache.http.client.utils.URIBuilder
 import org.springframework.stereotype.Service
-import ru.rich.webparser.core.transform.collector.Collector
 
 import static org.apache.commons.lang3.StringUtils.countMatches
 import static org.apache.commons.lang3.StringUtils.strip
-
 
 /**
  * Обработка функций в файлах конфигурации
@@ -16,6 +15,7 @@ import static org.apache.commons.lang3.StringUtils.strip
 @Service
 @Slf4j
 @CompileStatic
+@PackageScope
 class FunctionProcessor {
 
     String interpolate(String funcStr, FunctionContext fc) {
@@ -123,20 +123,5 @@ class FunctionProcessor {
 
         assert oc == cc
         assert oc == dd
-    }
-
-    static class FunctionContext {
-        final Collector collector
-        final Integer index
-
-        FunctionContext(Collector collector, Integer index) {
-            this.collector = collector
-            this.index = index
-        }
-
-        FunctionContext(Collector collector) {
-            this.collector = collector
-            this.index = null
-        }
     }
 }

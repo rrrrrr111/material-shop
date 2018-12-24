@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import static com.google.common.base.MoreObjects.toStringHelper
 
 /**
- * Старница для множественной загрузки по списку URL
+ * Старница для загрузки по распарсиваемому списку URL
  */
 @CompileStatic
 class ListResourcePage extends ResourcePage {

@@ -8,9 +8,11 @@ import ru.rich.webparser.core.EtlService
 import ru.rich.webparser.core.configuration.func.FunctionContext
 import ru.rich.webparser.core.configuration.func.InterpolationHelper
 import ru.rich.webparser.core.configuration.model.Configuration
+import ru.rich.webparser.core.configuration.model.ListPage
 import ru.rich.webparser.core.configuration.model.ListResourcePage
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.ResourcePage
+import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.transform.collector.Collector
 
 /**
@@ -19,36 +21,33 @@ import ru.rich.webparser.core.transform.collector.Collector
 @Service
 @CompileStatic
 @Slf4j
-class ListResourcePageTransformer implements PageTransformer<ListResourcePage> {
+class ListPageTransformer implements PageTransformer<ListPage>, PageExtractor<ListPage> {
 
     @Autowired
     InterpolationHelper interpolationHelper
     @Autowired
-    ResourcePageTransformer resourcePageTransformer
-    @Autowired
     EtlService etlService
 
     @Override
-    void transform(Configuration conf, final ListResourcePage p, final Collector c, final char[] text) {
+    char[] extract(Configuration conf, ListPage page, Collector collector) {
 
-        resourcePageTransformer.transform(conf, p, c, text)
+        page.urls.each { collector.addToList(page.urlListName, it) }
+
+        return new char[0]
+    }
+
+    @Override
+    void transform(Configuration conf, ListPage p, Collector c, char[] text) {
 
         int index = 0
         for (String url in c.getValuesList(p.urlListName).values) {
-            if (p.limit && index >= p.limit) {
-                log.warn "Loading interrupted by limit ${p.limit}"
-                break
-            }
-
-            def final sc = new Collector("c_${p.name}_sub_$index")
-            c.putCollector(sc)
 
             p.subPages.each { ResourcePage page ->
                 page = page.copy()
                 page.name += "_sub_$index"
 
                 interpolationHelper.interpolateFunctions(page, new FunctionContext(c, index))
-                etlService.extractAndTransform(conf, page, sc)
+                etlService.extractAndTransform(conf, page, c)
             }
             index++
         }
@@ -56,6 +55,6 @@ class ListResourcePageTransformer implements PageTransformer<ListResourcePage> {
 
     @Override
     boolean isApplicable(Page p) {
-        return p instanceof ListResourcePage
+        return p instanceof ListPage
     }
 }

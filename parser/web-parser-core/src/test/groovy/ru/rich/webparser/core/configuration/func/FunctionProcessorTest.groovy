@@ -6,7 +6,6 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import ru.rich.webparser.core.transform.collector.Collector
 
-import static ru.rich.webparser.core.configuration.func.FunctionProcessor.FunctionContext
 
 @Test
 @CompileStatic
