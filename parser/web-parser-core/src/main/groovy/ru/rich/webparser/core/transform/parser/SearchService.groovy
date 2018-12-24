@@ -1,9 +1,8 @@
-package ru.rich.webparser.core.transform
+package ru.rich.webparser.core.transform.parser
 
 import com.google.common.collect.LinkedListMultimap
 import com.google.common.collect.ListMultimap
 import groovy.transform.CompileStatic
-import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Service
 import ru.rich.matshop.util.SearchArrayUtil
@@ -18,7 +17,6 @@ import static org.apache.commons.lang3.ArrayUtils.subarray
 @Service
 @CompileStatic
 @Slf4j
-@PackageScope
 class SearchService {
 
     ListMultimap<SearchableRegion, SearchContext> searchSequenceRegions(char[] text,

@@ -4,12 +4,15 @@ import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.configuration.model.ResourcePage
 import ru.rich.webparser.core.configuration.template.SearchableRule
 import ru.rich.webparser.core.configuration.template.SequentialString
 import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.transform.collector.Collector
 import ru.rich.webparser.core.transform.collector.CollectorService
+import ru.rich.webparser.core.transform.parser.SearchService
 
 /**
  * Парсер HTML страниц
@@ -17,7 +20,7 @@ import ru.rich.webparser.core.transform.collector.CollectorService
 @Service
 @CompileStatic
 @Slf4j
-class ParsingPageTransformerService implements PageTransformer {
+class ResourcePageTransformer implements PageTransformer<ResourcePage> {
 
     @Autowired
     CollectorService collectorService
@@ -26,7 +29,7 @@ class ParsingPageTransformerService implements PageTransformer {
     @Autowired
     SearchService searchService
 
-    void transform(Page p, Collector c, char[] text) {
+    void transform(Configuration conf, ResourcePage p, Collector c, char[] text) {
         log.info "Transforming page: $p, collector ${c.name} used"
 
         def foundRegions = searchService.searchSequenceRegions(text, p.pageTemplate.sequenceRegions)
@@ -49,6 +52,11 @@ class ParsingPageTransformerService implements PageTransformer {
         }
 
         listeners.each { it.onFinish() }
+    }
+
+    @Override
+    boolean isApplicable(Page p) {
+        return true
     }
 
     static interface ParserListener {

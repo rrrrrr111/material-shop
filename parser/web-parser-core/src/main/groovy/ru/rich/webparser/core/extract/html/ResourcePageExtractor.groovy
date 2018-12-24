@@ -7,21 +7,25 @@ import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import ru.rich.webparser.core.configuration.func.FunctionProcessor
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.configuration.model.ResourcePage
 import ru.rich.webparser.core.extract.PageExtractor
+import ru.rich.webparser.core.transform.collector.Collector
 
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
+import static ru.rich.webparser.core.configuration.func.FunctionProcessor.FunctionContext
+
 /**
- * Загрузка HTML страниц
- *
+ * Загрузка данных страниц
  */
 @Service
 @CompileStatic
 @Slf4j
-class HtmlPageExtractorService implements PageExtractor {
+class ResourcePageExtractor implements PageExtractor<ResourcePage> {
     final static Charset PAGE_CHARSET = StandardCharsets.UTF_8
 
     @Value('${webParser.workDir:parser/web-parser-core/build}')
@@ -30,17 +34,21 @@ class HtmlPageExtractorService implements PageExtractor {
     HttpClientSupport httpClientSupport
     @Autowired
     CanonicalizationService canonicalizationService
+    @Autowired
+    FunctionProcessor functionProcessor
 
     @Override
-    char[] extract(Configuration conf, Page p) {
-        log.info "Loading HTML page: $p"
+    char[] extract(Configuration conf, ResourcePage p, Collector c) {
+        log.info "Extracting page: $p"
+
+        interpolateFunctions(p, new FunctionContext(c))
 
         char[] html = loadHtml(conf, p)
         char[] normalisedHtml = canonicalizationService.normalise(conf, p, html)
         normalisedHtml
     }
 
-    private char[] loadHtml(Configuration conf, Page p) {
+    private char[] loadHtml(Configuration conf, ResourcePage p) {
         httpClientSupport.executeGetMethod(p.url) { is ->
 
             char[] html = IOUtils.toCharArray(is, PAGE_CHARSET)
@@ -55,5 +63,14 @@ class HtmlPageExtractorService implements PageExtractor {
             }
             html
         }
+    }
+
+    @Override
+    boolean isApplicable(Page p) {
+        return p instanceof ResourcePage
+    }
+
+    void interpolateFunctions(ResourcePage page, FunctionContext fc) {
+        page.url = functionProcessor.interpolate(page.url, fc)
     }
 }

@@ -1,5 +1,5 @@
-import ru.rich.webparser.core.configuration.model.ListingPage
-import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.configuration.model.ListResourcePage
+import ru.rich.webparser.core.configuration.model.ResourcePage
 
 import static ru.rich.webparser.core.configuration.model.PageType.HTML
 
@@ -25,7 +25,7 @@ import static ru.rich.webparser.core.configuration.model.PageType.HTML
 
 configuration {
     pages = [
-            new ListingPage(
+            new ListResourcePage(
                     url: "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=0",
                     type: HTML,
                     templateFileName: "page0.template",
@@ -34,13 +34,13 @@ configuration {
                     urlListName: "urls",
                     limit: 2,
                     subPages: [
-                            new Page(
+                            new ResourcePage(
                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
                                     type: HTML,
                                     templateFileName: "page1.template",
                                     dropNormalisedToDisk: true
                             ),
-                            new Page(
+                            new ResourcePage(
                                     url: """
                                         @@ADD_URL_PART(
                                                 @@TO_ABSOLUTE_URL(

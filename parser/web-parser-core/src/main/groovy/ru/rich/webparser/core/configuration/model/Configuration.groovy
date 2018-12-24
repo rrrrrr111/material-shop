@@ -10,7 +10,7 @@ import groovy.transform.CompileStatic
 class Configuration {
 
     String projectName
-    List<Page> pages
+    List<ResourcePage> pages
     String path
 
     @Override

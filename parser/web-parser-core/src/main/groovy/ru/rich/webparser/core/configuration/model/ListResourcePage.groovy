@@ -8,9 +8,9 @@ import static com.google.common.base.MoreObjects.toStringHelper
  * Старница для множественной загрузки по списку URL
  */
 @CompileStatic
-class ListingPage extends Page {
+class ListResourcePage extends ResourcePage {
 
-    List<Page> subPages = []
+    List<ResourcePage> subPages = []
     /**
      * Имя листа со списком URL
      */

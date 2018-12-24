@@ -8,8 +8,8 @@ import org.apache.commons.io.FilenameUtils
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.mutable.MutableInt
 import org.springframework.stereotype.Service
-import ru.rich.webparser.core.configuration.model.ListingPage
-import ru.rich.webparser.core.configuration.model.Page
+import ru.rich.webparser.core.configuration.model.ListResourcePage
+import ru.rich.webparser.core.configuration.model.ResourcePage
 
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
@@ -24,12 +24,12 @@ class TemplateParserService {
 
     public static final Charset TEMPLATE_CHARSET = StandardCharsets.UTF_8
 
-    void prepareTemplates(String dir, List<Page> pages) {
+    void prepareTemplates(String dir, List<ResourcePage> pages) {
 
         pages.each { p ->
             switch (p) {
-                case { it instanceof ListingPage }:
-                    loadListingPageTemplate(dir, (ListingPage) p)
+                case { it instanceof ListResourcePage }:
+                    loadListingPageTemplate(dir, (ListResourcePage) p)
                     break
                 default:
                     loadSimplePageTemplate(dir, p)
@@ -37,12 +37,12 @@ class TemplateParserService {
         }
     }
 
-    private void loadListingPageTemplate(String dir, ListingPage listingPage) {
+    private void loadListingPageTemplate(String dir, ListResourcePage listingPage) {
         loadSimplePageTemplate(dir, listingPage)
         prepareTemplates(dir, listingPage.subPages)
     }
 
-    private void loadSimplePageTemplate(String dir, Page page) {
+    private void loadSimplePageTemplate(String dir, ResourcePage page) {
         String templateSource = loadTemplateSource(dir, page.templateFileName)
         page.pageTemplate = parseTemplate(page.templateFileName, templateSource)
     }

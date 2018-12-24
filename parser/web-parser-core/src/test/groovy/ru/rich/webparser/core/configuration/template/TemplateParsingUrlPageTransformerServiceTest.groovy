@@ -7,7 +7,7 @@ import ru.rich.webparser.core.util.FileUtil
 
 @Test
 @CompileStatic
-class TemplateParsingPageTransformerServiceTest {
+class TemplateParsingUrlPageTransformerServiceTest {
 
     private String folder = "ru/rich/webparser/core/configuration/template"
     private TemplateParserService subj = new TemplateParserService()

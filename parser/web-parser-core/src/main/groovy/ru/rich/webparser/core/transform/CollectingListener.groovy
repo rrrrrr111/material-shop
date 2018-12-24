@@ -8,7 +8,7 @@ import ru.rich.webparser.core.configuration.template.RuleType
 import ru.rich.webparser.core.configuration.template.SearchableRule
 import ru.rich.webparser.core.configuration.template.SequentialString
 
-import static ru.rich.webparser.core.transform.ParsingPageTransformerService.ParserListener
+import static ru.rich.webparser.core.transform.ResourcePageTransformer.ParserListener
 
 
 /**

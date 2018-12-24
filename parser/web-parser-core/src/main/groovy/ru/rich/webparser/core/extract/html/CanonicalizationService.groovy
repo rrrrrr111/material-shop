@@ -7,8 +7,8 @@ import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.rich.webparser.core.configuration.model.Configuration
-import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.PageType
+import ru.rich.webparser.core.configuration.model.ResourcePage
 
 import java.nio.CharBuffer
 
@@ -33,7 +33,7 @@ class CanonicalizationService {
     @Value('${webParser.workDir:parser/web-parser-core/build}')
     private String workDir
 
-    char[] normalise(Configuration conf, Page p, char[] text) {
+    char[] normalise(Configuration conf, ResourcePage p, char[] text) {
 
         char[] normalisedHtml
         switch (p.type) {
@@ -51,7 +51,7 @@ class CanonicalizationService {
         if (p.dropNormalisedToDisk) {
             FileUtils.writeStringToFile(
                     new File("$workDir/pages/${conf.projectName}/${p.name}_normalised.html"),
-                    new String(normalisedHtml), HtmlPageExtractorService.PAGE_CHARSET)
+                    new String(normalisedHtml), ResourcePageExtractor.PAGE_CHARSET)
         }
         normalisedHtml
     }
