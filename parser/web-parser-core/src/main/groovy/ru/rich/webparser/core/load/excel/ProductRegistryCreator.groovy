@@ -78,7 +78,6 @@ class ProductRegistryCreator extends AbstractTemplateBasedCreator<ExcelLoaderDat
                             void writeRow(BasicBuilder<? extends BasicBuilder> b, int itemNum, Collector item) {
 
                                 esb.setCell(String.valueOf(itemNum + 1))
-                                        .setNextCell("")
                                         .setNextCell(item.getValue("url").val)
                                         .setNextCell(item.getValue("name").val)
                                         .setNextCell(item.getValue("title").val)

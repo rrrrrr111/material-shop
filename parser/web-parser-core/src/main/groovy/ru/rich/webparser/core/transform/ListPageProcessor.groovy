@@ -9,19 +9,18 @@ import ru.rich.webparser.core.configuration.func.FunctionContext
 import ru.rich.webparser.core.configuration.func.InterpolationHelper
 import ru.rich.webparser.core.configuration.model.Configuration
 import ru.rich.webparser.core.configuration.model.ListPage
-import ru.rich.webparser.core.configuration.model.ListResourcePage
 import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.ResourcePage
 import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.transform.collector.Collector
 
 /**
- * Трансформация страниц типа {@link ListResourcePage}
+ * Трансформация страниц типа {@link ListPage}
  */
 @Service
 @CompileStatic
 @Slf4j
-class ListPageTransformer implements PageTransformer<ListPage>, PageExtractor<ListPage> {
+class ListPageProcessor implements PageTransformer<ListPage>, PageExtractor<ListPage> {
 
     @Autowired
     InterpolationHelper interpolationHelper
@@ -42,13 +41,17 @@ class ListPageTransformer implements PageTransformer<ListPage>, PageExtractor<Li
         int index = 0
         for (String url in c.getValuesList(p.urlListName).values) {
 
-            p.subPages.each { ResourcePage page ->
+            def final sc = new Collector("c_${p.name}_sub_$index")
+
+            for (ResourcePage page in p.subPages) {
                 page = page.copy()
                 page.name += "_sub_$index"
 
                 interpolationHelper.interpolateFunctions(page, new FunctionContext(c, index))
-                etlService.extractAndTransform(conf, page, c)
+                etlService.extractAndTransform(conf, page, sc)
             }
+            c.putCollectors(sc.collectors)
+
             index++
         }
     }

@@ -109,6 +109,10 @@ class Collector implements Collectable {
         collectors << c
     }
 
+    def putCollectors(List<Collector> collectors) {
+        this.collectors.addAll(collectors)
+    }
+
     void checkOnFinish() {
         values.each { it.checkOnFinish() }
         lists.each { it.checkOnFinish() }

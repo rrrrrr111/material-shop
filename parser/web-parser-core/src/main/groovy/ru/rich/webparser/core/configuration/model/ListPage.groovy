@@ -4,17 +4,16 @@ import com.google.common.base.MoreObjects
 import groovy.transform.CompileStatic
 
 /**
- * Старница для загрузки по указанному списку URL
+ * Старница для загрузки по указанному списку URL,
+ *
+ * Переданный список URL кладется в лист коллектора, коллектор передается
+ * дочерним стриницам в цикле по списку URL
  */
 @CompileStatic
-class ListPage implements Page {
+class ListPage implements Page, WithSubPages {
 
+    String name = "ListPage"
     List<String> urls = []
-    /**
-     * Имя листа со списком URL
-     */
-    String urlListName
-    List<ResourcePage> subPages = []
 
     @Override
     String toString() {

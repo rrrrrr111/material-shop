@@ -62,8 +62,10 @@ class SearchService {
         def final searchedRules = regions.findAll { it.type.isRule }
         def final foundRules = result.keySet()
         if (!foundRules.containsAll(searchedRules)) {
+            def notFound = CollectionUtils.subtract(searchedRules, foundRules)
+                    .collect { ((SearchableRule) it).name }
             log.warn "Searched ${searchedRules.size()} sequence regions, " +
-                    "but not found: ${CollectionUtils.subtract(searchedRules, foundRules)}"
+                    "but ${notFound.size()} not found: ${notFound}"
         }
         result
     }

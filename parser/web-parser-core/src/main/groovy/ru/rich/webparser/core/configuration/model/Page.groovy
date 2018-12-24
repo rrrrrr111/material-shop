@@ -8,4 +8,6 @@ import groovy.transform.CompileStatic
  */
 @CompileStatic
 interface Page {
+
+    String getName()
 }

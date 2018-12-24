@@ -9,9 +9,7 @@ import ru.rich.webparser.core.configuration.model.Page
 import ru.rich.webparser.core.configuration.model.ResourcePage
 import ru.rich.webparser.core.configuration.template.SearchableRule
 import ru.rich.webparser.core.configuration.template.SequentialString
-import ru.rich.webparser.core.extract.PageExtractor
 import ru.rich.webparser.core.transform.collector.Collector
-import ru.rich.webparser.core.transform.collector.CollectorService
 import ru.rich.webparser.core.transform.parser.SearchService
 
 /**
@@ -23,14 +21,10 @@ import ru.rich.webparser.core.transform.parser.SearchService
 class ResourcePageTransformer implements PageTransformer<ResourcePage> {
 
     @Autowired
-    CollectorService collectorService
-    @Autowired
-    PageExtractor pageLoader
-    @Autowired
     SearchService searchService
 
     void transform(Configuration conf, ResourcePage p, Collector c, char[] text) {
-        log.info "Transforming page: $p, collector ${c.name} used"
+        log.info "Transforming page: ${p.name}, collector: ${c.name} used"
 
         def foundRegions = searchService.searchSequenceRegions(text, p.pageTemplate.sequenceRegions)
         foundRegions.putAll(searchService.searchPlurals(text, foundRegions))

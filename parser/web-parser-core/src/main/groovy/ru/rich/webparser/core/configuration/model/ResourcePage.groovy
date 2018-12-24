@@ -1,7 +1,6 @@
 package ru.rich.webparser.core.configuration.model
 
 import groovy.transform.CompileStatic
-import ru.rich.webparser.core.configuration.template.PageTemplate
 
 import static com.google.common.base.MoreObjects.toStringHelper
 
@@ -9,16 +8,14 @@ import static com.google.common.base.MoreObjects.toStringHelper
  * Страница с загружаемыми с помощью URL данными
  */
 @CompileStatic
-class ResourcePage implements Page {
+class ResourcePage implements Page, WithTemplate {
 
     String url
-    String templateFileName
+    private String name
+
     boolean dropRowToDisk
     boolean printNormalisedToLog
     boolean dropNormalisedToDisk
-
-    private String name
-    PageTemplate pageTemplate
 
     ResourcePage() {
     }
@@ -36,6 +33,7 @@ class ResourcePage implements Page {
         this.name = name
     }
 
+    @Override
     String getName() {
         if (!name) {
             name = templateFileName.substring(0, templateFileName.indexOf('.'))

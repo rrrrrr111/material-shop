@@ -167,7 +167,7 @@ class HttpClientSupport {
     private <T> T execute(ReadingResponseCallback<T> callback,
                           HttpUriRequest req) throws IOException {
         HttpResponse response = httpClient.execute(req)
-        validateResponse(response)
+        validateResponse(response, req)
         InputStream is = getResponseInputStream(response)
         return callback.read(is)
     }
@@ -187,22 +187,27 @@ class HttpClientSupport {
 
     private boolean isNotRecoverable(IOException e) {
         if (findExceptionOfType(e, SocketException.class) != null) {
+            log.warn "SocketException qualified as not recoverable: ${getAllErrorMessage(e)}"
             return false  // ошибка TCP соединения
         }
         NoHttpResponseException exception = findExceptionOfType(e, NoHttpResponseException.class)
-        return exception == null || !contains(exception.getMessage(), "500")
+        def recoverable = exception == null || !contains(exception.getMessage(), "500")
+        if (!recoverable) {
+            log.warn "NoHttpResponseException qualified as not recoverable: ${getAllErrorMessage(e)}"
+        }
+        return recoverable
     }
 
     private boolean allRecoveryAttemptsTried(int i) {
         return tryCount <= i
     }
 
-    private static void validateResponse(HttpResponse response) throws IOException {
+    private static void validateResponse(HttpResponse response, HttpUriRequest req) throws IOException {
 
         StatusLine status = response.getStatusLine()
         if (status.getStatusCode() >= 300) {
             throw new NoHttpResponseException("Did not receive successful HTTP response: status code = " + status.getStatusCode() +
-                    ", status message = [" + status.getReasonPhrase() + "]")
+                    ", status message = [" + status.getReasonPhrase() + "], url: " + req.URI)
         }
     }
 

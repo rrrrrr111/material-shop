@@ -38,7 +38,7 @@ class ResourcePageExtractor implements PageExtractor<ResourcePage> {
 
     @Override
     char[] extract(Configuration conf, ResourcePage p, Collector c) {
-        log.info "Extracting page: $p"
+        log.info "Extracting page: ${p.name}, url: ${p.url}"
 
         interpolationHelper.interpolateFunctions(p, new FunctionContext(c))
 

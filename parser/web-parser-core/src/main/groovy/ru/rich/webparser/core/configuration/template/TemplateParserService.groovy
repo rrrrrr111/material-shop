@@ -8,8 +8,9 @@ import org.apache.commons.io.FilenameUtils
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.mutable.MutableInt
 import org.springframework.stereotype.Service
-import ru.rich.webparser.core.configuration.model.ListResourcePage
 import ru.rich.webparser.core.configuration.model.ResourcePage
+import ru.rich.webparser.core.configuration.model.WithSubPages
+import ru.rich.webparser.core.configuration.model.WithTemplate
 
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
@@ -27,22 +28,18 @@ class TemplateParserService {
     void prepareTemplates(String dir, List<ResourcePage> pages) {
 
         pages.each { p ->
-            switch (p) {
-                case { it instanceof ListResourcePage }:
-                    loadListingPageTemplate(dir, (ListResourcePage) p)
-                    break
-                default:
-                    loadSimplePageTemplate(dir, p)
+
+            if (p instanceof WithSubPages) {
+                prepareTemplates(dir, ((WithSubPages) p).subPages)
+            }
+            if (p instanceof WithTemplate) {
+                prepareTemplate(dir, (WithTemplate) p)
             }
         }
     }
 
-    private void loadListingPageTemplate(String dir, ListResourcePage listingPage) {
-        loadSimplePageTemplate(dir, listingPage)
-        prepareTemplates(dir, listingPage.subPages)
-    }
 
-    private void loadSimplePageTemplate(String dir, ResourcePage page) {
+    private void prepareTemplate(String dir, WithTemplate page) {
         String templateSource = loadTemplateSource(dir, page.templateFileName)
         page.pageTemplate = parseTemplate(page.templateFileName, templateSource)
     }
