@@ -37,9 +37,11 @@ class ListResourcePageTransformer implements PageTransformer<ListResourcePage> {
         c.getValuesList(p.urlListName).values.eachWithIndex {
             String url, int index ->
                 if (p.limit && index >= p.limit) {
+                    log.warn "Loading interrupted by limit ${p.limit}"
                     return
                 }
-                def sc = new Collector("c_${p.name}_sub_$index")
+
+                def final sc = new Collector("c_${p.name}_sub_$index")
                 c.putCollector(sc)
 
                 p.subPages.each { ResourcePage page ->

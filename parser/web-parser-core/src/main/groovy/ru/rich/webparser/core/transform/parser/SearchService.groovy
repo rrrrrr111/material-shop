@@ -4,6 +4,7 @@ import com.google.common.collect.LinkedListMultimap
 import com.google.common.collect.ListMultimap
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import org.apache.commons.collections4.CollectionUtils
 import org.springframework.stereotype.Service
 import ru.rich.matshop.util.SearchArrayUtil
 import ru.rich.webparser.core.configuration.template.SearchableRegion
@@ -58,8 +59,11 @@ class SearchService {
                 }
             }
         }
-        if (regions.size() > result.size()) {
-            log.warn "Searched ${regions.size()} sequence regions, but found ${result.size()}"
+        def final searchedRules = regions.findAll { it.type.isRule }
+        def final foundRules = result.keySet()
+        if (!foundRules.containsAll(searchedRules)) {
+            log.warn "Searched ${searchedRules.size()} sequence regions, " +
+                    "but not found: ${CollectionUtils.subtract(searchedRules, foundRules)}"
         }
         result
     }

@@ -51,8 +51,6 @@ class TemplateParserService {
     PageTemplate parseTemplate(String templateFileName, String templateStr) {
 
         String[] regions = templateStr.split(/\s*[.][.][.]\s*/)
-        log.info "Parsing template ${templateFileName}, ${regions.length} regions found"
-
         def counter = new MutableInt()
         def tpl = new PageTemplate()
 
@@ -64,6 +62,7 @@ class TemplateParserService {
                 log.info "String region found in template ${tpl.sequenceRegions.last()}"
             }
         }
+        log.info "Parsing template ${templateFileName}, ${tpl.sequenceRegions.size()} sequence regions found"
         tpl
     }
 
