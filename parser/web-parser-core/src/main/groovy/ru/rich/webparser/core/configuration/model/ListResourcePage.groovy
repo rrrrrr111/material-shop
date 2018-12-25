@@ -38,7 +38,7 @@ class ListResourcePage extends ResourcePage implements WithSubPages {
                 .add("dropRowToDisk", dropRowToDisk)
                 .add("printNormalisedToLog", printNormalisedToLog)
                 .add("dropNormalisedToDisk", dropNormalisedToDisk)
-                .add("subPages.size", subPages.size())
+                .add("subPages", subPages)
                 .add("urlListName", urlListName)
                 .toString()
     }

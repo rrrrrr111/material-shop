@@ -56,10 +56,13 @@ class TemplateParserService {
                 tpl.sequenceRegions.addAll(extractRules(region, counter))
             } else if (StringUtils.isNotBlank(region)) {
                 tpl.sequenceRegions << new SequentialString(counter.incrementAndGet(), region)
-                log.info "String region found in template ${tpl.sequenceRegions.last()}"
+                log.trace "String region found in template ${tpl.sequenceRegions.last()}"
             }
         }
-        log.info "Parsing template ${templateFileName}, ${tpl.sequenceRegions.size()} sequence regions found"
+        def rules = tpl.sequenceRegions
+                .findAll { it.type.isRule }
+                .collect { ((SearchableRule) it).name } as Set
+        log.info "Parsing template ${templateFileName}, ${rules.size()} sequence rules found: $rules"
         tpl
     }
 
@@ -113,7 +116,7 @@ class TemplateParserService {
             }
         }
         rules << new SearchableRule(counter.incrementAndGet(), type, name, textBefore, textAfter, flags)
-        log.info "Rule region found in template ${rules.last()}"
+        log.trace "Rule region found in template ${rules.last()}"
 
         rules
     }

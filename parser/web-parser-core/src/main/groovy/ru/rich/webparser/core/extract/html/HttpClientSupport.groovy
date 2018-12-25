@@ -2,22 +2,26 @@ package ru.rich.webparser.core.extract.html
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import groovy.util.logging.Slf4j
 import org.apache.http.Header
 import org.apache.http.HttpResponse
 import org.apache.http.NoHttpResponseException
 import org.apache.http.StatusLine
 import org.apache.http.client.HttpClient
+import org.apache.http.client.config.CookieSpecs
+import org.apache.http.client.config.RequestConfig
 import org.apache.http.client.methods.Configurable
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.client.methods.HttpRequestBase
 import org.apache.http.client.methods.HttpUriRequest
+import org.apache.http.config.Lookup
+import org.apache.http.config.RegistryBuilder
 import org.apache.http.config.SocketConfig
+import org.apache.http.cookie.CookieSpecProvider
 import org.apache.http.entity.ByteArrayEntity
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -36,8 +40,8 @@ import static ru.rich.matshop.util.ExceptionUtil.getAllErrorMessage
 @Service
 @CompileStatic
 @PackageScope
+@Slf4j
 class HttpClientSupport {
-    private static final Logger log = LoggerFactory.getLogger(HttpClientSupport.class)
 
     private static final String HTTP_HEADER_ACCEPT_LANGUAGE = "Accept-Language"
     private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding"
@@ -45,6 +49,7 @@ class HttpClientSupport {
     private static final String HTTP_HEADER_USER_AGENT_NAME = "User-Agent"
     private static final String HTTP_HEADER_USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
     private static final String ENCODING_GZIP = "gzip"
+    private static final String COOKIE_SPEC_KEY = "custom_cookie_spec"
 
     @Value('${webParser.httpClient.maxConnectionCount:100}')
     private Integer maxConnectionCount
@@ -97,7 +102,7 @@ class HttpClientSupport {
 
     private HttpClient prepareHttpClient() {
 
-        SocketConfig config = SocketConfig.custom()
+        def config = SocketConfig.custom()
                 .setBacklogSize(backlogSize)
                 .setRcvBufSize(rcvBufSize)
                 .setSndBufSize(sndBufSize)
@@ -107,14 +112,26 @@ class HttpClientSupport {
                 .setSoTimeout(soTimeout)
                 .setTcpNoDelay(tcpNoDelay)
                 .build()
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager()
+        def cm = new PoolingHttpClientConnectionManager()
         cm.setDefaultSocketConfig(config)
         cm.setValidateAfterInactivity(validateStaleConnectionAfterInactivityInMs)
         cm.setMaxTotal(maxConnectionCount)
         cm.setDefaultMaxPerRoute(maxConnectionCount)
 
+        def registry = RegistryBuilder.create()
+                .register(COOKIE_SPEC_KEY, new CustomCookieSpecProvider()).build() as Lookup<CookieSpecProvider>
+
+        def requestConfig = RequestConfig.custom()
+                .setCookieSpec(CookieSpecs.BEST_MATCH)
+                .build()
+
+        def store = ThreadLocalCookieStore.getInstance()
+
         return HttpClients.custom()
                 .setConnectionManager(cm)
+                .setDefaultCookieSpecRegistry(registry)
+                .setDefaultCookieStore(store)
+                .setDefaultRequestConfig(requestConfig)
                 .build()
     }
 
@@ -230,7 +247,7 @@ class HttpClientSupport {
     /**
      * Колбек для чтения данных из потока ответа на HTTP запрос
      *
-     * @param < T >     - читаемый тип
+     * @param < T >         - читаемый тип
      */
     interface ReadingResponseCallback<T> {
         T read(InputStream response)

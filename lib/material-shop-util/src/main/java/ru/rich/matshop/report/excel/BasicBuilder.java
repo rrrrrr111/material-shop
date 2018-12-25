@@ -191,6 +191,13 @@ public interface BasicBuilder<T extends BasicBuilder> {
     T setNumberFormat(String numberFormat);
 
     /**
+     * Установка высоты строки
+     *
+     * Set the row's height or set to ff (-1) for undefined/default-height. Set the height in "twips" or 1/20th of a point.
+     */
+    T setRowHeight(short height);
+
+    /**
      * Возвращает текущий номер строки
      */
     int getRowNum();

@@ -114,6 +114,12 @@ abstract class AbstractExcelBuilder<T extends BasicBuilder> implements BasicBuil
     }
 
     @Override
+    public T setRowHeight(short height) {
+        sheetWrapper.setRowHeight(rowNum, height);
+        return (T) this;
+    }
+
+    @Override
     public int getRowNum() {
         return rowNum;
     }

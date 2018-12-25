@@ -29,15 +29,15 @@ configuration {
             new ListPage(
                     urls: [
                             "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0",
+                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=1",
+                            //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=2",
+                            //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=3",
+                            //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=4",
                             //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=5",
                             //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=6",
-//                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=4",
-                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=5",
-//                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=6",
-                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=7",
-//                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=8",
-//                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=9",
-//                            "https://market.yandex.ru/catalog--detskie-koliaski/55070/list?hid=90796&track=pieces&page=2&onstock=1&local-offers-first=10",
+                            //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=7",
+                            //"https://market.yandex.ru/catalog--detskie-koliaski/55070/list?onstock=1&local-offers-first=0&page=8",
+
                     ],
                     urlListName: "searchUrls",
                     subPages: [
@@ -45,11 +45,13 @@ configuration {
                                     url: "@@list(searchUrls, index)",
                                     templateFileName: "list_res_page0.template",
                                     urlListName: "urls",
+                                    dropNormalisedToDisk: true,
                                     limit: 3,
                                     subPages: [
                                             new ResourcePage(
                                                     url: "@@TO_ABSOLUTE_URL(@@list(urls, index), @@val(url))",
                                                     templateFileName: "page1.template",
+                                                    dropNormalisedToDisk: true,
                                             ),
                                             new ResourcePage(
                                                     url: """
@@ -60,7 +62,7 @@ configuration {
                                             )
                                             """,
                                                     templateFileName: "page2.template",
-                                                    dropNormalisedToDisk: false
+                                                    dropNormalisedToDisk: true
                                             )
                                     ]
                             )

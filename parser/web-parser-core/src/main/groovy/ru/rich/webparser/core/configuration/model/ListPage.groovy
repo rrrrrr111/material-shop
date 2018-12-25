@@ -18,8 +18,10 @@ class ListPage implements Page, WithSubPages {
     @Override
     String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("name", name)
                 .add("urls", urls)
                 .add("subPages", subPages)
+                .add("urlListName", urlListName)
                 .toString()
     }
 }

@@ -125,6 +125,10 @@ class PoiSheetWrapper {
         }
     }
 
+    void setRowHeight(int rowNum, short height) {
+        sheet.getRow(rowNum).setHeight(height);
+    }
+
     void clearRow(int rowNum) {
         row = sheet.getRow(rowNum);
         if (row != null) {

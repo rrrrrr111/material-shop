@@ -11,9 +11,6 @@
     <!-- Парсинг -->
     <logger name="ru.rich.webparser.core.transform" level="DEBUG"/>
 
-    <!-- Убираем варнинг Invalid cookie header: "Set-Cookie: visits ... -->
-    <logger name="org.apache.http.client.protocol.ResponseProcessCookies" level="ERROR"/>
-
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
