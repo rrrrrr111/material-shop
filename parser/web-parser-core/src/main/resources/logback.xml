@@ -10,6 +10,7 @@
     <logger name="ru.rich.webparser" level="TRACE"/>
     <!-- Парсинг -->
     <logger name="ru.rich.webparser.core.transform" level="DEBUG"/>
+    <logger name="ru.rich.webparser.core.extract" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

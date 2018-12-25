@@ -14,6 +14,8 @@ import org.apache.http.impl.cookie.DefaultCookieSpec
 @CompileStatic
 class CustomCookieSpec extends DefaultCookieSpec {
 
+    static final String COOKIE_SPEC_KEY = "custom_cookie_spec"
+
     @Override
     void validate(final Cookie cookie, final CookieOrigin origin) {
         try {
@@ -25,6 +27,6 @@ class CustomCookieSpec extends DefaultCookieSpec {
 
     @Override
     String toString() {
-        return "custom"
+        return COOKIE_SPEC_KEY
     }
 }

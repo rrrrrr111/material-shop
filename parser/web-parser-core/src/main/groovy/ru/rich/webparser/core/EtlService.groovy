@@ -21,11 +21,11 @@ import ru.rich.webparser.core.transform.collector.Collector
 @Slf4j
 class EtlService {
     @Autowired
-    List<PageExtractor<? extends Page>> extractors
+    private List<PageExtractor<? extends Page>> extractors
     @Autowired
-    List<PageTransformer<? extends Page>> transformers
+    private List<PageTransformer<? extends Page>> transformers
     @Autowired
-    List<CollectorLoader> loaders
+    private List<CollectorLoader> loaders
 
     Collector process(Configuration conf) {
 
@@ -55,29 +55,29 @@ class EtlService {
     }
 
     private <P extends Page> PageExtractor<P> getExtractor(P page) {
-        for (PageExtractor<? extends Page> extractor in extractors) {
-            if (extractor.isApplicable(page)) {
-                return (PageExtractor<P>) extractor
-            }
-        }
-        throw new IllegalStateException("Unknown page type: $page, extractor not found")
+        def res = extractors.findAll { it.isApplicable(page) }
+
+        assert res.size() < 2: "Multiple extractors: $res found for $page"
+        assert !res.isEmpty(): "No extractors found for $page among: $extractors"
+
+        (PageExtractor<P>) res[0]
     }
 
-    private <P extends Page> PageTransformer getTransformer(P page) {
-        for (PageTransformer<? extends Page> transformer in transformers) {
-            if (transformer.isApplicable(page)) {
-                return (PageTransformer<P>) transformer
-            }
-        }
-        throw new IllegalStateException("Unknown page type: $page, transformer not found")
+    private <P extends Page> PageTransformer<P> getTransformer(P page) {
+        def res = transformers.findAll { it.isApplicable(page) }
+
+        assert res.size() < 2: "Multiple transformers: $res found for $page"
+        assert !res.isEmpty(): "No transformers found for $page among: $transformers"
+
+        (PageTransformer<P>) res[0]
     }
 
     private CollectorLoader getLoader(LoaderConf loaderConf) {
-        for (CollectorLoader loader in loaders) {
-            if (loader.isApplicable(loaderConf)) {
-                return loader
-            }
-        }
-        throw new IllegalStateException("Unknown loader config: $loaderConf, loader not found")
+        def res = loaders.findAll { it.isApplicable(loaderConf) }
+
+        assert res.size() < 2: "Multiple loaders: $res found for $loaderConf"
+        assert !res.isEmpty(): "No loaders found for $loaderConf among: $loaders"
+
+        res[0]
     }
 }

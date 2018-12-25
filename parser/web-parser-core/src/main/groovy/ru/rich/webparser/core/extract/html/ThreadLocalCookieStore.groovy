@@ -27,35 +27,43 @@ class ThreadLocalCookieStore implements Closeable, CookieStore, Serializable {
 
     @Override
     List<Cookie> getCookies() {
-        List<Cookie> cookieList = cookieStore.get()
-        if (cookieList == null) {
+        def list = cookieStore.get()
+        if (list == null) {
             return Collections.emptyList()
         }
-        return cookieList
+        return list
     }
 
     @Override
     void addCookie(Cookie cookie) {
-        List<Cookie> cookieList = cookieStore.get()
-        if (cookieList == null) {
-            cookieList = new ArrayList<>()
-            cookieStore.set(cookieList)
+        def list = cookieStore.get()
+        if (list == null) {
+            list = []
+            cookieStore.set(list)
         }
         log.trace("Add cookie: {}", cookie)
-        cookieList.add(cookie)
+        list.add(cookie)
     }
 
     @Override
     void close() throws IOException {
-        cookieStore.remove()
+        clear()
     }
 
     @Override
     boolean clearExpired(Date date) {
+        def list = cookieStore.get()
+        for (int i = list.size() - 1; i > -1; i--) {
+            if (list[i].isExpired(date)) {
+                def c = list.remove(i)
+                log.trace("Removing expired cookie: {}", c)
+            }
+        }
         return false
     }
 
     @Override
     void clear() {
+        cookieStore.remove()
     }
 }
