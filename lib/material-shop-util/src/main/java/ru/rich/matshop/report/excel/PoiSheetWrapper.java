@@ -74,7 +74,7 @@ class PoiSheetWrapper {
         }
     }
 
-    private Cell getCell(int rowNum, int cellNum) {
+    Cell getCell(int rowNum, int cellNum) {
         return getRow(rowNum).getCell(cellNum, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
     }
 

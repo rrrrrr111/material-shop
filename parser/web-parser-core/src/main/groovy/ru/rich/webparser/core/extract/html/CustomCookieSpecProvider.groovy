@@ -1,12 +1,14 @@
 package ru.rich.webparser.core.extract.html
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import org.apache.http.impl.cookie.DefaultCookieSpecProvider
 import org.apache.http.protocol.HttpContext
 
 /**
  * Провайдер спецификации cookie
  */
+@PackageScope
 @CompileStatic
 class CustomCookieSpecProvider extends DefaultCookieSpecProvider {
 

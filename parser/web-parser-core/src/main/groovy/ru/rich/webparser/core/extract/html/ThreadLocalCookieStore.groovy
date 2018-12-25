@@ -1,6 +1,7 @@
 package ru.rich.webparser.core.extract.html
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import org.apache.http.client.CookieStore
 import org.apache.http.cookie.Cookie
@@ -9,6 +10,7 @@ import org.apache.http.cookie.Cookie
  * Хранилище cookie. Используется ThreadLocal.
  */
 @CompileStatic
+@PackageScope
 @Slf4j
 class ThreadLocalCookieStore implements Closeable, CookieStore, Serializable {
     private static final long serialVersionUID = 1L

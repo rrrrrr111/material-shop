@@ -123,4 +123,9 @@ public interface ExcelBuilder extends BasicBuilder<ExcelBuilder> {
      * объединение удаляется.
      */
     ExcelBuilder deleteRow();
+
+    /**
+     * Возвращает {@link ExcelReader} для текущего шаблона
+     */
+    ExcelReader getReader();
 }

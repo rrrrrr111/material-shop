@@ -43,12 +43,12 @@ import static ru.rich.matshop.util.ExceptionUtil.getAllErrorMessage
 @Slf4j
 class HttpClientSupport {
 
-    private static final String HTTP_HEADER_ACCEPT_LANGUAGE = "Accept-Language"
-    private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding"
-    private static final String HTTP_HEADER_CONTENT_ENCODING = "Content-Encoding"
-    private static final String HTTP_HEADER_USER_AGENT_NAME = "User-Agent"
-    private static final String HTTP_HEADER_USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
-    private static final String ENCODING_GZIP = "gzip"
+    private static final String HEADER_NAME_ACCEPT_LANGUAGE = "Accept-Language"
+    private static final String HEADER_NAME_ACCEPT_ENCODING = "Accept-Encoding"
+    private static final String HEADER_NAME_CONTENT_ENCODING = "Content-Encoding"
+    private static final String HEADER_VALUE_ENCODING_GZIP = "gzip"
+    private static final String HEADER_NAME_USER_AGENT = "User-Agent"
+    private static final String HEADER_VALUE_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
     private static final String COOKIE_SPEC_KEY = "custom_cookie_spec"
 
     @Value('${webParser.httpClient.maxConnectionCount:100}')
@@ -192,15 +192,15 @@ class HttpClientSupport {
     }
 
     private <T extends HttpRequestBase> T prepareMethod(T method) {
-        method.addHeader(HTTP_HEADER_USER_AGENT_NAME, HTTP_HEADER_USER_AGENT_VALUE)
+        method.addHeader(HEADER_NAME_USER_AGENT, HEADER_VALUE_USER_AGENT)
         if (httpClient instanceof Configurable) {
             method.setConfig(((Configurable) httpClient).getConfig())
         }
         if (locale != null) {
-            method.addHeader(HTTP_HEADER_ACCEPT_LANGUAGE, locale.toLanguageTag())
+            method.addHeader(HEADER_NAME_ACCEPT_LANGUAGE, locale.toLanguageTag())
         }
         if (acceptGzipEncoding) {
-            method.addHeader(HTTP_HEADER_ACCEPT_ENCODING, ENCODING_GZIP)
+            method.addHeader(HEADER_NAME_ACCEPT_ENCODING, HEADER_VALUE_ENCODING_GZIP)
         }
         return method
     }
@@ -239,9 +239,9 @@ class HttpClientSupport {
     }
 
     private static boolean isGzipResponse(HttpResponse httpResponse) {
-        Header encodingHeader = httpResponse.getFirstHeader(HTTP_HEADER_CONTENT_ENCODING)
+        Header encodingHeader = httpResponse.getFirstHeader(HEADER_NAME_CONTENT_ENCODING)
         return encodingHeader != null && encodingHeader.getValue() != null &&
-                encodingHeader.getValue().toLowerCase().contains(ENCODING_GZIP)
+                encodingHeader.getValue().toLowerCase().contains(HEADER_VALUE_ENCODING_GZIP)
     }
 
     /**

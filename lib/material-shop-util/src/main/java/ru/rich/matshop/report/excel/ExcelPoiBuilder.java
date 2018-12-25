@@ -21,6 +21,8 @@ import java.util.Date;
 class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements ExcelBuilder {
     private static final Logger log = LoggerFactory.getLogger(ExcelPoiBuilder.class);
 
+    private ExcelReader reader;
+
     public ExcelPoiBuilder(InputStream template, PropertyPlaceholderHelper placeholderHelper) {
         try {
             Workbook wb = WorkbookFactory.create(template);
@@ -35,7 +37,7 @@ class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements Exce
     }
 
     @Override
-    public ExcelPoiBuilder setCell(int rowNum, int cellNum, String value) {
+    public ExcelBuilder setCell(int rowNum, int cellNum, String value) {
         this.rowNum = rowNum;
         this.cellNum = cellNum;
         sheetWrapper.setCell(rowNum, cellNum, value, null);
@@ -43,7 +45,7 @@ class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements Exce
     }
 
     @Override
-    public ExcelPoiBuilder setCell(int rowNum, int cellNum, Date value, String format) {
+    public ExcelBuilder setCell(int rowNum, int cellNum, Date value, String format) {
         this.rowNum = rowNum;
         this.cellNum = cellNum;
         sheetWrapper.setCell(rowNum, cellNum, value, format, null);
@@ -51,7 +53,7 @@ class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements Exce
     }
 
     @Override
-    public ExcelPoiBuilder setCell(int rowNum, int cellNum, BigDecimal value, String format) {
+    public ExcelBuilder setCell(int rowNum, int cellNum, BigDecimal value, String format) {
         this.rowNum = rowNum;
         this.cellNum = cellNum;
         sheetWrapper.setCell(rowNum, cellNum, value, format, null);
@@ -139,5 +141,13 @@ class ExcelPoiBuilder extends AbstractExcelBuilder<ExcelBuilder> implements Exce
     @Override
     public ExcelBuilder deleteRow() {
         return deleteRow(rowNum);
+    }
+
+    @Override
+    public ExcelReader getReader() {
+        if (reader == null) {
+            reader = new ExcelPoiReader(this);
+        }
+        return reader;
     }
 }
