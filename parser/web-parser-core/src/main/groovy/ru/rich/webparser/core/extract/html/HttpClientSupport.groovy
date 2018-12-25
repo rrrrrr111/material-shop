@@ -117,11 +117,11 @@ class HttpClientSupport {
         cm.setMaxTotal(maxConnectionCount)
         cm.setDefaultMaxPerRoute(maxConnectionCount)
 
-        def registry = CookieSpecRegistries.createDefaultBuilder()
+        def csr = CookieSpecRegistries.createDefaultBuilder()
                 .register(CustomCookieSpec.COOKIE_SPEC_KEY, new CustomCookieSpecProvider())
                 .build() as Lookup<CookieSpecProvider>
 
-        def requestConfig = RequestConfig.custom()
+        def cr = RequestConfig.custom()
                 .setCookieSpec(CookieSpecs.STANDARD)
                 .build()
 
@@ -129,9 +129,9 @@ class HttpClientSupport {
 
         return HttpClients.custom()
                 .setConnectionManager(cm)
-                .setDefaultCookieSpecRegistry(registry)
+                .setDefaultCookieSpecRegistry(csr)
                 .setDefaultCookieStore(store)
-                .setDefaultRequestConfig(requestConfig)
+                .setDefaultRequestConfig(cr)
                 .build()
     }
 

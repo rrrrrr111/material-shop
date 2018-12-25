@@ -6,6 +6,7 @@ ext { // общие переменные
     springBootVersion = '2.1.0.RELEASE'
     jooqVersion = '3.11.7'
     postgreDriverVersion = '42.2.2'
+    xstreamVersion = '1.2.2'
 }
 
 subprojects { // применяется ко всем дочерним проектам, к себе нет
