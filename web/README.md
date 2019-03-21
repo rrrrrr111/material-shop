@@ -8,10 +8,12 @@
 
 #### Structure
     `public` - a folder with static resources accessible via a relative URL from app, it is not processed by Webpack while compilation, it is not recommended to put application resources into it. It is accessible from the application via %PUBLIC_URL% in html and process.env.PUBLIC_URL in JS
+    
     `src` - for development, processed by Webpack for JS and CSS
 
 #### Useful commands
-Executed in `/web/` folder
+  Executed in `/web/` folder
+  
     `npm i` - package installation
     
     `npm run start --verbose` - launch in development mode via react-scripts, see the scripts in package.json, open `http://localhost:3000`
@@ -27,9 +29,13 @@ Executed in `/web/` folder
 #### Troubleshooting
     - SCSS files are converted to CSS only when npm is restarted, but online when changes are made, changes are picked up
       even without reloading the page
+      
     - variables from .env are picked up from only when npm is restarted
+    
     - reinstall all packages, crash npm-cache in `%USERPROFILE%\AppData\Roaming\npm` and in the project `\node_modules` folder
+    
     - If npm does not start, install the current version of NodeJS, clear the caches `npm cache clean --force`
+    
     - If there are cyclic dependencies between functions, with the application stratum Object (...) is not a function
 
 #### Used
