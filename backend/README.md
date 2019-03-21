@@ -1,11 +1,11 @@
 ## Initial Setup
 1. Install
-- Gradle 4.10+
-- JDK 11+
-- IntelliJ IDEA 2018.2+ or other IDE with Java support
+-  Gradle 4.10+
+-  JDK 11+
+-  IntelliJ IDEA 2018.2+ or other IDE with Java support
 3. In the settings of IntelliJ IDEA
-- Code Style -> Java remove the splitting import to the asterisk
-- Editor -> File Encodings -> Default encoding for properties files set UTF-8
+-  Code Style -> Java remove the splitting import to the asterisk
+-  Editor -> File Encodings -> Default encoding for properties files set UTF-8
 
 ## CLI Commands
 * To launch the backend application, need to add starting configuration for the `ru.rich.matshop.webapi.Start` class,
