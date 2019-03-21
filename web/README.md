@@ -1,4 +1,4 @@
-#### First setup
+## First setup
 1. Install
 * Node.js,
 * IntelliJ IDEA or other IDE supporting JavaScript, CSS, JSX
@@ -6,12 +6,12 @@
 3. In IDEA settings, enable direct imports for javascript
 4. Run `npm i` in the `/web/` folder
 
-#### Structure
+## Structure
     `public` - a folder with static resources accessible via a relative URL from app, it is not processed by Webpack while compilation, it is not recommended to put application resources into it. It is accessible from the application via %PUBLIC_URL% in html and process.env.PUBLIC_URL in JS
     
     `src` - for development, processed by Webpack for JS and CSS
 
-#### Useful commands
+## Useful commands
   Executed in `/web/` folder
   
     `npm i` - package installation
@@ -26,7 +26,7 @@
     
     `npm run build` - build distibution/production package
 
-#### Troubleshooting
+## Troubleshooting
     - SCSS files are converted to CSS only when npm is restarted, but online when changes are made, changes are picked up
       even without reloading the page
       
@@ -38,7 +38,7 @@
     
     - If there are cyclic dependencies between functions, with the application stratum Object (...) is not a function
 
-#### Used
+## Dependencies used
 * [HTML, CSS, JavaScript] (http://htmlbook.ru/css/cat/text)
 * [React.js] (https://reactjs.org/docs)
 * [react-router] (https://reacttraining.com/react-router/web/guides/philosophy)
