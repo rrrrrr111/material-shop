@@ -1,15 +1,15 @@
-#### Initial setup
+## Initial Setup
 1. Install
--     Gradle 4.10+
--     JDK 11+
--     IntelliJ IDEA 2018.2+ or other IDE for working with Java
+- Gradle 4.10+
+- JDK 11+
+- IntelliJ IDEA 2018.2+ or other IDE with Java support
 3. In the settings of IntelliJ IDEA
--     Code Style -> Java remove the splitting import to the asterisk
--     Editor -> File Encodings -> Default encoding for properties files set UTF-8
+- Code Style -> Java remove the splitting import to the asterisk
+- Editor -> File Encodings -> Default encoding for properties files set UTF-8
 
-#### Teams
-* To launch the backend application, we are doing a startup configuration of the `ru.rich.matshop.webapi.Start` class,
-       passing parameters
+## CLI Commands
+* To launch the backend application, need to add starting configuration for the `ru.rich.matshop.webapi.Start` class,
+    passing parameters
        - Program arguments
 
             --spring.config.location = file: /// C: / .. ../material-shop/conf/local/application.properties
@@ -20,10 +20,10 @@
 * `gradle -i --stacktrace flywayMigrate` - Nakat \ dok SQL skrpt on DB
 * `gradle -i --stacktrace jooqGenerate` - JOOQ class generation
 
-#### Troubleshooting
-- Jooq-generated entities (Record) are not put into ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...)
+## Troubleshooting
+- Jooq-generated entities (Record) are not put into ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...) 
 
-#### Used
+## Used
 * [Java] (https://www.oracle.com/technetwork/java/javase/loads/index.html)
 * [Gradle] (https://docs.gradle.org/current/userguide)
 * [Spring Boot] (https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle)
