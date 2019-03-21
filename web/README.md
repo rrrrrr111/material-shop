@@ -13,10 +13,15 @@
 #### Useful commands
 Executed in `/web/` folder
     `npm i` - package installation
+    
     `npm run start --verbose` - launch in development mode via react-scripts, see the scripts in package.json, open `http://localhost:3000`
+    
     `npm run start-wp --verbose` - (not relevant) start in development mode via webpack, open `http://localhost:3000`
+    
     `node server.js` - start the server part (Backend)
+    
     `npm test` - run tests
+    
     `npm run build` - build distibution/production package
 
 #### Troubleshooting
