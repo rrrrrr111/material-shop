@@ -9,10 +9,9 @@
 
 ## CLI Commands
 * To launch the backend application, need to add starting configuration for the `ru.rich.matshop.webapi.Start` class,
-    passing parameters
-       - Program arguments
-
-            --spring.config.location = file: /// C: / .. ../material-shop/conf/local/application.properties
+    passing parameters  
+       - Program arguments  
+            --spring.config.location = file: /// C: / .. ../material-shop/conf/local/application.properties  
 
 * `Ctrl + F9` - When running the application with spring-boot-devtools, the build in IDEA restarts the application
 * `gradle -i --stacktrace clean build` - Backend build
@@ -21,7 +20,7 @@
 * `gradle -i --stacktrace jooqGenerate` - JOOQ class generation
 
 ## Troubleshooting
-- Jooq-generated entities (Record) are not put into ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...) 
+- Do not put Jooq-generated entities (Records) into ehcache (... Unable to make field private jdk.internal.reflect.MethodAccessorImpl ...) 
 
 ## Used
 * [Java] (https://www.oracle.com/technetwork/java/javase/loads/index.html)
